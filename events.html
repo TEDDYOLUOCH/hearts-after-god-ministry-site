@@ -22,25 +22,30 @@
 </head>
 <body class="bg-white text-gray-900 antialiased dark:bg-dark dark:text-white">
   <!-- Header & Navigation (reuse from index.html) -->
-  <header class="sticky top-0 z-50 bg-white shadow">
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-lg rounded-b-2xl">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-2">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full" />
-      </div>
-      <ul class="hidden md:flex gap-8 font-medium text-gray-700">
-        <li><a href="index.html" class="hover:text-gold text-blue font-bold">Home</a></li>
-        <li><a href="vision.html" class="hover:text-gold">Vision</a></li>
-        <li><a href="about.html" class="hover:text-gold">About</a></li>
-        <li><a href="events.html" class="hover:text-gold">Events</a></li>
-        <li><a href="sermons.html" class="hover:text-gold">Sermons</a></li>
-        <li><a href="blog.html" class="hover:text-gold">Blog</a></li>
-        <li><a href="gallery.html" class="hover:text-gold">Gallery</a></li>
-        <li><a href="contact.html" class="hover:text-gold">Contact</a></li>
-        <li><a href="discipleship.html" class="hover:text-gold">Discipleship</a></li>
-        <li><a href="missions.html" class="hover:text-gold">Missions</a></li>
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2">
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-blue" />
+      </a>
+      <!-- Navigation Links -->
+      <ul class="hidden md:flex gap-8 font-semibold text-blue text-lg mx-auto">
+        <li><a href="index.html" class="text-gold border-b-2 border-gold pb-1 font-bold">Home</a></li>
+        <li><a href="vision.html" class="hover:text-gold transition">Vision</a></li>
+        <li><a href="about.html" class="hover:text-gold transition">About</a></li>
+        <li><a href="events.html" class="hover:text-gold transition">Events</a></li>
+        <li><a href="sermons.html" class="hover:text-gold transition">Sermons</a></li>
+        <li><a href="blog.html" class="hover:text-gold transition">Blog</a></li>
+        <li><a href="gallery.html" class="hover:text-gold transition">Gallery</a></li>
+        <li><a href="contact.html" class="hover:text-gold transition">Contact</a></li>
+        <li><a href="discipleship.html" class="hover:text-gold transition">Discipleship</a></li>
+        <li><a href="missions.html" class="hover:text-gold transition">Missions</a></li>
       </ul>
-      <button class="md:hidden p-2" aria-label="Open menu">
-        <svg class="w-7 h-7 text-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <!-- CTA Button -->
+      <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-gold text-blue font-bold rounded-full shadow hover:bg-blue hover:text-white transition">Plan Your Visit</a>
+      <!-- Mobile Hamburger -->
+      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Open menu">
+        <svg class="w-8 h-8 text-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
   </header>
