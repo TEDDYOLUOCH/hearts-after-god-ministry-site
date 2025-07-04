@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sermons | Hearts After God Ministry</title>
+  <meta name="description" content="Watch and listen to sermons from Hearts After God Ministry. Search by topic, speaker, or series. Download audio and view sermon notes.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .dark .bg-blue-50 { background-color: #1e293b !important; }
+    .dark .text-primary { color: #60a5fa !important; }
+    .dark .bg-primary { background-color: #2563eb !important; }
+    .dark .bg-white { background-color: #1e293b !important; }
+    .dark .text-gray-700, .dark .text-gray-600 { color: #cbd5e1 !important; }
+    .dark .bg-blue-100 { background-color: #334155 !important; }
+    .dark .bg-secondary { background-color: #fbbf24 !important; }
+    .dark .text-white { color: #fff !important; }
+    .dark .bg-accent { background-color: #16a34a !important; }
+    .dark .bg-gray-300 { background-color: #334155 !important; }
+    .dark .bg-gray-200 { background-color: #334155 !important; }
+    .dark .bg-blue-200 { background-color: #334155 !important; }
+    .dark .text-gray-500 { color: #94a3b8 !important; }
+    .dark .bg-gray-100 { background-color: #334155 !important; }
+    .dark .text-gray-900 { color: #fff !important; }
+    .dark .border-gray-200 { border-color: #334155 !important; }
+    .dark .border-gray-300 { border-color: #334155 !important; }
+    .dark .shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.7) !important; }
+    .dark .shadow-lg { box-shadow: 0 4px 24px rgba(0,0,0,0.9) !important; }
+    .dark .shadow-sm { box-shadow: 0 1px 4px rgba(0,0,0,0.5) !important; }
+    .sermon-notes { display: none; }
+    .sermon-notes.open { display: block; }
+    .carousel { display: flex; overflow-x: auto; gap: 1.5rem; scroll-snap-type: x mandatory; }
+    .carousel-item { flex: 0 0 320px; scroll-snap-align: start; }
+    .highlight { background: #fef08a; color: #92400e; border-radius: 0.25rem; padding: 0 0.2em; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased dark:bg-dark dark:text-white">
+  <!-- Header & Navigation (reuse from index.html) -->
+  <header class="fixed top-0 left-0 w-full bg-white shadow z-50 flex flex-col">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-2">
+        <img src="assets/images/logo.png" alt="Hearts After God Ministry Logo" class="h-10 w-10 rounded-full" />
+        <span class="font-bold text-xl text-primary">Hearts After God Ministry</span>
+      </div>
+      <ul class="hidden md:flex gap-8 font-medium text-gray-700">
+        <li><a href="index.html" class="hover:text-primary">Home</a></li>
+        <li><a href="vision.html" class="hover:text-primary">Vision</a></li>
+        <li><a href="about.html" class="hover:text-primary">About</a></li>
+        <li><a href="events.html" class="hover:text-primary">Events</a></li>
+        <li><a href="sermons.html" class="hover:text-primary text-primary font-bold">Sermons</a></li>
+        <li><a href="blog.html" class="hover:text-primary">Blog</a></li>
+        <li><a href="gallery.html" class="hover:text-primary">Gallery</a></li>
+        <li><a href="contact.html" class="hover:text-primary">Contact</a></li>
+        <li><a href="discipleship.html" class="hover:text-primary">Discipleship</a></li>
+        <li><a href="missions.html" class="hover:text-primary">Missions</a></li>
+      </ul>
+      <div class="flex items-center gap-4">
+        <button id="contrast-toggle" class="p-2 rounded bg-gray-200 hover:bg-gold focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Toggle high contrast">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg>
+        </button>
+        <button id="user-profile-btn" class="p-2 rounded bg-blue-100 hover:bg-gold focus:outline-none focus:ring-2 focus:ring-gold" aria-label="User profile and bookmarks">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5.121 17.804A9 9 0 1112 21a9 9 0 01-6.879-3.196z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+      <button class="md:hidden p-2" aria-label="Open menu">
+        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </nav>
+  </header>
+  <main class="pt-28">
+    <!-- Hero Banner: Enhanced -->
+    <section class="relative min-h-[40vh] flex flex-col items-center justify-center bg-blue-900 overflow-hidden px-4" aria-label="Sermons Hero">
+      <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1600&q=80" alt="Sermons" class="absolute inset-0 w-full h-full object-cover object-center brightness-60 z-0" />
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-gold/40 to-purple-900/80 z-0"></div>
+      <div class="relative z-10 flex flex-col items-center text-center gap-4 max-w-2xl mx-auto py-12">
+        <img src="assets/images/logo.png" alt="Hearts After God Ministry Logo" class="w-20 h-20 rounded-full shadow-2xl mb-2 mx-auto bg-white/80 p-2" />
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white drop-shadow-2xl leading-tight">Sermons</h1>
+        <span class="block text-gold text-lg font-semibold animate-pulse">Watch, listen, and grow in the Word!</span>
+        <a href="#cta" class="inline-block px-8 py-3 bg-gold text-blue font-bold text-lg rounded-full shadow-xl hover:bg-purple hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-gold transition mt-4" role="button">Subscribe for Sermon Updates</a>
+      </div>
+    </section>
+
+    <!-- Featured Series Carousel -->
+    <section class="max-w-5xl mx-auto py-8 px-4 fade-in" aria-label="Featured Series">
+      <h2 class="text-xl font-bold text-primary mb-4">Featured Series</h2>
+      <div class="relative overflow-hidden rounded-xl shadow-lg">
+        <div class="flex transition-transform duration-700" style="width: 300%;">
+          <div class="w-full flex-shrink-0 px-4">
+            <img src="assets/images/series1.jpg" alt="Faith Foundations" class="w-full h-40 object-cover rounded-xl mb-2" />
+            <h3 class="font-bold text-lg text-blue">Faith Foundations</h3>
+            <p class="text-gray-700 mb-2">A journey through the basics of faith and victorious living.</p>
+            <a href="#" class="text-gold underline hover:text-blue transition-colors">View Series</a>
+          </div>
+          <div class="w-full flex-shrink-0 px-4">
+            <img src="assets/images/series2.jpg" alt="Revival Nights" class="w-full h-40 object-cover rounded-xl mb-2" />
+            <h3 class="font-bold text-lg text-blue">Revival Nights</h3>
+            <p class="text-gray-700 mb-2">Powerful messages from our annual revival gatherings.</p>
+            <a href="#" class="text-gold underline hover:text-blue transition-colors">View Series</a>
+          </div>
+          <div class="w-full flex-shrink-0 px-4">
+            <img src="assets/images/series3.jpg" alt="Prayer & Power" class="w-full h-40 object-cover rounded-xl mb-2" />
+            <h3 class="font-bold text-lg text-blue">Prayer & Power</h3>
+            <p class="text-gray-700 mb-2">Teachings on prayer, intercession, and the Holy Spirit.</p>
+            <a href="#" class="text-gold underline hover:text-blue transition-colors">View Series</a>
+          </div>
+        </div>
+        <div class="flex justify-center gap-2 mt-4">
+          <button class="w-3 h-3 rounded-full bg-gold" aria-label="Slide 1"></button>
+          <button class="w-3 h-3 rounded-full bg-purple" aria-label="Slide 2"></button>
+          <button class="w-3 h-3 rounded-full bg-accent" aria-label="Slide 3"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advanced Search & Filter Bar with Instant Suggestions -->
+    <section class="max-w-5xl mx-auto py-8 px-4 fade-in">
+      <form class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6 relative" role="search" aria-label="Sermon Search">
+        <div class="w-full md:w-1/3 relative">
+          <input id="sermon-search" type="text" class="px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary w-full" placeholder="Search by title, speaker, or topic..." aria-label="Search sermons" autocomplete="off" />
+          <ul id="search-suggestions" class="absolute left-0 right-0 bg-white border border-gray-200 rounded shadow-lg mt-1 z-30 hidden"></ul>
+        </div>
+        <select class="px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary w-full md:w-1/4" aria-label="Filter by topic" multiple>
+          <option value="faith">Faith</option>
+          <option value="revival">Revival</option>
+          <option value="discipleship">Discipleship</option>
+          <option value="prayer">Prayer</option>
+        </select>
+        <select class="px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary w-full md:w-1/4" aria-label="Filter by speaker" multiple>
+          <option value="john">Pastor John Doe</option>
+          <option value="jane">Pastor Jane Doe</option>
+          <option value="samuel">Samuel K.</option>
+        </select>
+        <select class="px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary w-full md:w-1/4" aria-label="Filter by series" multiple>
+          <option value="sunday">Sunday Services</option>
+          <option value="conference">Conferences</option>
+          <option value="youth">Youth Series</option>
+        </select>
+        <input type="date" class="px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary w-full md:w-1/4" aria-label="Filter by date" />
+        <button type="submit" class="px-6 py-2 bg-gold text-blue font-bold rounded shadow hover:bg-primary hover:text-white transition">Search</button>
+      </form>
+    </section>
+
+    <!-- Audio-Only Mode Toggle -->
+    <section class="max-w-5xl mx-auto px-4 mb-4 flex justify-end">
+      <button id="audio-only-toggle" class="px-6 py-2 bg-purple text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Audio-Only Mode</button>
+    </section>
+
+    <!-- Featured Speakers Section -->
+    <section class="max-w-5xl mx-auto py-12 px-4 fade-in" aria-label="Featured Speakers">
+      <h2 class="text-2xl font-bold text-primary mb-8 text-center">Featured Speakers</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader1.jpg" alt="Pastor John Doe" class="w-24 h-24 rounded-full object-cover border-4 border-gold mb-3" />
+          <h3 class="font-bold text-lg text-blue mb-1">Pastor John Doe</h3>
+          <p class="text-gray-600 text-center mb-2">Lead Pastor, passionate about faith and revival.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Sermons</a>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader2.jpg" alt="Pastor Jane Doe" class="w-24 h-24 rounded-full object-cover border-4 border-purple mb-3" />
+          <h3 class="font-bold text-lg text-blue mb-1">Pastor Jane Doe</h3>
+          <p class="text-gray-600 text-center mb-2">Prayer leader and teacher, inspiring lives in Christ.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Sermons</a>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader3.jpg" alt="Samuel K." class="w-24 h-24 rounded-full object-cover border-4 border-accent mb-3" />
+          <h3 class="font-bold text-lg text-blue mb-1">Samuel K.</h3>
+          <p class="text-gray-600 text-center mb-2">Youth pastor, passionate about discipleship and outreach.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Sermons</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Series Section -->
+    <section class="max-w-5xl mx-auto py-12 px-4 fade-in" aria-label="Sermon Series">
+      <h2 class="text-2xl font-bold text-primary mb-8 text-center">Sermon Series</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <span class="inline-block bg-gold text-white font-bold px-4 py-1 rounded-full mb-2">New</span>
+          <h3 class="font-bold text-lg text-blue mb-1">Faith Foundations</h3>
+          <p class="text-gray-600 text-center mb-2">A journey through the basics of Christian faith.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Series</a>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <span class="inline-block bg-blue text-white font-bold px-4 py-1 rounded-full mb-2">Featured</span>
+          <h3 class="font-bold text-lg text-blue mb-1">Prayer & Power</h3>
+          <p class="text-gray-600 text-center mb-2">Unlocking the power of prayer in daily life.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Series</a>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <span class="inline-block bg-purple text-white font-bold px-4 py-1 rounded-full mb-2">Popular</span>
+          <h3 class="font-bold text-lg text-blue mb-1">Discipleship Essentials</h3>
+          <p class="text-gray-600 text-center mb-2">Core teachings for every believer.</p>
+          <a href="#" class="text-primary underline hover:text-gold transition-colors font-semibold">View Series</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sermon Repository: Advanced -->
+    <section class="max-w-5xl mx-auto py-12 px-4 fade-in" aria-label="Sermon Repository">
+      <h2 class="text-2xl font-bold text-primary mb-8 text-center">Latest Sermons</h2>
+      <button id="calendar-toggle" class="mb-6 px-6 py-2 bg-gold text-blue font-bold rounded shadow hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-gold transition">View Sermon Calendar</button>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Example Sermon Card -->
+        <article class="bg-white rounded-xl shadow p-6 flex flex-col gap-4" tabindex="0" aria-label="Sermon: Living by Faith">
+          <div class="flex items-center gap-4 mb-2">
+            <img src="assets/images/sermon1.jpg" alt="Living by Faith" class="w-16 h-16 rounded-full object-cover border-2 border-gold" />
+            <div>
+              <h3 class="font-bold text-lg text-blue sermon-title">Living by Faith <span class="inline-block bg-gold text-white text-xs font-bold px-2 py-1 rounded-full ml-2">New</span></h3>
+              <div class="flex items-center gap-2 text-gray-600 text-sm">
+                <span class="font-semibold">Speaker:</span> Pastor John Doe
+                <span class="font-semibold ml-4">Series:</span> Sunday Services
+                <span class="font-semibold ml-4">Duration:</span> 42:18
+                <span class="font-semibold ml-4">Date:</span> Apr 14, 2025
+              </div>
+            </div>
+            <button class="ml-auto p-2 rounded-full bg-gray-100 hover:bg-gold group" aria-label="Bookmark sermon"><svg class="w-6 h-6 text-gold group-hover:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5v14l7-7 7 7V5a2 2 0 00-2-2H7a2 2 0 00-2 2z"/></svg></button>
+            <button class="ml-2 p-2 rounded-full bg-gray-100 hover:bg-blue-200 group" aria-label="Add to playlist" onclick="document.getElementById('playlist-modal').classList.remove('hidden')"><svg class="w-6 h-6 text-blue-500 group-hover:text-blue-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg></button>
+          </div>
+          <div class="aspect-w-16 aspect-h-9 w-full rounded-lg overflow-hidden shadow">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Living by Faith" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="flex gap-2 mb-2">
+            <span class="inline-block bg-blue text-white text-xs font-bold px-3 py-1 rounded-full">Faith</span>
+            <span class="inline-block bg-gold text-blue text-xs font-bold px-3 py-1 rounded-full">Inspiration</span>
+            <span class="inline-block bg-purple text-white text-xs font-bold px-3 py-1 rounded-full">Sunday</span>
+          </div>
+          <audio controls class="w-full">
+            <source src="assets/audio/living-by-faith.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="flex gap-4 mt-2">
+            <a href="assets/audio/living-by-faith.mp3" download class="px-4 py-2 bg-gold text-blue font-bold rounded shadow hover:bg-primary hover:text-white transition">Download MP3 <span class="text-xs">(8.2MB)</span></a>
+            <a href="assets/notes/living-by-faith.pdf" download class="px-4 py-2 bg-primary text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Download Notes <span class="text-xs">(PDF)</span></a>
+            <button class="px-4 py-2 bg-purple text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition" aria-expanded="false" aria-controls="notes-1">Show Notes</button>
+            <a href="#" class="px-4 py-2 bg-blue text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Share</a>
+            <a href="#" class="px-4 py-2 bg-accent text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Bookmark</a>
+          </div>
+          <div id="notes-1" class="sermon-notes mt-2 text-gray-700 text-sm">
+            <strong>Scripture Reference:</strong> Hebrews 11:1-6<br>
+            <strong>Summary:</strong> Faith is the substance of things hoped for, the evidence of things not seen. This message explores how to walk by faith in every season.
+          </div>
+          <!-- Transcript Toggle -->
+          <button class="mt-2 px-4 py-2 bg-accent text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition focus:outline-none focus:ring-2 focus:ring-accent" aria-expanded="false" aria-controls="transcript-1" onclick="toggleTranscript('transcript-1', this)">Show Transcript</button>
+          <div id="transcript-1" class="hidden mt-2 bg-soft rounded p-4 text-gray-700 text-sm" tabindex="-1">
+            <strong>Transcript:</strong><br>
+            Welcome to today's message on Living by Faith. In Hebrews 11, we see the heroes of faith who trusted God against all odds... (sample transcript text)
+          </div>
+          <!-- Ratings/Reactions -->
+          <div class="flex items-center gap-4 mt-2">
+            <div class="flex items-center gap-1" aria-label="Star rating">
+              <button class="star text-gold" aria-label="1 star">★</button>
+              <button class="star text-gold" aria-label="2 stars">★</button>
+              <button class="star text-gold" aria-label="3 stars">★</button>
+              <button class="star text-gold" aria-label="4 stars">★</button>
+              <button class="star text-gray-300" aria-label="5 stars">★</button>
+              <span class="ml-2 text-gray-600 text-sm">4.0 (12 ratings)</span>
+            </div>
+            <div class="flex items-center gap-2" aria-label="Emoji reactions">
+              <button class="reaction" aria-label="Amen">🙏 <span class="text-xs">8</span></button>
+              <button class="reaction" aria-label="Fire">🔥 <span class="text-xs">5</span></button>
+              <button class="reaction" aria-label="Heart">❤️ <span class="text-xs">10</span></button>
+            </div>
+          </div>
+          <!-- Social Sharing -->
+          <div class="flex gap-3 mt-2">
+            <button class="p-2 rounded bg-blue-100 hover:bg-blue-200" aria-label="Share on Facebook"><svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z"/></svg></button>
+            <button class="p-2 rounded bg-blue-100 hover:bg-blue-200" aria-label="Share on Twitter"><svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.09 9.09 0 01-2.88 1.1A4.52 4.52 0 0016.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03C7.69 5.4 4.07 3.7 1.64 1.15c-.38.65-.6 1.4-.6 2.2 0 1.52.77 2.86 1.95 3.65A4.48 4.48 0 01.96 6v.06c0 2.13 1.52 3.91 3.54 4.31-.37.1-.76.16-1.16.16-.28 0-.55-.03-.81-.08.55 1.7 2.16 2.94 4.07 2.97A9.05 9.05 0 010 19.54a12.8 12.8 0 006.95 2.04c8.34 0 12.9-6.91 12.9-12.9 0-.2 0-.39-.01-.58A9.22 9.22 0 0023 3z"/></svg></button>
+            <button class="p-2 rounded bg-green-100 hover:bg-green-200" aria-label="Share on WhatsApp"><svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.26-1.64A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.72.98.99-3.62-.24-.37A9.93 9.93 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.8c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.54-.45-.47-.62-.48-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-1 2.44s1.02 2.83 1.16 3.03c.14.2 2.01 3.08 4.88 4.2.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.12.55-.08 1.65-.67 1.89-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg></button>
+            <button class="p-2 rounded bg-gray-100 hover:bg-gold" aria-label="Copy link"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07l-1.41 1.41"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07l1.41-1.41"/></svg></button>
+          </div>
+          <!-- Related Sermons -->
+          <div class="mt-6">
+            <h4 class="font-bold text-blue mb-2">Related Sermons</h4>
+            <div class="flex flex-col gap-2">
+              <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-blue-50 transition">
+                <img src="assets/images/sermon2.jpg" alt="The Power of Prayer" class="w-10 h-10 rounded object-cover border-2 border-purple" />
+                <span class="font-semibold text-blue">The Power of Prayer</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-blue-50 transition">
+                <img src="assets/images/sermon3.jpg" alt="Revival in Our Time" class="w-10 h-10 rounded object-cover border-2 border-gold" />
+                <span class="font-semibold text-blue">Revival in Our Time</span>
+              </a>
+            </div>
+          </div>
+          <!-- Comments/Discussion Section -->
+          <div class="mt-6">
+            <h4 class="font-bold text-blue mb-2">Comments</h4>
+            <div class="mb-2">
+              <div class="flex items-center gap-2 mb-1">
+                <img src="assets/images/leader1.jpg" alt="User" class="w-8 h-8 rounded-full object-cover border-2 border-gold" />
+                <span class="font-semibold">John Smith</span>
+                <span class="text-xs text-gray-400 ml-2">2 days ago</span>
+              </div>
+              <div class="ml-10 text-gray-700">This sermon really encouraged me. Thank you!</div>
+            </div>
+            <div class="mb-2">
+              <div class="flex items-center gap-2 mb-1">
+                <img src="assets/images/leader2.jpg" alt="User" class="w-8 h-8 rounded-full object-cover border-2 border-purple" />
+                <span class="font-semibold">Mary Johnson</span>
+                <span class="text-xs text-gray-400 ml-2">1 day ago</span>
+              </div>
+              <div class="ml-10 text-gray-700">Powerful message on faith!</div>
+            </div>
+            <form class="flex gap-2 mt-2">
+              <input type="text" class="flex-1 px-3 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary" placeholder="Add a comment..." aria-label="Add comment" />
+              <button type="submit" class="px-4 py-2 bg-gold text-white font-bold rounded shadow hover:bg-blue hover:text-white transition">Post</button>
+            </form>
+          </div>
+        </article>
+        <!-- Example Sermon Card 2 -->
+        <article class="bg-white rounded-xl shadow p-6 flex flex-col gap-4" tabindex="0" aria-label="Sermon: The Power of Prayer">
+          <div class="flex items-center gap-4 mb-2">
+            <img src="assets/images/sermon2.jpg" alt="The Power of Prayer" class="w-16 h-16 rounded-full object-cover border-2 border-purple" />
+            <div>
+              <h3 class="font-bold text-lg text-blue sermon-title">The Power of Prayer</h3>
+              <div class="flex items-center gap-2 text-gray-600 text-sm">
+                <span class="font-semibold">Speaker:</span> Pastor Jane Doe
+                <span class="font-semibold ml-4">Series:</span> Prayer Nights
+                <span class="font-semibold ml-4">Duration:</span> 38:05
+                <span class="font-semibold ml-4">Date:</span> Apr 7, 2025
+              </div>
+            </div>
+            <button class="ml-auto p-2 rounded-full bg-gray-100 hover:bg-gold group" aria-label="Bookmark sermon"><svg class="w-6 h-6 text-gold group-hover:text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 5v14l7-7 7 7V5a2 2 0 00-2-2H7a2 2 0 00-2 2z"/></svg></button>
+            <button class="ml-2 p-2 rounded-full bg-gray-100 hover:bg-blue-200 group" aria-label="Add to playlist" onclick="document.getElementById('playlist-modal').classList.remove('hidden')"><svg class="w-6 h-6 text-blue-500 group-hover:text-blue-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg></button>
+          </div>
+          <div class="aspect-w-16 aspect-h-9 w-full rounded-lg overflow-hidden shadow">
+            <iframe class="w-full h-full" src="https://www.youtube.com/embed/ysz5S6PUM-U" title="The Power of Prayer" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="flex gap-2 mb-2">
+            <span class="inline-block bg-blue text-white text-xs font-bold px-3 py-1 rounded-full">Prayer</span>
+            <span class="inline-block bg-gold text-blue text-xs font-bold px-3 py-1 rounded-full">Revival</span>
+          </div>
+          <audio controls class="w-full">
+            <source src="assets/audio/power-of-prayer.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="flex gap-4 mt-2">
+            <a href="assets/audio/power-of-prayer.mp3" download class="px-4 py-2 bg-gold text-blue font-bold rounded shadow hover:bg-primary hover:text-white transition">Download MP3 <span class="text-xs">(7.5MB)</span></a>
+            <a href="assets/notes/power-of-prayer.pdf" download class="px-4 py-2 bg-primary text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Download Notes <span class="text-xs">(PDF)</span></a>
+            <button class="px-4 py-2 bg-purple text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition" aria-expanded="false" aria-controls="notes-2">Show Notes</button>
+            <a href="#" class="px-4 py-2 bg-blue text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Share</a>
+            <a href="#" class="px-4 py-2 bg-accent text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Bookmark</a>
+          </div>
+          <div id="notes-2" class="sermon-notes mt-2 text-gray-700 text-sm">
+            <strong>Scripture Reference:</strong> James 5:13-18<br>
+            <strong>Summary:</strong> Prayer is powerful and effective. This message unpacks the keys to a vibrant prayer life.
+          </div>
+          <!-- Transcript Toggle -->
+          <button class="mt-2 px-4 py-2 bg-accent text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition focus:outline-none focus:ring-2 focus:ring-accent" aria-expanded="false" aria-controls="transcript-2" onclick="toggleTranscript('transcript-2', this)">Show Transcript</button>
+          <div id="transcript-2" class="hidden mt-2 bg-soft rounded p-4 text-gray-700 text-sm" tabindex="-1">
+            <strong>Transcript:</strong><br>
+            This sermon explores the power of prayer as described in James 5. Prayer is not just a ritual, but a relationship... (sample transcript text)
+          </div>
+          <!-- Ratings/Reactions -->
+          <div class="flex items-center gap-4 mt-2">
+            <div class="flex items-center gap-1" aria-label="Star rating">
+              <button class="star text-gold" aria-label="1 star">★</button>
+              <button class="star text-gold" aria-label="2 stars">★</button>
+              <button class="star text-gold" aria-label="3 stars">★</button>
+              <button class="star text-gray-300" aria-label="4 stars">★</button>
+              <button class="star text-gray-300" aria-label="5 stars">★</button>
+              <span class="ml-2 text-gray-600 text-sm">3.0 (7 ratings)</span>
+            </div>
+            <div class="flex items-center gap-2" aria-label="Emoji reactions">
+              <button class="reaction" aria-label="Amen">🙏 <span class="text-xs">3</span></button>
+              <button class="reaction" aria-label="Fire">🔥 <span class="text-xs">2</span></button>
+              <button class="reaction" aria-label="Heart">❤️ <span class="text-xs">4</span></button>
+            </div>
+          </div>
+          <!-- Social Sharing -->
+          <div class="flex gap-3 mt-2">
+            <button class="p-2 rounded bg-blue-100 hover:bg-blue-200" aria-label="Share on Facebook"><svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z"/></svg></button>
+            <button class="p-2 rounded bg-blue-100 hover:bg-blue-200" aria-label="Share on Twitter"><svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.36a9.09 9.09 0 01-2.88 1.1A4.52 4.52 0 0016.11 0c-2.5 0-4.52 2.02-4.52 4.52 0 .35.04.7.11 1.03C7.69 5.4 4.07 3.7 1.64 1.15c-.38.65-.6 1.4-.6 2.2 0 1.52.77 2.86 1.95 3.65A4.48 4.48 0 01.96 6v.06c0 2.13 1.52 3.91 3.54 4.31-.37.1-.76.16-1.16.16-.28 0-.55-.03-.81-.08.55 1.7 2.16 2.94 4.07 2.97A9.05 9.05 0 010 19.54a12.8 12.8 0 006.95 2.04c8.34 0 12.9-6.91 12.9-12.9 0-.2 0-.39-.01-.58A9.22 9.22 0 0023 3z"/></svg></button>
+            <button class="p-2 rounded bg-green-100 hover:bg-green-200" aria-label="Share on WhatsApp"><svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.26-1.64A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22c-1.85 0-3.68-.5-5.26-1.44l-.38-.22-3.72.98.99-3.62-.24-.37A9.93 9.93 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.8c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.54-.45-.47-.62-.48-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.34-.26.27-1 1-1 2.44s1.02 2.83 1.16 3.03c.14.2 2.01 3.08 4.88 4.2.68.29 1.21.46 1.62.59.68.22 1.3.19 1.79.12.55-.08 1.65-.67 1.89-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg></button>
+            <button class="p-2 rounded bg-gray-100 hover:bg-gold" aria-label="Copy link"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.07 0l1.41-1.41a5 5 0 00-7.07-7.07l-1.41 1.41"/><path d="M14 11a5 5 0 00-7.07 0l-1.41 1.41a5 5 0 007.07 7.07l1.41-1.41"/></svg></button>
+          </div>
+          <!-- Related Sermons -->
+          <div class="mt-6">
+            <h4 class="font-bold text-blue mb-2">Related Sermons</h4>
+            <div class="flex flex-col gap-2">
+              <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-blue-50 transition">
+                <img src="assets/images/sermon1.jpg" alt="Living by Faith" class="w-10 h-10 rounded object-cover border-2 border-gold" />
+                <span class="font-semibold text-blue">Living by Faith</span>
+              </a>
+              <a href="#" class="flex items-center gap-3 p-2 rounded hover:bg-blue-50 transition">
+                <img src="assets/images/sermon3.jpg" alt="Discipleship Essentials" class="w-10 h-10 rounded object-cover border-2 border-accent" />
+                <span class="font-semibold text-blue">Discipleship Essentials</span>
+              </a>
+            </div>
+          </div>
+          <!-- Comments/Discussion Section -->
+          <div class="mt-6">
+            <h4 class="font-bold text-blue mb-2">Comments</h4>
+            <div class="mb-2">
+              <div class="flex items-center gap-2 mb-1">
+                <img src="assets/images/leader3.jpg" alt="User" class="w-8 h-8 rounded-full object-cover border-2 border-accent" />
+                <span class="font-semibold">Samuel K.</span>
+                <span class="text-xs text-gray-400 ml-2">3 days ago</span>
+              </div>
+              <div class="ml-10 text-gray-700">This message on prayer was so timely for me.</div>
+            </div>
+            <form class="flex gap-2 mt-2">
+              <input type="text" class="flex-1 px-3 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-primary" placeholder="Add a comment..." aria-label="Add comment" />
+              <button type="submit" class="px-4 py-2 bg-gold text-white font-bold rounded shadow hover:bg-blue hover:text-white transition">Post</button>
+            </form>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Call to Action: Subscribe, Share, Submit -->
+    <section id="cta" class="max-w-5xl mx-auto py-12 px-4 fade-in text-center">
+      <h2 class="text-2xl font-bold text-primary mb-4">Stay Connected</h2>
+      <p class="text-lg text-gray-700 mb-6">Subscribe for sermon updates, share your favorite messages, or submit a sermon for consideration!</p>
+      <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+        <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-blue hover:text-white focus:outline-none focus:ring-2 focus:ring-gold transition">Subscribe</a>
+        <a href="#" class="inline-block px-8 py-3 bg-blue text-white font-bold rounded-full shadow hover:bg-gold hover:text-blue focus:outline-none focus:ring-2 focus:ring-gold transition">Share a Sermon</a>
+        <a href="#" class="inline-block px-8 py-3 bg-purple text-white font-bold rounded-full shadow hover:bg-gold hover:text-blue focus:outline-none focus:ring-2 focus:ring-gold transition">Submit a Sermon</a>
+      </div>
+    </section>
+  </main>
+  <!-- Footer (reuse from index.html) -->
+  <footer class="bg-dark border-t py-12 px-4 mt-8 text-white">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex-1 flex flex-col items-start">
+        <h3 class="font-semibold text-primary mb-2">Contact</h3>
+        <p class="text-gray-700 mb-1"><strong>Email:</strong> info@heartsaftergod.org</p>
+        <p class="text-gray-700 mb-1"><strong>Phone:</strong> <a href="tel:+1234567890" class="text-primary underline hover:text-secondary">+1 (234) 567-890</a></p>
+        <p class="text-gray-700 mb-1"><strong>Address:</strong> 123 Revival Avenue, City</p>
+        <div class="flex gap-4 mt-4">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="hover:scale-110 transition-transform"><svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 21.127 22 17 22 12z"/></svg></a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube" class="hover:scale-110 transition-transform"><svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.2 5 12 5 12 5h-.1s-4.2 0-7.1.1c-.4.1-1.2.1-1.9.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.7.8 1.6.8 2 .9 1.5.1 6.1.1 6.1.1s4.2 0 7.1-.1c.4-.1 1.2-.1 1.9-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 15.3V8.7l6.4 3.3-6.4 3.3z"/></svg></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" class="hover:scale-110 transition-transform"><svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.17-1.26-.354-2.43-.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41-.59-.22-1.01-.48-1.45-.92-.44-.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.584 2.2 15.2 2.2 12s.012-3.584.07-4.85c.056-1.17.24-1.97.41-2.43.22-.59.48-1.01.92-1.45.44-.44.86-.7 1.45-.92.46-.17 1.26-.354 2.43-.41C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07 5.77.128 4.87.312 4.1.54c-.77.23-1.42.54-2.07 1.19-.65.65-.96 1.3-1.19 2.07-.23.77-.412 1.67-.47 2.95C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.058 1.28.24 2.18.47 2.95.23.77.54 1.42 1.19 2.07.65.65 1.3.96 2.07 1.19.77.23 1.67.412 2.95.47C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.28-.058 2.18-.24 2.95-.47.77-.23 1.42-.54 2.07-1.19.65-.65 1.3-1.3 1.19-2.07.23-.77.412-1.67.47-2.95.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.058-1.28-.24-2.18-.47-2.95-.23-.77-.54-1.42-1.19-2.07-.65-.65-1.3-.96-2.07-1.19-.77-.23-1.67-.412-2.95-.47C15.668.012 15.264 0 12 0zm0 5.838A6.162 6.162 0 0 0 5.838 12 6.162 6.162 0 0 0 12 18.162 6.162 6.162 0 0 0 18.162 12 6.162 6.162 0 0 0 12 5.838zm0 10.162A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.406-11.845a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg></a>
+        </div>
+      </div>
+      <div class="flex-1 text-right text-gray-500 text-sm">
+        <div class="mb-2">
+          <a href="sitemap.html" class="text-primary hover:underline">Sitemap</a> &bull;
+          <a href="#" class="text-primary hover:underline">Privacy Policy</a> &bull;
+          <a href="#" class="text-primary hover:underline">Terms</a>
+        </div>
+        <div>&copy; 2025 Hearts After God Ministry. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+  <!-- User Profile/Bookmarks Modal -->
+  <div id="user-profile-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
+      <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('user-profile-modal').classList.add('hidden')">&times;</button>
+      <h2 class="text-2xl font-bold text-primary mb-2">User Profile</h2>
+      <div class="mb-4">Logged in as <span class="font-semibold">demo@user.com</span></div>
+      <h3 class="text-lg font-bold text-blue mb-2">Bookmarked Sermons</h3>
+      <ul class="list-disc list-inside text-gray-700 mb-4">
+        <li>Living by Faith</li>
+        <li>The Power of Prayer</li>
+      </ul>
+      <h3 class="text-lg font-bold text-blue mb-2">Listening History</h3>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>Revival in Our Time</li>
+        <li>Discipleship Essentials</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Playlist Sidebar/Modal -->
+  <div id="playlist-modal" class="fixed inset-0 bg-black/60 flex items-center justify-end z-50 hidden">
+    <div class="bg-white rounded-l-xl shadow-xl w-80 p-6 h-full flex flex-col relative">
+      <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('playlist-modal').classList.add('hidden')">&times;</button>
+      <h2 class="text-xl font-bold text-primary mb-4">My Playlist</h2>
+      <ul class="flex-1 overflow-y-auto mb-4">
+        <li class="mb-2 flex items-center gap-2"><span class="font-semibold">Living by Faith</span> <button class="text-red-500 hover:text-red-700" aria-label="Remove"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></li>
+        <li class="mb-2 flex items-center gap-2"><span class="font-semibold">The Power of Prayer</span> <button class="text-red-500 hover:text-red-700" aria-label="Remove"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button></li>
+      </ul>
+      <button class="w-full px-4 py-2 bg-primary text-white font-bold rounded shadow hover:bg-gold hover:text-blue transition">Play All</button>
+    </div>
+  </div>
+  <!-- Sermon Calendar Modal -->
+  <div id="calendar-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full p-8 relative">
+      <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('calendar-modal').classList.add('hidden')">&times;</button>
+      <h2 class="text-2xl font-bold text-primary mb-4">Sermon Calendar</h2>
+      <div class="grid grid-cols-7 gap-2 mb-4">
+        <span class="font-bold text-center">Sun</span><span class="font-bold text-center">Mon</span><span class="font-bold text-center">Tue</span><span class="font-bold text-center">Wed</span><span class="font-bold text-center">Thu</span><span class="font-bold text-center">Fri</span><span class="font-bold text-center">Sat</span>
+        <span></span><span></span><span></span><span></span><span class="bg-gold text-white rounded-full text-center">4</span><span></span><span></span>
+        <span></span><span></span><span class="bg-blue text-white rounded-full text-center">7</span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span class="bg-purple text-white rounded-full text-center">14</span><span></span><span></span><span></span>
+      </div>
+      <div class="text-gray-700">Sample: <span class="bg-gold text-white px-2 py-1 rounded-full">Apr 4: The Power of Prayer</span> <span class="bg-blue text-white px-2 py-1 rounded-full">Apr 7: Living by Faith</span> <span class="bg-purple text-white px-2 py-1 rounded-full">Apr 14: Discipleship Essentials</span></div>
+    </div>
+  </div>
+  <!-- Audio Mini-Player for Mobile -->
+  <div id="audio-mini-player" class="fixed bottom-0 left-0 w-full bg-blue text-white flex items-center justify-between px-4 py-3 shadow-lg z-50 md:hidden hidden" role="region" aria-label="Audio Mini Player">
+    <div class="flex items-center gap-3">
+      <button id="mini-player-pause" class="p-2 rounded-full bg-gold text-blue focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Pause"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>
+      <span class="font-bold">Living by Faith</span>
+    </div>
+    <button id="mini-player-close" class="p-2 rounded-full bg-white text-blue focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Close mini player"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.fade-in').forEach(el => {
+        setTimeout(() => el.classList.add('visible'), 200);
+      });
+    });
+    // High-Contrast Toggle
+    const contrastBtn = document.getElementById('contrast-toggle');
+    if (contrastBtn) {
+      contrastBtn.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+      });
+    }
+    // Instant Search Suggestions (Demo)
+    const searchInput = document.getElementById('sermon-search');
+    const suggestionsBox = document.getElementById('search-suggestions');
+    const demoSermons = [
+      'Living by Faith',
+      'The Power of Prayer',
+      'Revival in Our Time',
+      'Walking in the Spirit',
+      'Discipleship Essentials',
+      'Faith Foundations',
+      'Prayer & Power',
+    ];
+    if (searchInput && suggestionsBox) {
+      searchInput.addEventListener('input', function() {
+        const val = this.value.trim().toLowerCase();
+        suggestionsBox.innerHTML = '';
+        if (val.length > 0) {
+          const matches = demoSermons.filter(s => s.toLowerCase().includes(val));
+          if (matches.length > 0) {
+            suggestionsBox.classList.remove('hidden');
+            matches.forEach(m => {
+              const regex = new RegExp(`(${val})`, 'gi');
+              const highlighted = m.replace(regex, '<span class="highlight">$1</span>');
+              const li = document.createElement('li');
+              li.className = 'px-4 py-2 cursor-pointer hover:bg-gold hover:text-white';
+              li.innerHTML = highlighted;
+              li.onclick = () => {
+                searchInput.value = m;
+                suggestionsBox.classList.add('hidden');
+              };
+              suggestionsBox.appendChild(li);
+            });
+          } else {
+            suggestionsBox.classList.add('hidden');
+          }
+        } else {
+          suggestionsBox.classList.add('hidden');
+        }
+      });
+      document.addEventListener('click', (e) => {
+        if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+          suggestionsBox.classList.add('hidden');
+        }
+      });
+    }
+    // Audio-Only Mode Toggle (Demo)
+    const audioOnlyBtn = document.getElementById('audio-only-toggle');
+    if (audioOnlyBtn) {
+      audioOnlyBtn.addEventListener('click', () => {
+        document.body.classList.toggle('audio-only');
+        audioOnlyBtn.textContent = document.body.classList.contains('audio-only') ? 'Show Video & Audio' : 'Audio-Only Mode';
+        document.querySelectorAll('.aspect-w-16').forEach(el => {
+          el.style.display = document.body.classList.contains('audio-only') ? 'none' : '';
+        });
+      });
+    }
+    // Highlight search terms in results (Demo)
+    function highlightTerms(term) {
+      if (!term) return;
+      document.querySelectorAll('.sermon-title, .sermon-notes').forEach(el => {
+        const regex = new RegExp(`(${term})`, 'gi');
+        el.innerHTML = el.textContent.replace(regex, '<span class="highlight">$1</span>');
+      });
+    }
+    if (searchInput) {
+      searchInput.addEventListener('change', function() {
+        highlightTerms(this.value.trim());
+      });
+    }
+    // User Profile Modal logic
+    const userProfileBtn = document.getElementById('user-profile-btn');
+    const userProfileModal = document.getElementById('user-profile-modal');
+    if (userProfileBtn && userProfileModal) {
+      userProfileBtn.onclick = () => userProfileModal.classList.remove('hidden');
+      userProfileModal.onclick = (e) => { if (e.target === userProfileModal) userProfileModal.classList.add('hidden'); };
+    }
+    // Playlist Modal logic
+    const playlistBtns = document.querySelectorAll('[aria-label="Add to playlist"]');
+    const playlistModal = document.getElementById('playlist-modal');
+    if (playlistBtns && playlistModal) {
+      playlistBtns.forEach(btn => btn.onclick = () => playlistModal.classList.remove('hidden'));
+      playlistModal.onclick = (e) => { if (e.target === playlistModal) playlistModal.classList.add('hidden'); };
+    }
+    // Calendar Modal logic
+    const calendarToggle = document.getElementById('calendar-toggle');
+    const calendarModal = document.getElementById('calendar-modal');
+    if (calendarToggle && calendarModal) {
+      calendarToggle.onclick = () => calendarModal.classList.remove('hidden');
+      calendarModal.onclick = (e) => { if (e.target === calendarModal) calendarModal.classList.add('hidden'); };
+    }
+    // Star rating and reactions demo logic (sample, not persistent)
+    document.querySelectorAll('.star').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('Thank you for rating! (Demo only)');
+      });
+    });
+    document.querySelectorAll('.reaction').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('Thank you for your reaction! (Demo only)');
+      });
+    });
+    document.querySelectorAll('[aria-label^="Share on"]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('Sharing feature is a demo.');
+      });
+    });
+    document.querySelectorAll('[aria-label="Copy link"]').forEach(btn => {
+      btn.addEventListener('click', function() {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copied!');
+      });
+    });
+    // Transcript toggle logic
+    function toggleTranscript(id, btn) {
+      const el = document.getElementById(id);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        el.focus();
+        btn.setAttribute('aria-expanded', 'true');
+        btn.textContent = 'Hide Transcript';
+      } else {
+        el.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = 'Show Transcript';
+      }
+    }
+    // Audio mini-player demo logic
+    const miniPlayer = document.getElementById('audio-mini-player');
+    const miniPlayerPause = document.getElementById('mini-player-pause');
+    const miniPlayerClose = document.getElementById('mini-player-close');
+    if (miniPlayer && miniPlayerPause && miniPlayerClose) {
+      // Demo: show mini-player on mobile after 2s
+      if (window.innerWidth < 768) {
+        setTimeout(() => miniPlayer.classList.remove('hidden'), 2000);
+      }
+      miniPlayerPause.onclick = () => alert('Pause (demo only)');
+      miniPlayerClose.onclick = () => miniPlayer.classList.add('hidden');
+    }
+  </script>
+</body>
+</html> 

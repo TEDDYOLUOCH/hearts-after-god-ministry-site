@@ -1,0 +1,98 @@
+/* Tailwind base styles, with blue/primary/secondary palette and clean backgrounds */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-red: #DC2626;      /* Ministry Red: blood of Christ, sacrifice, passion */
+  --color-gold: #F59E0B;     /* Ministry Gold: divine glory, anointing, spiritual wealth */
+  --color-blue: #1E40AF;     /* Ministry Blue: heavenly realm, Holy Spirit, peace */
+  --color-purple: #7C3AED;   /* Ministry Purple: royalty, authority, calling */
+  --color-white: #FFFFFF;    /* Ministry White: purity, holiness, righteousness */
+  --color-bg-soft: #F8FAFC;  /* Soft background */
+  --color-bg-alt: #F1F5F9;   /* Alt background */
+}
+
+.bg-red { background-color: var(--color-red) !important; }
+.text-red { color: var(--color-red) !important; }
+.bg-gold { background-color: var(--color-gold) !important; }
+.text-gold { color: var(--color-gold) !important; }
+.bg-blue { background-color: var(--color-blue) !important; }
+.text-blue { color: var(--color-blue) !important; }
+.bg-purple { background-color: var(--color-purple) !important; }
+.text-purple { color: var(--color-purple) !important; }
+.bg-white { background-color: var(--color-white) !important; }
+.text-white { color: var(--color-white) !important; }
+.bg-soft { background-color: var(--color-bg-soft) !important; }
+.bg-alt { background-color: var(--color-bg-alt) !important; }
+
+/* For backwards compatibility, map primary/secondary/accent to new palette */
+.bg-primary { background-color: var(--color-blue) !important; }
+.text-primary { color: var(--color-blue) !important; }
+.bg-secondary { background-color: var(--color-red) !important; }
+.text-secondary { color: var(--color-red) !important; }
+.bg-accent { background-color: var(--color-gold) !important; }
+.text-accent { color: var(--color-gold) !important; }
+.bg-dark { background-color: var(--color-purple) !important; }
+.text-dark { color: var(--color-purple) !important; }
+
+/* Remove video backgrounds, overlays, and heavy glassmorphism */
+.hero-video, .video-bg, .glassmorphic-bg, .overlay-bg {
+  display: none !important;
+}
+
+/* Clean, modern, accessible defaults */
+body {
+  @apply bg-white text-gray-800 antialiased;
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+/* Ministry palette border utilities */
+.border-red { border-color: var(--color-red) !important; }
+.border-gold { border-color: var(--color-gold) !important; }
+.border-blue { border-color: var(--color-blue) !important; }
+.border-purple { border-color: var(--color-purple) !important; }
+.border-white { border-color: var(--color-white) !important; }
+
+/* Hover/focus variants for ministry palette */
+.hover\:bg-red:hover { background-color: var(--color-red) !important; }
+.hover\:bg-gold:hover { background-color: var(--color-gold) !important; }
+.hover\:bg-blue:hover { background-color: var(--color-blue) !important; }
+.hover\:bg-purple:hover { background-color: var(--color-purple) !important; }
+.hover\:bg-white:hover { background-color: var(--color-white) !important; }
+
+.hover\:text-red:hover { color: var(--color-red) !important; }
+.hover\:text-gold:hover { color: var(--color-gold) !important; }
+.hover\:text-blue:hover { color: var(--color-blue) !important; }
+.hover\:text-purple:hover { color: var(--color-purple) !important; }
+.hover\:text-white:hover { color: var(--color-white) !important; }
+
+.focus\:bg-red:focus { background-color: var(--color-red) !important; }
+.focus\:bg-gold:focus { background-color: var(--color-gold) !important; }
+.focus\:bg-blue:focus { background-color: var(--color-blue) !important; }
+.focus\:bg-purple:focus { background-color: var(--color-purple) !important; }
+.focus\:bg-white:focus { background-color: var(--color-white) !important; }
+
+.focus\:text-red:focus { color: var(--color-red) !important; }
+.focus\:text-gold:focus { color: var(--color-gold) !important; }
+.focus\:text-blue:focus { color: var(--color-blue) !important; }
+.focus\:text-purple:focus { color: var(--color-purple) !important; }
+.focus\:text-white:focus { color: var(--color-white) !important; }
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInPage 0.4s forwards;
+}
+@keyframes fadeInPage {
+  to { opacity: 1; }
+}
+.fade-out {
+  opacity: 1;
+  animation: fadeOutPage 0.3s forwards;
+}
+@keyframes fadeOutPage {
+  to { opacity: 0; }
+} 

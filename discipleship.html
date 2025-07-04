@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14-Day Discipleship Classes | Hearts After God Ministry</title>
+  <meta name="description" content="Join our 14-Day Discipleship Classes to grow in faith and purpose.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            secondary: '#fbbf24',
+            accent: '#16a34a',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+  <!-- Sticky Navbar -->
+  <nav class="fixed w-full z-30 bg-white/90 backdrop-blur border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+      <a href="index.html" class="text-xl font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary">Hearts After God</a>
+      <div class="hidden md:flex space-x-6">
+        <a href="vision.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Vision</a>
+        <a href="about.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">About</a>
+        <a href="discipleship.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Discipleship</a>
+        <a href="gallery.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Gallery</a>
+        <a href="blog.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Blog</a>
+        <a href="sermons.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Sermons</a>
+        <a href="events.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Events</a>
+        <a href="contact.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Contact</a>
+      </div>
+      <div class="md:hidden">
+        <button id="menu-btn" aria-label="Open menu" class="focus:outline-none focus:ring-2 focus:ring-primary">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-white border-b border-gray-200">
+      <a href="vision.html" class="block py-2 hover:text-primary">Vision</a>
+      <a href="about.html" class="block py-2 hover:text-primary">About</a>
+      <a href="discipleship.html" class="block py-2 hover:text-primary">Discipleship</a>
+      <a href="gallery.html" class="block py-2 hover:text-primary">Gallery</a>
+      <a href="blog.html" class="block py-2 hover:text-primary">Blog</a>
+      <a href="sermons.html" class="block py-2 hover:text-primary">Sermons</a>
+      <a href="events.html" class="block py-2 hover:text-primary">Events</a>
+      <a href="contact.html" class="block py-2 hover:text-primary">Contact</a>
+    </div>
+  </nav>
+
+  <main class="pt-24 pb-12 px-4 max-w-4xl mx-auto">
+    <!-- Discipleship Hero: Modern Glassmorphic Card -->
+    <section id="hero" class="relative min-h-[40vh] flex flex-col justify-center items-center text-center bg-gradient-to-br from-primary/90 to-blue-100 pt-24 pb-8 px-4 fade-in">
+      <div class="mx-auto max-w-2xl bg-white/10 dark:bg-dark/60 rounded-2xl shadow-xl backdrop-blur-md border border-white/20 p-8 md:p-12 flex flex-col items-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4 drop-shadow">14-Day Discipleship Classes</h1>
+        <p class="text-xl text-gray-700 dark:text-gray-300 mb-4">Grow deeper in your faith, discover your calling, and be equipped to make disciples. Join our transformative 14-day journey!</p>
+      </div>
+    </section>
+
+    <!-- Program Description & Registration: Modern Card -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <div class="bg-white/10 dark:bg-dark/60 rounded-2xl shadow-xl backdrop-blur-md border border-white/20 p-8 md:p-12 flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-1 flex flex-col gap-4 w-full">
+          <h2 class="text-2xl font-bold text-primary mb-2">About the Program</h2>
+          <p class="text-gray-700 dark:text-gray-300 mb-2">Our 14-day discipleship classes are designed to help you grow in Christ, build spiritual habits, and connect with a supportive community. Each day features teaching, discussion, and practical application.</p>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 mb-2">
+            <li>Daily teaching and devotionals</li>
+            <li>Small group discussions</li>
+            <li>Personal mentorship</li>
+            <li>Resource downloads</li>
+          </ul>
+          <a href="#curriculum" class="text-primary underline hover:text-secondary">See Curriculum Overview ↓</a>
+        </div>
+        <form id="register-wizard" class="flex-1 space-y-4 w-full" aria-label="Discipleship registration form">
+          <label for="name" class="block text-gray-800 dark:text-gray-200 font-medium">Name</label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="name" aria-required="true" aria-label="Name">
+          <label for="email" class="block text-gray-800 dark:text-gray-200 font-medium">Email</label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-primary" autocomplete="email" aria-required="true" aria-label="Email address">
+          <button type="submit" class="w-full px-4 py-2 bg-primary text-white font-semibold rounded hover:bg-secondary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary transition">Register</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Interactive 14-Day Curriculum Stepper -->
+    <section id="curriculum" class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">Curriculum Overview</h2>
+      <div id="curriculum-stepper" class="flex flex-col gap-4">
+        <!-- Stepper navigation -->
+        <div class="flex flex-wrap gap-2 justify-center mb-4">
+          <button class="step-btn px-4 py-2 rounded-full bg-primary text-white font-bold focus:outline-none focus:ring-2 focus:ring-primary" data-step="1">Day 1</button>
+          <button class="step-btn px-4 py-2 rounded-full bg-secondary text-blue font-bold focus:outline-none focus:ring-2 focus:ring-secondary" data-step="2">Day 2</button>
+          <button class="step-btn px-4 py-2 rounded-full bg-accent text-white font-bold focus:outline-none focus:ring-2 focus:ring-accent" data-step="3">Day 3</button>
+          <button class="step-btn px-4 py-2 rounded-full bg-primary text-white font-bold focus:outline-none focus:ring-2 focus:ring-primary" data-step="4">Days 4-14</button>
+        </div>
+        <!-- Stepper content -->
+        <div id="step-content-1" class="step-content bg-white/80 rounded-xl shadow p-6" tabindex="0">
+          <h3 class="font-semibold text-lg text-primary mb-2">Day 1: Foundations of Faith</h3>
+          <p class="mb-2">Understanding salvation, grace, and your new identity in Christ.</p>
+          <ul class="list-disc list-inside mb-2 text-gray-700">
+            <li>Key Scripture: Ephesians 2:8-10</li>
+            <li>Download: <a href="#" class="text-primary underline">Day 1 Notes (PDF)</a></li>
+          </ul>
+        </div>
+        <div id="step-content-2" class="step-content bg-white/80 rounded-xl shadow p-6 hidden" tabindex="0">
+          <h3 class="font-semibold text-lg text-primary mb-2">Day 2: Prayer & Devotion</h3>
+          <p class="mb-2">Building a daily habit of prayer, worship, and Bible study.</p>
+          <ul class="list-disc list-inside mb-2 text-gray-700">
+            <li>Key Scripture: Matthew 6:6</li>
+            <li>Download: <a href="#" class="text-primary underline">Day 2 Devotional (PDF)</a></li>
+          </ul>
+        </div>
+        <div id="step-content-3" class="step-content bg-white/80 rounded-xl shadow p-6 hidden" tabindex="0">
+          <h3 class="font-semibold text-lg text-primary mb-2">Day 3: Community & Fellowship</h3>
+          <p class="mb-2">The importance of spiritual family and accountability.</p>
+          <ul class="list-disc list-inside mb-2 text-gray-700">
+            <li>Key Scripture: Hebrews 10:24-25</li>
+            <li>Download: <a href="#" class="text-primary underline">Day 3 Guide (PDF)</a></li>
+          </ul>
+        </div>
+        <div id="step-content-4" class="step-content bg-white/80 rounded-xl shadow p-6 hidden" tabindex="0">
+          <h3 class="font-semibold text-lg text-primary mb-2">Days 4-14: Growing & Going</h3>
+          <p class="mb-2">Practical steps for spiritual growth, sharing your faith, and serving others.</p>
+          <ul class="list-disc list-inside mb-2 text-gray-700">
+            <li>Key Scripture: Matthew 28:19-20</li>
+            <li>Download: <a href="#" class="text-primary underline">Full Curriculum (PDF)</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Expanded Resource Downloads -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">Resources</h2>
+      <div class="flex justify-end mb-2">
+        <button class="px-6 py-2 bg-accent text-white font-bold rounded shadow hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent transition" onclick="alert('All resources downloaded! (Demo)')">Download All</button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <a href="#" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+          <svg class="w-10 h-10 text-primary mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span class="font-semibold">Discipleship Guide (PDF)</span>
+          <span class="text-sm text-gray-500">Download • 2.1MB</span>
+        </a>
+        <a href="#" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+          <svg class="w-10 h-10 text-secondary mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7H7v6h6V7z"/></svg>
+          <span class="font-semibold">Daily Devotional (PDF)</span>
+          <span class="text-sm text-gray-500">Download • 1.5MB</span>
+        </a>
+        <a href="#" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+          <svg class="w-10 h-10 text-accent mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+          <span class="font-semibold">Audio Lessons (MP3)</span>
+          <span class="text-sm text-gray-500">Download • 45MB</span>
+        </a>
+        <a href="#" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+          <svg class="w-10 h-10 text-primary mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/></svg>
+          <span class="font-semibold">Slides (PPTX)</span>
+          <span class="text-sm text-gray-500">Download • 3.8MB</span>
+        </a>
+        <a href="#" class="bg-white/80 rounded-xl shadow-lg p-6 flex flex-col items-center hover:scale-105 transition-transform duration-300">
+          <svg class="w-10 h-10 text-secondary mb-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3h.01"/></svg>
+          <span class="font-semibold">Video Teaching (MP4)</span>
+          <span class="text-sm text-gray-500">Download • 120MB</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Mentor-Mentee Matching System -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">Mentor-Mentee Matching</h2>
+      <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-8 items-center">
+        <form id="mentor-form" class="flex-1 flex flex-col gap-4" autocomplete="off">
+          <label class="font-medium">I want to:</label>
+          <div class="flex gap-4">
+            <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="mentee" checked> Find a Mentor</label>
+            <label class="inline-flex items-center gap-2"><input type="radio" name="role" value="mentor"> Volunteer as Mentor</label>
+          </div>
+          <label class="font-medium" for="mentor-name">Name</label>
+          <input type="text" id="mentor-name" required class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+          <label class="font-medium" for="mentor-email">Email</label>
+          <input type="email" id="mentor-email" required class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+          <button type="submit" class="px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary transition">Submit</button>
+        </form>
+        <div id="mentor-match-result" class="flex-1 hidden flex-col gap-4 items-center justify-center">
+          <h3 class="text-lg font-bold text-accent mb-2">Your Match</h3>
+          <div class="flex flex-col items-center gap-2">
+            <img src="assets/images/leader1.jpg" alt="Mentor" class="w-20 h-20 rounded-full object-cover border-4 border-gold">
+            <span class="font-semibold text-primary">Pastor John Doe</span>
+            <span class="text-gray-700">Email: john.doe@heartsaftergod.org</span>
+            <span class="text-gray-500 text-sm">"Excited to walk with you on your journey!"</span>
+          </div>
+          <button class="mt-4 px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary transition" onclick="location.reload()">Request Another</button>
+        </div>
+      </div>
+      <div class="mt-8 grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader1.jpg" alt="Mentor" class="w-16 h-16 rounded-full object-cover border-2 border-gold mb-2">
+          <span class="font-bold text-blue">Pastor John Doe</span>
+          <span class="text-gray-600 text-center text-sm">Lead Pastor, 10+ years mentoring</span>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader2.jpg" alt="Mentor" class="w-16 h-16 rounded-full object-cover border-2 border-purple mb-2">
+          <span class="font-bold text-blue">Jane Smith</span>
+          <span class="text-gray-600 text-center text-sm">Discipleship Leader, passionate mentor</span>
+        </div>
+        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+          <img src="assets/images/leader3.jpg" alt="Mentor" class="w-16 h-16 rounded-full object-cover border-2 border-accent mb-2">
+          <span class="font-bold text-blue">Samuel K.</span>
+          <span class="text-gray-600 text-center text-sm">Youth Pastor, mentor for young adults</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Graduation & Certification Tracking -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">Graduation & Certification</h2>
+      <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col gap-6 items-center">
+        <div class="w-full flex items-center gap-4 mb-4">
+          <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+            <div id="grad-progress-bar" class="bg-accent h-4 rounded-full transition-all" style="width: 80%"></div>
+          </div>
+          <span id="grad-progress-label" class="font-bold text-accent">11/14</span>
+        </div>
+        <button class="px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-accent focus:outline-none focus:ring-2 focus:ring-primary transition" onclick="alert('Certificate downloaded! (Demo)')">Download Certificate</button>
+        <div class="w-full mt-6">
+          <h3 class="text-lg font-bold text-primary mb-2">Recent Graduates</h3>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="flex flex-col items-center">
+              <img src="assets/images/leader2.jpg" alt="Graduate" class="w-16 h-16 rounded-full object-cover border-2 border-gold mb-2">
+              <span class="font-semibold">Mary Johnson</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="assets/images/leader3.jpg" alt="Graduate" class="w-16 h-16 rounded-full object-cover border-2 border-accent mb-2">
+              <span class="font-semibold">Samuel K.</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="assets/images/leader1.jpg" alt="Graduate" class="w-16 h-16 rounded-full object-cover border-2 border-purple mb-2">
+              <span class="font-semibold">Grace L.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Multi-Step Registration Wizard -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">Register for Discipleship</h2>
+      <form id="register-wizard" class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col gap-6 max-w-xl mx-auto" autocomplete="off">
+        <div class="wizard-step" id="wizard-step-1">
+          <label class="block font-medium mb-1" for="reg-name">Name</label>
+          <input type="text" id="reg-name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Name">
+          <label class="block font-medium mb-1 mt-4" for="reg-email">Email</label>
+          <input type="email" id="reg-email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Email">
+          <button type="button" class="mt-6 px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary transition" id="wizard-next-1">Next</button>
+        </div>
+        <div class="wizard-step hidden" id="wizard-step-2">
+          <label class="block font-medium mb-1" for="reg-goals">What do you hope to gain?</label>
+          <textarea id="reg-goals" name="goals" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Goals"></textarea>
+          <label class="block font-medium mb-1 mt-4" for="reg-cohort">Choose a start date/cohort</label>
+          <select id="reg-cohort" name="cohort" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" aria-label="Cohort">
+            <option>May 2025</option>
+            <option>June 2025</option>
+            <option>July 2025</option>
+          </select>
+          <div class="flex gap-4 mt-6">
+            <button type="button" class="px-6 py-2 bg-gray-200 text-primary font-bold rounded shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition" id="wizard-back-2">Back</button>
+            <button type="button" class="px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary transition" id="wizard-next-2">Next</button>
+          </div>
+        </div>
+        <div class="wizard-step hidden" id="wizard-step-3">
+          <h3 class="text-lg font-bold text-primary mb-2">Confirm Your Details</h3>
+          <div class="mb-2"><strong>Name:</strong> <span id="confirm-name"></span></div>
+          <div class="mb-2"><strong>Email:</strong> <span id="confirm-email"></span></div>
+          <div class="mb-2"><strong>Goals:</strong> <span id="confirm-goals"></span></div>
+          <div class="mb-2"><strong>Cohort:</strong> <span id="confirm-cohort"></span></div>
+          <div class="flex gap-4 mt-6">
+            <button type="button" class="px-6 py-2 bg-gray-200 text-primary font-bold rounded shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-primary transition" id="wizard-back-3">Back</button>
+            <button type="submit" class="px-6 py-2 bg-accent text-white font-bold rounded shadow hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent transition">Submit Registration</button>
+          </div>
+        </div>
+        <div class="wizard-step hidden" id="wizard-step-4">
+          <h3 class="text-lg font-bold text-accent mb-2">Registration Complete!</h3>
+          <p class="mb-2">Thank you for registering. You'll receive a confirmation email soon. We look forward to seeing you in class!</p>
+          <button type="button" class="mt-4 px-6 py-2 bg-primary text-white font-bold rounded shadow hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary transition" onclick="location.reload()">Register Another</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Progress Tracking Dashboard -->
+    <section class="max-w-4xl mx-auto mb-12 fade-in px-4">
+      <h2 class="text-2xl font-bold text-primary mb-4 text-center drop-shadow">My Progress</h2>
+      <div class="bg-white/80 rounded-2xl shadow-xl p-8 flex flex-col gap-6">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+            <div id="progress-bar" class="bg-primary h-4 rounded-full transition-all" style="width: 21%"></div>
+          </div>
+          <span id="progress-label" class="font-bold text-primary">3/14</span>
+        </div>
+        <ul class="grid md:grid-cols-2 gap-4">
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="1" checked> <span>Day 1: Foundations of Faith</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="2" checked> <span>Day 2: Prayer & Devotion</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="3" checked> <span>Day 3: Community & Fellowship</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="4"> <span>Day 4: Spiritual Growth</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="5"> <span>Day 5: Serving Others</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="6"> <span>Day 6: Evangelism</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="7"> <span>Day 7: Discipleship Habits</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="8"> <span>Day 8: Prayer & Fasting</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="9"> <span>Day 9: Worship</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="10"> <span>Day 10: Spiritual Gifts</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="11"> <span>Day 11: Missions</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="12"> <span>Day 12: Leadership</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="13"> <span>Day 13: Next Steps</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="progress-check accent-primary" data-day="14"> <span>Day 14: Graduation</span></li>
+        </ul>
+        <div class="flex gap-4 mt-6">
+          <span class="inline-flex items-center gap-2 bg-accent text-white font-bold px-4 py-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg> 3 Days Completed</span>
+          <span class="inline-flex items-center gap-2 bg-secondary text-blue font-bold px-4 py-2 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg> Progress Badge</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-8 mt-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      &copy; 2024 Hearts After God Ministry. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Mobile menu & Form Validation JS -->
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Registration form validation
+    function validateRegisterForm(e) {
+      let valid = true;
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const errorName = document.getElementById('error-name');
+      const errorEmail = document.getElementById('error-email');
+      errorName.classList.add('hidden');
+      errorEmail.classList.add('hidden');
+      name.classList.remove('border-red-500');
+      email.classList.remove('border-red-500');
+      if (!name.value.trim()) {
+        errorName.classList.remove('hidden');
+        name.classList.add('border-red-500');
+        valid = false;
+      }
+      if (!email.value.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) {
+        errorEmail.classList.remove('hidden');
+        email.classList.add('border-red-500');
+        valid = false;
+      }
+      if (!valid) e.preventDefault();
+    }
+    document.getElementById('register-form').addEventListener('submit', validateRegisterForm);
+
+    // Curriculum Stepper Logic
+    const stepBtns = document.querySelectorAll('.step-btn');
+    const stepContents = document.querySelectorAll('.step-content');
+    stepBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const step = btn.getAttribute('data-step');
+        stepContents.forEach((c, i) => {
+          c.classList.toggle('hidden', c.id !== `step-content-${step}`);
+        });
+        stepContents[step-1].focus();
+      });
+    });
+
+    // Registration Wizard Logic
+    const wizard = document.getElementById('register-wizard');
+    const steps = wizard.querySelectorAll('.wizard-step');
+    let wizardStep = 0;
+    function showStep(idx) {
+      steps.forEach((s, i) => s.classList.toggle('hidden', i !== idx));
+    }
+    document.getElementById('wizard-next-1').onclick = () => { showStep(1); };
+    document.getElementById('wizard-back-2').onclick = () => { showStep(0); };
+    document.getElementById('wizard-next-2').onclick = () => {
+      document.getElementById('confirm-name').textContent = document.getElementById('reg-name').value;
+      document.getElementById('confirm-email').textContent = document.getElementById('reg-email').value;
+      document.getElementById('confirm-goals').textContent = document.getElementById('reg-goals').value;
+      document.getElementById('confirm-cohort').textContent = document.getElementById('reg-cohort').value;
+      showStep(2);
+    };
+    document.getElementById('wizard-back-3').onclick = () => { showStep(1); };
+    wizard.onsubmit = e => {
+      e.preventDefault();
+      showStep(3);
+    };
+    showStep(0);
+
+    // Progress Tracking Logic
+    const checks = document.querySelectorAll('.progress-check');
+    const progressBar = document.getElementById('progress-bar');
+    const progressLabel = document.getElementById('progress-label');
+    function updateProgress() {
+      const total = checks.length;
+      const completed = Array.from(checks).filter(c => c.checked).length;
+      progressBar.style.width = `${Math.round((completed/total)*100)}%`;
+      progressLabel.textContent = `${completed}/${total}`;
+    }
+    checks.forEach(c => c.addEventListener('change', updateProgress));
+    updateProgress();
+
+    // Mentor-Mentee Matching Demo Logic
+    const mentorForm = document.getElementById('mentor-form');
+    const mentorMatchResult = document.getElementById('mentor-match-result');
+    if (mentorForm && mentorMatchResult) {
+      mentorForm.onsubmit = e => {
+        e.preventDefault();
+        mentorForm.classList.add('hidden');
+        mentorMatchResult.classList.remove('hidden');
+      };
+    }
+  </script>
+</body>
+</html> 
