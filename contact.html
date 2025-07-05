@@ -6,40 +6,131 @@
   <title>Contact | Hearts After God Ministry</title>
   <meta name="description" content="Contact Hearts After God Ministry for prayer, support, and information.">
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
     .form-error { color: #dc2626; font-size: 0.875rem; margin-top: 0.25rem; }
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
     .fade-in.visible { opacity: 1; transform: none; }
+    /* Animated underline for nav */
+    .nav-underline {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      background: #E02424;
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(.4,0,.2,1);
+      z-index: 10;
+    }
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.2s;
+      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
+    }
+    .nav-link.active {
+      font-weight: bold;
+      color: #FDBA17;
+      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
+    }
+    .nav-link:focus {
+      outline: 2px solid #FDBA17;
+      outline-offset: 2px;
+    }
+    /* Mobile menu overlay */
+    .mobile-overlay {
+      background: rgba(44, 44, 44, 0.5);
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: none;
+    }
+    .mobile-overlay.open {
+      display: block;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    /* Slide-in mobile menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: 0;
+      width: 80vw; max-width: 320px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: -2px 0 16px rgba(0,0,0,0.08);
+      z-index: 50;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column;
+      padding: 2rem 1.5rem;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-menu .close-btn {
+      align-self: flex-end;
+      font-size: 2rem;
+      color: #7C3AED;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 2rem;
+    }
+    /* Custom SVG pattern for header */
+    .header-pattern {
+      background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
+      background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>');
+      background-repeat: repeat-x;
+      background-size: 600px 120px;
+      position: relative;
+    }
+    .header-pattern::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%);
+      border-radius: inherit;
+    }
+    .header-pattern > * {
+      position: relative;
+      z-index: 2;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
   <!-- Header & Navigation (reuse from homepage) -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-lg rounded-b-2xl">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+  <header class="sticky top-0 z-50 header-pattern backdrop-blur shadow-lg rounded-b-2xl">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
       <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-2">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-blue" />
+      <a href="index.html" class="flex items-center gap-2 group">
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-[#2046B3] transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl" />
       </a>
       <!-- Navigation Links -->
-      <ul class="hidden md:flex gap-8 font-semibold text-blue text-lg mx-auto">
-        <li><a href="index.html" class="hover:text-gold hover:border-b-2 hover:border-gold transition">Home</a></li>
-        <li><a href="vision.html" class="hover:text-gold transition">Vision</a></li>
-        <li><a href="about.html" class="hover:text-gold transition">About</a></li>
-        <li><a href="events.html" class="hover:text-gold transition">Events</a></li>
-        <li><a href="sermons.html" class="hover:text-gold transition">Sermons</a></li>
-        <li><a href="blog.html" class="hover:text-gold transition">Blog</a></li>
-        <li><a href="gallery.html" class="hover:text-gold transition">Gallery</a></li>
-        <li><a href="contact.html" class="hover:text-gold transition">Contact</a></li>
-        <li><a href="discipleship.html" class="hover:text-gold transition">Discipleship</a></li>
-        <li><a href="missions.html" class="hover:text-gold transition">Missions</a></li>
-      </ul>
+      <div class="hidden md:flex gap-8 font-semibold text-white text-lg mx-auto relative" id="nav-links">
+        <ul class="flex gap-8">
+          <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
+          <li><a href="about.html" class="nav-link" id="nav-about">About</a></li>
+          <li><a href="vision.html" class="nav-link" id="nav-vision">Vision</a></li>
+          <li><a href="events.html" class="nav-link" id="nav-events">Events</a></li>
+          <li><a href="sermons.html" class="nav-link" id="nav-sermons">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link" id="nav-blog">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link" id="nav-gallery">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link" id="nav-discipleship">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link" id="nav-missions">Missions</a></li>
+          <li><a href="contact.html" class="nav-link active" id="nav-contact">Contact</a></li>
+        </ul>
+        <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
+      </div>
       <!-- CTA Button -->
-      <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-gold text-blue font-bold rounded-full shadow hover:bg-blue hover:text-white transition">Connect With Us</a>
+      <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
       <!-- Mobile Hamburger -->
-      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-gold" aria-label="Open menu">
-        <svg class="w-8 h-8 text-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Open menu">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </nav>
   </header>
@@ -49,9 +140,9 @@
       <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1600&q=80" alt="Contact Hearts After God" class="absolute inset-0 w-full h-full object-cover object-center brightness-60 z-0" />
       <div class="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-gold/40 to-purple-900/80 z-0"></div>
       <div class="relative z-10 flex flex-col items-center text-center gap-4 max-w-2xl mx-auto py-12">
-        <img src="assets/images/logo.png" alt="Hearts After God Ministry Logo" class="w-20 h-20 rounded-full shadow-2xl mb-2 mx-auto bg-white/80 p-2" />
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-20 h-20 rounded-full shadow-2xl mb-2 mx-auto bg-white/80 p-2" />
         <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-2xl leading-tight">Contact Us</h1>
-        <span class="block text-gold text-lg md:text-xl font-semibold animate-pulse mb-2">We'd love to hear from you!</span>
+        <span class="block text-[#FDBA17] text-lg md:text-xl font-semibold animate-pulse mb-2">We'd love to hear from you!</span>
         <p class="text-white/90 mb-4 max-w-xl mx-auto">Reach out with questions, prayer requests, or to get involved. Our team is here to support and pray for you.</p>
       </div>
     </section>
@@ -93,7 +184,7 @@
       <div class="bg-white rounded-xl shadow p-8 flex flex-col gap-4">
         <h2 class="text-xl font-bold text-primary mb-2">Contact Information</h2>
         <p class="text-gray-700 mb-1"><strong>Email:</strong> <a href="mailto:info@heartsaftergod.org" class="text-primary underline hover:text-secondary">info@heartsaftergod.org</a></p>
-        <p class="text-gray-700 mb-1"><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" class="text-primary underline hover:text-secondary inline-flex items-center gap-1"><svg class="inline w-5 h-5" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.472 19.339c-.363-.181-2.147-1.06-2.478-1.181-.332-.121-.574-.181-.816.182-.242.363-.934 1.181-1.145 1.423-.211.242-.423.272-.786.091-.363-.181-1.535-.566-2.924-1.805-1.081-.964-1.812-2.154-2.027-2.517-.211-.363-.023-.56.159-.742.163-.163.363-.423.545-.635.181-.211.242-.363.363-.605.121-.242.061-.454-.03-.635-.091-.181-.816-1.963-1.117-2.684-.294-.708-.594-.611-.816-.622-.211-.009-.484-.011-.757-.011-.272 0-.716.106-1.09.484-.373.378-1.433 1.4-1.433 3.417 0 2.017 1.477 3.967 1.684 4.238.207.272 2.91 4.6 7.048 6.273.984.425 1.752.68 2.352.87.989.314 1.892.27 2.606.163.796-.119 2.452-.999 2.797-1.963.345-.964.345-1.788.241-1.963-.104-.175-.363-.281-.762-.484z" fill="#fff"/></svg>Join WhatsApp Group</a></p>
+        <p class="text-gray-700 mb-1"><strong>WhatsApp:</strong> <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" class="text-primary underline hover:text-secondary inline-flex items-center gap-1"><svg class="inline w-5 h-5" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.472 19.339c-.363-.181-2.147-1.06-2.478-1.181-.332-.121-.574-.181-.816.182-.242.363-.934 1.181-1.145 1.423-.211.242-.423.272-.786.091-.363-.181-1.535-.566-2.924-1.805-1.081-.964-1.812-2.154-2.027-2.517-.211-.363-.023-.56.159-.742.163-.163.363-.423.545-.635.181-.242.242-.363.363-.605.121-.242.061-.454-.03-.635-.091-.181-.816-1.963-1.117-2.684-.294-.708-.594-.611-.816-.622-.211-.009-.484-.011-.757-.011-.272 0-.716.106-1.09.484-.373.378-1.433 1.4-1.433 3.417 0 2.017 1.477 3.967 1.684 4.238.207.272 2.91 4.6 7.048 6.273.984.425 1.752.68 2.352.87.989.314 1.892.27 2.606.163.796-.119 2.452-.999 2.797-1.963.345-.964.345-1.788.241-1.963-.104-.175-.363-.281-.762-.484z" fill="#fff"/></svg>Join WhatsApp Group</a></p>
         <p class="text-gray-700 mb-1"><strong>Online Ministry:</strong> Available 24/7 globally</p>
         <p class="text-gray-700 mb-1"><strong>Response Time:</strong> Within 24 hours</p>
       </div>
@@ -160,14 +251,135 @@
       </div>
     </section>
   </main>
-  <!-- Footer -->
-  <footer class="bg-gray-100 border-t py-8 px-4 mt-8">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="text-gray-600 text-sm">© 2025 Hearts After God Ministry. All rights reserved.</div>
-      <div class="flex gap-4">
-        <a href="contact.html" class="text-primary hover:underline">Contact Us</a>
-        <a href="sitemap.html" class="text-primary hover:underline">Sitemap</a>
-        <a href="#" class="text-primary hover:underline">Privacy Policy</a>
+  <!-- Modern Footer -->
+  <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="footer-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="30" cy="30" r="2" fill="currentColor"/>
+            <circle cx="15" cy="15" r="1" fill="currentColor"/>
+            <circle cx="45" cy="45" r="1" fill="currentColor"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#footer-pattern)"/>
+      </svg>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Ministry Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+            <div>
+              <h3 class="text-xl font-bold text-[#FDBA17]">Hearts After God</h3>
+              <p class="text-sm text-white/80">Ministry</p>
+            </div>
+          </div>
+          <p class="text-white/90 leading-relaxed">
+            Empowering believers worldwide through discipleship, soul-winning, and revival. Join our global family as we reach the world for Christ.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-2.147-.867-2.478-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+            </a>
+            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram">
+              <svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg>
+            </a>
+            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>About Us</a></li>
+            <li><a href="vision.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Our Vision</a></li>
+            <li><a href="events.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Events</a></li>
+            <li><a href="sermons.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Sermons</a></li>
+            <li><a href="blog.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Blog</a></li>
+            <li><a href="gallery.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Gallery</a></li>
+          </ul>
+        </div>
+
+        <!-- Ministries -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Ministries</h4>
+          <ul class="space-y-2">
+            <li><a href="discipleship.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Discipleship</a></li>
+            <li><a href="missions.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Missions</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Newsletter -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Stay Connected</h4>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <span class="text-sm">info@heartsaftergod.org</span>
+            </div>
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              <span class="text-sm">+1 (555) 123-4567</span>
+            </div>
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span class="text-sm">Global Ministry</span>
+            </div>
+          </div>
+          
+          <!-- Newsletter Signup -->
+          <div class="mt-6">
+            <h5 class="text-sm font-semibold text-white mb-2">Newsletter</h5>
+            <form class="flex gap-2">
+              <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 text-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-[#FDBA17] transition-colors">
+              <button type="submit" class="px-4 py-2 bg-[#FDBA17] text-[#2046B3] text-sm font-semibold rounded-lg hover:bg-[#e0a615] transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-white/20 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div class="text-sm text-white/70">
+            &copy; 2025 Hearts After God Ministry. All rights reserved. | Empowering Believers. Winning Souls.
+          </div>
+          <div class="flex gap-6 text-sm">
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Privacy Policy</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Terms of Service</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Donate</a>
+            <a href="contact.html" class="text-white/70 hover:text-[#FDBA17] transition-colors">Contact</a>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
@@ -249,6 +461,28 @@
       }
     }
     document.getElementById('prayer-form').addEventListener('submit', validatePrayerForm);
+    // Animated underline logic
+    const navLinks = document.querySelectorAll('#nav-links .nav-link');
+    const navUnderline = document.getElementById('nav-underline');
+    function moveUnderline(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
+      navUnderline.style.width = rect.width + 'px';
+      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
+    }
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', e => moveUnderline(e.target));
+      link.addEventListener('focus', e => moveUnderline(e.target));
+      link.addEventListener('mouseleave', () => {
+        const active = document.querySelector('#nav-links .nav-link.active');
+        moveUnderline(active);
+      });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const active = document.querySelector('#nav-links .nav-link.active');
+      moveUnderline(active);
+    });
   </script>
 </body>
 </html>

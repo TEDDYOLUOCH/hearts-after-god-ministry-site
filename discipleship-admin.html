@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Discipleship Portal | Hearts After God Ministry</title>
+  <meta name="description" content="Admin dashboard for managing the discipleship portal.">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <link rel="stylesheet" href="assets/css/discipleship.css">
+  <style>
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1600&q=80') center center/cover no-repeat;
+      filter: brightness(0.7);
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, rgba(30,64,175,0.85) 0%, rgba(245,158,11,0.35) 40%, rgba(124,58,237,0.85) 100%);
+      pointer-events: none;
+    }
+    .dashboard-section, .dashboard-card, .admin-header, .admin-footer, .admin-sidebar {
+      background: rgba(255,255,255,0.95) !important;
+      backdrop-filter: blur(2px);
+    }
+    .section-title {
+      color: var(--color-purple);
+      font-weight: bold;
+    }
+    .brand-gold { color: var(--color-gold); }
+    .brand-blue { color: var(--color-blue); }
+    .brand-purple { color: var(--color-purple); }
+    .brand-red { color: var(--color-red); }
+    .border-gold { border-color: var(--color-gold) !important; }
+    .border-blue { border-color: var(--color-blue) !important; }
+    .border-purple { border-color: var(--color-purple) !important; }
+    .border-red { border-color: var(--color-red) !important; }
+    .btn-gold {
+      background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-purple) 100%);
+      color: #fff;
+      font-weight: bold;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover {
+      box-shadow: 0 4px 16px rgba(245,158,11,0.25), 0 2px 8px rgba(124,58,237,0.15);
+      transform: translateY(-2px) scale(1.03);
+    }
+    .admin-footer a:hover { color: var(--color-gold) !important; }
+    .sidebar-link.active {
+      background: linear-gradient(to right, var(--color-gold), var(--color-purple));
+      color: var(--color-blue);
+      font-weight: bold;
+    }
+    .sidebar-link {
+      transition: background 0.2s, color 0.2s;
+      color: var(--color-blue);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+    }
+    .sidebar-link:hover {
+      background: var(--color-bg-alt);
+      color: var(--color-purple);
+    }
+    @media (max-width: 1023px) {
+      .admin-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="admin-header bg-white/95 backdrop-blur shadow-2xl sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <img src="assets/images/ministry-logo.png" alt="Logo" class="w-12 h-12 rounded-full border-2 border-gold shadow" />
+        <span class="text-2xl font-bold brand-blue">Hearts After God Ministry</span>
+        <span class="ml-4 px-3 py-1 rounded-full bg-gold text-white font-semibold text-sm">Admin Portal</span>
+      </div>
+      <button id="logout-btn" class="btn-gold px-6 py-2 rounded-full font-semibold transition-all duration-300 backdrop-blur-sm">
+        <i class="fa fa-sign-out-alt mr-2"></i> Logout
+      </button>
+    </div>
+  </header>
+  <div class="flex flex-1 w-full max-w-7xl mx-auto mt-6 gap-6">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar hidden lg:flex flex-col w-64 p-6 rounded-2xl shadow-xl gap-2 h-fit sticky top-28 self-start">
+      <a href="#dashboard" class="sidebar-link active"><i class="fa fa-tachometer-alt"></i> Dashboard</a>
+      <a href="#users" class="sidebar-link"><i class="fa fa-users"></i> User Management</a>
+      <a href="#courses" class="sidebar-link"><i class="fa fa-book"></i> Course Management</a>
+      <a href="#analytics" class="sidebar-link"><i class="fa fa-chart-bar"></i> Analytics</a>
+      <a href="#community" class="sidebar-link"><i class="fa fa-comments"></i> Community Moderation</a>
+      <a href="#announcements" class="sidebar-link"><i class="fa fa-bullhorn"></i> Announcements</a>
+      <a href="#support" class="sidebar-link"><i class="fa fa-life-ring"></i> Support</a>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col gap-8 scrollbar overflow-y-auto">
+      <!-- Dashboard Overview -->
+      <section id="dashboard" class="dashboard-section rounded-2xl shadow-xl p-8 mb-2">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-tachometer-alt brand-purple"></i> Admin Dashboard Overview</h2>
+        <div class="grid md:grid-cols-4 gap-6 mb-6">
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-blue">
+            <i class="fa fa-users text-2xl brand-blue mb-2"></i>
+            <div class="text-2xl font-bold brand-blue">247</div>
+            <div class="text-sm brand-blue">Total Users</div>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-gold">
+            <i class="fa fa-user-check text-2xl brand-gold mb-2"></i>
+            <div class="text-2xl font-bold brand-gold">189</div>
+            <div class="text-sm brand-gold">Active Learners</div>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-purple">
+            <i class="fa fa-book text-2xl brand-purple mb-2"></i>
+            <div class="text-2xl font-bold brand-purple">156</div>
+            <div class="text-sm brand-purple">Courses Completed</div>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-red">
+            <i class="fa fa-chart-line text-2xl brand-red mb-2"></i>
+            <div class="text-2xl font-bold brand-red">78%</div>
+            <div class="text-sm brand-red">Avg. Progress</div>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col">
+            <h3 class="font-bold text-lg mb-2 brand-blue flex items-center gap-2"><i class="fa fa-bell brand-gold"></i> Recent Admin Activity</h3>
+            <ul class="text-sm text-gray-700 space-y-2">
+              <li>✔️ New user registered: <span class="font-semibold">John Doe</span></li>
+              <li>📢 Announcement posted: <span class="font-semibold">Upcoming Retreat</span></li>
+              <li>📝 New course published: <span class="font-semibold">Spiritual Growth 101</span></li>
+              <li>🛠️ Settings updated by <span class="font-semibold">Admin</span></li>
+            </ul>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col">
+            <h3 class="font-bold text-lg mb-2 brand-purple flex items-center gap-2"><i class="fa fa-chart-bar brand-purple"></i> Quick Analytics</h3>
+            <div class="flex flex-col gap-2">
+              <div class="flex items-center justify-between"><span>Active Today</span><span class="font-bold brand-blue">56</span></div>
+              <div class="flex items-center justify-between"><span>Lessons Completed</span><span class="font-bold brand-gold">34</span></div>
+              <div class="flex items-center justify-between"><span>Support Tickets</span><span class="font-bold brand-red">3</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- User Management -->
+      <section id="users" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-users brand-blue"></i> User Management</h2>
+        <div class="flex justify-between mb-4">
+          <input type="text" id="user-search" placeholder="Search users..." class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm w-64" />
+          <button id="add-user-btn" class="btn-gold px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa fa-user-plus"></i> Add User</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm rounded-xl overflow-hidden" id="user-table">
+            <thead>
+              <tr class="bg-alt">
+                <th class="px-4 py-2 text-left">Name</th>
+                <th class="px-4 py-2 text-left">Email</th>
+                <th class="px-4 py-2 text-left">Status</th>
+                <th class="px-4 py-2 text-left">Progress</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body">
+              <!-- Users will be rendered here -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Add/Edit User Modal -->
+        <div id="user-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+            <button onclick="closeUserModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+            <h3 id="user-modal-title" class="text-xl font-bold mb-4 brand-blue">Add User</h3>
+            <form id="user-modal-form" class="space-y-4">
+              <input type="hidden" id="modal-user-id" />
+              <div>
+                <label class="block font-semibold mb-1">Full Name</label>
+                <input type="text" id="modal-user-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Email</label>
+                <input type="email" id="modal-user-email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Status</label>
+                <select id="modal-user-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                  <option value="Active">Active</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Progress (%)</label>
+                <input type="number" id="modal-user-progress" min="0" max="100" value="0" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeUserModal()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 font-semibold">Cancel</button>
+                <button type="submit" class="btn-gold px-4 py-2 rounded-lg font-semibold">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- Course Management -->
+      <section id="courses" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-book brand-purple"></i> Course Management</h2>
+        <div class="flex justify-between mb-4">
+          <input type="text" placeholder="Search courses..." class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none text-sm w-64" />
+          <button class="btn-gold px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa fa-plus"></i> Add Course</button>
+          <button id="auto-issue-certificates-btn" class="btn-gold px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa fa-certificate"></i> Issue Certificates</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm rounded-xl overflow-hidden">
+            <thead>
+              <tr class="bg-alt">
+                <th class="px-4 py-2 text-left">Title</th>
+                <th class="px-4 py-2 text-left">Status</th>
+                <th class="px-4 py-2 text-left">Lessons</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="px-4 py-2 font-semibold">Foundations of Faith</td>
+                <td class="px-4 py-2"><span class="bg-gold text-white text-xs px-2 py-1 rounded-full">Published</span></td>
+                <td class="px-4 py-2">8</td>
+                <td class="px-4 py-2 flex gap-2">
+                  <button class="btn-gold px-2 py-1 rounded"><i class="fa fa-edit"></i></button>
+                  <button class="bg-red-500 text-white px-2 py-1 rounded"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr class="border-b">
+                <td class="px-4 py-2 font-semibold">Prayer & Devotion</td>
+                <td class="px-4 py-2"><span class="bg-blue text-white text-xs px-2 py-1 rounded-full">Draft</span></td>
+                <td class="px-4 py-2">5</td>
+                <td class="px-4 py-2 flex gap-2">
+                  <button class="btn-gold px-2 py-1 rounded"><i class="fa fa-edit"></i></button>
+                  <button class="bg-red-500 text-white px-2 py-1 rounded"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-semibold">Community & Fellowship</td>
+                <td class="px-4 py-2"><span class="bg-purple text-white text-xs px-2 py-1 rounded-full">Archived</span></td>
+                <td class="px-4 py-2">3</td>
+                <td class="px-4 py-2 flex gap-2">
+                  <button class="btn-gold px-2 py-1 rounded"><i class="fa fa-edit"></i></button>
+                  <button class="bg-red-500 text-white px-2 py-1 rounded"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Analytics -->
+      <section id="analytics" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-chart-bar brand-gold"></i> Analytics</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-blue">
+            <i class="fa fa-user-plus text-2xl brand-blue mb-2"></i>
+            <div class="text-lg font-bold brand-blue">+32</div>
+            <div class="text-sm brand-blue">New Users This Month</div>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-gold">
+            <i class="fa fa-book-open text-2xl brand-gold mb-2"></i>
+            <div class="text-lg font-bold brand-gold">+12</div>
+            <div class="text-sm brand-gold">Courses Published</div>
+          </div>
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col items-center border-l-4 border-purple">
+            <i class="fa fa-users text-2xl brand-purple mb-2"></i>
+            <div class="text-lg font-bold brand-purple">+8</div>
+            <div class="text-sm brand-purple">Groups Created</div>
+          </div>
+        </div>
+        <div class="mt-8">
+          <div class="dashboard-card rounded-xl p-6 shadow flex flex-col">
+            <h3 class="font-bold text-lg mb-2 brand-blue flex items-center gap-2"><i class="fa fa-chart-line brand-blue"></i> Engagement Chart (Sample)</h3>
+            <div class="w-full h-40 bg-alt rounded-lg flex items-center justify-center text-gray-400">[Chart Placeholder]</div>
+          </div>
+        </div>
+      </section>
+      <!-- Community Moderation -->
+      <section id="community" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-comments brand-purple"></i> Community Moderation</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm rounded-xl overflow-hidden">
+            <thead>
+              <tr class="bg-alt">
+                <th class="px-4 py-2 text-left">User</th>
+                <th class="px-4 py-2 text-left">Post/Comment</th>
+                <th class="px-4 py-2 text-left">Status</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="px-4 py-2 font-semibold">John Doe</td>
+                <td class="px-4 py-2">"Excited for the new course!"</td>
+                <td class="px-4 py-2"><span class="bg-gold text-white text-xs px-2 py-1 rounded-full">Pending</span></td>
+                <td class="px-4 py-2 flex gap-2">
+                  <button class="btn-gold px-2 py-1 rounded"><i class="fa fa-check"></i></button>
+                  <button class="bg-red-500 text-white px-2 py-1 rounded"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-4 py-2 font-semibold">Jane Smith</td>
+                <td class="px-4 py-2">"Thank you for the support!"</td>
+                <td class="px-4 py-2"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Approved</span></td>
+                <td class="px-4 py-2 flex gap-2">
+                  <button class="bg-red-500 text-white px-2 py-1 rounded"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Announcements Section -->
+      <section id="announcements" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2">
+          <i class="fa fa-bullhorn brand-gold"></i> Announcements
+        </h2>
+        
+        <!-- Advanced Post Form -->
+        <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+          <h3 class="font-semibold mb-3">Post New Announcement</h3>
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <input id="announcement-title" type="text" placeholder="Announcement Title" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none" />
+            <select id="announcement-priority" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none">
+              <option value="normal">Normal Priority</option>
+              <option value="high">High Priority</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <textarea id="announcement-message" placeholder="Announcement Message (supports longer text)" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none" rows="3"></textarea>
+          </div>
+          <div class="grid md:grid-cols-3 gap-4 mb-4">
+            <input id="announcement-schedule" type="datetime-local" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none" />
+            <input id="announcement-attachment" type="file" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none" />
+            <div class="flex items-center">
+              <input id="announcement-pin" type="checkbox" class="mr-2" />
+              <label for="announcement-pin" class="text-sm">Pin to top</label>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button id="post-announcement-btn" class="btn-gold px-6 py-2 rounded font-semibold" type="button">
+              <i class="fa fa-paper-plane mr-2"></i>Post Now
+            </button>
+            <button id="schedule-announcement-btn" class="bg-blue-500 text-white px-6 py-2 rounded font-semibold hover:bg-blue-600" type="button">
+              <i class="fa fa-clock mr-2"></i>Schedule
+            </button>
+          </div>
+        </div>
+        
+        <!-- Announcements List -->
+        <div class="dashboard-card rounded-xl p-6 shadow">
+          <h3 class="font-bold text-lg mb-4 brand-gold flex items-center gap-2">
+            <i class="fa fa-bullhorn brand-gold"></i> Recent Announcements
+          </h3>
+          
+          <!-- Announcement Statistics -->
+          <div class="grid md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-blue-600 font-medium">Total Announcements</p>
+                  <p id="total-announcements" class="text-2xl font-bold text-blue-900">0</p>
+                </div>
+                <i class="fa fa-bullhorn text-blue-500 text-2xl"></i>
+              </div>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-green-600 font-medium">Active</p>
+                  <p id="active-announcements" class="text-2xl font-bold text-green-900">0</p>
+                </div>
+                <i class="fa fa-check-circle text-green-500 text-2xl"></i>
+              </div>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-purple-600 font-medium">Scheduled</p>
+                  <p id="scheduled-announcements" class="text-2xl font-bold text-purple-900">0</p>
+                </div>
+                <i class="fa fa-clock text-purple-500 text-2xl"></i>
+              </div>
+            </div>
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-yellow-600 font-medium">Pinned</p>
+                  <p id="pinned-announcements" class="text-2xl font-bold text-yellow-900">0</p>
+                </div>
+                <i class="fa fa-thumb-tack text-yellow-500 text-2xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div id="announcements-list" class="space-y-3">
+            <!-- Announcements will be rendered here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Edit Announcement Modal -->
+      <div id="edit-announcement-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold">Edit Announcement</h3>
+            <button id="close-edit-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+          </div>
+          <form id="edit-announcement-form" class="space-y-4">
+            <input type="hidden" id="edit-announcement-id" />
+            <div class="grid md:grid-cols-2 gap-4">
+              <input id="edit-announcement-title" type="text" placeholder="Title" class="px-3 py-2 border border-gray-300 rounded" required />
+              <select id="edit-announcement-priority" class="px-3 py-2 border border-gray-300 rounded">
+                <option value="normal">Normal Priority</option>
+                <option value="high">High Priority</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <textarea id="edit-announcement-message" placeholder="Message" class="w-full px-3 py-2 border border-gray-300 rounded" rows="3" required></textarea>
+            <div class="grid md:grid-cols-2 gap-4">
+              <input id="edit-announcement-schedule" type="datetime-local" class="px-3 py-2 border border-gray-300 rounded" />
+              <div class="flex items-center">
+                <input id="edit-announcement-pin" type="checkbox" class="mr-2" />
+                <label for="edit-announcement-pin" class="text-sm">Pin to top</label>
+              </div>
+            </div>
+            <div id="edit-attachment-preview" class="p-3 bg-gray-50 rounded"></div>
+            <div class="flex gap-3 justify-end">
+              <button type="button" id="cancel-edit" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+              <button type="submit" class="px-4 py-2 bg-[#7C3AED] text-white rounded">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Support Section -->
+      <section id="support" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2">
+          <i class="fa fa-life-ring brand-red"></i> Support & Tickets
+        </h2>
+        
+        <!-- Support Statistics -->
+        <div class="grid md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-red-600 font-medium">Open Tickets</p>
+                <p id="open-tickets" class="text-2xl font-bold text-red-900">0</p>
+              </div>
+              <i class="fa fa-exclamation-circle text-red-500 text-2xl"></i>
+            </div>
+          </div>
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-green-600 font-medium">Resolved</p>
+                <p id="resolved-tickets" class="text-2xl font-bold text-green-900">0</p>
+              </div>
+              <i class="fa fa-check-circle text-green-500 text-2xl"></i>
+            </div>
+          </div>
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-blue-600 font-medium">Total Tickets</p>
+                <p id="total-tickets" class="text-2xl font-bold text-blue-900">0</p>
+              </div>
+              <i class="fa fa-ticket text-blue-500 text-2xl"></i>
+            </div>
+          </div>
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-yellow-600 font-medium">Avg Response</p>
+                <p id="avg-response" class="text-2xl font-bold text-yellow-900">0h</p>
+              </div>
+              <i class="fa fa-clock text-yellow-500 text-2xl"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="flex flex-col md:flex-row gap-4 mb-6">
+          <div class="flex-1">
+            <input type="text" id="support-search" placeholder="Search tickets..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:outline-none" />
+          </div>
+          <div class="flex gap-2">
+            <select id="status-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:outline-none">
+              <option value="">All Status</option>
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+            </select>
+            <button id="refresh-support-btn" class="btn-gold px-4 py-2 rounded-lg">
+              <i class="fa fa-refresh"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white rounded shadow">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="px-4 py-3 text-left font-semibold">User</th>
+                <th class="px-4 py-3 text-left font-semibold">Issue</th>
+                <th class="px-4 py-3 text-left font-semibold">Priority</th>
+                <th class="px-4 py-3 text-left font-semibold">Status</th>
+                <th class="px-4 py-3 text-left font-semibold">Date</th>
+                <th class="px-4 py-3 text-left font-semibold">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="support-table-body">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Reply Modal -->
+      <div id="support-reply-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold">Reply to Support Ticket</h3>
+            <button id="close-reply-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+          </div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg mb-4">
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <strong>User:</strong> <span id="support-reply-user"></span>
+              </div>
+              <div>
+                <strong>Priority:</strong> <span id="support-reply-priority"></span>
+              </div>
+              <div>
+                <strong>Status:</strong> <span id="support-reply-status"></span>
+              </div>
+              <div>
+                <strong>Date:</strong> <span id="support-reply-date"></span>
+              </div>
+            </div>
+            <div class="mt-3">
+              <strong>Issue:</strong>
+              <div id="support-reply-issue" class="mt-1 p-2 bg-white rounded border"></div>
+            </div>
+          </div>
+
+          <div id="support-reply-history" class="mb-4 max-h-40 overflow-y-auto">
+            <!-- Reply history will be shown here -->
+          </div>
+
+          <form id="support-reply-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-2">Your Reply</label>
+              <textarea id="support-reply-message" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none" rows="4" placeholder="Type your reply..." required></textarea>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">Update Status</label>
+                <select id="support-reply-status-update" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-gold focus:outline-none">
+                  <option value="">Keep Current</option>
+                  <option value="Open">Open</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Resolved">Resolved</option>
+                </select>
+              </div>
+              <div class="flex items-end">
+                <label class="flex items-center">
+                  <input type="checkbox" id="support-reply-notify" class="mr-2" checked />
+                  <span class="text-sm">Notify user via email</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex gap-3 justify-end">
+              <button type="button" id="support-reply-cancel" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+              <button type="submit" class="px-4 py-2 bg-[#7C3AED] text-white rounded hover:bg-[#6D28D9]">
+                <i class="fa fa-paper-plane mr-2"></i>Send Reply
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Certificate Management -->
+      <section id="certificates" class="dashboard-section rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold section-title mb-6 flex items-center gap-2"><i class="fa fa-certificate brand-gold"></i> Certificate Management</h2>
+        <div class="flex justify-between mb-4">
+          <input type="text" id="certificate-search" placeholder="Search certificates..." class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-gold focus:outline-none text-sm w-64" />
+          <button id="add-certificate-btn" class="btn-gold px-4 py-2 rounded-lg flex items-center gap-2"><i class="fa fa-plus"></i> Add Certificate</button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm rounded-xl overflow-hidden" id="certificate-table">
+            <thead>
+              <tr class="bg-alt">
+                <th class="px-4 py-2 text-left">User</th>
+                <th class="px-4 py-2 text-left">Course</th>
+                <th class="px-4 py-2 text-left">Date Issued</th>
+                <th class="px-4 py-2 text-left">Status</th>
+                <th class="px-4 py-2 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="certificate-table-body">
+              <!-- Certificates will be rendered here -->
+            </tbody>
+          </table>
+        </div>
+        <!-- Add/Edit Certificate Modal -->
+        <div id="certificate-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+            <button onclick="closeCertificateModal()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+            <h3 id="certificate-modal-title" class="text-xl font-bold mb-4 brand-gold">Add Certificate</h3>
+            <form id="certificate-modal-form" class="space-y-4">
+              <input type="hidden" id="modal-certificate-id" />
+              <div>
+                <label class="block font-semibold mb-1">User</label>
+                <select id="modal-certificate-user" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold"></select>
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Course</label>
+                <select id="modal-certificate-course" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold"></select>
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Date Issued</label>
+                <input type="date" id="modal-certificate-date" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Status</label>
+                <select id="modal-certificate-status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold">
+                  <option value="Issued">Issued</option>
+                  <option value="Revoked">Revoked</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Signature Name</label>
+                <input type="text" id="modal-certificate-signature" placeholder="e.g. Rev. John Smith" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Signature Title</label>
+                <input type="text" id="modal-certificate-title" placeholder="e.g. Director" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold" />
+              </div>
+              <div class="flex justify-end gap-2">
+                <button type="button" onclick="closeCertificateModal()" class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 font-semibold">Cancel</button>
+                <button type="submit" class="btn-gold px-4 py-2 rounded-lg font-semibold">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- Certificate Preview Modal -->
+        <div id="certificate-preview-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 hidden">
+          <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative">
+            <button onclick="closeCertificatePreview()" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+            <div id="certificate-preview-content" class="flex flex-col items-center justify-center">
+              <!-- Certificate preview will be rendered here -->
+            </div>
+            <div class="flex flex-col md:flex-row justify-end mt-4 gap-2">
+              <button onclick="testCertificateDownload()" class="btn-gold px-4 py-2 rounded-lg font-semibold bg-gray-600 hover:bg-gray-700 text-white flex items-center gap-2" title="Test download functionality"><i class="fa fa-bug"></i> <span>Test Download</span></button>
+              <button onclick="downloadCertificateHTML()" class="btn-gold px-4 py-2 rounded-lg font-semibold bg-purple-600 hover:bg-purple-700 text-white flex items-center gap-2" title="Download as HTML file"><i class="fa fa-file-code"></i> <span>Download HTML</span></button>
+              <button id="download-certificate-btn" class="btn-gold px-4 py-2 rounded-lg font-semibold bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2" aria-label="Download certificate as PNG" title="Download certificate as PNG"><i class="fa fa-download"></i> <span id="download-png-text">Download PNG</span> <span id="download-png-spinner" class="hidden animate-spin ml-2"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg></span></button>
+              <button id="download-certificate-pdf-btn" class="btn-gold px-4 py-2 rounded-lg font-semibold bg-red-600 hover:bg-red-700 text-white flex items-center gap-2" aria-label="Download certificate as PDF" title="Download certificate as PDF"><i class="fa fa-file-pdf"></i> <span id="download-pdf-text">Download PDF</span> <span id="download-pdf-spinner" class="hidden animate-spin ml-2"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg></span></button>
+              <button onclick="downloadCertificateSimple()" class="btn-gold px-4 py-2 rounded-lg font-semibold bg-green-600 hover:bg-green-700 text-white flex items-center gap-2" title="Download as text file (fallback)"><i class="fa fa-file-text"></i> <span>Download TXT</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Modern Footer -->
+  <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="footer-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+            <circle cx="30" cy="30" r="2" fill="currentColor"/>
+            <circle cx="15" cy="15" r="1" fill="currentColor"/>
+            <circle cx="45" cy="45" r="1" fill="currentColor"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#footer-pattern)"/>
+      </svg>
+    </div>
+    
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Ministry Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+            <div>
+              <h3 class="text-xl font-bold text-[#FDBA17]">Hearts After God</h3>
+              <p class="text-sm text-white/80">Ministry</p>
+            </div>
+          </div>
+          <p class="text-white/90 leading-relaxed">
+            Empowering believers worldwide through discipleship, soul-winning, and revival. Join our global family as we reach the world for Christ.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+            </a>
+            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram">
+              <svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg>
+            </a>
+            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>About Us</a></li>
+            <li><a href="vision.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Our Vision</a></li>
+            <li><a href="events.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Events</a></li>
+            <li><a href="sermons.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Sermons</a></li>
+            <li><a href="blog.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Blog</a></li>
+            <li><a href="gallery.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Gallery</a></li>
+          </ul>
+        </div>
+
+        <!-- Ministries -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Ministries</h4>
+          <ul class="space-y-2">
+            <li><a href="discipleship.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Discipleship</a></li>
+            <li><a href="missions.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Missions</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact & Newsletter -->
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Stay Connected</h4>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <span class="text-sm">info@heartsaftergod.org</span>
+            </div>
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              <span class="text-sm">+1 (555) 123-4567</span>
+            </div>
+            <div class="flex items-center gap-3 text-white/80">
+              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span class="text-sm">Global Ministry</span>
+            </div>
+          </div>
+          
+          <!-- Newsletter Signup -->
+          <div class="mt-6">
+            <h5 class="text-sm font-semibold text-white mb-2">Newsletter</h5>
+            <form class="flex gap-2">
+              <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 text-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-[#FDBA17] transition-colors">
+              <button type="submit" class="px-4 py-2 bg-[#FDBA17] text-[#2046B3] text-sm font-semibold rounded-lg hover:bg-[#e0a615] transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="border-t border-white/20 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div class="text-sm text-white/70">
+            &copy; 2025 Hearts After God Ministry. All rights reserved. | Empowering Believers. Winning Souls.
+          </div>
+          <div class="flex gap-6 text-sm">
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Privacy Policy</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Terms of Service</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Donate</a>
+            <a href="contact.html" class="text-white/70 hover:text-[#FDBA17] transition-colors">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <script>
+    // Verify libraries are loaded
+    window.addEventListener('load', function() {
+      if (typeof html2canvas === 'undefined') {
+        console.error('html2canvas library not loaded');
+      } else {
+        console.log('html2canvas library loaded successfully');
+      }
+      
+      if (typeof window.jspdf === 'undefined') {
+        console.error('jsPDF library not loaded');
+      } else {
+        console.log('jsPDF library loaded successfully');
+      }
+      
+      if (typeof QRious === 'undefined') {
+        console.error('QRious library not loaded');
+      } else {
+        console.log('QRious library loaded successfully');
+      }
+    });
+  </script>
+  <script src="assets/js/discipleship-backend.js"></script>
+  <script>
+    document.getElementById('logout-btn').onclick = function() {
+      window.location.href = 'discipleship-login.html';
+    };
+
+    // Test functions on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Admin page loaded, testing buttons...');
+      setTimeout(() => {
+        if (window.testAnnouncementButtons) {
+          window.testAnnouncementButtons();
+        } else {
+          console.log('testAnnouncementButtons function not found');
+        }
+        
+        // Test certificate download functionality
+        console.log('Testing certificate download libraries...');
+        console.log('html2canvas available:', typeof html2canvas !== 'undefined');
+        console.log('jsPDF available:', typeof window.jspdf !== 'undefined');
+        console.log('QRious available:', typeof QRious !== 'undefined');
+      }, 1000);
+    });
+    
+    // Add a test function for certificate download
+    window.testCertificateDownload = function() {
+      console.log('Testing certificate download...');
+      
+      // Create a simple test certificate
+      const testDiv = document.createElement('div');
+      testDiv.innerHTML = `
+        <div id="test-certificate" style="background: white; padding: 40px; border: 4px solid #F59E0B; border-radius: 8px; width: 400px; font-family: Arial, sans-serif; text-align: center;">
+          <div style="font-size: 24px; font-weight: bold; color: #F59E0B; margin-bottom: 20px;">Hearts After God Ministry</div>
+          <div style="font-size: 20px; font-weight: bold; color: #7C3AED; margin-bottom: 30px;">Certificate of Completion</div>
+          <div style="margin-bottom: 20px;">This certifies that</div>
+          <div style="font-size: 18px; font-weight: bold; color: #7C3AED; margin-bottom: 20px;">Test User</div>
+          <div style="margin-bottom: 20px;">has successfully completed the course</div>
+          <div style="font-size: 16px; font-weight: bold; color: #3B82F6; margin-bottom: 20px;">Test Course</div>
+          <div style="margin-bottom: 20px;">on</div>
+          <div style="font-size: 16px; font-weight: bold; margin-bottom: 30px;">2025-01-15</div>
+          <div style="display: flex; justify-content: space-between; align-items: end;">
+            <div style="text-align: center;">
+              <div style="font-weight: bold; color: #7C3AED;">Rev. John Smith</div>
+              <div style="font-size: 12px; color: #666;">Director</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 12px; color: #666;">Certificate ID:</div>
+              <div style="font-size: 12px; font-family: monospace;">TEST-123</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 12px; color: #666;">Status:</div>
+              <div style="font-size: 12px; font-weight: bold; color: #10B981;">Issued</div>
+            </div>
+          </div>
+          <div style="margin-top: 20px; font-size: 12px; color: #666;">© 2025 Hearts After God Ministry</div>
+        </div>
+      `;
+      testDiv.style.position = 'absolute';
+      testDiv.style.left = '-9999px';
+      document.body.appendChild(testDiv);
+      
+      if (typeof html2canvas !== 'undefined') {
+        const testCertificate = document.getElementById('test-certificate');
+        console.log('Test certificate element:', testCertificate);
+        console.log('Test certificate dimensions:', testCertificate.offsetWidth, 'x', testCertificate.offsetHeight);
+        
+        html2canvas(testCertificate, {
+          backgroundColor: '#ffffff',
+          scale: 1,
+          useCORS: false,
+          allowTaint: false,
+          logging: true,
+          width: testCertificate.offsetWidth,
+          height: testCertificate.offsetHeight
+        }).then(canvas => {
+          console.log('Test canvas generated successfully');
+          console.log('Test canvas dimensions:', canvas.width, 'x', canvas.height);
+          const dataURL = canvas.toDataURL('image/png', 0.9);
+          console.log('Test data URL generated, length:', dataURL.length);
+          
+          if (dataURL.length > 100) {
+            // Try to download the test certificate
+            const link = document.createElement('a');
+            link.download = 'test-certificate.png';
+            link.href = dataURL;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            console.log('Test certificate download initiated');
+          } else {
+            console.error('Test data URL is too short');
+          }
+          
+          document.body.removeChild(testDiv);
+        }).catch(error => {
+          console.error('Test canvas generation failed:', error);
+          document.body.removeChild(testDiv);
+        });
+      } else {
+        console.error('html2canvas not available for testing');
+        document.body.removeChild(testDiv);
+      }
+    };
+    // User Management Logic (localStorage)
+    const userTableBody = document.getElementById('user-table-body');
+    const addUserBtn = document.getElementById('add-user-btn');
+    const userModal = document.getElementById('user-modal');
+    const userModalForm = document.getElementById('user-modal-form');
+    const userModalTitle = document.getElementById('user-modal-title');
+    const modalUserId = document.getElementById('modal-user-id');
+    const modalUserName = document.getElementById('modal-user-name');
+    const modalUserEmail = document.getElementById('modal-user-email');
+    const modalUserStatus = document.getElementById('modal-user-status');
+    const modalUserProgress = document.getElementById('modal-user-progress');
+    const userSearch = document.getElementById('user-search');
+
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+    }
+    function setUsers(users) {
+      localStorage.setItem('discipleship_users', JSON.stringify(users));
+    }
+    function renderUsers(filter = '') {
+      const users = getUsers();
+      userTableBody.innerHTML = '';
+      users.filter(u => u.name.toLowerCase().includes(filter.toLowerCase()) || u.email.toLowerCase().includes(filter.toLowerCase())).forEach((user, idx) => {
+        userTableBody.innerHTML += `
+          <tr class="border-b">
+            <td class="px-4 py-2 font-semibold">${user.name}</td>
+            <td class="px-4 py-2">${user.email}</td>
+            <td class="px-4 py-2">
+              <span class="${user.status === 'Active' ? 'bg-green-100 text-green-800' : user.status === 'Completed' ? 'bg-blue-100 text-blue-800' : 'bg-gold text-white'} text-xs px-2 py-1 rounded-full">${user.status}</span>
+            </td>
+            <td class="px-4 py-2">${user.progress || 0}%</td>
+            <td class="px-4 py-2 flex gap-2">
+              <button class="btn-gold px-2 py-1 rounded" onclick="editUser(${idx})"><i class="fa fa-edit"></i></button>
+              <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteUser(${idx})"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+    function openUserModal(editIdx = null) {
+      userModal.classList.remove('hidden');
+      if (editIdx !== null) {
+        const user = getUsers()[editIdx];
+        userModalTitle.textContent = 'Edit User';
+        modalUserId.value = editIdx;
+        modalUserName.value = user.name;
+        modalUserEmail.value = user.email;
+        modalUserStatus.value = user.status;
+        modalUserProgress.value = user.progress || 0;
+      } else {
+        userModalTitle.textContent = 'Add User';
+        modalUserId.value = '';
+        modalUserName.value = '';
+        modalUserEmail.value = '';
+        modalUserStatus.value = 'Active';
+        modalUserProgress.value = 0;
+      }
+    }
+    function closeUserModal() {
+      userModal.classList.add('hidden');
+      userModalForm.reset();
+    }
+    addUserBtn.onclick = () => openUserModal();
+    window.closeUserModal = closeUserModal;
+    window.editUser = function(idx) {
+      openUserModal(idx);
+      // Add automation: if status is changed to Completed, prompt to issue certificate
+      modalUserStatus.onchange = function() {
+        if (modalUserStatus.value === 'Completed') {
+          setTimeout(() => {
+            if (confirm('User marked as Completed. Issue certificate now?')) {
+              // Pre-fill certificate modal
+              closeUserModal();
+              openCertificateModal();
+              modalCertificateUser.value = getUsers()[idx].name;
+              modalCertificateCourse.selectedIndex = 0;
+              modalCertificateDate.value = new Date().toISOString().slice(0,10);
+              modalCertificateStatus.value = 'Issued';
+              modalCertificateSignature.value = 'Rev. John Smith';
+              modalCertificateTitle.value = 'Director';
+            }
+          }, 200);
+        }
+      };
+    };
+    window.deleteUser = function(idx) {
+      if (confirm('Are you sure you want to delete this user?')) {
+        const users = getUsers();
+        users.splice(idx, 1);
+        setUsers(users);
+        renderUsers(userSearch.value);
+      }
+    };
+    userModalForm.onsubmit = function(e) {
+      e.preventDefault();
+      const users = getUsers();
+      const user = {
+        name: modalUserName.value,
+        email: modalUserEmail.value,
+        status: modalUserStatus.value,
+        progress: parseInt(modalUserProgress.value) || 0,
+        password: users[modalUserId.value]?.password || 'user123',
+      };
+      if (modalUserId.value) {
+        users[modalUserId.value] = user;
+      } else {
+        users.push(user);
+      }
+      setUsers(users);
+      closeUserModal();
+      renderUsers(userSearch.value);
+    };
+    userSearch.oninput = function() {
+      renderUsers(userSearch.value);
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      renderUsers();
+    });
+    // Certificate Management Logic (localStorage)
+    const certificateTableBody = document.getElementById('certificate-table-body');
+    const addCertificateBtn = document.getElementById('add-certificate-btn');
+    const certificateModal = document.getElementById('certificate-modal');
+    const certificateModalForm = document.getElementById('certificate-modal-form');
+    const certificateModalTitle = document.getElementById('certificate-modal-title');
+    const modalCertificateId = document.getElementById('modal-certificate-id');
+    const modalCertificateUser = document.getElementById('modal-certificate-user');
+    const modalCertificateCourse = document.getElementById('modal-certificate-course');
+    const modalCertificateDate = document.getElementById('modal-certificate-date');
+    const modalCertificateStatus = document.getElementById('modal-certificate-status');
+    const certificateSearch = document.getElementById('certificate-search');
+    const certificatePreviewModal = document.getElementById('certificate-preview-modal');
+    const certificatePreviewContent = document.getElementById('certificate-preview-content');
+    const downloadCertificateBtn = document.getElementById('download-certificate-btn');
+    const downloadCertificatePdfBtn = document.getElementById('download-certificate-pdf-btn');
+    const modalCertificateSignature = document.getElementById('modal-certificate-signature');
+    const modalCertificateTitle = document.getElementById('modal-certificate-title');
+    const autoIssueCertificatesBtn = document.getElementById('auto-issue-certificates-btn');
+
+    function getCertificates() {
+      return JSON.parse(localStorage.getItem('discipleship_certificates') || '[]');
+    }
+    function setCertificates(certificates) {
+      localStorage.setItem('discipleship_certificates', JSON.stringify(certificates));
+    }
+    function getUsers() {
+      return JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+    }
+    function getCourses() {
+      // For demo, extract unique course names from certificates and courses section
+      const certCourses = getCertificates().map(c => c.course);
+      const courseTable = document.querySelectorAll('#courses table tbody tr');
+      let courseNames = [];
+      courseTable.forEach(row => {
+        const td = row.querySelector('td');
+        if (td) courseNames.push(td.textContent.trim());
+      });
+      return Array.from(new Set([...certCourses, ...courseNames])).filter(Boolean);
+    }
+    function renderCertificates(filter = '') {
+      const certificates = getCertificates();
+      certificateTableBody.innerHTML = '';
+      certificates.filter(c => c.user.toLowerCase().includes(filter.toLowerCase()) || c.course.toLowerCase().includes(filter.toLowerCase())).forEach((cert, idx) => {
+        certificateTableBody.innerHTML += `
+          <tr class="border-b">
+            <td class="px-4 py-2 font-semibold">${cert.user}</td>
+            <td class="px-4 py-2">${cert.course}</td>
+            <td class="px-4 py-2">${cert.date}</td>
+            <td class="px-4 py-2">
+              <span class="${cert.status === 'Issued' ? 'bg-gold text-white' : 'bg-red-100 text-red-800'} text-xs px-2 py-1 rounded-full">${cert.status}</span>
+            </td>
+            <td class="px-4 py-2 flex gap-2">
+              <button class="btn-gold px-2 py-1 rounded" onclick="editCertificate(${idx})"><i class="fa fa-edit"></i></button>
+              <button class="bg-red-500 text-white px-2 py-1 rounded" onclick="deleteCertificate(${idx})"><i class="fa fa-trash"></i></button>
+              <button class="bg-blue-600 text-white px-2 py-1 rounded" onclick="previewCertificate(${idx})"><i class="fa fa-eye"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+    function populateCertificateUserCourse() {
+      // Populate user dropdown
+      const users = getUsers();
+      modalCertificateUser.innerHTML = users.map(u => `<option value="${u.name}">${u.name} (${u.email})</option>`).join('');
+      // Populate course dropdown
+      const courses = getCourses();
+      modalCertificateCourse.innerHTML = courses.map(c => `<option value="${c}">${c}</option>`).join('');
+    }
+    function openCertificateModal(editIdx = null) {
+      certificateModal.classList.remove('hidden');
+      populateCertificateUserCourse();
+      if (editIdx !== null) {
+        const cert = getCertificates()[editIdx];
+        certificateModalTitle.textContent = 'Edit Certificate';
+        modalCertificateId.value = editIdx;
+        modalCertificateUser.value = cert.user;
+        modalCertificateCourse.value = cert.course;
+        modalCertificateDate.value = cert.date;
+        modalCertificateStatus.value = cert.status;
+        modalCertificateSignature.value = cert.signature || '';
+        modalCertificateTitle.value = cert.title || '';
+      } else {
+        certificateModalTitle.textContent = 'Add Certificate';
+        modalCertificateId.value = '';
+        modalCertificateUser.selectedIndex = 0;
+        modalCertificateCourse.selectedIndex = 0;
+        modalCertificateDate.value = '';
+        modalCertificateStatus.value = 'Issued';
+        modalCertificateSignature.value = '';
+        modalCertificateTitle.value = '';
+      }
+    }
+    function closeCertificateModal() {
+      certificateModal.classList.add('hidden');
+      certificateModalForm.reset();
+    }
+    addCertificateBtn.onclick = () => openCertificateModal();
+    window.closeCertificateModal = closeCertificateModal;
+    window.editCertificate = function(idx) { openCertificateModal(idx); };
+    window.deleteCertificate = function(idx) {
+      if (confirm('Are you sure you want to delete this certificate?')) {
+        const certificates = getCertificates();
+        certificates.splice(idx, 1);
+        setCertificates(certificates);
+        renderCertificates(certificateSearch.value);
+      }
+    };
+    window.previewCertificate = function(idx) {
+      const cert = getCertificates()[idx];
+      // Ensure certificate has a UUID
+      if (!cert.id) {
+        cert.id = generateUUID();
+        const certificates = getCertificates();
+        certificates[idx] = cert;
+        setCertificates(certificates);
+      }
+      
+      // Add a simple fallback download function
+      window.downloadCertificateSimple = function() {
+        const certCanvas = document.getElementById('certificate-canvas');
+        if (!certCanvas) {
+          alert('Certificate not found. Please try again.');
+          return;
+        }
+        
+        // Create a simple text-based certificate as fallback
+        const certificateText = `
+CERTIFICATE OF COMPLETION
+
+This certifies that ${cert.user} has successfully completed the course "${cert.course}" on ${cert.date}.
+
+Certificate ID: ${cert.id}
+Status: ${cert.status}
+Signature: ${cert.signature || 'Rev. John Smith'}
+Title: ${cert.title || 'Director'}
+
+© 2025 Hearts After God Ministry
+        `;
+        
+        const blob = new Blob([certificateText], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `certificate-${cert.user.replace(/\s+/g,'_')}-${cert.course.replace(/\s+/g,'_')}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      };
+      
+      // Add a simple HTML download function
+      window.downloadCertificateHTML = function() {
+        const certCanvas = document.getElementById('certificate-canvas');
+        if (!certCanvas) {
+          alert('Certificate not found. Please try again.');
+          return;
+        }
+        
+        // Create an HTML certificate
+        const certificateHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Certificate - ${cert.user}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
+        .certificate { background: white; padding: 40px; border: 4px solid #F59E0B; border-radius: 8px; text-align: center; max-width: 600px; margin: 0 auto; }
+        .header { color: #F59E0B; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .title { color: #7C3AED; font-size: 20px; font-weight: bold; margin-bottom: 30px; }
+        .name { color: #7C3AED; font-size: 18px; font-weight: bold; margin: 20px 0; }
+        .course { color: #3B82F6; font-size: 16px; font-weight: bold; margin: 20px 0; }
+        .footer { display: flex; justify-content: space-between; margin-top: 30px; }
+        .footer div { text-align: center; }
+        .signature { font-weight: bold; color: #7C3AED; }
+        .id { font-family: monospace; font-size: 12px; }
+        .status { font-weight: bold; color: #10B981; }
+        .copyright { margin-top: 20px; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="header">Hearts After God Ministry</div>
+        <div class="title">Certificate of Completion</div>
+        <div>This certifies that</div>
+        <div class="name">${cert.user}</div>
+        <div>has successfully completed the course</div>
+        <div class="course">${cert.course}</div>
+        <div>on</div>
+        <div style="font-weight: bold; margin: 20px 0;">${cert.date}</div>
+        <div class="footer">
+            <div>
+                <div class="signature">${cert.signature || 'Rev. John Smith'}</div>
+                <div style="font-size: 12px; color: #666;">${cert.title || 'Director'}</div>
+            </div>
+            <div>
+                <div style="font-size: 12px; color: #666;">Certificate ID:</div>
+                <div class="id">${cert.id}</div>
+            </div>
+            <div>
+                <div style="font-size: 12px; color: #666;">Status:</div>
+                <div class="status">${cert.status}</div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 Hearts After God Ministry</div>
+    </div>
+</body>
+</html>`;
+        
+        const blob = new Blob([certificateHTML], { type: 'text/html' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `certificate-${cert.user.replace(/\s+/g,'_')}-${cert.course.replace(/\s+/g,'_')}.html`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      };
+      certificatePreviewModal.classList.remove('hidden');
+      // Generate QR code with verification URL
+      const baseUrl = 'https://heartsaftergod.org/verify';
+      const params = new URLSearchParams({
+        user: cert.user,
+        course: cert.course,
+        date: cert.date,
+        id: cert.id
+      });
+      const qrUrl = `${baseUrl}?${params.toString()}`;
+      // Preload the logo image
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.onload = function() {
+        console.log('Logo image loaded successfully');
+        // Generate QR code after logo is loaded
+        setTimeout(() => {
+          const qrElement = document.getElementById('certificate-qr');
+          if (qrElement && typeof QRious !== 'undefined') {
+            const qr = new QRious({
+              element: qrElement,
+              value: qrUrl,
+              size: 60,
+              background: 'white',
+              foreground: '#7C3AED',
+              level: 'H',
+            });
+            console.log('QR code generated successfully');
+          } else {
+            console.error('QR code element or library not found');
+          }
+        }, 100);
+      };
+      logoImg.onerror = function() {
+        console.log('Logo image failed to load, using fallback');
+        // Show fallback logo
+        const logoElement = document.getElementById('certificate-logo');
+        const fallbackElement = document.getElementById('logo-fallback');
+        if (logoElement && fallbackElement) {
+          logoElement.style.display = 'none';
+          fallbackElement.style.display = 'flex';
+        }
+        // Generate QR code anyway
+        setTimeout(() => {
+          const qrElement = document.getElementById('certificate-qr');
+          if (qrElement && typeof QRious !== 'undefined') {
+            const qr = new QRious({
+              element: qrElement,
+              value: qrUrl,
+              size: 60,
+              background: 'white',
+              foreground: '#7C3AED',
+              level: 'H',
+            });
+            console.log('QR code generated successfully');
+          } else {
+            console.error('QR code element or library not found');
+          }
+        }, 100);
+      };
+              logoImg.src = 'assets/images/ministry-logo.png';
+      // Create a certificate with logo and QR code for better html2canvas compatibility
+      certificatePreviewContent.innerHTML = `
+        <div id="certificate-canvas" class="w-full max-w-lg bg-white border-4 border-gold rounded-lg p-8 flex flex-col items-center text-center" style="min-width:400px; min-height:500px; font-family: Arial, sans-serif;">
+          <!-- Header with Logo -->
+          <div class="w-full text-center mb-6">
+            <div class="flex items-center justify-center mb-4">
+              <img id="certificate-logo" src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Logo" class="w-16 h-16 rounded-full border-2 border-gold mr-4" style="object-fit: cover; background: #F59E0B;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div id="logo-fallback" class="w-16 h-16 rounded-full border-2 border-gold mr-4 bg-gold flex items-center justify-center text-white font-bold text-lg" style="display: none;">HAG</div>
+              <div>
+                <div class="text-2xl font-bold text-gold">Hearts After God Ministry</div>
+                <div class="text-sm text-gray-600">Discipleship Program</div>
+              </div>
+            </div>
+            <div class="text-3xl font-bold text-purple mb-4">Certificate of Completion</div>
+          </div>
+          
+          <!-- Main Content -->
+          <div class="flex-1 flex flex-col justify-center items-center text-center">
+            <p class="text-lg mb-4">This certifies that</p>
+            <div class="text-3xl font-bold text-purple mb-4">${cert.user}</div>
+            <p class="text-lg mb-4">has successfully completed the course</p>
+            <div class="text-2xl font-bold text-blue mb-4">${cert.course}</div>
+            <p class="text-lg mb-4">on</p>
+            <div class="text-xl font-bold mb-4">${cert.date}</div>
+          </div>
+          
+          <!-- Footer with QR Code and Certificate ID -->
+          <div class="w-full mt-8">
+            <div class="flex justify-between items-end">
+              <div class="text-center">
+                <div class="text-lg font-bold text-purple mb-1">${cert.signature || 'Rev. John Smith'}</div>
+                <div class="text-sm text-gray-600">${cert.title || 'Director'}</div>
+              </div>
+              <div class="text-center">
+                <div class="text-xs text-gray-500 mb-2">Certificate ID:</div>
+                <div class="text-xs font-mono text-gray-700 mb-2">${cert.id}</div>
+                <canvas id="certificate-qr" style="width:60px;height:60px;border:1px solid #ddd;"></canvas>
+              </div>
+              <div class="text-center">
+                <div class="text-xs text-gray-500 mb-2">Status:</div>
+                <div class="text-xs font-bold text-green-600">${cert.status}</div>
+                <div class="text-xs text-gray-500 mt-2">Verified</div>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <div class="text-xs text-gray-500">&copy; 2025 Hearts After God Ministry</div>
+            </div>
+          </div>
+        </div>
+      `;
+      downloadCertificateBtn.onclick = function() {
+        console.log('Download PNG button clicked');
+        const certCanvas = document.getElementById('certificate-canvas');
+        if (!certCanvas) {
+          console.error('Certificate canvas not found');
+          alert('Certificate canvas not found. Please try again.');
+          return;
+        }
+        
+        downloadCertificateBtn.disabled = true;
+        document.getElementById('download-png-text').classList.add('opacity-50');
+        document.getElementById('download-png-spinner').classList.remove('hidden');
+        
+        // Check if html2canvas is available
+        if (typeof html2canvas === 'undefined') {
+          console.error('html2canvas library not loaded');
+          alert('Download library not loaded. Please refresh the page and try again.');
+          downloadCertificateBtn.disabled = false;
+          document.getElementById('download-png-text').classList.remove('opacity-50');
+          document.getElementById('download-png-spinner').classList.add('hidden');
+          return;
+        }
+        
+        console.log('Starting html2canvas conversion...');
+        console.log('Canvas element:', certCanvas);
+        console.log('Canvas dimensions:', certCanvas.offsetWidth, 'x', certCanvas.offsetHeight);
+        
+        // Wait for QR code and image to be generated
+        setTimeout(() => {
+          // Check if logo image is loaded
+          const logoImg = document.getElementById('certificate-logo');
+          const fallbackLogo = document.getElementById('logo-fallback');
+          
+          // If logo is visible, wait a bit more for it to load
+          if (logoImg && logoImg.style.display !== 'none') {
+            console.log('Waiting for logo image to load...');
+            setTimeout(() => {
+              generateCanvas();
+            }, 500);
+          } else {
+            generateCanvas();
+          }
+          
+          function generateCanvas() {
+            try {
+              html2canvas(certCanvas, {
+                backgroundColor: '#ffffff',
+                scale: 1,
+                useCORS: true,
+                allowTaint: true,
+                logging: true,
+                width: certCanvas.offsetWidth,
+                height: certCanvas.offsetHeight,
+                imageTimeout: 15000,
+                removeContainer: true,
+                foreignObjectRendering: false
+              }).then(canvas => {
+                console.log('Canvas generated successfully');
+                console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
+                
+                try {
+                  const dataURL = canvas.toDataURL('image/png', 0.9);
+                  console.log('Data URL generated, length:', dataURL.length);
+                  
+                  if (dataURL.length < 100) {
+                    throw new Error('Generated data URL is too short');
+                  }
+                  
+                  const link = document.createElement('a');
+                  link.download = `certificate-${cert.user.replace(/\s+/g,'_')}-${cert.course.replace(/\s+/g,'_')}.png`;
+                  link.href = dataURL;
+                  
+                  // Trigger download
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                  
+                  console.log('Download initiated successfully');
+                  
+                  downloadCertificateBtn.disabled = false;
+                  document.getElementById('download-png-text').classList.remove('opacity-50');
+                  document.getElementById('download-png-spinner').classList.add('hidden');
+                } catch (error) {
+                  console.error('Download error:', error);
+                  alert('Download failed. Please try again.');
+                  downloadCertificateBtn.disabled = false;
+                  document.getElementById('download-png-text').classList.remove('opacity-50');
+                  document.getElementById('download-png-spinner').classList.add('hidden');
+                }
+              }).catch(error => {
+                console.error('Canvas generation error:', error);
+                alert('Failed to generate certificate image. Please try again.');
+                downloadCertificateBtn.disabled = false;
+                document.getElementById('download-png-text').classList.remove('opacity-50');
+                document.getElementById('download-png-spinner').classList.add('hidden');
+              });
+            } catch (error) {
+              console.error('html2canvas initialization error:', error);
+              alert('Failed to initialize download. Please try again.');
+              downloadCertificateBtn.disabled = false;
+              document.getElementById('download-png-text').classList.remove('opacity-50');
+              document.getElementById('download-png-spinner').classList.add('hidden');
+            }
+          }
+        }, 1000);
+      };
+      downloadCertificatePdfBtn.onclick = function() {
+        const certCanvas = document.getElementById('certificate-canvas');
+        if (!certCanvas) {
+          alert('Certificate canvas not found. Please try again.');
+          return;
+        }
+        
+        downloadCertificatePdfBtn.disabled = true;
+        document.getElementById('download-pdf-text').classList.add('opacity-50');
+        document.getElementById('download-pdf-spinner').classList.remove('hidden');
+        
+        // Check if required libraries are available
+        if (typeof html2canvas === 'undefined') {
+          alert('Download library not loaded. Please refresh the page and try again.');
+          downloadCertificatePdfBtn.disabled = false;
+          document.getElementById('download-pdf-text').classList.remove('opacity-50');
+          document.getElementById('download-pdf-spinner').classList.add('hidden');
+          return;
+        }
+        
+        if (typeof window.jspdf === 'undefined') {
+          alert('PDF library not loaded. Please refresh the page and try again.');
+          downloadCertificatePdfBtn.disabled = false;
+          document.getElementById('download-pdf-text').classList.remove('opacity-50');
+          document.getElementById('download-pdf-spinner').classList.add('hidden');
+          return;
+        }
+        
+        html2canvas(certCanvas, {
+          backgroundColor: '#fff',
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: false
+        }).then(canvas => {
+          try {
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            // Use a fixed A4 landscape size for best print quality
+            const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            // Calculate image size to fit A4
+            const imgProps = pdf.getImageProperties(imgData);
+            let pdfWidth = pageWidth - 20;
+            let pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            if (pdfHeight > pageHeight - 20) {
+              pdfHeight = pageHeight - 20;
+              pdfWidth = (imgProps.width * pdfHeight) / imgProps.height;
+            }
+            const x = (pageWidth - pdfWidth) / 2;
+            const y = (pageHeight - pdfHeight) / 2;
+            pdf.addImage(imgData, 'PNG', x, y, pdfWidth, pdfHeight);
+            pdf.save(`certificate-${cert.user.replace(/\s+/g,'_')}-${cert.course.replace(/\s+/g,'_')}.pdf`);
+            
+            downloadCertificatePdfBtn.disabled = false;
+            document.getElementById('download-pdf-text').classList.remove('opacity-50');
+            document.getElementById('download-pdf-spinner').classList.add('hidden');
+          } catch (error) {
+            console.error('PDF generation error:', error);
+            alert('PDF generation failed. Please try again.');
+            downloadCertificatePdfBtn.disabled = false;
+            document.getElementById('download-pdf-text').classList.remove('opacity-50');
+            document.getElementById('download-pdf-spinner').classList.add('hidden');
+          }
+        }).catch(error => {
+          console.error('Canvas generation error:', error);
+          alert('Failed to generate certificate image. Please try again.');
+          downloadCertificatePdfBtn.disabled = false;
+          document.getElementById('download-pdf-text').classList.remove('opacity-50');
+          document.getElementById('download-pdf-spinner').classList.add('hidden');
+        });
+      };
+    };
+    function closeCertificatePreview() {
+      certificatePreviewModal.classList.add('hidden');
+      certificatePreviewContent.innerHTML = '';
+    }
+    window.closeCertificatePreview = closeCertificatePreview;
+    certificateModalForm.onsubmit = function(e) {
+      e.preventDefault();
+      const certificates = getCertificates();
+      const cert = {
+        user: modalCertificateUser.value,
+        course: modalCertificateCourse.value,
+        date: modalCertificateDate.value,
+        status: modalCertificateStatus.value,
+        signature: modalCertificateSignature.value,
+        title: modalCertificateTitle.value,
+        id: modalCertificateId.value || generateUUID(),
+      };
+      if (modalCertificateId.value) {
+        certificates[modalCertificateId.value] = cert;
+      } else {
+        certificates.push(cert);
+      }
+      setCertificates(certificates);
+      closeCertificateModal();
+      renderCertificates(certificateSearch.value);
+    };
+    certificateSearch.oninput = function() {
+      renderCertificates(certificateSearch.value);
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      renderCertificates();
+    });
+    // Automate certificate generation for completed users in a course
+    if (autoIssueCertificatesBtn) {
+      autoIssueCertificatesBtn.onclick = function() {
+        const users = getUsers();
+        const courses = getCourses();
+        if (!courses.length) { alert('No courses found.'); return; }
+        const course = prompt('Enter course name to issue certificates for:', courses[0]);
+        if (!course) return;
+        const eligible = users.filter(u => u.status === 'Completed' || u.progress === 100);
+        if (!eligible.length) { alert('No eligible users found.'); return; }
+        const today = new Date().toISOString().slice(0,10);
+        eligible.forEach(u => {
+          const cert = {
+            user: u.name,
+            course: course,
+            date: today,
+            status: 'Issued',
+            signature: 'Rev. John Smith',
+            title: 'Director',
+          };
+          // Avoid duplicate certificates
+          const existing = getCertificates().find(c => c.user === cert.user && c.course === cert.course);
+          if (!existing) {
+            const certificates = getCertificates();
+            certificates.push(cert);
+            setCertificates(certificates);
+          }
+        });
+        renderCertificates();
+        alert('Certificates issued for all eligible users.');
+      };
+    }
+    // Add UUID generator
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+  </script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Animated underline logic
+    const navLinks = document.querySelectorAll('#nav-links .nav-link');
+    const navUnderline = document.getElementById('nav-underline');
+    function moveUnderline(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
+      navUnderline.style.width = rect.width + 'px';
+      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
+    }
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', e => moveUnderline(e.target));
+      link.addEventListener('focus', e => moveUnderline(e.target));
+      link.addEventListener('mouseleave', () => {
+        const active = document.querySelector('#nav-links .nav-link.active');
+        moveUnderline(active);
+      });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const active = document.querySelector('#nav-links .nav-link.active');
+      moveUnderline(active);
+    });
+  </script>
+</body>
+</html> 
