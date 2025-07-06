@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Login | Discipleship Portal | Hearts After God Ministry</title>
   <meta name="description" content="Login to access your discipleship journey with Hearts After God Ministry. Join our global discipleship community.">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -20,6 +20,35 @@
     }
   </script>
   <style>
+    /* Mobile-first responsive design */
+    @media (max-width: 768px) {
+      .mobile-container {
+        min-height: 100vh;
+        padding: 1rem;
+      }
+      .mobile-card {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+      }
+      .mobile-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 1rem;
+        min-height: 48px; /* Better touch target */
+      }
+      .mobile-button {
+        min-height: 48px;
+        font-size: 16px;
+        padding: 1rem;
+      }
+      .mobile-toggle {
+        min-height: 44px;
+        font-size: 14px;
+      }
+    }
+    
     /* Hero section styling */
     .hero-gradient {
       background: linear-gradient(135deg, #7C3AED 0%, #2046B3 50%, #FDBA17 100%);
@@ -72,26 +101,57 @@
       background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(253, 186, 23, 0.1) 100%);
       border-left: 4px solid #FDBA17;
     }
+    
+    /* Mobile-specific improvements */
+    .mobile-safe-area {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+    
+    /* Prevent text selection on buttons */
+    .no-select {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    /* Loading spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
-<body class="min-h-screen hero-gradient hero-pattern flex items-center justify-center p-4 relative">
+<body class="min-h-screen hero-gradient hero-pattern flex items-center justify-center p-4 relative mobile-safe-area">
   <!-- Background overlay -->
   <div class="absolute inset-0 bg-black/20"></div>
   
-  <div class="w-full max-w-md mx-auto relative z-10">
+  <div class="w-full max-w-md mx-auto relative z-10 mobile-container">
     <!-- Hero Section -->
-    <div class="text-center mb-8">
-      <div class="flex justify-center mb-6">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-20 h-20 rounded-full shadow-2xl border-4 border-white/20" />
+    <div class="text-center mb-6 md:mb-8">
+      <div class="flex justify-center mb-4 md:mb-6">
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-16 h-16 md:w-20 md:h-20 rounded-full shadow-2xl border-4 border-white/20" />
       </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4">
         Discipleship <span class="text-[#FDBA17]">Portal</span>
       </h1>
-      <p class="text-xl text-white/90 mb-6">Join our global discipleship community</p>
+      <p class="text-lg md:text-xl text-white/90 mb-4 md:mb-6">Join our global discipleship community</p>
       
       <!-- Scripture Quote -->
-      <div class="scripture-quote p-4 rounded-2xl mb-6 max-w-sm mx-auto border border-white/20">
-        <blockquote class="text-sm italic text-white/95 mb-1">
+      <div class="scripture-quote p-3 md:p-4 rounded-2xl mb-4 md:mb-6 max-w-sm mx-auto border border-white/20">
+        <blockquote class="text-xs md:text-sm italic text-white/95 mb-1">
           "Go therefore and make disciples of all nations..."
         </blockquote>
         <cite class="text-[#FDBA17] font-semibold text-xs">— Matthew 28:19</cite>
@@ -99,30 +159,30 @@
     </div>
 
     <!-- Login/Register Card -->
-    <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl w-full p-8 relative">
-      <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-[#2046B3] mb-2" id="form-title">Sign In</h2>
-        <p class="text-gray-600" id="form-subtitle">Access your discipleship journey</p>
+    <div class="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl w-full p-6 md:p-8 relative mobile-card">
+      <div class="text-center mb-6 md:mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#2046B3] mb-2" id="form-title">Sign In</h2>
+        <p class="text-gray-600 text-sm md:text-base" id="form-subtitle">Access your discipleship journey</p>
       </div>
       
       <!-- Toggle Buttons -->
-      <div class="flex bg-gray-100 rounded-2xl p-1 mb-8">
-        <button id="login-toggle" class="flex-1 py-3 px-6 rounded-xl font-bold toggle-active transition-all duration-300">Sign In</button>
-        <button id="register-toggle" class="flex-1 py-3 px-6 rounded-xl font-bold toggle-inactive transition-all duration-300">Register</button>
+      <div class="flex bg-gray-100 rounded-2xl p-1 mb-6 md:mb-8">
+        <button id="login-toggle" class="flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-active transition-all duration-300 mobile-toggle no-select">Sign In</button>
+        <button id="register-toggle" class="flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-inactive transition-all duration-300 mobile-toggle no-select">Register</button>
       </div>
       
       <!-- Login Form -->
-      <form id="login-form" class="login-form space-y-6 p-6 rounded-2xl">
+      <form id="login-form" class="login-form space-y-4 md:space-y-6 p-4 md:p-6 rounded-2xl">
         <div>
           <label for="login-email" class="block text-sm font-semibold text-[#2046B3] mb-2">Email Address</label>
-          <input type="email" id="login-email" name="email" placeholder="Enter your email" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED]" />
+          <input type="email" id="login-email" name="email" placeholder="Enter your email" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED]" />
         </div>
         <div>
           <label for="login-password" class="block text-sm font-semibold text-[#2046B3] mb-2">Password</label>
-          <input type="password" id="login-password" name="password" placeholder="Enter your password" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED]" />
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED]" />
         </div>
-        <button type="submit" class="submit-btn w-full bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white py-4 rounded-xl font-bold shadow-lg">
-          <span class="flex items-center justify-center gap-2">
+        <button type="submit" class="submit-btn mobile-button w-full bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white py-4 rounded-xl font-bold shadow-lg no-select">
+          <span class="flex items-center justify-center gap-2" id="login-button-text">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
             </svg>
@@ -132,25 +192,25 @@
       </form>
       
       <!-- Register Form -->
-      <form id="register-form" class="register-form space-y-6 p-6 rounded-2xl hidden">
+      <form id="register-form" class="register-form space-y-4 md:space-y-6 p-4 md:p-6 rounded-2xl hidden">
         <div>
           <label for="register-name" class="block text-sm font-semibold text-[#2046B3] mb-2">Full Name</label>
-          <input type="text" id="register-name" name="name" placeholder="Enter your full name" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
+          <input type="text" id="register-name" name="name" placeholder="Enter your full name" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
         </div>
         <div>
           <label for="register-email" class="block text-sm font-semibold text-[#2046B3] mb-2">Email Address</label>
-          <input type="email" id="register-email" name="email" placeholder="Enter your email" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
+          <input type="email" id="register-email" name="email" placeholder="Enter your email" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
         </div>
         <div>
           <label for="register-password" class="block text-sm font-semibold text-[#2046B3] mb-2">Password</label>
-          <input type="password" id="register-password" name="password" placeholder="Create a password" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
+          <input type="password" id="register-password" name="password" placeholder="Create a password" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
         </div>
         <div>
           <label for="register-confirm-password" class="block text-sm font-semibold text-[#2046B3] mb-2">Confirm Password</label>
-          <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required class="form-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
+          <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required class="form-input mobile-input w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2046B3] focus:border-[#2046B3]" />
         </div>
-        <button type="submit" class="submit-btn w-full bg-gradient-to-r from-[#2046B3] to-[#7C3AED] text-white py-4 rounded-xl font-bold shadow-lg">
-          <span class="flex items-center justify-center gap-2">
+        <button type="submit" class="submit-btn mobile-button w-full bg-gradient-to-r from-[#2046B3] to-[#7C3AED] text-white py-4 rounded-xl font-bold shadow-lg no-select">
+          <span class="flex items-center justify-center gap-2" id="register-button-text">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
             </svg>
@@ -160,11 +220,18 @@
       </form>
       
       <!-- Message Display -->
-      <div id="message" class="mt-6 text-center text-sm font-semibold"></div>
+      <div id="message" class="mt-4 md:mt-6 text-center text-sm font-semibold"></div>
+      
+      <!-- Admin Login Quick Access (Mobile Only) -->
+      <div class="mt-4 md:hidden">
+        <button id="admin-quick-login" class="w-full py-3 px-4 bg-gradient-to-r from-[#FDBA17] to-[#F59E0B] text-white rounded-xl font-semibold text-sm shadow-lg no-select">
+          <i class="fas fa-user-shield mr-2"></i>Quick Admin Login
+        </button>
+      </div>
       
       <!-- Back to Portal Link -->
-      <div class="mt-8 text-center">
-        <a href="discipleship.html" class="inline-flex items-center gap-2 text-[#7C3AED] hover:text-[#2046B3] font-bold transition-all duration-300 transform hover:scale-105">
+      <div class="mt-6 md:mt-8 text-center">
+        <a href="discipleship.html" class="inline-flex items-center gap-2 text-[#7C3AED] hover:text-[#2046B3] font-bold transition-all duration-300 transform hover:scale-105 no-select">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
@@ -174,8 +241,8 @@
     </div>
     
     <!-- Footer -->
-    <div class="text-center mt-8">
-      <p class="text-white/90 text-sm font-medium">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
+    <div class="text-center mt-6 md:mt-8">
+      <p class="text-white/90 text-xs md:text-sm font-medium">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
       <p class="text-white/70 text-xs mt-1">Empowering Believers. Winning Souls.</p>
     </div>
   </div>
@@ -184,9 +251,35 @@
   <script>
     // Initialize backend and ensure admin user exists
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('=== Mobile Login Page Initialization ===');
+      
       if (window.DiscipleshipBackend) {
+        console.log('✅ Backend loaded successfully');
+        
+        // Ensure admin user exists
         window.DiscipleshipBackend.ensureAdminUser();
-        console.log('Backend initialized and admin user ensured');
+        
+        // Check if admin user was created
+        const users = window.DiscipleshipBackend.getAllUsers();
+        const adminUser = users.find(u => u.email === 'admin@heartsaftergod.org');
+        
+        if (adminUser) {
+          console.log('✅ Admin user found:', adminUser.name, 'Role:', adminUser.role);
+        } else {
+          console.log('❌ Admin user not found - creating manually...');
+          try {
+            const newAdmin = window.DiscipleshipBackend.createAdminUser();
+            console.log('✅ Admin user created manually:', newAdmin.name);
+          } catch (error) {
+            console.error('❌ Error creating admin user:', error);
+          }
+        }
+        
+        // Show available users for debugging
+        console.log('Available users:', users.map(u => ({ email: u.email, role: u.role, name: u.name })));
+        
+      } else {
+        console.error('❌ Backend not available');
       }
     });
     
@@ -202,27 +295,47 @@
     function showLogin() {
       loginForm.classList.remove('hidden');
       registerForm.classList.add('hidden');
-      loginToggle.className = 'flex-1 py-3 px-6 rounded-xl font-bold toggle-active transition-all duration-300';
-      registerToggle.className = 'flex-1 py-3 px-6 rounded-xl font-bold toggle-inactive transition-all duration-300';
+      loginToggle.className = 'flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-active transition-all duration-300 mobile-toggle no-select';
+      registerToggle.className = 'flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-inactive transition-all duration-300 mobile-toggle no-select';
       formTitle.textContent = 'Sign In';
       formSubtitle.textContent = 'Access your discipleship journey';
       messageDiv.textContent = '';
-      messageDiv.className = 'mt-6 text-center text-sm font-semibold';
+      messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold';
     }
     
     function showRegister() {
       loginForm.classList.add('hidden');
       registerForm.classList.remove('hidden');
-      registerToggle.className = 'flex-1 py-3 px-6 rounded-xl font-bold toggle-active transition-all duration-300';
-      loginToggle.className = 'flex-1 py-3 px-6 rounded-xl font-bold toggle-inactive transition-all duration-300';
+      registerToggle.className = 'flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-active transition-all duration-300 mobile-toggle no-select';
+      loginToggle.className = 'flex-1 py-3 px-4 md:px-6 rounded-xl font-bold toggle-inactive transition-all duration-300 mobile-toggle no-select';
       formTitle.textContent = 'Register';
       formSubtitle.textContent = 'Create your account to start your discipleship journey';
       messageDiv.textContent = '';
-      messageDiv.className = 'mt-6 text-center text-sm font-semibold';
+      messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold';
     }
     
     loginToggle.addEventListener('click', showLogin);
     registerToggle.addEventListener('click', showRegister);
+
+    // Quick Admin Login (Mobile Only)
+    const adminQuickLogin = document.getElementById('admin-quick-login');
+    if (adminQuickLogin) {
+      adminQuickLogin.addEventListener('click', function() {
+        console.log('=== Quick Admin Login ===');
+        
+        // Auto-fill admin credentials
+        document.getElementById('login-email').value = 'admin@heartsaftergod.org';
+        document.getElementById('login-password').value = 'admin123';
+        
+        // Show login form
+        showLogin();
+        
+        // Trigger login
+        setTimeout(() => {
+          loginForm.dispatchEvent(new Event('submit'));
+        }, 500);
+      });
+    }
 
     // Login form handler
     loginForm.addEventListener('submit', function(e) {
@@ -230,48 +343,127 @@
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
       
-      console.log('Login attempt:', email);
+      console.log('=== Login Attempt ===');
+      console.log('Email:', email);
+      console.log('Password:', password);
+      
+      // Show loading state
+      const loginButton = loginForm.querySelector('button[type="submit"]');
+      const loginButtonText = document.getElementById('login-button-text');
+      const originalText = loginButtonText.innerHTML;
+      
+      loginButton.disabled = true;
+      loginButtonText.innerHTML = '<span class="loading-spinner"></span> Signing In...';
       
       // Use the backend authentication
       if (window.DiscipleshipBackend) {
+        console.log('✅ Backend available for authentication');
+        
+        // Check if admin user exists before attempting login
+        const users = window.DiscipleshipBackend.getAllUsers();
+        const adminUser = users.find(u => u.email === 'admin@heartsaftergod.org');
+        
+        if (email === 'admin@heartsaftergod.org' && !adminUser) {
+          console.log('❌ Admin user not found - creating now...');
+          try {
+            window.DiscipleshipBackend.createAdminUser();
+            console.log('✅ Admin user created during login attempt');
+          } catch (error) {
+            console.error('❌ Error creating admin user:', error);
+          }
+        }
+        
+        // Enhanced authentication with password reset support
         const user = window.DiscipleshipBackend.authenticateUser(email, password);
         
         if (user) {
-          console.log('Login successful:', user.name, 'Role:', user.role);
+          console.log('✅ Login successful:', user.name, 'Role:', user.role);
+          
+          // Check if user was forced to logout due to password reset
+          const userData = users.find(u => u.id === user.id);
+          if (userData && userData.forceLogout) {
+            console.log('⚠️ User was previously logged out due to password reset');
+            // Clear the force logout flag
+            window.DiscipleshipBackend.updateUser(user.id, {
+              forceLogout: false,
+              logoutReason: null
+            });
+          }
           
           // Store user session
           localStorage.setItem('discipleship_logged_in_user', JSON.stringify({
             id: user.id,
             name: user.name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            lastLogin: user.lastLogin
           }));
+          
+          // Clear any password reset data for this user
+          if (window.DiscipleshipBackend.clearPasswordResetData) {
+            window.DiscipleshipBackend.clearPasswordResetData(user.id);
+          }
           
           // Redirect based on role
           if (user.role === 'admin') {
             console.log('Redirecting to admin dashboard...');
             messageDiv.textContent = 'Login successful! Redirecting to admin dashboard...';
-            messageDiv.className = 'mt-6 text-center text-sm font-semibold text-green-600';
+            messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-green-600';
             setTimeout(() => {
               window.location.href = 'discipleship-admin.html';
             }, 1000);
           } else {
             console.log('Redirecting to user dashboard...');
             messageDiv.textContent = 'Login successful! Redirecting to user dashboard...';
-            messageDiv.className = 'mt-6 text-center text-sm font-semibold text-green-600';
+            messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-green-600';
             setTimeout(() => {
               window.location.href = 'discipleship-user.html';
             }, 1000);
           }
         } else {
-          console.log('Login failed - invalid credentials');
-          messageDiv.textContent = 'Invalid email or password. Please try again.';
-          messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+          console.log('❌ Login failed - invalid credentials');
+          
+          // Additional debugging
+          const allUsers = window.DiscipleshipBackend.getAllUsers();
+          const foundUser = allUsers.find(u => u.email === email);
+          
+          if (foundUser) {
+            console.log('User found but password incorrect:', foundUser);
+            
+            // Check if user has a recent password reset
+            if (window.DiscipleshipBackend.getPasswordResetData) {
+              const resetData = window.DiscipleshipBackend.getPasswordResetData(foundUser.id);
+              if (resetData) {
+                console.log('⚠️ User has a recent password reset:', resetData);
+                messageDiv.textContent = 'Your password was recently reset. Please use the new password provided by the administrator.';
+                messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-orange-600';
+              } else {
+                messageDiv.textContent = 'Invalid email or password. Please try again.';
+                messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
+              }
+            } else {
+              messageDiv.textContent = 'Invalid email or password. Please try again.';
+              messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
+            }
+          } else {
+            console.log('User not found with email:', email);
+            console.log('Available users:', allUsers.map(u => u.email));
+            messageDiv.textContent = 'Invalid email or password. Please try again.';
+            messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
+          }
+          
+          // Reset button state
+          loginButton.disabled = false;
+          loginButtonText.innerHTML = originalText;
         }
       } else {
-        console.log('Backend not available');
+        console.log('❌ Backend not available');
         messageDiv.textContent = 'System error. Please refresh the page and try again.';
-        messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+        messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
+        
+        // Reset button state
+        loginButton.disabled = false;
+        loginButtonText.innerHTML = originalText;
       }
     });
     
@@ -285,15 +477,23 @@
       
       if (password !== confirm) {
         messageDiv.textContent = 'Passwords do not match.';
-        messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+        messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
         return;
       }
       
       if (password.length < 6) {
         messageDiv.textContent = 'Password must be at least 6 characters.';
-        messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+        messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
         return;
       }
+      
+      // Show loading state
+      const registerButton = registerForm.querySelector('button[type="submit"]');
+      const registerButtonText = document.getElementById('register-button-text');
+      const originalText = registerButtonText.innerHTML;
+      
+      registerButton.disabled = true;
+      registerButtonText.innerHTML = '<span class="loading-spinner"></span> Creating Account...';
       
       // Use the backend to create user
       if (window.DiscipleshipBackend) {
@@ -308,21 +508,25 @@
           
           if (newUser) {
             messageDiv.textContent = 'Account created successfully! You can now sign in.';
-            messageDiv.className = 'mt-6 text-center text-sm font-semibold text-green-600';
+            messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-green-600';
             registerForm.reset();
             setTimeout(showLogin, 2000);
           } else {
             messageDiv.textContent = 'Error creating account. Please try again.';
-            messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+            messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
           }
         } catch (error) {
           messageDiv.textContent = 'Error creating account. Please try again.';
-          messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+          messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
         }
       } else {
         messageDiv.textContent = 'System error. Please refresh the page and try again.';
-        messageDiv.className = 'mt-6 text-center text-sm font-semibold text-red-600';
+        messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
       }
+      
+      // Reset button state
+      registerButton.disabled = false;
+      registerButtonText.innerHTML = originalText;
     });
   </script>
 </body>

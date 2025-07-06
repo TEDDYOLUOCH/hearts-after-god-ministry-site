@@ -407,6 +407,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
               </svg>
             </button>
+            ${user.role !== 'admin' ? `
+            <button onclick="deleteUser('${user.id}')" class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors" title="Delete User">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </button>
+            ` : ''}
           </div>
         </td>
       </tr>
@@ -1763,7 +1770,13 @@
       return;
     }
     
-    // Update user password in backend
+    // Show loading state
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span class="loading-spinner"></span> Resetting Password...';
+    
+    // Update user password in backend with enhanced cross-device support
     if (window.DiscipleshipBackend) {
       const success = window.DiscipleshipBackend.resetUserPassword(userId, newPassword, {
         notifyUser,
@@ -1773,18 +1786,59 @@
       });
       
       if (success) {
-        showNotification('Password reset successfully!', 'success');
+        const user = window.DiscipleshipBackend.getAllUsers().find(u => u.id === userId);
+        
+        // Show success notification with details
+        showNotification(`Password reset successfully for ${user.name}! New password: ${newPassword}`, 'success');
         
         // Log the action
-        const user = window.DiscipleshipBackend.getAllUsers().find(u => u.id === userId);
         if (user) {
           console.log(`Admin reset password for user: ${user.name} (${user.email})`);
+          console.log(`New password: ${newPassword}`);
+          console.log(`Cross-device sync enabled: true`);
         }
+        
+        // Show additional info about cross-device sync
+        setTimeout(() => {
+          showNotification('Password will be available immediately on all devices (phone, laptop, tablet)', 'info');
+        }, 2000);
         
         closeResetPasswordModal();
         loadUsers(); // Refresh user list
+        
+        // Update the user row to show password reset status
+        updateUserRowAfterPasswordReset(userId, newPassword);
       } else {
         showNotification('Failed to reset password!', 'error');
+      }
+    }
+    
+    // Reset button state
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalText;
+  }
+
+  // Update user row to show password reset status
+  function updateUserRowAfterPasswordReset(userId, newPassword) {
+    const userRow = document.querySelector(`tr[data-user-id="${userId}"]`);
+    if (userRow) {
+      // Add a visual indicator that password was reset
+      const statusCell = userRow.querySelector('.password-reset-status');
+      if (statusCell) {
+        statusCell.innerHTML = `
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+            <i class="fas fa-key mr-1"></i>Password Reset
+          </span>
+        `;
+        
+        // Remove the indicator after 30 seconds
+        setTimeout(() => {
+          statusCell.innerHTML = `
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <i class="fas fa-check mr-1"></i>Active
+            </span>
+          `;
+        }, 30000);
       }
     }
   }
@@ -1827,10 +1881,32 @@
     closeResetPasswordModal,
     initAdminDashboard,
     deleteUser: function(userId) {
-      if (confirm('Are you sure you want to delete this user?')) {
-        console.log('Delete user:', userId);
-        // TODO: Implement delete user logic
-        showNotification('Delete user functionality coming soon!', 'info');
+      if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+        return;
+      }
+
+      console.log('Deleting user:', userId);
+      
+      if (!window.DiscipleshipBackend) {
+        showNotification('Backend not available', 'error');
+        return;
+      }
+
+      try {
+        const result = window.DiscipleshipBackend.deleteUser(userId);
+        
+        if (result.success) {
+          showNotification(result.message, 'success');
+          // Reload the user table and dashboard stats
+          loadUsers();
+          loadDashboardStats();
+          updateActivityFeed();
+        } else {
+          showNotification(result.message, 'error');
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        showNotification('Error deleting user', 'error');
       }
     },
     deleteCourse: function(courseId) {
@@ -1936,6 +2012,76 @@
   window.closeCertificateModal = function() {
     if (window.AdminComplete) {
       window.AdminComplete.closeCertificateModal();
+    }
+  };
+
+  // Test delete user functionality
+  window.testDeleteUserFunctionality = function() {
+    console.log('=== Testing Delete User Functionality ===');
+    
+    // Test 1: Check if backend is available
+    console.log('1. Backend available:', !!window.DiscipleshipBackend);
+    
+    if (window.DiscipleshipBackend) {
+      // Test 2: Check backend methods
+      console.log('2. Backend methods:', {
+        deleteUser: typeof window.DiscipleshipBackend.deleteUser,
+        getAllUsers: typeof window.DiscipleshipBackend.getAllUsers
+      });
+      
+      // Test 3: Check data availability
+      const users = window.DiscipleshipBackend.getAllUsers();
+      const nonAdminUsers = users.filter(u => u.role !== 'admin');
+      
+      console.log('3. Data availability:', {
+        totalUsers: users.length,
+        nonAdminUsers: nonAdminUsers.length
+      });
+      
+      // Test 4: Check if we have users to delete
+      if (nonAdminUsers.length > 0) {
+        const testUser = nonAdminUsers[0];
+        console.log('4. Test user found:', {
+          id: testUser.id,
+          name: testUser.name,
+          email: testUser.email,
+          role: testUser.role
+        });
+        
+        // Test 5: Try to delete the test user
+        console.log('5. Testing delete user...');
+        try {
+          const result = window.DiscipleshipBackend.deleteUser(testUser.id);
+          console.log('Delete result:', result);
+          
+          if (result.success) {
+            console.log('✅ Delete user test PASSED');
+            showNotification('Delete user test PASSED - User deleted successfully', 'success');
+            
+            // Reload the user table
+            loadUsers();
+            loadDashboardStats();
+          } else {
+            console.log('❌ Delete user test FAILED:', result.message);
+            showNotification('Delete user test FAILED: ' + result.message, 'error');
+          }
+        } catch (error) {
+          console.error('❌ Delete user test ERROR:', error);
+          showNotification('Delete user test ERROR: ' + error.message, 'error');
+        }
+      } else {
+        console.log('4. No non-admin users available for testing');
+        showNotification('No non-admin users available for testing', 'info');
+      }
+      
+      // Test 6: Check global functions
+      console.log('6. Global functions:', {
+        deleteUser: typeof window.deleteUser,
+        AdminComplete: !!window.AdminComplete
+      });
+    } else {
+      console.log('❌ Backend not available');
+      showNotification('Backend not available for testing', 'error');
     }
   };
 

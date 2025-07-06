@@ -203,13 +203,17 @@ class DiscipleshipBackend {
   }
 
   authenticateUser(email, password) {
-    console.log('Attempting to authenticate:', email);
+    console.log('=== Authentication Attempt ===');
+    console.log('Email:', email);
+    console.log('Password:', password);
     console.log('Available users:', Object.values(this.users).map(u => ({ email: u.email, role: u.role })));
     
     const user = Object.values(this.users).find(u => u.email === email);
     
     if (user) {
       console.log('User found:', user.email, 'Role:', user.role);
+      console.log('Stored password hash:', user.password);
+      
       const passwordValid = this.verifyPassword(password, user.password);
       console.log('Password valid:', passwordValid);
       
@@ -228,11 +232,16 @@ class DiscipleshipBackend {
           data: { userId: user.id, name: user.name, timestamp: new Date().toISOString() }
         });
         
+        console.log('✅ Authentication successful for:', user.name);
         return user;
+      } else {
+        console.log('❌ Password verification failed');
       }
+    } else {
+      console.log('❌ User not found with email:', email);
     }
     
-    console.log('Authentication failed for:', email);
+    console.log('❌ Authentication failed for:', email);
     return null;
   }
 
@@ -1199,6 +1208,46 @@ class DiscipleshipBackend {
     return user;
   }
 
+  deleteUser(userId) {
+    if (!this.users[userId]) {
+      return { success: false, message: 'User not found' };
+    }
+
+    const user = this.users[userId];
+    
+    // Prevent deletion of admin users
+    if (user.role === 'admin') {
+      console.warn('Cannot delete admin user:', userId);
+      return { success: false, message: 'Cannot delete admin users' };
+    }
+    
+    // Delete user data
+    delete this.users[userId];
+    
+    // Clean up related data
+    if (this.progress[userId]) {
+      delete this.progress[userId];
+    }
+    
+    // Remove user from real-time connections
+    this.disconnectUser(userId);
+    
+    // Save changes
+    this.saveUsers();
+    this.saveProgress();
+    
+    // Log the deletion
+    this.logActivity('user_deleted', { userId, userName: user.name, userEmail: user.email });
+    
+    // Notify admins of user deletion
+    this.broadcastToAdmins({
+      type: 'user_deleted',
+      data: { userId, userName: user.name }
+    });
+    
+    return { success: true, message: 'User deleted successfully' };
+  }
+
   resetUserPassword(userId, newPassword, options = {}) {
     if (!this.users[userId]) {
       return false;
@@ -1207,15 +1256,34 @@ class DiscipleshipBackend {
     const user = this.users[userId];
     const hashedPassword = this.hashPassword(newPassword);
     
-    // Update user password
+    // Update user password with enhanced cross-device support
     this.users[userId].password = hashedPassword;
     this.users[userId].passwordResetDate = new Date().toISOString();
     this.users[userId].forcePasswordChange = options.forcePasswordChange || false;
     this.users[userId].lastPasswordReset = {
       resetBy: options.resetBy || 'Admin',
       resetDate: options.resetDate || new Date().toISOString(),
-      reason: 'Admin Reset'
+      reason: 'Admin Reset',
+      newPasswordPlain: newPassword, // Store temporarily for immediate access
+      resetId: 'reset_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
     };
+
+    // Add password reset to user's session data for immediate effect
+    this.users[userId].passwordResetSession = {
+      resetId: this.users[userId].lastPasswordReset.resetId,
+      newPassword: newPassword,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours
+      devices: ['all'] // Mark for all devices
+    };
+
+    // Force logout user from all devices
+    this.users[userId].forceLogout = true;
+    this.users[userId].logoutReason = 'Password reset by administrator';
+    this.users[userId].lastLogout = new Date().toISOString();
+
+    // Clear any existing sessions
+    this.users[userId].activeSessions = [];
+    this.users[userId].deviceTokens = [];
 
     this.saveUsers();
     
@@ -1224,19 +1292,38 @@ class DiscipleshipBackend {
       userId,
       userEmail: user.email,
       resetBy: options.resetBy || 'Admin',
-      notifyUser: options.notifyUser || false
+      notifyUser: options.notifyUser || false,
+      resetId: this.users[userId].lastPasswordReset.resetId,
+      crossDevice: true
     });
 
-    // Send notification to user if requested
+    // Send immediate notification to user if requested
     if (options.notifyUser) {
       this.sendUserNotification(userId, {
         type: 'password_reset',
-        title: 'Password Reset',
-        message: 'Your password has been reset by an administrator. Please log in with your new password.',
+        title: 'Password Reset Notification',
+        message: `Your password has been reset by an administrator. Your new password is: ${newPassword}. Please log in with this new password on all your devices.`,
         priority: 'high',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        resetId: this.users[userId].lastPasswordReset.resetId,
+        newPassword: newPassword,
+        forceLogout: true
       });
     }
+
+    // Broadcast password reset to all connected devices
+    this.broadcastPasswordReset(userId, {
+      type: 'password_reset',
+      data: {
+        userId,
+        userEmail: user.email,
+        resetBy: options.resetBy || 'Admin',
+        timestamp: new Date().toISOString(),
+        resetId: this.users[userId].lastPasswordReset.resetId,
+        forceLogout: true,
+        newPassword: newPassword
+      }
+    });
 
     // Broadcast to admins
     this.broadcastToAdmins({
@@ -1245,11 +1332,149 @@ class DiscipleshipBackend {
         userId,
         userEmail: user.email,
         resetBy: options.resetBy || 'Admin',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        resetId: this.users[userId].lastPasswordReset.resetId,
+        crossDeviceSync: true
       }
     });
 
+    // Store password reset in localStorage for immediate access across devices
+    this.storePasswordResetForCrossDevice(userId, newPassword, this.users[userId].lastPasswordReset.resetId);
+
     return true;
+  }
+
+  // Enhanced method to broadcast password reset to all devices
+  broadcastPasswordReset(userId, message) {
+    // Broadcast to all connected devices
+    this.realtimeConnections.forEach((connection, connectionId) => {
+      if (connection.userId === userId) {
+        this.sendToUser(userId, {
+          ...message,
+          immediate: true,
+          forceLogout: true
+        });
+      }
+    });
+
+    // Also broadcast to all admin connections
+    this.broadcastToAdmins({
+      type: 'password_reset_broadcast',
+      data: {
+        userId,
+        message: message.data,
+        timestamp: new Date().toISOString()
+      }
+    });
+  }
+
+  // Store password reset for cross-device access
+  storePasswordResetForCrossDevice(userId, newPassword, resetId) {
+    const resetData = {
+      userId,
+      newPassword,
+      resetId,
+      timestamp: new Date().toISOString(),
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours
+      devices: ['all']
+    };
+
+    // Store in localStorage for immediate access
+    const existingResets = JSON.parse(localStorage.getItem('passwordResets') || '[]');
+    existingResets.push(resetData);
+    
+    // Keep only recent resets (last 10)
+    if (existingResets.length > 10) {
+      existingResets.splice(0, existingResets.length - 10);
+    }
+    
+    localStorage.setItem('passwordResets', JSON.stringify(existingResets));
+
+    // Also store in sessionStorage for current session
+    sessionStorage.setItem('currentPasswordReset', JSON.stringify(resetData));
+  }
+
+  // Enhanced authentication to check for password resets
+  authenticateUser(email, password) {
+    const user = Object.values(this.users).find(u => u.email === email);
+    
+    if (!user) {
+      return null;
+    }
+
+    // Check if user has a recent password reset
+    const resetData = this.getPasswordResetData(user.id);
+    if (resetData && resetData.newPassword === password) {
+      // Password reset is valid, update user's permanent password
+      this.users[user.id].password = this.hashPassword(password);
+      this.users[user.id].passwordResetSession = null;
+      this.users[user.id].forceLogout = false;
+      this.saveUsers();
+      
+      // Clear the reset data
+      this.clearPasswordResetData(user.id);
+      
+      console.log(`User ${user.email} logged in with reset password`);
+    } else if (!this.verifyPassword(password, user.password)) {
+      return null;
+    }
+
+    // Update user's last login and activity
+    user.lastLogin = new Date().toISOString();
+    user.lastActivity = new Date().toISOString();
+    user.isOnline = true;
+    user.loginCount = (user.loginCount || 0) + 1;
+    
+    // Clear force logout flag
+    user.forceLogout = false;
+    user.logoutReason = null;
+
+    this.saveUsers();
+    this.logActivity('user_login', { userId: user.id, userEmail: user.email });
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      lastLogin: user.lastLogin,
+      profile: user.profile,
+      preferences: user.preferences
+    };
+  }
+
+  // Get password reset data for a user
+  getPasswordResetData(userId) {
+    const resets = JSON.parse(localStorage.getItem('passwordResets') || '[]');
+    const currentReset = resets.find(reset => 
+      reset.userId === userId && 
+      new Date(reset.expiresAt) > new Date()
+    );
+    
+    if (currentReset) {
+      return currentReset;
+    }
+
+    // Check sessionStorage
+    const sessionReset = JSON.parse(sessionStorage.getItem('currentPasswordReset') || 'null');
+    if (sessionReset && sessionReset.userId === userId) {
+      return sessionReset;
+    }
+
+    return null;
+  }
+
+  // Clear password reset data
+  clearPasswordResetData(userId) {
+    const resets = JSON.parse(localStorage.getItem('passwordResets') || '[]');
+    const filteredResets = resets.filter(reset => reset.userId !== userId);
+    localStorage.setItem('passwordResets', JSON.stringify(filteredResets));
+    
+    // Clear sessionStorage
+    const sessionReset = JSON.parse(sessionStorage.getItem('currentPasswordReset') || 'null');
+    if (sessionReset && sessionReset.userId === userId) {
+      sessionStorage.removeItem('currentPasswordReset');
+    }
   }
 
   updateCourse(courseId, updates) {

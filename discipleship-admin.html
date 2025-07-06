@@ -239,9 +239,14 @@
                 <i class="fas fa-users text-[#FDBA17]"></i>
                 User Management
               </h3>
-              <button id="add-user-btn" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
-                <i class="fas fa-plus mr-2"></i>Add User
-              </button>
+              <div class="flex gap-2">
+                <button id="add-user-btn" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-plus mr-2"></i>Add User
+                </button>
+                <button onclick="testDeleteUserFunctionality()" class="px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-trash mr-2"></i>Test Delete
+                </button>
+              </div>
             </div>
           </div>
           <div class="p-6">
@@ -568,18 +573,53 @@
               <i class="fas fa-download text-[#FDBA17]"></i>
               Analytics Reports
             </h3>
+            <p class="text-sm text-gray-600 mt-1">Export analytics data in CSV or PDF format</p>
           </div>
           <div class="p-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button id="export-user-analytics" class="px-4 py-3 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
-                <i class="fas fa-users mr-2"></i>Export User Analytics
-              </button>
-              <button id="export-course-analytics" class="px-4 py-3 bg-gradient-to-r from-[#FDBA17] to-[#F59E0B] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
-                <i class="fas fa-book mr-2"></i>Export Course Analytics
-              </button>
-              <button id="export-full-report" class="px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
-                <i class="fas fa-file-alt mr-2"></i>Full Analytics Report
-              </button>
+            <!-- CSV Export Buttons -->
+            <div class="mb-6">
+              <h4 class="text-md font-semibold text-[#2046B3] mb-3 flex items-center gap-2">
+                <i class="fas fa-file-csv text-[#FDBA17]"></i>
+                CSV Export
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button id="export-user-analytics" class="px-4 py-3 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-users mr-2"></i>User Analytics (CSV)
+                </button>
+                <button id="export-course-analytics" class="px-4 py-3 bg-gradient-to-r from-[#FDBA17] to-[#F59E0B] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-book mr-2"></i>Course Analytics (CSV)
+                </button>
+                <button id="export-full-report" class="px-4 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-file-alt mr-2"></i>Full Report (JSON)
+                </button>
+              </div>
+            </div>
+            
+            <!-- PDF Export Buttons -->
+            <div>
+              <h4 class="text-md font-semibold text-[#2046B3] mb-3 flex items-center gap-2">
+                <i class="fas fa-file-pdf text-red-600"></i>
+                PDF Export
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button id="export-user-pdf" class="px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-file-pdf mr-2"></i>User Analytics (PDF)
+                </button>
+                <button id="export-course-pdf" class="px-4 py-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-file-pdf mr-2"></i>Course Analytics (PDF)
+                </button>
+                <button id="export-full-pdf" class="px-4 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-file-pdf mr-2"></i>Complete Report (PDF)
+                </button>
+              </div>
+            </div>
+            
+            <!-- Export Status -->
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+              <div class="flex items-center gap-2 text-sm text-gray-600">
+                <i class="fas fa-info-circle text-[#7C3AED]"></i>
+                <span>PDF reports include comprehensive analytics with charts, metrics, and detailed data tables.</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1011,6 +1051,27 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="assets/js/discipleship-backend.js"></script>
   <script src="assets/js/admin-complete.js"></script>
+  <style>
+    /* Loading spinner for admin dashboard */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Password reset status indicator */
+    .password-reset-status {
+      transition: all 0.3s ease;
+    }
+  </style>
   <script src="assets/js/admin-analytics.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
