@@ -42,6 +42,11 @@
             <span id="sync-status-text">Synced</span>
           </div>
 
+          <!-- Test Button -->
+          <button id="test-btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition-colors text-white">
+            Test JS
+          </button>
+
           <!-- Notifications -->
           <div id="notification-bell" class="relative cursor-pointer p-2 hover:bg-white/10 rounded-lg transition-colors">
             <i class="fas fa-bell text-lg"></i>
@@ -513,103 +518,59 @@
   <script src="assets/js/discipleship-backend.js"></script>
   <script src="assets/js/admin-simple.js"></script>
   <script>
-    // Initialize admin dashboard
+    // Initialize the backend and admin dashboard
     document.addEventListener('DOMContentLoaded', function() {
-      // Sidebar navigation
-      document.querySelectorAll('.sidebar-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          // Remove active class from all links
-          document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
-          
-          // Add active class to clicked link
-          this.classList.add('active');
-          
-          // Hide all sections
-          document.querySelectorAll('.dashboard-section').forEach(section => {
-            section.classList.add('hidden');
-          });
-          
-          // Show target section
-          const targetId = this.getAttribute('href').substring(1);
-          const targetSection = document.getElementById(targetId);
-          if (targetSection) {
-            targetSection.classList.remove('hidden');
-          }
-        });
+      // Add test button functionality
+      document.getElementById('test-btn')?.addEventListener('click', function() {
+        alert('JavaScript is working! Backend: ' + (window.DiscipleshipBackend ? 'Loaded' : 'Not loaded'));
+        console.log('Test button clicked');
       });
 
-      // User modal functionality
-      function openUserModal() {
-        document.getElementById('user-modal').classList.remove('hidden');
-      }
-
-      function closeUserModal() {
-        document.getElementById('user-modal').classList.add('hidden');
-      }
-
-      // Add user button
-      document.getElementById('add-user-btn').addEventListener('click', openUserModal);
-
-      // Close modal on outside click
-      document.getElementById('user-modal').addEventListener('click', function(e) {
-        if (e.target === this) {
-          closeUserModal();
-        }
-      });
-
-      // Add user form submission
-      document.getElementById('add-user-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        const userData = {
-          name: formData.get('name'),
-          email: formData.get('email'),
-          role: formData.get('role'),
-          joinedDate: new Date().toISOString()
-        };
-        
-        // Add user to backend
-        if (window.DiscipleshipBackend) {
-          window.DiscipleshipBackend.addUser(userData);
+      // Wait a moment for the backend to fully initialize
+      setTimeout(function() {
+        // Initialize the backend if not already done
+        if (!window.DiscipleshipBackend) {
+          console.log('Creating new backend instance...');
+          window.DiscipleshipBackend = new DiscipleshipBackend();
         }
         
-        closeUserModal();
-        this.reset();
-      });
-
-      // Logout functionality
-      document.getElementById('logout-btn').addEventListener('click', function() {
-        if (confirm('Are you sure you want to logout?')) {
-          window.location.href = 'discipleship-login.html';
-        }
-      });
-
-      // Notification bell click
-      document.getElementById('notification-bell').addEventListener('click', function() {
-        const panel = document.getElementById('notification-panel');
-        panel.classList.toggle('hidden');
-      });
-
-      // Close notifications
-      document.getElementById('close-notifications').addEventListener('click', function() {
-        document.getElementById('notification-panel').classList.add('hidden');
-      });
-
-      // Initialize real-time updates
-      if (window.AdminSync) {
-        window.AdminSync.performDataSync();
-      }
+        // The admin-simple.js will handle all the functionality
+        console.log('Admin dashboard initialized');
+      }, 100);
     });
 
-    // Make functions globally available
+    // Make modal functions globally available for onclick handlers
     window.openUserModal = function() {
-      document.getElementById('user-modal').classList.remove('hidden');
+      if (window.AdminSimple && window.AdminSimple.openUserModal) {
+        window.AdminSimple.openUserModal();
+      } else {
+        // Fallback if AdminSimple is not loaded
+        document.getElementById('user-modal').classList.remove('hidden');
+      }
     };
 
     window.closeUserModal = function() {
-      document.getElementById('user-modal').classList.add('hidden');
+      if (window.AdminSimple && window.AdminSimple.closeUserModal) {
+        window.AdminSimple.closeUserModal();
+      } else {
+        // Fallback if AdminSimple is not loaded
+        document.getElementById('user-modal').classList.add('hidden');
+      }
+    };
+
+    // Global functions for table actions
+    window.editUser = function(userId) {
+      console.log('Edit user:', userId);
+      // TODO: Implement edit user functionality
+      alert('Edit user functionality coming soon!');
+    };
+
+    window.deleteUser = function(userId) {
+      if (confirm('Are you sure you want to delete this user?')) {
+        console.log('Delete user:', userId);
+        // TODO: Implement delete user functionality
+        alert('Delete user functionality coming soon!');
+      }
     };
   </script>
 </body>

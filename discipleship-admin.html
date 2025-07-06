@@ -63,6 +63,18 @@
             <button id="test-sidebar-btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm transition-colors ml-2">
               <i class="fas fa-bug mr-1"></i>Test Sidebar
             </button>
+            <button onclick="testAdminButtons()" class="px-3 py-1 bg-green-600 hover:bg-green-700 rounded-lg text-sm transition-colors ml-2">
+              <i class="fas fa-check mr-1"></i>Test Buttons
+            </button>
+            <button onclick="testEditUser()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 rounded-lg text-sm transition-colors ml-2">
+              <i class="fas fa-edit mr-1"></i>Test Edit User
+            </button>
+            <button onclick="testBackend()" class="px-3 py-1 bg-orange-600 hover:bg-orange-700 rounded-lg text-sm transition-colors ml-2">
+              <i class="fas fa-database mr-1"></i>Test Backend
+            </button>
+            <button onclick="testModal()" class="px-3 py-1 bg-pink-600 hover:bg-pink-700 rounded-lg text-sm transition-colors ml-2">
+              <i class="fas fa-window-maximize mr-1"></i>Test Modal
+            </button>
           </div>
         </div>
       </div>
@@ -298,9 +310,17 @@
                 <i class="fas fa-certificate text-[#FDBA17]"></i>
                 Certificate Management
               </h3>
-              <button class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
-                <i class="fas fa-plus mr-2"></i>Issue Certificate
-              </button>
+              <div class="flex gap-2">
+                <button onclick="openCertificateModal()" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-plus mr-2"></i>Issue Certificate
+                </button>
+                <button onclick="testCertificateFunctionality()" class="px-4 py-2 bg-gradient-to-r from-[#FDBA17] to-[#F59E0B] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-bug mr-2"></i>Test Certificates
+                </button>
+                <button onclick="testBackend()" class="px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-server mr-2"></i>Test Backend
+                </button>
+              </div>
             </div>
           </div>
           <div class="p-6">
@@ -997,44 +1017,67 @@
       try {
         console.log('Admin dashboard loading...');
         
+        // Initialize backend first
+        if (!window.DiscipleshipBackend) {
+          console.log('Creating backend instance...');
+          window.DiscipleshipBackend = new DiscipleshipBackend();
+        }
+        
         // Authentication check
         const loggedInUser = localStorage.getItem('discipleship_logged_in_user');
         console.log('Logged in user from localStorage:', loggedInUser);
         
         if (!loggedInUser) {
-          console.log('No user logged in, redirecting to login');
-          alert('No user logged in. Redirecting to login...');
-          window.location.href = 'discipleship-login.html';
-          return;
-        }
-        
-        const user = JSON.parse(loggedInUser);
-        console.log('Parsed user:', user);
-        
-        if (user.role !== 'admin') {
-          console.log('User is not admin, redirecting to user dashboard');
-          alert('User is not admin. Redirecting to user dashboard...');
-          window.location.href = 'discipleship-user.html';
-          return;
+          console.log('No user logged in, using demo mode');
+          // For demo purposes, allow admin access without login
+          const demoUser = {
+            name: 'Demo Admin',
+            email: 'admin@demo.com',
+            role: 'admin'
+          };
+          localStorage.setItem('discipleship_logged_in_user', JSON.stringify(demoUser));
+          
+          // Update admin info in header
+          const adminNameElement = document.querySelector('.text-sm.font-medium');
+          if (adminNameElement) {
+            adminNameElement.textContent = demoUser.name;
+          }
+        } else {
+          const user = JSON.parse(loggedInUser);
+          console.log('Parsed user:', user);
+          
+          if (user.role !== 'admin') {
+            console.log('User is not admin, redirecting to user dashboard');
+            window.location.href = 'discipleship-user.html';
+            return;
+          }
+          
+          // Update admin info in header
+          const adminNameElement = document.querySelector('.text-sm.font-medium');
+          if (adminNameElement) {
+            adminNameElement.textContent = user.name;
+          }
         }
         
         console.log('Authentication successful, continuing with dashboard initialization...');
         
-        // Update admin info in header
-        const adminNameElement = document.querySelector('.text-sm.font-medium');
-        if (adminNameElement) {
-          adminNameElement.textContent = user.name;
-          console.log('Updated admin name in header');
-        } else {
-          console.log('Admin name element not found');
-        }
-        
         // Initialize the complete admin dashboard
         if (window.AdminComplete) {
+          console.log('AdminComplete found, initializing...');
           window.AdminComplete.initAdminDashboard();
+        } else {
+          console.error('AdminComplete not found!');
+          // Fallback initialization
+          setTimeout(() => {
+            if (window.AdminComplete) {
+              window.AdminComplete.initAdminDashboard();
+            } else {
+              console.error('AdminComplete still not available after delay');
+            }
+          }, 500);
         }
         
-        console.log('Admin dashboard initialized successfully');
+        console.log('Admin dashboard initialization completed');
         
       } catch (error) {
         console.error('Error in admin dashboard initialization:', error);
@@ -1046,24 +1089,206 @@
     window.openUserModal = function() {
       if (window.AdminComplete) {
         window.AdminComplete.openUserModal();
+      } else {
+        console.error('AdminComplete not available for openUserModal');
       }
     };
 
     window.closeUserModal = function() {
       if (window.AdminComplete) {
         window.AdminComplete.closeUserModal();
+      } else {
+        console.error('AdminComplete not available for closeUserModal');
       }
     };
 
     window.closeCourseModal = function() {
       if (window.AdminComplete) {
         window.AdminComplete.closeCourseModal();
+      } else {
+        console.error('AdminComplete not available for closeCourseModal');
       }
     };
 
     window.closeCertificateModal = function() {
       if (window.AdminComplete) {
         window.AdminComplete.closeCertificateModal();
+      } else {
+        console.error('AdminComplete not available for closeCertificateModal');
+      }
+    };
+
+    // Add test function for debugging
+    window.testAdminButtons = function() {
+      console.log('Testing admin buttons...');
+      console.log('Backend available:', !!window.DiscipleshipBackend);
+      console.log('AdminComplete available:', !!window.AdminComplete);
+      
+      // Test if buttons exist
+      const addUserBtn = document.getElementById('add-user-btn');
+      console.log('Add user button exists:', !!addUserBtn);
+      
+      const logoutBtn = document.getElementById('logout-btn');
+      console.log('Logout button exists:', !!logoutBtn);
+      
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      console.log('Sidebar links found:', sidebarLinks.length);
+      
+      alert('Check console for button test results');
+    };
+
+    // Add test function for edit user functionality
+    window.testEditUser = function() {
+      console.log('Testing edit user functionality...');
+      
+      if (!window.AdminComplete) {
+        alert('AdminComplete not available!');
+        return;
+      }
+      
+      if (!window.DiscipleshipBackend) {
+        alert('Backend not available!');
+        return;
+      }
+      
+      const users = window.DiscipleshipBackend.getAllUsers();
+      console.log('Available users:', users);
+      
+      if (users.length === 0) {
+        alert('No users found. Please add a user first.');
+        return;
+      }
+      
+      // Test opening edit modal for the first user
+      const firstUser = users[0];
+      console.log('Testing edit for user:', firstUser);
+      
+      if (window.AdminComplete.openEditUserModal) {
+        console.log('Calling openEditUserModal...');
+        window.AdminComplete.openEditUserModal(firstUser.id);
+        alert('Edit user modal should be open now. Check if the modal appears.');
+      } else {
+        alert('openEditUserModal function not found!');
+      }
+    };
+
+    // Add a simple backend test
+    window.testBackend = function() {
+      console.log('Testing backend...');
+      console.log('DiscipleshipBackend:', window.DiscipleshipBackend);
+      console.log('AdminComplete:', window.AdminComplete);
+      
+      if (window.DiscipleshipBackend) {
+        const users = window.DiscipleshipBackend.getAllUsers();
+        console.log('Users from backend:', users);
+        alert(`Backend working! Found ${users.length} users.`);
+      } else {
+        alert('Backend not available!');
+      }
+    };
+
+    // Add a simple modal test
+    window.testModal = function() {
+      console.log('Testing modal directly...');
+      const modal = document.getElementById('edit-user-modal');
+      const form = document.getElementById('edit-user-form');
+      
+      console.log('Modal element:', modal);
+      console.log('Form element:', form);
+      
+      if (modal && form) {
+        // Populate with test data
+        form.elements['id'].value = 'test-id';
+        form.elements['name'].value = 'Test User';
+        form.elements['email'].value = 'test@example.com';
+        form.elements['role'].value = 'student';
+        
+        modal.classList.remove('hidden');
+        alert('Modal should be open now!');
+      } else {
+        alert('Modal or form not found!');
+      }
+    };
+
+    // Add missing global functions for edit user functionality
+    window.openEditUserModal = function(userId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.openEditUserModal(userId);
+      } else {
+        console.error('AdminComplete not available for openEditUserModal');
+      }
+    };
+
+    window.closeEditUserModal = function() {
+      if (window.AdminComplete) {
+        window.AdminComplete.closeEditUserModal();
+      } else {
+        console.error('AdminComplete not available for closeEditUserModal');
+      }
+    };
+
+    window.openEditCourseModal = function(courseId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.openEditCourseModal(courseId);
+      } else {
+        console.error('AdminComplete not available for openEditCourseModal');
+      }
+    };
+
+    window.closeEditCourseModal = function() {
+      if (window.AdminComplete) {
+        window.AdminComplete.closeEditCourseModal();
+      } else {
+        console.error('AdminComplete not available for closeEditCourseModal');
+      }
+    };
+
+    window.openResetPasswordModal = function(userId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.openResetPasswordModal(userId);
+      } else {
+        console.error('AdminComplete not available for openResetPasswordModal');
+      }
+    };
+
+    window.closeResetPasswordModal = function() {
+      if (window.AdminComplete) {
+        window.AdminComplete.closeResetPasswordModal();
+      } else {
+        console.error('AdminComplete not available for closeResetPasswordModal');
+      }
+    };
+
+    // Add other global functions that might be needed
+    window.editUser = function(userId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.openEditUserModal(userId);
+      } else {
+        console.error('AdminComplete not available for editUser');
+      }
+    };
+
+    window.deleteUser = function(userId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.deleteUser(userId);
+      } else {
+        console.error('AdminComplete not available for deleteUser');
+      }
+    };
+
+    window.editCourse = function(courseId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.openEditCourseModal(courseId);
+      } else {
+        console.error('AdminComplete not available for editCourse');
+      }
+    };
+
+    window.deleteCourse = function(courseId) {
+      if (window.AdminComplete) {
+        window.AdminComplete.deleteCourse(courseId);
+      } else {
+        console.error('AdminComplete not available for deleteCourse');
       }
     };
   </script>

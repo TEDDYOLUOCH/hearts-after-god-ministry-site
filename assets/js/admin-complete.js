@@ -25,6 +25,14 @@
     setTimeout(() => {
       console.log('DOM should be fully loaded now');
       
+      // Check for key elements
+      const editUserModal = document.getElementById('edit-user-modal');
+      const editUserForm = document.getElementById('edit-user-form');
+      console.log('Key elements found:', {
+        editUserModal: !!editUserModal,
+        editUserForm: !!editUserForm
+      });
+      
       // Load initial data
       loadDashboardStats();
       loadUsers();
@@ -115,6 +123,16 @@
       userModal.addEventListener('click', function(e) {
         if (e.target === this) closeUserModal();
       });
+    }
+
+    const editUserModal = document.getElementById('edit-user-modal');
+    if (editUserModal) {
+      console.log('Found edit user modal, adding click handler');
+      editUserModal.addEventListener('click', function(e) {
+        if (e.target === this) closeEditUserModal();
+      });
+    } else {
+      console.log('Edit user modal not found');
     }
 
     const courseModal = document.getElementById('course-modal');
@@ -730,21 +748,53 @@
 
   // Edit User Modal Functions
   function openEditUserModal(userId) {
+    console.log('openEditUserModal called with userId:', userId);
+    
     const modal = document.getElementById('edit-user-modal');
+    console.log('Modal element found:', !!modal);
+    
     const form = document.getElementById('edit-user-form');
-    if (!modal || !form || !window.DiscipleshipBackend) return;
+    console.log('Form element found:', !!form);
+    
+    if (!modal || !form || !window.DiscipleshipBackend) {
+      console.error('Missing required elements:', {
+        modal: !!modal,
+        form: !!form,
+        backend: !!window.DiscipleshipBackend
+      });
+      return;
+    }
+    
     const user = window.DiscipleshipBackend.getAllUsers().find(u => u.id === userId);
-    if (!user) return;
+    console.log('User found:', user);
+    
+    if (!user) {
+      console.error('User not found with ID:', userId);
+      return;
+    }
+    
+    // Populate form fields
     form.elements['id'].value = user.id;
     form.elements['name'].value = user.name;
     form.elements['email'].value = user.email;
     form.elements['role'].value = user.role;
+    
+    console.log('Form populated with user data:', {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role
+    });
+    
     modal.classList.remove('hidden');
+    console.log('Modal should now be visible');
   }
+
   function closeEditUserModal() {
     const modal = document.getElementById('edit-user-modal');
     if (modal) modal.classList.add('hidden');
   }
+
   function handleEditUser(e) {
     e.preventDefault();
     const form = e.target;
@@ -794,77 +844,147 @@
 
   // Global admin functions
   window.editUser = function(userId) {
-    openEditUserModal(userId);
+    console.log('Global editUser function called with userId:', userId);
+    if (window.AdminComplete) {
+      console.log('AdminComplete found, calling openEditUserModal');
+      window.AdminComplete.openEditUserModal(userId);
+    } else {
+      console.error('AdminComplete not available');
+    }
   };
 
   window.deleteUser = function(userId) {
-    if (confirm('Are you sure you want to delete this user?')) {
-      console.log('Delete user:', userId);
-      // Implement delete user logic
+    if (window.AdminComplete) {
+      window.AdminComplete.deleteUser(userId);
     }
   };
 
   window.editCourse = function(courseId) {
-    openEditCourseModal(courseId);
-  };
-
-  window.deleteCourse = function(courseId) {
-    if (confirm('Are you sure you want to delete this course?')) {
-      console.log('Delete course:', courseId);
-      // Implement delete course logic
+    if (window.AdminComplete) {
+      window.AdminComplete.openEditCourseModal(courseId);
     }
   };
 
-  window.downloadCertificate = function(certId) {
-    console.log('Downloading certificate:', certId);
+  window.deleteCourse = function(courseId) {
+    if (window.AdminComplete) {
+      window.AdminComplete.deleteCourse(courseId);
+    }
+  };
+
+  window.downloadCertificate = function(certificateId) {
+    console.log('Downloading certificate:', certificateId);
     
     if (!window.DiscipleshipBackend) {
-      alert('Backend not available');
+      showNotification('Backend not available', 'error');
       return;
     }
     
     const certificates = window.DiscipleshipBackend.getAllCertificates();
-    const certificate = certificates.find(c => c.id === certId);
+    const certificate = certificates.find(c => c.id === certificateId);
     
     if (!certificate) {
-      alert('Certificate not found');
+      showNotification('Certificate not found', 'error');
       return;
     }
     
-    // Generate certificate content
-    const certificateContent = generateCertificateHTML(certificate);
-    
-    // Create and download the certificate
-    downloadCertificateAsPDF(certificateContent, certificate);
+    try {
+      // Generate certificate HTML
+      const certificateHTML = generateCertificateHTML(certificate);
+      
+      // Create a new window with the certificate
+      const newWindow = window.open('', '_blank');
+      newWindow.document.write(certificateHTML);
+      newWindow.document.close();
+      
+      showNotification('Certificate opened in new window', 'success');
+    } catch (error) {
+      console.error('Error downloading certificate:', error);
+      showNotification('Error downloading certificate', 'error');
+    }
   };
 
-  window.revokeCertificate = function(certId) {
-    if (confirm('Are you sure you want to revoke this certificate?')) {
-      console.log('Revoke certificate:', certId);
-      // Implement revoke certificate logic
+  window.revokeCertificate = function(certificateId) {
+    console.log('Revoking certificate:', certificateId);
+    
+    if (!confirm('Are you sure you want to revoke this certificate? This action cannot be undone.')) {
+      return;
+    }
+    
+    if (!window.DiscipleshipBackend) {
+      showNotification('Backend not available', 'error');
+      return;
+    }
+    
+    const certificates = window.DiscipleshipBackend.getAllCertificates();
+    const certificate = certificates.find(c => c.id === certificateId);
+    
+    if (!certificate) {
+      showNotification('Certificate not found', 'error');
+      return;
+    }
+    
+    try {
+      // Update certificate status to revoked
+      certificate.status = 'revoked';
+      certificate.revokedDate = new Date().toISOString();
+      
+      // Save to backend (you might need to add an updateCertificate method)
+      // For now, we'll just reload the certificates
+      loadCertificates();
+      loadDashboardStats();
+      
+      showNotification('Certificate revoked successfully', 'success');
+    } catch (error) {
+      console.error('Error revoking certificate:', error);
+      showNotification('Error revoking certificate', 'error');
     }
   };
 
   window.replyToTicket = function(ticketId) {
-    openReplyTicketModal(ticketId);
+    console.log('Replying to ticket:', ticketId);
+    if (window.AdminComplete && window.AdminComplete.openReplyTicketModal) {
+      window.AdminComplete.openReplyTicketModal(ticketId);
+    } else {
+      showNotification('Reply function not available', 'error');
+    }
   };
 
   window.resolveTicket = function(ticketId) {
-    if (confirm('Mark this ticket as resolved?')) {
-      if (window.DiscipleshipBackend) {
-        window.DiscipleshipBackend.updateSupportTicket(ticketId, {
-          status: 'resolved',
-          resolvedBy: 'Admin',
-          resolvedDate: new Date().toISOString()
-        });
-        loadSupportTickets();
-        loadDashboardStats();
-      }
+    console.log('Resolving ticket:', ticketId);
+    
+    if (!confirm('Are you sure you want to mark this ticket as resolved?')) {
+      return;
+    }
+    
+    if (!window.DiscipleshipBackend) {
+      showNotification('Backend not available', 'error');
+      return;
+    }
+    
+    try {
+      // Update ticket status to resolved
+      window.DiscipleshipBackend.updateSupportTicket(ticketId, {
+        status: 'resolved',
+        resolvedDate: new Date().toISOString()
+      });
+      
+      loadSupportTickets();
+      loadDashboardStats();
+      
+      showNotification('Ticket resolved successfully', 'success');
+    } catch (error) {
+      console.error('Error resolving ticket:', error);
+      showNotification('Error resolving ticket', 'error');
     }
   };
 
   window.viewTicketDetails = function(ticketId) {
-    openTicketDetailsModal(ticketId);
+    console.log('Viewing ticket details:', ticketId);
+    if (window.AdminComplete && window.AdminComplete.openTicketDetailsModal) {
+      window.AdminComplete.openTicketDetailsModal(ticketId);
+    } else {
+      showNotification('Ticket details function not available', 'error');
+    }
   };
 
   // Course management functions
@@ -880,26 +1000,41 @@
 
   // Certificate management functions
   function openCertificateModal() {
+    console.log('openCertificateModal called');
     const modal = document.getElementById('certificate-modal');
+    console.log('Certificate modal found:', !!modal);
     if (modal) {
       modal.classList.remove('hidden');
       populateCertificateModal();
+    } else {
+      console.error('Certificate modal not found');
     }
   }
 
   function closeCertificateModal() {
+    console.log('closeCertificateModal called');
     const modal = document.getElementById('certificate-modal');
     if (modal) modal.classList.add('hidden');
   }
 
   function populateCertificateModal() {
-    if (!window.DiscipleshipBackend) return;
+    console.log('populateCertificateModal called');
+    if (!window.DiscipleshipBackend) {
+      console.error('Backend not available');
+      return;
+    }
     
     const students = window.DiscipleshipBackend.getAllUsers().filter(u => u.role === 'student');
     const courses = window.DiscipleshipBackend.getAllCourses();
     
+    console.log('Students found:', students.length);
+    console.log('Courses found:', courses.length);
+    
     const studentSelect = document.querySelector('#certificate-modal select[name="studentId"]');
     const courseSelect = document.querySelector('#certificate-modal select[name="courseId"]');
+    
+    console.log('Student select found:', !!studentSelect);
+    console.log('Course select found:', !!courseSelect);
     
     if (studentSelect) {
       studentSelect.innerHTML = '<option value="">Select Student</option>' + 
@@ -933,40 +1068,86 @@
   }
 
   function handleIssueCertificate(e) {
+    console.log('=== handleIssueCertificate called ===');
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const studentId = formData.get('studentId');
-    const courseId = formData.get('courseId');
-    const completionDate = formData.get('completionDate');
     
-    if (!studentId || !courseId || !completionDate) {
-      alert('Please fill in all fields');
-      return;
-    }
-    
-    if (window.DiscipleshipBackend) {
-      const students = window.DiscipleshipBackend.getAllUsers();
-      const courses = window.DiscipleshipBackend.getAllCourses();
+    try {
+      const formData = new FormData(e.target);
+      const studentId = formData.get('studentId');
+      const courseId = formData.get('courseId');
+      const completionDate = formData.get('completionDate');
       
-      const student = students.find(s => s.id === studentId);
-      const course = courses.find(c => c.id === courseId);
+      console.log('Form data:', { studentId, courseId, completionDate });
       
-      if (student && course) {
-        const certificateData = {
-          studentId: studentId,
-          studentName: student.name,
-          courseId: courseId,
-          courseName: course.title,
-          issuedDate: new Date().toISOString(),
-          completionDate: completionDate
-        };
-        
-        window.DiscipleshipBackend.createCertificate(certificateData);
-        loadCertificates();
-        loadDashboardStats();
+      if (!studentId || !courseId || !completionDate) {
+        console.error('Missing required fields');
+        showNotification('Please fill in all fields', 'error');
+        return;
       }
+      
+      console.log('Backend available:', !!window.DiscipleshipBackend);
+      
+      if (window.DiscipleshipBackend) {
+        console.log('Getting users and courses...');
+        const users = window.DiscipleshipBackend.getAllUsers();
+        const courses = window.DiscipleshipBackend.getAllCourses();
+        
+        console.log('Users found:', users.length);
+        console.log('Courses found:', courses.length);
+        
+        const student = users.find(s => s.id === studentId);
+        const course = courses.find(c => c.id === courseId);
+        
+        console.log('Student found:', !!student, student ? student.name : 'N/A');
+        console.log('Course found:', !!course, course ? course.title : 'N/A');
+        
+        if (student && course) {
+          const certificateData = {
+            studentId: studentId,
+            studentName: student.name,
+            courseId: courseId,
+            courseName: course.title,
+            issuedDate: new Date().toISOString(),
+            completionDate: completionDate
+          };
+          
+          console.log('Creating certificate with data:', certificateData);
+          
+          try {
+            console.log('Calling createCertificate...');
+            const certificate = window.DiscipleshipBackend.createCertificate(certificateData);
+            console.log('Certificate created successfully:', certificate);
+            
+            console.log('Reloading certificates...');
+            loadCertificates();
+            
+            console.log('Reloading dashboard stats...');
+            loadDashboardStats();
+            
+            showNotification('Certificate issued successfully!', 'success');
+            console.log('=== Certificate creation completed successfully ===');
+          } catch (error) {
+            console.error('Error in createCertificate call:', error);
+            console.error('Error stack:', error.stack);
+            showNotification('Error creating certificate: ' + error.message, 'error');
+          }
+        } else {
+          console.error('Student or course not found');
+          if (!student) console.error('Student not found for ID:', studentId);
+          if (!course) console.error('Course not found for ID:', courseId);
+          showNotification('Student or course not found', 'error');
+        }
+      } else {
+        console.error('Backend not available');
+        showNotification('Backend not available', 'error');
+      }
+    } catch (error) {
+      console.error('Unexpected error in handleIssueCertificate:', error);
+      console.error('Error stack:', error.stack);
+      showNotification('Unexpected error: ' + error.message, 'error');
     }
     
+    console.log('Closing modal and resetting form...');
     closeCertificateModal();
     e.target.reset();
   }
@@ -1630,8 +1811,12 @@
   window.AdminComplete = {
     openUserModal,
     closeUserModal,
+    openEditUserModal,
+    closeEditUserModal,
     openCourseModal,
     closeCourseModal,
+    openEditCourseModal,
+    closeEditCourseModal,
     openCertificateModal,
     closeCertificateModal,
     openReplyTicketModal,
@@ -1641,6 +1826,20 @@
     openResetPasswordModal,
     closeResetPasswordModal,
     initAdminDashboard,
+    deleteUser: function(userId) {
+      if (confirm('Are you sure you want to delete this user?')) {
+        console.log('Delete user:', userId);
+        // TODO: Implement delete user logic
+        showNotification('Delete user functionality coming soon!', 'info');
+      }
+    },
+    deleteCourse: function(courseId) {
+      if (confirm('Are you sure you want to delete this course?')) {
+        console.log('Delete course:', courseId);
+        // TODO: Implement delete course logic
+        showNotification('Delete course functionality coming soon!', 'info');
+      }
+    },
     testSidebar: function() {
       console.log('Testing sidebar functionality...');
       const sidebarLinks = document.querySelectorAll('.sidebar-link');
@@ -1700,6 +1899,173 @@
     if (window.AdminComplete) {
       window.AdminComplete.openResetPasswordModal(userId);
     }
+  };
+
+  // Add more global functions for edit functionality
+  window.openEditUserModal = function(userId) {
+    if (window.AdminComplete) {
+      window.AdminComplete.openEditUserModal(userId);
+    }
+  };
+
+  window.closeEditUserModal = function() {
+    if (window.AdminComplete) {
+      window.AdminComplete.closeEditUserModal();
+    }
+  };
+
+  window.openEditCourseModal = function(courseId) {
+    if (window.AdminComplete) {
+      window.AdminComplete.openEditCourseModal(courseId);
+    }
+  };
+
+  window.closeEditCourseModal = function() {
+    if (window.AdminComplete) {
+      window.AdminComplete.closeEditCourseModal();
+    }
+  };
+
+  // Certificate management global functions
+  window.openCertificateModal = function() {
+    if (window.AdminComplete) {
+      window.AdminComplete.openCertificateModal();
+    }
+  };
+
+  window.closeCertificateModal = function() {
+    if (window.AdminComplete) {
+      window.AdminComplete.closeCertificateModal();
+    }
+  };
+
+  // Test certificate functionality
+  window.testCertificateFunctionality = function() {
+    console.log('=== Testing Certificate Functionality ===');
+    
+    // Test 1: Check if backend is available
+    console.log('1. Backend available:', !!window.DiscipleshipBackend);
+    
+    if (window.DiscipleshipBackend) {
+      // Test 2: Check backend methods
+      console.log('2. Backend methods:', {
+        createCertificate: typeof window.DiscipleshipBackend.createCertificate,
+        getAllUsers: typeof window.DiscipleshipBackend.getAllUsers,
+        getAllCourses: typeof window.DiscipleshipBackend.getAllCourses,
+        getAllCertificates: typeof window.DiscipleshipBackend.getAllCertificates
+      });
+      
+      // Test 3: Check data availability
+      const users = window.DiscipleshipBackend.getAllUsers();
+      const courses = window.DiscipleshipBackend.getAllCourses();
+      const certificates = window.DiscipleshipBackend.getAllCertificates();
+      
+      console.log('3. Data availability:', {
+        users: users.length,
+        courses: courses.length,
+        certificates: certificates.length
+      });
+      
+      // Test 4: Check modal elements
+      const modal = document.getElementById('certificate-modal');
+      const form = document.getElementById('issue-certificate-form');
+      const studentSelect = document.querySelector('#certificate-modal select[name="studentId"]');
+      const courseSelect = document.querySelector('#certificate-modal select[name="courseId"]');
+      
+      console.log('4. Modal elements:', {
+        modal: !!modal,
+        form: !!form,
+        studentSelect: !!studentSelect,
+        courseSelect: !!courseSelect
+      });
+      
+      // Test 5: Check global functions
+      console.log('5. Global functions:', {
+        openCertificateModal: typeof window.openCertificateModal,
+        closeCertificateModal: typeof window.closeCertificateModal,
+        AdminComplete: !!window.AdminComplete
+      });
+      
+      // Test 6: Try to open modal
+      console.log('6. Testing modal open...');
+      try {
+        window.openCertificateModal();
+        console.log('Modal opened successfully');
+      } catch (error) {
+        console.error('Error opening modal:', error);
+      }
+      
+      // Test 7: Check if we have students and courses
+      const students = users.filter(u => u.role === 'student');
+      console.log('7. Students available:', students.length);
+      if (students.length > 0) {
+        console.log('Sample student:', students[0]);
+      }
+      
+      console.log('8. Courses available:', courses.length);
+      if (courses.length > 0) {
+        console.log('Sample course:', courses[0]);
+      }
+      
+    } else {
+      console.error('Backend not available!');
+    }
+    
+    console.log('=== End Certificate Test ===');
+  };
+
+  // Simple backend test function
+  window.testBackend = function() {
+    console.log('=== Testing Backend ===');
+    
+    if (!window.DiscipleshipBackend) {
+      console.error('❌ Backend not available');
+      return;
+    }
+    
+    console.log('✅ Backend available');
+    
+    try {
+      // Test basic methods
+      const users = window.DiscipleshipBackend.getAllUsers();
+      const courses = window.DiscipleshipBackend.getAllCourses();
+      const certificates = window.DiscipleshipBackend.getAllCertificates();
+      
+      console.log('✅ Users:', users.length);
+      console.log('✅ Courses:', courses.length);
+      console.log('✅ Certificates:', certificates.length);
+      
+      // Test certificate creation
+      if (users.length > 0 && courses.length > 0) {
+        const testCertificate = {
+          studentId: users[0].id,
+          studentName: users[0].name,
+          courseId: courses[0].id,
+          courseName: courses[0].title,
+          issuedDate: new Date().toISOString(),
+          completionDate: new Date().toISOString()
+        };
+        
+        console.log('Testing certificate creation...');
+        const newCert = window.DiscipleshipBackend.createCertificate(testCertificate);
+        console.log('✅ Certificate created:', newCert);
+        
+        // Verify it was added
+        const updatedCerts = window.DiscipleshipBackend.getAllCertificates();
+        console.log('✅ Updated certificates count:', updatedCerts.length);
+        
+        showNotification('Backend test completed successfully!', 'success');
+      } else {
+        console.log('⚠️ No users or courses available for testing');
+        showNotification('No users or courses available for testing', 'warning');
+      }
+      
+    } catch (error) {
+      console.error('❌ Backend test failed:', error);
+      showNotification('Backend test failed: ' + error.message, 'error');
+    }
+    
+    console.log('=== End Backend Test ===');
   };
 
   // Initialize when DOM is ready

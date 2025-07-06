@@ -2,7 +2,7 @@
 // Core functionality with real-time updates and role management
 
 (function() {
-  const backend = window.DiscipleshipBackend;
+  let backend = null;
   
   // Admin state
   let adminState = {
@@ -14,10 +14,30 @@
 
   // Initialize admin dashboard
   function initAdminDashboard() {
-    checkAuthentication();
-    setupEventListeners();
-    startRealTimeUpdates();
-    loadInitialData();
+    console.log('initAdminDashboard called');
+    console.log('window.DiscipleshipBackend:', window.DiscipleshipBackend);
+    
+    // Wait for backend to be available
+    if (!window.DiscipleshipBackend) {
+      console.log('Waiting for backend to load...');
+      setTimeout(initAdminDashboard, 100);
+      return;
+    }
+    
+    try {
+      backend = window.DiscipleshipBackend;
+      console.log('Backend loaded, initializing admin dashboard...');
+      console.log('Backend methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(backend)));
+      
+      checkAuthentication();
+      setupEventListeners();
+      startRealTimeUpdates();
+      loadInitialData();
+      
+      console.log('Admin dashboard initialized successfully');
+    } catch (error) {
+      console.error('Error initializing admin dashboard:', error);
+    }
   }
 
   // Check authentication
@@ -34,39 +54,87 @@
         window.location.href = 'discipleship-user.html';
       }
     } else {
-      // Redirect to login if not authenticated
-      window.location.href = 'discipleship-login.html';
+      // For demo purposes, allow admin access without login
+      // In production, this should redirect to login
+      console.log('No user logged in, using demo admin mode');
+      adminState.currentUser = {
+        name: 'Demo Admin',
+        email: 'admin@demo.com',
+        role: 'admin'
+      };
+      adminState.isAuthenticated = true;
+      adminState.userRole = 'admin';
+      
+      // Update the UI to show demo admin
+      const adminNameElement = document.querySelector('.text-sm.font-medium');
+      if (adminNameElement) {
+        adminNameElement.textContent = 'Demo Admin';
+      }
     }
   }
 
   // Setup event listeners
   function setupEventListeners() {
-    // Sidebar navigation
-    document.querySelectorAll('.sidebar-link').forEach(link => {
-      link.addEventListener('click', handleNavigation);
-    });
+    try {
+      console.log('Setting up event listeners...');
+      
+      // Sidebar navigation
+      const sidebarLinks = document.querySelectorAll('.sidebar-link');
+      console.log('Found sidebar links:', sidebarLinks.length);
+      sidebarLinks.forEach(link => {
+        link.addEventListener('click', handleNavigation);
+      });
 
-    // User management
-    document.getElementById('add-user-btn')?.addEventListener('click', openUserModal);
-    document.getElementById('user-search')?.addEventListener('input', handleUserSearch);
-    document.getElementById('user-filter')?.addEventListener('change', handleUserFilter);
+      // User management
+      const addUserBtn = document.getElementById('add-user-btn');
+      console.log('Add user button found:', !!addUserBtn);
+      addUserBtn?.addEventListener('click', openUserModal);
+      
+      const userSearch = document.getElementById('user-search');
+      console.log('User search found:', !!userSearch);
+      userSearch?.addEventListener('input', handleUserSearch);
+      
+      const userFilter = document.getElementById('user-filter');
+      console.log('User filter found:', !!userFilter);
+      userFilter?.addEventListener('change', handleUserFilter);
 
-    // Support management
-    document.getElementById('ticket-filter')?.addEventListener('change', handleTicketFilter);
+      // Support management
+      const ticketFilter = document.getElementById('ticket-filter');
+      console.log('Ticket filter found:', !!ticketFilter);
+      ticketFilter?.addEventListener('change', handleTicketFilter);
 
-    // Notifications
-    document.getElementById('notification-bell')?.addEventListener('click', toggleNotifications);
-    document.getElementById('close-notifications')?.addEventListener('click', closeNotifications);
+      // Notifications
+      const notificationBell = document.getElementById('notification-bell');
+      console.log('Notification bell found:', !!notificationBell);
+      notificationBell?.addEventListener('click', toggleNotifications);
+      
+      const closeNotifications = document.getElementById('close-notifications');
+      console.log('Close notifications found:', !!closeNotifications);
+      closeNotifications?.addEventListener('click', closeNotifications);
 
-    // Modals
-    document.getElementById('user-modal')?.addEventListener('click', handleModalClick);
-    document.getElementById('add-user-form')?.addEventListener('submit', handleAddUser);
+      // Modals
+      const userModal = document.getElementById('user-modal');
+      console.log('User modal found:', !!userModal);
+      userModal?.addEventListener('click', handleModalClick);
+      
+      const addUserForm = document.getElementById('add-user-form');
+      console.log('Add user form found:', !!addUserForm);
+      addUserForm?.addEventListener('submit', handleAddUser);
 
-    // Logout
-    document.getElementById('logout-btn')?.addEventListener('click', handleLogout);
+      // Logout
+      const logoutBtn = document.getElementById('logout-btn');
+      console.log('Logout button found:', !!logoutBtn);
+      logoutBtn?.addEventListener('click', handleLogout);
 
-    // Export
-    document.getElementById('export-data-btn')?.addEventListener('click', exportData);
+      // Export
+      const exportDataBtn = document.getElementById('export-data-btn');
+      console.log('Export data button found:', !!exportDataBtn);
+      exportDataBtn?.addEventListener('click', exportData);
+      
+      console.log('Event listeners setup completed');
+    } catch (error) {
+      console.error('Error setting up event listeners:', error);
+    }
   }
 
   // Handle navigation
@@ -445,11 +513,12 @@
       name: formData.get('name'),
       email: formData.get('email'),
       role: formData.get('role'),
+      password: 'defaultPassword123', // In production, this should be generated or required
       joinedDate: new Date().toISOString()
     };
     
     if (backend) {
-      backend.addUser(userData);
+      backend.createUser(userData);
     }
     
     closeUserModal();

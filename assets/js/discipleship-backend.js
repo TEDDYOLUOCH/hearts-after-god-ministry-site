@@ -574,21 +574,15 @@ class DiscipleshipBackend {
   }
 
   getAllCertificates() {
-    return Object.values(this.certificates).map(cert => ({
-      ...cert,
-      user: this.users[cert.userId]
-    }));
+    return Array.isArray(this.certificates) ? this.certificates : [];
   }
 
   getAllSupportTickets() {
-    return Object.values(this.supportTickets).map(ticket => ({
-      ...ticket,
-      user: this.users[ticket.userId]
-    }));
+    return Array.isArray(this.supportTickets) ? this.supportTickets : [];
   }
 
   getAllAnnouncements() {
-    return Object.values(this.announcements);
+    return Array.isArray(this.announcements) ? this.announcements : [];
   }
 
   // User notification system
@@ -988,17 +982,62 @@ class DiscipleshipBackend {
 
   loadCertificates() {
     const stored = localStorage.getItem('discipleship_certificates');
-    return stored ? JSON.parse(stored) : {};
+    if (!stored) return [];
+    
+    try {
+      const parsed = JSON.parse(stored);
+      // Migrate from object format to array format if needed
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        console.log('Migrating certificates from object to array format');
+        const arrayFormat = Object.values(parsed);
+        localStorage.setItem('discipleship_certificates', JSON.stringify(arrayFormat));
+        return arrayFormat;
+      }
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Error loading certificates:', error);
+      return [];
+    }
   }
 
   loadSupportTickets() {
     const stored = localStorage.getItem('discipleship_support_tickets');
-    return stored ? JSON.parse(stored) : {};
+    if (!stored) return [];
+    
+    try {
+      const parsed = JSON.parse(stored);
+      // Migrate from object format to array format if needed
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        console.log('Migrating support tickets from object to array format');
+        const arrayFormat = Object.values(parsed);
+        localStorage.setItem('discipleship_support_tickets', JSON.stringify(arrayFormat));
+        return arrayFormat;
+      }
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Error loading support tickets:', error);
+      return [];
+    }
   }
 
   loadAnnouncements() {
     const stored = localStorage.getItem('discipleship_announcements');
-    return stored ? JSON.parse(stored) : {};
+    if (!stored) return [];
+    
+    try {
+      const parsed = JSON.parse(stored);
+      // Migrate from object format to array format if needed
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        console.log('Migrating announcements from object to array format');
+        const arrayFormat = Object.values(parsed);
+        localStorage.setItem('discipleship_announcements', JSON.stringify(arrayFormat));
+        return arrayFormat;
+      }
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (error) {
+      console.error('Error loading announcements:', error);
+      return [];
+    }
   }
 
   // Enhanced data saving methods
@@ -1223,6 +1262,49 @@ class DiscipleshipBackend {
     this.logActivity('course_updated', { courseId, updates });
     this.broadcastToAdmins({ type: 'course_updated', data: course });
     return course;
+  }
+
+  // Create a new course
+  createCourse(courseData) {
+    const courseId = Date.now().toString();
+    const course = {
+      id: courseId,
+      title: courseData.title,
+      description: courseData.description || '',
+      duration: courseData.duration || '',
+      createdDate: courseData.createdDate || new Date().toISOString(),
+      lessons: [],
+      enrolledUsers: 0,
+      status: 'active'
+    };
+
+    this.courses.push(course);
+    this.saveCourses();
+    this.logActivity('course_created', { courseId, courseData });
+    this.broadcastToAdmins({ type: 'course_created', data: course });
+    return course;
+  }
+
+  // Create a new certificate
+  createCertificate(certificateData) {
+    const certificateId = 'cert_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    const certificate = {
+      id: certificateId,
+      studentId: certificateData.studentId,
+      studentName: certificateData.studentName,
+      courseId: certificateData.courseId,
+      courseName: certificateData.courseName,
+      issuedDate: certificateData.issuedDate || new Date().toISOString(),
+      completionDate: certificateData.completionDate,
+      status: 'valid',
+      certificateNumber: 'CERT-' + certificateId.substring(0, 8).toUpperCase()
+    };
+
+    this.certificates.push(certificate);
+    this.saveCertificates();
+    this.logActivity('certificate_issued', { certificateId, certificateData });
+    this.broadcastToAdmins({ type: 'certificate_issued', data: certificate });
+    return certificate;
   }
 }
 
