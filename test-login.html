@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Test - Hearts After God Ministry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Login System Test</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Current Session Status</h2>
+            <div id="session-status" class="mb-4 p-4 bg-gray-50 rounded"></div>
+            <button id="clear-session" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Clear Session</button>
+            <button id="test-admin-login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ml-2">Test Admin Login</button>
+            <button id="test-user-login" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Test User Login</button>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+            <div id="test-results" class="bg-black text-green-400 p-4 rounded text-sm font-mono h-64 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/discipleship-backend.js"></script>
+    <script>
+        const sessionStatusDiv = document.getElementById('session-status');
+        const testResultsDiv = document.getElementById('test-results');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'text-red-400' : type === 'success' ? 'text-green-400' : 'text-yellow-400';
+            testResultsDiv.innerHTML += `<div class="${color}">[${timestamp}] ${message}</div>`;
+            testResultsDiv.scrollTop = testResultsDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateSessionStatus() {
+            const loggedInUser = localStorage.getItem('discipleship_logged_in_user');
+            if (loggedInUser) {
+                const user = JSON.parse(loggedInUser);
+                sessionStatusDiv.innerHTML = `
+                    <span class="text-green-600 font-bold">✓ Logged In</span><br>
+                    <strong>Name:</strong> ${user.name}<br>
+                    <strong>Email:</strong> ${user.email}<br>
+                    <strong>Role:</strong> ${user.role}
+                `;
+            } else {
+                sessionStatusDiv.innerHTML = '<span class="text-red-600 font-bold">✗ Not Logged In</span>';
+            }
+        }
+        
+        document.getElementById('clear-session').addEventListener('click', function() {
+            localStorage.removeItem('discipleship_logged_in_user');
+            log('Session cleared', 'success');
+            updateSessionStatus();
+        });
+        
+        document.getElementById('test-admin-login').addEventListener('click', function() {
+            log('Testing admin login...');
+            if (window.DiscipleshipBackend) {
+                const user = window.DiscipleshipBackend.authenticateUser('admin@heartsaftergod.org', 'admin123');
+                if (user) {
+                    log(`Admin login successful! User: ${user.name} (${user.role})`, 'success');
+                    localStorage.setItem('discipleship_logged_in_user', JSON.stringify({
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        role: user.role
+                    }));
+                    updateSessionStatus();
+                    
+                    // Test redirect
+                    setTimeout(() => {
+                        log('Redirecting to admin dashboard...', 'info');
+                        window.location.href = 'discipleship-admin.html';
+                    }, 2000);
+                } else {
+                    log('Admin login failed!', 'error');
+                }
+            } else {
+                log('Backend not available!', 'error');
+            }
+        });
+        
+        document.getElementById('test-user-login').addEventListener('click', function() {
+            log('Testing user login...');
+            if (window.DiscipleshipBackend) {
+                // Create a test user first
+                const testUser = window.DiscipleshipBackend.createUser({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    password: 'test123'
+                });
+                
+                if (testUser) {
+                    log(`Test user created: ${testUser.name}`, 'success');
+                    
+                    // Now try to login
+                    const user = window.DiscipleshipBackend.authenticateUser('test@example.com', 'test123');
+                    if (user) {
+                        log(`User login successful! User: ${user.name} (${user.role})`, 'success');
+                        localStorage.setItem('discipleship_logged_in_user', JSON.stringify({
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role
+                        }));
+                        updateSessionStatus();
+                        
+                        // Test redirect
+                        setTimeout(() => {
+                            log('Redirecting to user dashboard...', 'info');
+                            window.location.href = 'discipleship-user.html';
+                        }, 2000);
+                    } else {
+                        log('User login failed!', 'error');
+                    }
+                } else {
+                    log('Failed to create test user!', 'error');
+                }
+            } else {
+                log('Backend not available!', 'error');
+            }
+        });
+        
+        // Auto-run on page load
+        window.addEventListener('load', function() {
+            log('Page loaded, checking session...');
+            updateSessionStatus();
+        });
+    </script>
+</body>
+</html> 

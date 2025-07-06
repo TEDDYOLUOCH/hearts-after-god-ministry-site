@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Debug - Hearts After God Ministry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Backend Debug Console</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Backend Status</h2>
+            <div id="status" class="mb-4 p-4 bg-gray-50 rounded"></div>
+            <button id="test-backend" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Test Backend</button>
+            <button id="create-admin" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 ml-2">Create Admin</button>
+            <button id="test-auth" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 ml-2">Test Auth</button>
+            <button id="clear-storage" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-2">Clear Storage</button>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Console Output</h2>
+            <div id="console" class="bg-black text-green-400 p-4 rounded text-sm font-mono h-64 overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/discipleship-backend.js"></script>
+    <script>
+        const statusDiv = document.getElementById('status');
+        const consoleDiv = document.getElementById('console');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const color = type === 'error' ? 'text-red-400' : type === 'success' ? 'text-green-400' : 'text-yellow-400';
+            consoleDiv.innerHTML += `<div class="${color}">[${timestamp}] ${message}</div>`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateStatus() {
+            if (window.DiscipleshipBackend) {
+                statusDiv.innerHTML = '<span class="text-green-600 font-bold">✓ Backend Loaded</span>';
+                log('Backend is available globally', 'success');
+            } else {
+                statusDiv.innerHTML = '<span class="text-red-600 font-bold">✗ Backend Not Loaded</span>';
+                log('Backend is not available globally', 'error');
+            }
+        }
+        
+        document.getElementById('test-backend').addEventListener('click', function() {
+            log('Testing backend functionality...');
+            if (window.DiscipleshipBackend) {
+                const users = window.DiscipleshipBackend.getAllUsers();
+                log(`Found ${users.length} users in system`);
+                users.forEach(user => {
+                    log(`- ${user.email} (${user.role})`);
+                });
+            } else {
+                log('Backend not available!', 'error');
+            }
+        });
+        
+        document.getElementById('create-admin').addEventListener('click', function() {
+            log('Creating admin user...');
+            if (window.DiscipleshipBackend) {
+                window.DiscipleshipBackend.ensureAdminUser();
+                log('Admin user creation completed', 'success');
+            } else {
+                log('Backend not available!', 'error');
+            }
+        });
+        
+        document.getElementById('test-auth').addEventListener('click', function() {
+            log('Testing authentication...');
+            if (window.DiscipleshipBackend) {
+                const user = window.DiscipleshipBackend.authenticateUser('admin@heartsaftergod.org', 'admin123');
+                if (user) {
+                    log(`Authentication successful! User: ${user.name} (${user.role})`, 'success');
+                } else {
+                    log('Authentication failed!', 'error');
+                }
+            } else {
+                log('Backend not available!', 'error');
+            }
+        });
+        
+        document.getElementById('clear-storage').addEventListener('click', function() {
+            log('Clearing localStorage...');
+            localStorage.clear();
+            log('localStorage cleared', 'success');
+            setTimeout(() => {
+                log('Reloading page...');
+                location.reload();
+            }, 1000);
+        });
+        
+        // Auto-run on page load
+        window.addEventListener('load', function() {
+            log('Page loaded, checking backend...');
+            setTimeout(updateStatus, 500);
+        });
+        
+        // Monitor for backend availability
+        let checkCount = 0;
+        const checkBackend = setInterval(() => {
+            checkCount++;
+            if (window.DiscipleshipBackend) {
+                log('Backend became available!', 'success');
+                clearInterval(checkBackend);
+                updateStatus();
+            } else if (checkCount > 10) {
+                log('Backend failed to load after 10 attempts', 'error');
+                clearInterval(checkBackend);
+            } else {
+                log(`Checking for backend... (attempt ${checkCount})`);
+            }
+        }, 1000);
+    </script>
+</body>
+</html> 

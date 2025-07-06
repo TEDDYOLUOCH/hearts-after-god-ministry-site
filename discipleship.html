@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Discipleship Portal | Hearts After God Ministry</title>
   <meta name="description" content="Advanced discipleship portal with quizzes, community features, and detailed progress tracking.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     /* Animated underline for nav */
@@ -117,7 +118,7 @@
           <li><a href="discipleship.html" class="nav-link active" id="nav-discipleship">Discipleship</a></li>
           <li><a href="missions.html" class="nav-link" id="nav-missions">Missions</a></li>
           <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-        </ul>
+      </ul>
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
       <!-- CTA Button -->
@@ -130,88 +131,224 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative min-h-[40vh] flex items-center justify-center bg-blue-900 overflow-hidden px-4" aria-label="Discipleship Hero">
-    <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1600&q=80" alt="Discipleship" class="absolute inset-0 w-full h-full object-cover object-center brightness-60 z-0" />
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-gold/40 to-purple-900/80 z-0"></div>
-    <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-2xl mx-auto py-12">
-              <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-28 h-28 rounded-full shadow-lg mx-auto mb-2 border-4 border-[#FDBA17] bg-white/80 p-2" />
-      <h1 class="text-4xl md:text-5xl font-bold text-white drop-shadow-2xl leading-tight mb-2">Discipleship Portal</h1>
-      <h2 class="text-xl md:text-2xl font-semibold" style="color: #FDBA17;">Grow. Connect. Be Transformed.</h2>
-      <p class="text-lg md:text-xl text-white/90 mb-6">Join our transformative discipleship journey! Grow in faith, connect with a vibrant community, and access resources to deepen your walk with Christ. Whether you're new to faith or seeking to go deeper, our portal is designed to equip and empower you every step of the way.</p>
-      <a href="discipleship-login.html" class="inline-block font-bold px-8 py-4 rounded-full shadow transition text-xl transform hover:-translate-y-1 hover:shadow-lg" style="background-color: #FDBA17; color: #2046B3;" onmouseover="this.style.backgroundColor='#E0A615'" onmouseout="this.style.backgroundColor='#FDBA17'">Login / Register</a>
+  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden px-4 mb-16" aria-label="Discipleship Hero">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED] via-[#2046B3] to-[#FDBA17] opacity-90"></div>
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-4xl mx-auto py-16">
+      <div class="flex items-center gap-4 mb-4">
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-16 h-16 rounded-full shadow-2xl border-4 border-white/20" />
+        <div class="h-px w-16 bg-[#FDBA17]"></div>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+        <span class="block">Discipleship</span>
+        <span class="block text-[#FDBA17]">Portal</span>
+      </h1>
+      <p class="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-6">
+        Join our transformative discipleship journey! Grow in faith, connect with a vibrant community, and access resources to deepen your walk with Christ. Whether you're new to faith or seeking to go deeper, our portal is designed to equip and empower you every step of the way.
+      </p>
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
+        <p class="text-lg font-semibold text-white">
+          "My little children, for whom I travail in birth again until Christ be fashioned in you."
+          <span class="block text-[#E02424] mt-2">— Galatians 4:19</span>
+        </p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="discipleship-login.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-full shadow-xl hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+          </svg>
+          Login / Register
+        </a>
+        <a href="#how-it-works" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-full border-2 border-white/20 hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 transition-all duration-300 backdrop-blur-sm">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Learn More
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- How It Works Section -->
-  <section class="max-w-4xl mx-auto py-12 px-4 text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-8" style="color: #FFD700;">How It Works</h2>
+  <section id="how-it-works" class="max-w-7xl mx-auto py-16 px-4 mb-16">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">How It Works</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Your journey to spiritual growth starts with three simple steps</p>
+    </div>
+    
     <div class="grid md:grid-cols-3 gap-8">
-      <div class="flex flex-col items-center">
-        <div class="bg-gold text-blue rounded-full w-16 h-16 flex items-center justify-center text-3xl mb-4 shadow"><i class="fas fa-user-plus"></i></div>
-        <h3 class="font-bold text-lg mb-2" style="color: #FFD700;">1. Sign Up</h3>
-        <p class="text-gray-600">Create your free account and join a global family of believers.</p>
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="bg-gradient-to-br from-[#FDBA17] to-[#E0A615] text-[#2046B3] rounded-full w-20 h-20 flex items-center justify-center text-3xl mb-6 shadow-lg mx-auto">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-2xl mb-4 text-[#2046B3] text-center">1. Sign Up</h3>
+        <p class="text-gray-600 text-center leading-relaxed">Create your free account and join a global family of believers. Start your discipleship journey with just a few clicks.</p>
       </div>
-      <div class="flex flex-col items-center">
-        <div class="bg-blue text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl mb-4 shadow"><i class="fas fa-book-open"></i></div>
-        <h3 class="font-bold text-lg mb-2 text-blue">2. Start Learning</h3>
-        <p class="text-gray-600">Access lessons, devotionals, and resources at your own pace.</p>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="bg-gradient-to-br from-[#2046B3] to-[#1a3a8f] text-white rounded-full w-20 h-20 flex items-center justify-center text-3xl mb-6 shadow-lg mx-auto">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-2xl mb-4 text-[#2046B3] text-center">2. Start Learning</h3>
+        <p class="text-gray-600 text-center leading-relaxed">Access lessons, devotionals, and resources at your own pace. Learn from experienced mentors and grow in your faith.</p>
       </div>
-      <div class="flex flex-col items-center">
-        <div class="bg-purple text-white rounded-full w-16 h-16 flex items-center justify-center text-3xl mb-4 shadow"><i class="fas fa-users"></i></div>
-        <h3 class="font-bold text-lg mb-2 text-purple">3. Grow Together</h3>
-        <p class="text-gray-600">Connect with mentors and peers, track your progress, and celebrate milestones.</p>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="bg-gradient-to-br from-[#7C3AED] to-[#6d28d9] text-white rounded-full w-20 h-20 flex items-center justify-center text-3xl mb-6 shadow-lg mx-auto">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-2xl mb-4 text-[#2046B3] text-center">3. Grow Together</h3>
+        <p class="text-gray-600 text-center leading-relaxed">Connect with mentors and peers, track your progress, and celebrate milestones together in our supportive community.</p>
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section class="max-w-6xl mx-auto py-12 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center" style="color: #FFD700;">What You'll Experience</h2>
-    <div class="grid md:grid-cols-4 gap-8">
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4" style="border-top-color: #FFD700;">
-        <i class="fas fa-users" style="color: #FFD700;" class="text-3xl mb-3"></i>
-        <h3 class="font-bold text-lg mb-2" style="color: #FFD700;">Community</h3>
-        <p class="text-gray-600 text-center">Join a supportive, global community of believers and mentors.</p>
+  <section class="max-w-7xl mx-auto py-16 px-4 mb-16">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">What You'll Experience</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Discover the comprehensive features designed to accelerate your spiritual growth</p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100 group">
+        <div class="bg-gradient-to-br from-[#FDBA17] to-[#E0A615] text-[#2046B3] rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-xl mb-4 text-[#2046B3]">Community</h3>
+        <p class="text-gray-600 leading-relaxed">Join a supportive, global community of believers and mentors who will walk alongside you in your faith journey.</p>
       </div>
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-blue">
-        <i class="fas fa-book text-blue text-3xl mb-3"></i>
-        <h3 class="font-bold text-lg mb-2 text-blue">Resources</h3>
-        <p class="text-gray-600 text-center">Access devotionals, study guides, and exclusive discipleship content.</p>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100 group">
+        <div class="bg-gradient-to-br from-[#2046B3] to-[#1a3a8f] text-white rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-xl mb-4 text-[#2046B3]">Resources</h3>
+        <p class="text-gray-600 leading-relaxed">Access devotionals, study guides, and exclusive discipleship content curated by experienced ministry leaders.</p>
       </div>
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-purple">
-        <i class="fas fa-chart-line text-purple text-3xl mb-3"></i>
-        <h3 class="font-bold text-lg mb-2 text-purple">Progress Tracking</h3>
-        <p class="text-gray-600 text-center">See your growth, complete lessons, and earn badges as you advance.</p>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100 group">
+        <div class="bg-gradient-to-br from-[#7C3AED] to-[#6d28d9] text-white rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-xl mb-4 text-[#2046B3]">Progress Tracking</h3>
+        <p class="text-gray-600 leading-relaxed">See your growth, complete lessons, and earn badges as you advance through your discipleship journey.</p>
       </div>
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-red">
-        <i class="fas fa-hands-helping text-red text-3xl mb-3"></i>
-        <h3 class="font-bold text-lg mb-2 text-red">Support</h3>
-        <p class="text-gray-600 text-center">Get help from mentors and our support team whenever you need it.</p>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100 group">
+        <div class="bg-gradient-to-br from-[#E02424] to-[#dc2626] text-white rounded-2xl w-16 h-16 flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </div>
+        <h3 class="font-bold text-xl mb-4 text-[#2046B3]">Support</h3>
+        <p class="text-gray-600 leading-relaxed">Get help from mentors and our support team whenever you need guidance or have questions.</p>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Section -->
-  <section class="max-w-4xl mx-auto py-12 px-4">
-    <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center" style="color: #FFD700;">What Others Are Saying</h2>
+  <section class="max-w-7xl mx-auto py-16 px-4 mb-16">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">What Others Are Saying</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Hear from our community members about their transformative discipleship journey</p>
+    </div>
+    
     <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4" style="border-top-color: #FFD700;">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Samuel K." class="w-16 h-16 rounded-full mb-3 border-2 border-gold shadow">
-        <blockquote class="italic text-gray-700 mb-2">“The 14-Day Discipleship Classes changed my life and gave me a new purpose in Christ.”</blockquote>
-        <span class="font-bold" style="color: #FFD700;">Samuel K.</span>
-        <span class="text-xs text-gray-500">Recent Graduate</span>
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="flex items-center mb-6">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Samuel K." class="w-16 h-16 rounded-full border-4 border-[#FDBA17] shadow-lg mr-4" />
+          <div>
+            <h4 class="font-bold text-lg text-[#2046B3]">Samuel K.</h4>
+            <p class="text-sm text-gray-500">Recent Graduate</p>
+          </div>
+        </div>
+        <blockquote class="italic text-gray-700 mb-4 leading-relaxed">"The 14-Day Discipleship Classes changed my life and gave me a new purpose in Christ. The community support was incredible!"</blockquote>
+        <div class="flex text-[#FDBA17]">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+        </div>
       </div>
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-purple">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Grace A." class="w-16 h-16 rounded-full mb-3 border-2 border-purple shadow">
-        <blockquote class="italic text-gray-700 mb-2">“I found a family, not just a class. The community and mentorship are amazing!”</blockquote>
-        <span class="font-bold text-purple">Grace A.</span>
-        <span class="text-xs text-gray-500">New Disciple</span>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="flex items-center mb-6">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Grace A." class="w-16 h-16 rounded-full border-4 border-[#7C3AED] shadow-lg mr-4" />
+          <div>
+            <h4 class="font-bold text-lg text-[#2046B3]">Grace A.</h4>
+            <p class="text-sm text-gray-500">New Disciple</p>
+          </div>
+        </div>
+        <blockquote class="italic text-gray-700 mb-4 leading-relaxed">"I found a family, not just a class. The community and mentorship are amazing! I've grown so much in my faith."</blockquote>
+        <div class="flex text-[#7C3AED]">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+        </div>
       </div>
-      <div class="bg-white rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-blue">
-        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="David M." class="w-16 h-16 rounded-full mb-3 border-2 border-blue shadow">
-        <blockquote class="italic text-gray-700 mb-2">“The lessons are practical and the progress tracking keeps me motivated!”</blockquote>
-        <span class="font-bold text-blue">David M.</span>
-        <span class="text-xs text-gray-500">Active Member</span>
+      
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-8 border border-gray-100">
+        <div class="flex items-center mb-6">
+          <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="David M." class="w-16 h-16 rounded-full border-4 border-[#2046B3] shadow-lg mr-4" />
+          <div>
+            <h4 class="font-bold text-lg text-[#2046B3]">David M.</h4>
+            <p class="text-sm text-gray-500">Active Member</p>
+          </div>
+        </div>
+        <blockquote class="italic text-gray-700 mb-4 leading-relaxed">"The lessons are practical and the progress tracking keeps me motivated! I can see my spiritual growth clearly."</blockquote>
+        <div class="flex text-[#2046B3]">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+        </div>
       </div>
     </div>
   </section>
@@ -274,8 +411,8 @@
             <div>
               <h3 class="text-xl font-bold text-[#FDBA17]">Hearts After God</h3>
               <p class="text-sm text-white/80">Ministry</p>
-            </div>
-          </div>
+    </div>
+    </div>
           <p class="text-white/90 leading-relaxed">
             Empowering believers worldwide through discipleship, soul-winning, and revival. Join our global family as we reach the world for Christ.
           </p>
@@ -298,8 +435,8 @@
             <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg>
             </a>
-          </div>
-        </div>
+    </div>
+      </div>
 
         <!-- Quick Links -->
         <div class="space-y-4">
@@ -331,20 +468,20 @@
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
-              <span class="text-sm">info@heartsaftergod.org</span>
+              <span class="text-sm">heartsaftergodministries254@gmail.com</span>
             </div>
             <div class="flex items-center gap-3 text-white/80">
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
               </svg>
-              <span class="text-sm">+1 (555) 123-4567</span>
+              <span class="text-sm">+254 707 529 090</span>
             </div>
             <div class="flex items-center gap-3 text-white/80">
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Global Ministry</span>
+              <span class="text-sm">Founder: Cyrilla Chikamai</span>
             </div>
           </div>
           

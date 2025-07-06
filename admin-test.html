@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Test - Hearts After God Ministry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Admin Test Page</h1>
+      
+      <div id="status" class="mb-4 p-4 rounded-lg">
+        <p class="text-center">Checking authentication...</p>
+      </div>
+      
+      <div class="text-center">
+        <button id="logout-btn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusDiv = document.getElementById('status');
+      
+      // Check authentication
+      const loggedInUser = localStorage.getItem('discipleship_logged_in_user');
+      
+      if (!loggedInUser) {
+        statusDiv.innerHTML = '<p class="text-red-600 text-center">No user logged in. Redirecting to login...</p>';
+        setTimeout(() => {
+          window.location.href = 'discipleship-login.html';
+        }, 2000);
+        return;
+      }
+      
+      const user = JSON.parse(loggedInUser);
+      
+      if (user.role !== 'admin') {
+        statusDiv.innerHTML = '<p class="text-red-600 text-center">User is not admin. Redirecting to user dashboard...</p>';
+        setTimeout(() => {
+          window.location.href = 'discipleship-user.html';
+        }, 2000);
+        return;
+      }
+      
+      statusDiv.innerHTML = `
+        <p class="text-green-600 text-center font-bold">✓ Authentication Successful!</p>
+        <p class="text-center mt-2">Welcome, ${user.name}!</p>
+        <p class="text-center text-sm text-gray-600">Role: ${user.role}</p>
+      `;
+      
+      // Logout functionality
+      document.getElementById('logout-btn').addEventListener('click', function() {
+        localStorage.removeItem('discipleship_logged_in_user');
+        window.location.href = 'discipleship-login.html';
+      });
+    });
+  </script>
+</body>
+</html> 

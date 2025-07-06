@@ -5,11 +5,980 @@ class DiscipleshipBackend {
   constructor() {
     this.users = this.loadUsers();
     this.progress = this.loadProgress();
+    this.courses = this.loadCourses();
+    this.certificates = this.loadCertificates();
+    this.supportTickets = this.loadSupportTickets();
+    this.announcements = this.loadAnnouncements();
+    this.realtimeConnections = new Map();
+    this.activityLog = this.loadActivityLog();
+    
+    // Ensure admin user exists
+    this.ensureAdminUser();
+    
+    // Initialize real-time features
+    this.initializeRealtimeFeatures();
+    this.startPeriodicUpdates();
   }
 
+  // Real-time initialization
+  initializeRealtimeFeatures() {
+    // Simulate WebSocket connections
+    this.setupRealtimeSimulation();
+    
+    // Start activity monitoring
+    this.monitorUserActivity();
+    
+    // Initialize admin dashboard updates
+    this.initializeAdminUpdates();
+  }
+
+  setupRealtimeSimulation() {
+    // Simulate real-time connections for demo purposes
+    setInterval(() => {
+      this.broadcastUserActivity();
+      this.updateAdminDashboard();
+      this.checkForNewActivities();
+    }, 5000); // Update every 5 seconds
+  }
+
+  startPeriodicUpdates() {
+    // Update various system components periodically
+    setInterval(() => {
+      this.updateSystemStats();
+      this.processPendingActions();
+      this.cleanupOldData();
+    }, 30000); // Every 30 seconds
+  }
+
+  // Real-time broadcasting
+  broadcastUserActivity() {
+    const activeUsers = this.getActiveUsers();
+    const recentActivity = this.getRecentActivity();
+    
+    // Simulate broadcasting to connected clients
+    this.realtimeConnections.forEach((connection, userId) => {
+      if (connection.type === 'admin') {
+        this.sendToAdmin(userId, {
+          type: 'user_activity_update',
+          data: {
+            activeUsers,
+            recentActivity,
+            timestamp: new Date().toISOString()
+          }
+        });
+      } else if (connection.type === 'user') {
+        this.sendToUser(userId, {
+          type: 'progress_update',
+          data: this.getUserProgress(userId)
+        });
+      }
+    });
+  }
+
+  // Admin dashboard real-time updates
+  initializeAdminUpdates() {
+    setInterval(() => {
+      this.updateAdminStats();
+      this.updateUserTable();
+      this.updateCertificateTable();
+      this.updateSupportTable();
+      this.updateAnnouncementTable();
+    }, 3000); // Update every 3 seconds
+  }
+
+  updateAdminStats() {
+    const stats = this.getSystemStats();
+    this.broadcastToAdmins({
+      type: 'stats_update',
+      data: stats
+    });
+  }
+
+  updateUserTable() {
+    const users = this.getAllUsersWithProgress();
+    this.broadcastToAdmins({
+      type: 'users_update',
+      data: users
+    });
+  }
+
+  updateCertificateTable() {
+    const certificates = this.getAllCertificates();
+    this.broadcastToAdmins({
+      type: 'certificates_update',
+      data: certificates
+    });
+  }
+
+  updateSupportTable() {
+    const tickets = this.getAllSupportTickets();
+    this.broadcastToAdmins({
+      type: 'support_update',
+      data: tickets
+    });
+  }
+
+  updateAnnouncementTable() {
+    const announcements = this.getAllAnnouncements();
+    this.broadcastToAdmins({
+      type: 'announcements_update',
+      data: announcements
+    });
+  }
+
+  // User activity monitoring
+  monitorUserActivity() {
+    setInterval(() => {
+      this.trackUserSessions();
+      this.updateOnlineStatus();
+      this.logSystemActivity();
+    }, 10000); // Every 10 seconds
+  }
+
+  trackUserSessions() {
+    const now = new Date().toISOString();
+    Object.keys(this.users).forEach(userId => {
+      const user = this.users[userId];
+      const lastActivity = new Date(user.lastActivity || user.lastLogin);
+      const timeDiff = (new Date() - lastActivity) / 1000; // seconds
+      
+      // Mark as online if activity within last 5 minutes
+      user.isOnline = timeDiff < 300;
+      user.lastSeen = now;
+    });
+    this.saveUsers();
+  }
+
+  updateOnlineStatus() {
+    const onlineUsers = Object.values(this.users).filter(user => user.isOnline);
+    this.broadcastToAdmins({
+      type: 'online_status_update',
+      data: {
+        onlineCount: onlineUsers.length,
+        totalUsers: Object.keys(this.users).length,
+        onlineUsers: onlineUsers.map(u => ({ id: u.id, name: u.name, lastActivity: u.lastActivity }))
+      }
+    });
+  }
+
+  // Enhanced user management with real-time features
+  createUser(userData) {
+    const userId = Date.now().toString();
+    const user = {
+      id: userId,
+      name: userData.name,
+      email: userData.email,
+      password: this.hashPassword(userData.password),
+      joinedDate: new Date().toISOString(),
+      lastLogin: new Date().toISOString(),
+      lastActivity: new Date().toISOString(),
+      isOnline: false,
+      status: 'active',
+      role: 'student',
+      profile: {
+        phone: userData.phone || '',
+        church: userData.church || '',
+        location: userData.location || '',
+        avatar: this.generateAvatar(userData.name)
+      },
+      preferences: {
+        notifications: true,
+        emailUpdates: true,
+        smsUpdates: false
+      }
+    };
+
+    this.users[userId] = user;
+    this.saveUsers();
+    this.initializeUserProgress(userId);
+    this.logActivity('user_created', { userId, userData });
+    
+    // Notify admins of new user
+    this.broadcastToAdmins({
+      type: 'new_user',
+      data: user
+    });
+
+    return user;
+  }
+
+  authenticateUser(email, password) {
+    console.log('Attempting to authenticate:', email);
+    console.log('Available users:', Object.values(this.users).map(u => ({ email: u.email, role: u.role })));
+    
+    const user = Object.values(this.users).find(u => u.email === email);
+    
+    if (user) {
+      console.log('User found:', user.email, 'Role:', user.role);
+      const passwordValid = this.verifyPassword(password, user.password);
+      console.log('Password valid:', passwordValid);
+      
+      if (passwordValid) {
+        user.lastLogin = new Date().toISOString();
+        user.lastActivity = new Date().toISOString();
+        user.isOnline = true;
+        user.loginCount = (user.loginCount || 0) + 1;
+        this.saveUsers();
+        
+        this.logActivity('user_login', { userId: user.id, email });
+        
+        // Notify admins of user login
+        this.broadcastToAdmins({
+          type: 'user_login',
+          data: { userId: user.id, name: user.name, timestamp: new Date().toISOString() }
+        });
+        
+        return user;
+      }
+    }
+    
+    console.log('Authentication failed for:', email);
+    return null;
+  }
+
+  // Function to manually create admin user
+  createAdminUser() {
+    const adminUser = {
+      id: 'admin_001',
+      name: 'Admin User',
+      email: 'admin@heartsaftergod.org',
+      password: this.hashPassword('admin123'),
+      joinedDate: new Date().toISOString(),
+      lastLogin: new Date().toISOString(),
+      lastActivity: new Date().toISOString(),
+      isOnline: false,
+      status: 'active',
+      role: 'admin',
+      profile: {
+        phone: '+254 700 000 000',
+        church: 'Hearts After God Ministry',
+        location: 'Nairobi, Kenya',
+        avatar: this.generateAvatar('Admin User')
+      },
+      preferences: {
+        notifications: true,
+        emailUpdates: true,
+        smsUpdates: false
+      }
+    };
+
+    this.users['admin_001'] = adminUser;
+    this.saveUsers();
+    console.log('Admin user created:', adminUser.email);
+    return adminUser;
+  }
+
+  // Function to ensure admin user exists
+  ensureAdminUser() {
+    const adminExists = Object.values(this.users).find(u => u.email === 'admin@heartsaftergod.org');
+    if (!adminExists) {
+      console.log('Admin user not found, creating...');
+      this.createAdminUser();
+    } else {
+      console.log('Admin user already exists:', adminExists.email);
+    }
+  }
+
+  // Enhanced progress tracking with real-time updates
+  updateUserProgress(userId, progressData) {
+    const user = this.users[userId];
+    if (!user) return;
+
+    user.lastActivity = new Date().toISOString();
+    this.progress[userId] = { ...this.progress[userId], ...progressData };
+    this.saveProgress();
+    this.saveUsers();
+
+    // Log activity
+    this.logActivity('progress_updated', { userId, progressData });
+
+    // Notify admins
+    this.broadcastToAdmins({
+      type: 'progress_updated',
+      data: {
+        userId,
+        userName: user.name,
+        progress: this.progress[userId],
+        timestamp: new Date().toISOString()
+      }
+    });
+
+    // Check for achievements
+    this.checkForAchievements(userId);
+  }
+
+  // Enhanced certificate management
+  issueCertificate(certificateData) {
+    const certificateId = `cert_${Date.now()}`;
+    const certificate = {
+      id: certificateId,
+      ...certificateData,
+      issuedDate: new Date().toISOString(),
+      status: 'issued',
+      certificateNumber: `HAGM-${certificateData.type.toUpperCase()}-${Date.now()}`,
+      issuedBy: certificateData.issuedBy || 'System',
+      verificationUrl: `https://heartsaftergod.org/verify/${certificateId}`
+    };
+
+    this.certificates[certificateId] = certificate;
+    this.saveCertificates();
+
+    // Update user's certificates
+    const userProgress = this.getUserProgress(certificateData.userId);
+    if (!userProgress.certificates) userProgress.certificates = [];
+    userProgress.certificates.push(certificateId);
+    this.updateUserProgress(certificateData.userId, userProgress);
+
+    // Log activity
+    this.logActivity('certificate_issued', { certificateId, certificateData });
+
+    // Notify admins
+    this.broadcastToAdmins({
+      type: 'certificate_issued',
+      data: certificate
+    });
+
+    // Send notification to user
+    this.sendUserNotification(certificateData.userId, {
+      type: 'certificate_issued',
+      title: 'Certificate Issued!',
+      message: `Congratulations! Your ${certificateData.courseName} certificate has been issued.`,
+      data: certificate
+    });
+
+    return certificate;
+  }
+
+  // Enhanced support ticket management
+  createSupportTicket(ticketData) {
+    const ticketId = `ticket_${Date.now()}`;
+    const ticket = {
+      id: ticketId,
+      ...ticketData,
+      createdDate: new Date().toISOString(),
+      status: 'open',
+      priority: ticketData.priority || 'medium',
+      assignedTo: null,
+      responses: [],
+      lastUpdated: new Date().toISOString()
+    };
+
+    this.supportTickets[ticketId] = ticket;
+    this.saveSupportTickets();
+
+    // Log activity
+    this.logActivity('support_ticket_created', { ticketId, ticketData });
+
+    // Notify admins
+    this.broadcastToAdmins({
+      type: 'new_support_ticket',
+      data: ticket
+    });
+
+    return ticket;
+  }
+
+  updateSupportTicket(ticketId, updates) {
+    const ticket = this.supportTickets[ticketId];
+    if (!ticket) return null;
+
+    Object.assign(ticket, updates, {
+      lastUpdated: new Date().toISOString()
+    });
+
+    this.saveSupportTickets();
+
+    // Log activity
+    this.logActivity('support_ticket_updated', { ticketId, updates });
+
+    // Notify admins
+    this.broadcastToAdmins({
+      type: 'support_ticket_updated',
+      data: ticket
+    });
+
+    return ticket;
+  }
+
+  // Enhanced announcement system
+  createAnnouncement(announcementData) {
+    const announcementId = `announcement_${Date.now()}`;
+    const announcement = {
+      id: announcementId,
+      ...announcementData,
+      createdDate: new Date().toISOString(),
+      status: 'active',
+      views: 0,
+      responses: 0,
+      createdBy: announcementData.createdBy || 'Admin'
+    };
+
+    this.announcements[announcementId] = announcement;
+    this.saveAnnouncements();
+
+    // Log activity
+    this.logActivity('announcement_created', { announcementId, announcementData });
+
+    // Notify all users
+    this.broadcastToUsers({
+      type: 'new_announcement',
+      data: announcement
+    });
+
+    return announcement;
+  }
+
+  // Real-time communication methods
+  sendToAdmin(adminId, message) {
+    const connection = this.realtimeConnections.get(adminId);
+    if (connection && connection.type === 'admin') {
+      // In real implementation, this would send via WebSocket
+      this.handleAdminMessage(adminId, message);
+    }
+  }
+
+  sendToUser(userId, message) {
+    const connection = this.realtimeConnections.get(userId);
+    if (connection && connection.type === 'user') {
+      // In real implementation, this would send via WebSocket
+      this.handleUserMessage(userId, message);
+    }
+  }
+
+  broadcastToAdmins(message) {
+    this.realtimeConnections.forEach((connection, id) => {
+      if (connection.type === 'admin') {
+        this.sendToAdmin(id, message);
+      }
+    });
+  }
+
+  broadcastToUsers(message) {
+    this.realtimeConnections.forEach((connection, id) => {
+      if (connection.type === 'user') {
+        this.sendToUser(id, message);
+      }
+    });
+  }
+
+  // Activity logging
+  logActivity(type, data) {
+    const logEntry = {
+      id: `log_${Date.now()}`,
+      type,
+      data,
+      timestamp: new Date().toISOString(),
+      userId: data.userId || 'system'
+    };
+
+    this.activityLog.push(logEntry);
+    
+    // Keep only last 1000 activities
+    if (this.activityLog.length > 1000) {
+      this.activityLog = this.activityLog.slice(-1000);
+    }
+
+    this.saveActivityLog();
+  }
+
+  getRecentActivity(limit = 50) {
+    return this.activityLog.slice(-limit).reverse();
+  }
+
+  // Enhanced analytics
+  getSystemStats() {
+    const totalUsers = Object.keys(this.users).length;
+    const activeUsers = Object.values(this.users).filter(u => u.isOnline).length;
+    const totalCertificates = Object.keys(this.certificates).length;
+    const openTickets = Object.values(this.supportTickets).filter(t => t.status === 'open').length;
+    const activeAnnouncements = Object.values(this.announcements).filter(a => a.status === 'active').length;
+
+    return {
+      totalUsers,
+      activeUsers,
+      totalCertificates,
+      openTickets,
+      activeAnnouncements,
+      systemUptime: this.getSystemUptime(),
+      lastUpdated: new Date().toISOString()
+    };
+  }
+
+  // Utility methods
+  generateAvatar(name) {
+    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+    const colors = ['#7C3AED', '#FDBA17', '#2046B3', '#10B981', '#F59E0B'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    return { initials, color };
+  }
+
+  getSystemUptime() {
+    // Simulate system uptime
+    return Math.floor(Math.random() * 100) + 90; // 90-99% uptime
+  }
+
+  // Data persistence methods
+  loadActivityLog() {
+    const stored = localStorage.getItem('discipleship_activity_log');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveActivityLog() {
+    localStorage.setItem('discipleship_activity_log', JSON.stringify(this.activityLog));
+  }
+
+  loadCourses() {
+    const stored = localStorage.getItem('discipleship_courses');
+    return stored ? JSON.parse(stored) : this.getDefaultCourses();
+  }
+
+  getDefaultCourses() {
+    return {
+      'foundations': {
+        id: 'foundations',
+        name: 'Foundations of Faith',
+        description: 'Core Discipleship Course',
+        duration: '12 weeks',
+        level: 'beginner',
+        credits: 3,
+        lessons: 14
+      },
+      'prayer': {
+        id: 'prayer',
+        name: 'Prayer & Devotion',
+        description: 'Spiritual Growth Course',
+        duration: '8 weeks',
+        level: 'intermediate',
+        credits: 2,
+        lessons: 10
+      },
+      'leadership': {
+        id: 'leadership',
+        name: 'Christian Leadership',
+        description: 'Leadership Development',
+        duration: '16 weeks',
+        level: 'advanced',
+        credits: 4,
+        lessons: 20
+      }
+    };
+  }
+
+  // Enhanced data retrieval methods
+  getAllUsersWithProgress() {
+    return Object.values(this.users).map(user => ({
+      ...user,
+      progress: this.getUserProgress(user.id),
+      stats: this.getUserStats(user.id)
+    }));
+  }
+
+  getAllCertificates() {
+    return Object.values(this.certificates).map(cert => ({
+      ...cert,
+      user: this.users[cert.userId]
+    }));
+  }
+
+  getAllSupportTickets() {
+    return Object.values(this.supportTickets).map(ticket => ({
+      ...ticket,
+      user: this.users[ticket.userId]
+    }));
+  }
+
+  getAllAnnouncements() {
+    return Object.values(this.announcements);
+  }
+
+  // User notification system
+  sendUserNotification(userId, notification) {
+    const user = this.users[userId];
+    if (!user) return;
+
+    if (!user.notifications) user.notifications = [];
+    user.notifications.push({
+      id: `notif_${Date.now()}`,
+      ...notification,
+      timestamp: new Date().toISOString(),
+      read: false
+    });
+
+    this.saveUsers();
+
+    // Send real-time notification
+    this.sendToUser(userId, {
+      type: 'notification',
+      data: notification
+    });
+  }
+
+  // Message handlers (for real-time communication)
+  handleAdminMessage(adminId, message) {
+    // Handle admin-specific messages
+    console.log(`Admin ${adminId} received:`, message);
+    
+    // Update admin dashboard in real-time
+    if (message.type === 'stats_update') {
+      this.updateAdminDashboardStats(message.data);
+    } else if (message.type === 'users_update') {
+      this.updateAdminUserTable(message.data);
+    } else if (message.type === 'certificates_update') {
+      this.updateAdminCertificateTable(message.data);
+    }
+  }
+
+  handleUserMessage(userId, message) {
+    // Handle user-specific messages
+    console.log(`User ${userId} received:`, message);
+    
+    // Update user dashboard in real-time
+    if (message.type === 'progress_update') {
+      this.updateUserDashboard(message.data);
+    } else if (message.type === 'notification') {
+      this.showUserNotification(message.data);
+    }
+  }
+
+  // Dashboard update methods
+  updateAdminDashboardStats(stats) {
+    // Update admin dashboard statistics in real-time
+    const statsElements = document.querySelectorAll('[data-stat]');
+    statsElements.forEach(element => {
+      const statType = element.getAttribute('data-stat');
+      if (stats[statType] !== undefined) {
+        element.textContent = stats[statType];
+      }
+    });
+  }
+
+  updateAdminUserTable(users) {
+    // Update admin user table in real-time
+    const userTableBody = document.getElementById('user-table-body');
+    if (userTableBody) {
+      userTableBody.innerHTML = users.map(user => this.renderUserRow(user)).join('');
+    }
+  }
+
+  updateAdminCertificateTable(certificates) {
+    // Update admin certificate table in real-time
+    const certTableBody = document.getElementById('certificate-table-body');
+    if (certTableBody) {
+      certTableBody.innerHTML = certificates.map(cert => this.renderCertificateRow(cert)).join('');
+    }
+  }
+
+  updateUserDashboard(progress) {
+    // Update user dashboard in real-time
+    const progressElements = document.querySelectorAll('[data-progress]');
+    progressElements.forEach(element => {
+      const progressType = element.getAttribute('data-progress');
+      if (progress[progressType] !== undefined) {
+        element.textContent = progress[progressType];
+      }
+    });
+  }
+
+  showUserNotification(notification) {
+    // Show user notification in real-time
+    const notificationContainer = document.getElementById('notification-container');
+    if (notificationContainer) {
+      const notificationElement = document.createElement('div');
+      notificationElement.className = 'notification-item';
+      notificationElement.innerHTML = `
+        <div class="notification-content">
+          <h4>${notification.title}</h4>
+          <p>${notification.message}</p>
+          <small>${new Date(notification.timestamp).toLocaleString()}</small>
+        </div>
+      `;
+      notificationContainer.appendChild(notificationElement);
+      
+      // Auto-remove after 5 seconds
+      setTimeout(() => {
+        notificationElement.remove();
+      }, 5000);
+    }
+  }
+
+  // Render methods for real-time updates
+  renderUserRow(user) {
+    return `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#7C3AED] to-[#2046B3] rounded-full flex items-center justify-center text-white text-sm font-semibold">
+              ${user.profile?.avatar?.initials || user.name.substring(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900">${user.name}</p>
+              <p class="text-sm text-gray-500">${user.email}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <span class="px-3 py-1 text-xs font-semibold rounded-full ${user.isOnline ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}">
+            ${user.isOnline ? 'Online' : 'Offline'}
+          </span>
+        </td>
+        <td class="px-6 py-4">
+          <div class="text-sm">
+            <p class="text-gray-900">${user.progress?.completedLessons?.length || 0} lessons</p>
+            <p class="text-gray-500">${Math.round((user.progress?.completedLessons?.length || 0) / 14 * 100)}% complete</p>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <div class="text-sm">
+            <p class="text-gray-900">${new Date(user.lastActivity).toLocaleDateString()}</p>
+            <p class="text-gray-500">${new Date(user.lastActivity).toLocaleTimeString()}</p>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-2">
+            <button class="p-2 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-lg transition-colors" title="View Profile">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </button>
+            <button class="p-2 text-[#FDBA17] hover:bg-[#FDBA17]/10 rounded-lg transition-colors" title="Edit User" onclick="openEditUserModal('${user.id}')">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </button>
+            <button class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors" title="Reset Password" onclick="openResetPasswordModal('${user.id}')">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  renderCertificateRow(certificate) {
+    return `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4">
+          <span class="font-mono text-sm text-[#7C3AED] font-semibold">${certificate.certificateNumber}</span>
+        </td>
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#7C3AED] to-[#2046B3] rounded-full flex items-center justify-center text-white text-sm font-semibold">
+              ${certificate.user?.profile?.avatar?.initials || certificate.user?.name?.substring(0, 2).toUpperCase()}
+            </div>
+            <div>
+              <p class="font-semibold text-gray-900">${certificate.user?.name}</p>
+              <p class="text-sm text-gray-500">${certificate.user?.email}</p>
+            </div>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <div class="max-w-xs">
+            <p class="font-medium text-gray-900">${certificate.courseName}</p>
+            <p class="text-sm text-gray-500">${certificate.type}</p>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <div class="text-sm">
+            <p class="text-gray-900">${new Date(certificate.issuedDate).toLocaleDateString()}</p>
+            <p class="text-gray-500">${new Date(certificate.issuedDate).toLocaleTimeString()}</p>
+          </div>
+        </td>
+        <td class="px-6 py-4">
+          <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">${certificate.status}</span>
+        </td>
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-2">
+            <button class="p-2 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-lg transition-colors" title="View Certificate">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </button>
+            <button class="p-2 text-[#FDBA17] hover:bg-[#FDBA17]/10 rounded-lg transition-colors" title="Download">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }
+
+  // Initialize real-time connections
+  connectUser(userId) {
+    this.realtimeConnections.set(userId, {
+      type: 'user',
+      connectedAt: new Date().toISOString(),
+      lastPing: new Date().toISOString()
+    });
+  }
+
+  connectAdmin(adminId) {
+    this.realtimeConnections.set(adminId, {
+      type: 'admin',
+      connectedAt: new Date().toISOString(),
+      lastPing: new Date().toISOString()
+    });
+  }
+
+  disconnectUser(userId) {
+    this.realtimeConnections.delete(userId);
+    const user = this.users[userId];
+    if (user) {
+      user.isOnline = false;
+      user.lastSeen = new Date().toISOString();
+      this.saveUsers();
+    }
+  }
+
+  // Check for new activities
+  checkForNewActivities() {
+    // Check for new users
+    const newUsers = Object.values(this.users).filter(user => 
+      new Date(user.joinedDate) > new Date(Date.now() - 24 * 60 * 60 * 1000)
+    );
+
+    // Check for new certificates
+    const newCertificates = Object.values(this.certificates).filter(cert =>
+      new Date(cert.issuedDate) > new Date(Date.now() - 24 * 60 * 60 * 1000)
+    );
+
+    // Check for new support tickets
+    const newTickets = Object.values(this.supportTickets).filter(ticket =>
+      new Date(ticket.createdDate) > new Date(Date.now() - 24 * 60 * 60 * 1000)
+    );
+
+    if (newUsers.length > 0 || newCertificates.length > 0 || newTickets.length > 0) {
+      this.broadcastToAdmins({
+        type: 'new_activities',
+        data: {
+          newUsers: newUsers.length,
+          newCertificates: newCertificates.length,
+          newTickets: newTickets.length
+        }
+      });
+    }
+  }
+
+  // Process pending actions
+  processPendingActions() {
+    // Process scheduled announcements
+    const now = new Date();
+    Object.values(this.announcements).forEach(announcement => {
+      if (announcement.scheduledDate && new Date(announcement.scheduledDate) <= now && announcement.status === 'scheduled') {
+        announcement.status = 'active';
+        this.broadcastToUsers({
+          type: 'new_announcement',
+          data: announcement
+        });
+      }
+    });
+
+    // Process certificate approvals
+    Object.values(this.certificates).forEach(certificate => {
+      if (certificate.status === 'pending' && certificate.autoApprove) {
+        certificate.status = 'issued';
+        this.sendUserNotification(certificate.userId, {
+          type: 'certificate_approved',
+          title: 'Certificate Approved!',
+          message: `Your ${certificate.courseName} certificate has been approved and issued.`
+        });
+      }
+    });
+  }
+
+  // Cleanup old data
+  cleanupOldData() {
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    
+    // Clean up old activity logs
+    this.activityLog = this.activityLog.filter(log => 
+      new Date(log.timestamp) > thirtyDaysAgo
+    );
+    this.saveActivityLog();
+
+    // Clean up old notifications
+    Object.values(this.users).forEach(user => {
+      if (user.notifications) {
+        user.notifications = user.notifications.filter(notif =>
+          new Date(notif.timestamp) > thirtyDaysAgo
+        );
+      }
+    });
+    this.saveUsers();
+  }
+
+  // Enhanced data loading methods
   loadUsers() {
     const stored = localStorage.getItem('discipleship_users');
-    return stored ? JSON.parse(stored) : {};
+    let users = stored ? JSON.parse(stored) : {};
+    
+    // Create default admin user if no users exist
+    if (Object.keys(users).length === 0) {
+      users = this.createDefaultUsers();
+    }
+    
+    return users;
+  }
+
+  // Create default users including admin
+  createDefaultUsers() {
+    const defaultUsers = {
+      'admin_001': {
+        id: 'admin_001',
+        name: 'Admin User',
+        email: 'admin@heartsaftergod.org',
+        password: this.hashPassword('admin123'),
+        joinedDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        lastActivity: new Date().toISOString(),
+        isOnline: false,
+        status: 'active',
+        role: 'admin',
+        profile: {
+          phone: '+254 700 000 000',
+          church: 'Hearts After God Ministry',
+          location: 'Nairobi, Kenya',
+          avatar: this.generateAvatar('Admin User')
+        },
+        preferences: {
+          notifications: true,
+          emailUpdates: true,
+          smsUpdates: false
+        }
+      },
+      'demo_student': {
+        id: 'demo_student',
+        name: 'Demo Student',
+        email: 'student@heartsaftergod.org',
+        password: this.hashPassword('student123'),
+        joinedDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+        lastActivity: new Date().toISOString(),
+        isOnline: false,
+        status: 'active',
+        role: 'student',
+        profile: {
+          phone: '+254 700 000 001',
+          church: 'Hearts After God Ministry',
+          location: 'Nairobi, Kenya',
+          avatar: this.generateAvatar('Demo Student')
+        },
+        preferences: {
+          notifications: true,
+          emailUpdates: true,
+          smsUpdates: false
+        }
+      }
+    };
+    
+    // Save the default users
+    localStorage.setItem('discipleship_users', JSON.stringify(defaultUsers));
+    return defaultUsers;
   }
 
   loadProgress() {
@@ -17,6 +986,22 @@ class DiscipleshipBackend {
     return stored ? JSON.parse(stored) : {};
   }
 
+  loadCertificates() {
+    const stored = localStorage.getItem('discipleship_certificates');
+    return stored ? JSON.parse(stored) : {};
+  }
+
+  loadSupportTickets() {
+    const stored = localStorage.getItem('discipleship_support_tickets');
+    return stored ? JSON.parse(stored) : {};
+  }
+
+  loadAnnouncements() {
+    const stored = localStorage.getItem('discipleship_announcements');
+    return stored ? JSON.parse(stored) : {};
+  }
+
+  // Enhanced data saving methods
   saveUsers() {
     localStorage.setItem('discipleship_users', JSON.stringify(this.users));
   }
@@ -25,50 +1010,32 @@ class DiscipleshipBackend {
     localStorage.setItem('discipleship_progress', JSON.stringify(this.progress));
   }
 
-  // User Management
-  createUser(userData) {
-    const userId = Date.now().toString();
-    const user = {
-      id: userId,
-      name: userData.name,
-      email: userData.email,
-      password: this.hashPassword(userData.password), // In real app, use proper hashing
-      joinedDate: new Date().toISOString(),
-      lastLogin: new Date().toISOString()
-    };
-
-    this.users[userId] = user;
-    this.saveUsers();
-
-    // Initialize progress for new user
-    this.initializeUserProgress(userId);
-
-    return user;
+  saveCertificates() {
+    localStorage.setItem('discipleship_certificates', JSON.stringify(this.certificates));
   }
 
-  authenticateUser(email, password) {
-    const user = Object.values(this.users).find(u => u.email === email);
-    
-    if (user && this.verifyPassword(password, user.password)) {
-      // Update last login
-      user.lastLogin = new Date().toISOString();
-      this.saveUsers();
-      
-      return user;
-    }
-    
-    return null;
+  saveSupportTickets() {
+    localStorage.setItem('discipleship_support_tickets', JSON.stringify(this.supportTickets));
   }
 
-  getUserProgress(userId) {
-    return this.progress[userId] || this.initializeUserProgress(userId);
+  saveAnnouncements() {
+    localStorage.setItem('discipleship_announcements', JSON.stringify(this.announcements));
   }
 
-  updateUserProgress(userId, progressData) {
-    this.progress[userId] = { ...this.progress[userId], ...progressData };
-    this.saveProgress();
+  saveCourses() {
+    localStorage.setItem('discipleship_courses', JSON.stringify(this.courses));
   }
 
+  // Password hashing (simple implementation for demo)
+  hashPassword(password) {
+    return btoa(password); // Base64 encoding for demo
+  }
+
+  verifyPassword(password, hashedPassword) {
+    return btoa(password) === hashedPassword;
+  }
+
+  // Initialize user progress
   initializeUserProgress(userId) {
     const initialProgress = {
       completedLessons: [],
@@ -78,7 +1045,8 @@ class DiscipleshipBackend {
       lastActivity: new Date().toISOString(),
       quizScores: {},
       timeSpent: {},
-      notes: {}
+      notes: {},
+      achievements: []
     };
 
     this.progress[userId] = initialProgress;
@@ -86,69 +1054,15 @@ class DiscipleshipBackend {
     return initialProgress;
   }
 
-  // Lesson Management
-  completeLesson(userId, lessonId) {
-    const userProgress = this.getUserProgress(userId);
-    
-    if (!userProgress.completedLessons.includes(lessonId)) {
-      userProgress.completedLessons.push(lessonId);
-      userProgress.lastActivity = new Date().toISOString();
-      
-      // Check for certificates
-      this.checkForCertificates(userId, userProgress);
-      
-      this.updateUserProgress(userId, userProgress);
-    }
+  // Get user progress
+  getUserProgress(userId) {
+    return this.progress[userId] || this.initializeUserProgress(userId);
   }
 
-  checkForCertificates(userId, progress) {
-    const completedCount = progress.completedLessons.length;
-    
-    // Halfway certificate (7 lessons)
-    if (completedCount >= 7 && !progress.certificates.includes('halfway')) {
-      progress.certificates.push({
-        type: 'halfway',
-        earnedDate: new Date().toISOString(),
-        name: 'Halfway Achievement Certificate'
-      });
-    }
-    
-    // Completion certificate (14 lessons)
-    if (completedCount >= 14 && !progress.certificates.includes('complete')) {
-      progress.certificates.push({
-        type: 'complete',
-        earnedDate: new Date().toISOString(),
-        name: 'Course Completion Certificate'
-      });
-    }
-  }
-
-  // Certificate Generation
-  generateCertificate(userId, certificateType) {
-    const user = this.users[userId];
-    const progress = this.getUserProgress(userId);
-    
-    if (!user) return null;
-
-    const certificate = {
-      id: `cert_${Date.now()}`,
-      userId: userId,
-      type: certificateType,
-      userName: user.name,
-      issuedDate: new Date().toISOString(),
-      ministryName: 'Hearts After God Ministry',
-      courseName: certificateType === 'complete' ? '14-Day Discipleship Course' : 'First Half Achievement',
-      signature: 'Pastor John Doe',
-      certificateNumber: `HAGM-${certificateType.toUpperCase()}-${Date.now()}`
-    };
-
-    return certificate;
-  }
-
-  // Analytics and Reporting
+  // Get user stats
   getUserStats(userId) {
     const progress = this.getUserProgress(userId);
-    const totalLessons = 14; // Total lessons in the course
+    const totalLessons = 14;
     
     return {
       totalLessons,
@@ -161,6 +1075,7 @@ class DiscipleshipBackend {
     };
   }
 
+  // Calculate average time
   calculateAverageTime(timeSpent) {
     const times = Object.values(timeSpent);
     if (times.length === 0) return 0;
@@ -169,126 +1084,153 @@ class DiscipleshipBackend {
     return Math.round(total / times.length);
   }
 
+  // Calculate current streak
   calculateCurrentStreak(lastActivity) {
     const lastActivityDate = new Date(lastActivity);
     const today = new Date();
     const diffTime = Math.abs(today - lastActivityDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    return diffDays <= 1 ? 1 : 0; // Simple streak calculation
+    return diffDays <= 1 ? 1 : 0;
   }
 
-  // Quiz and Assessment
-  saveQuizScore(userId, lessonId, score) {
+  // Check for achievements
+  checkForAchievements(userId) {
     const progress = this.getUserProgress(userId);
-    progress.quizScores[lessonId] = {
-      score: score,
-      date: new Date().toISOString(),
-      passed: score >= 70 // 70% passing threshold
-    };
-    
-    this.updateUserProgress(userId, progress);
-  }
-
-  // Notes and Journal
-  saveUserNote(userId, lessonId, note) {
-    const progress = this.getUserProgress(userId);
-    
-    if (!progress.notes[lessonId]) {
-      progress.notes[lessonId] = [];
-    }
-    
-    progress.notes[lessonId].push({
-      content: note,
-      date: new Date().toISOString()
-    });
-    
-    this.updateUserProgress(userId, progress);
-  }
-
-  getUserNotes(userId, lessonId) {
-    const progress = this.getUserProgress(userId);
-    return progress.notes[lessonId] || [];
-  }
-
-  // Time Tracking
-  recordLessonTime(userId, lessonId, timeSpent) {
-    const progress = this.getUserProgress(userId);
-    progress.timeSpent[lessonId] = timeSpent;
-    this.updateUserProgress(userId, progress);
-  }
-
-  // Password Hashing (Simple simulation - use proper hashing in production)
-  hashPassword(password) {
-    // This is a simple simulation - in production, use bcrypt or similar
-    return btoa(password + 'salt');
-  }
-
-  verifyPassword(password, hashedPassword) {
-    return this.hashPassword(password) === hashedPassword;
-  }
-
-  // Data Export
-  exportUserData(userId) {
     const user = this.users[userId];
-    const progress = this.getUserProgress(userId);
-    const stats = this.getUserStats(userId);
     
-    return {
-      user: {
-        name: user.name,
-        email: user.email,
-        joinedDate: user.joinedDate
-      },
-      progress: progress,
-      stats: stats,
-      exportDate: new Date().toISOString()
-    };
+    if (!progress.achievements) progress.achievements = [];
+
+    // First lesson achievement
+    if (progress.completedLessons.length >= 1 && !progress.achievements.includes('first_lesson')) {
+      progress.achievements.push('first_lesson');
+      this.sendUserNotification(userId, {
+        type: 'achievement',
+        title: 'First Lesson Complete!',
+        message: 'Congratulations on completing your first lesson!'
+      });
+    }
+
+    // Halfway achievement
+    if (progress.completedLessons.length >= 7 && !progress.achievements.includes('halfway')) {
+      progress.achievements.push('halfway');
+      this.sendUserNotification(userId, {
+        type: 'achievement',
+        title: 'Halfway There!',
+        message: 'You\'ve completed half of the course! Keep going!'
+      });
+    }
+
+    // Completion achievement
+    if (progress.completedLessons.length >= 14 && !progress.achievements.includes('completion')) {
+      progress.achievements.push('completion');
+      this.sendUserNotification(userId, {
+        type: 'achievement',
+        title: 'Course Complete!',
+        message: 'Congratulations! You\'ve completed the entire course!'
+      });
+    }
+
+    this.updateUserProgress(userId, progress);
   }
 
-  // Admin Functions
+  // Get active users
+  getActiveUsers() {
+    return Object.values(this.users).filter(user => user.isOnline);
+  }
+
+  // Get all users
   getAllUsers() {
-    return Object.values(this.users).map(user => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      joinedDate: user.joinedDate,
-      lastLogin: user.lastLogin
-    }));
+    return Object.values(this.users);
   }
 
-  getAllProgress() {
-    return this.progress;
+  getAllCourses() {
+    return Array.isArray(this.courses) ? this.courses : Object.values(this.courses);
   }
 
-  getSystemStats() {
-    const users = Object.values(this.users);
-    const totalUsers = users.length;
-    const activeUsers = users.filter(user => {
-      const lastLogin = new Date(user.lastLogin);
-      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-      return lastLogin > thirtyDaysAgo;
-    }).length;
+  updateUser(userId, updates) {
+    if (!this.users[userId]) return null;
+    const user = this.users[userId];
+    if (updates.name !== undefined) user.name = updates.name;
+    if (updates.email !== undefined) user.email = updates.email;
+    if (updates.role !== undefined) user.role = updates.role;
+    this.saveUsers();
+    this.logActivity('user_updated', { userId, updates });
+    this.broadcastToAdmins({ type: 'user_updated', data: user });
+    return user;
+  }
 
-    const totalCompletions = Object.values(this.progress).filter(p => 
-      p.completedLessons.length >= 14
-    ).length;
+  resetUserPassword(userId, newPassword, options = {}) {
+    if (!this.users[userId]) {
+      return false;
+    }
 
-    return {
-      totalUsers,
-      activeUsers,
-      totalCompletions,
-      completionRate: totalUsers > 0 ? Math.round((totalCompletions / totalUsers) * 100) : 0
+    const user = this.users[userId];
+    const hashedPassword = this.hashPassword(newPassword);
+    
+    // Update user password
+    this.users[userId].password = hashedPassword;
+    this.users[userId].passwordResetDate = new Date().toISOString();
+    this.users[userId].forcePasswordChange = options.forcePasswordChange || false;
+    this.users[userId].lastPasswordReset = {
+      resetBy: options.resetBy || 'Admin',
+      resetDate: options.resetDate || new Date().toISOString(),
+      reason: 'Admin Reset'
     };
+
+    this.saveUsers();
+    
+    // Log the password reset activity
+    this.logActivity('password_reset', {
+      userId,
+      userEmail: user.email,
+      resetBy: options.resetBy || 'Admin',
+      notifyUser: options.notifyUser || false
+    });
+
+    // Send notification to user if requested
+    if (options.notifyUser) {
+      this.sendUserNotification(userId, {
+        type: 'password_reset',
+        title: 'Password Reset',
+        message: 'Your password has been reset by an administrator. Please log in with your new password.',
+        priority: 'high',
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Broadcast to admins
+    this.broadcastToAdmins({
+      type: 'password_reset',
+      data: {
+        userId,
+        userEmail: user.email,
+        resetBy: options.resetBy || 'Admin',
+        timestamp: new Date().toISOString()
+      }
+    });
+
+    return true;
+  }
+
+  updateCourse(courseId, updates) {
+    const course = this.courses.find(c => c.id === courseId);
+    if (!course) return null;
+    if (updates.title !== undefined) course.title = updates.title;
+    if (updates.description !== undefined) course.description = updates.description;
+    if (updates.duration !== undefined) course.duration = updates.duration;
+    this.saveCourses();
+    this.logActivity('course_updated', { courseId, updates });
+    this.broadcastToAdmins({ type: 'course_updated', data: course });
+    return course;
   }
 }
+
+// Initialize the backend
+const backend = new DiscipleshipBackend();
 
 // Export for use in other files
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = DiscipleshipBackend;
-} else {
-  window.DiscipleshipBackend = DiscipleshipBackend;
-}
+window.DiscipleshipBackend = backend;
 
 // =====================
 // Certificate Management Logic
@@ -1183,4 +2125,8 @@ if (typeof module !== 'undefined' && module.exports) {
 })();
 // =====================
 // End Support Tickets Logic
-// ===================== 
+// =====================
+
+// Initialize the global backend instance
+window.DiscipleshipBackend = new DiscipleshipBackend();
+console.log('DiscipleshipBackend initialized globally'); 

@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Missions | Glow for Christ Outreach</title>
-  <meta name="description" content="Join the Glow for Christ outreach: mission opportunities, testimonies, and support.">
+  <title>Missions | Hearts After God Ministry</title>
+  <meta name="description" content="Join Hearts After God Ministry in global missions: outreach opportunities, testimonies, and how to get involved in spreading the Gospel.">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            primary: '#2563eb',
-            secondary: '#fbbf24',
-            accent: '#16a34a',
+            primary: '#7C3AED',
+            secondary: '#FDBA17',
+            accent: '#2046B3',
           },
         },
       },
@@ -27,7 +27,7 @@
       left: 0;
       bottom: 0;
       height: 3px;
-      background: #E02424;
+      background: #FDBA17;
       border-radius: 2px;
       transition: all 0.3s cubic-bezier(.4,0,.2,1);
       z-index: 10;
@@ -109,6 +109,26 @@
       position: relative;
       z-index: 2;
     }
+    /* Hero section styling */
+    .hero-gradient {
+      background: linear-gradient(135deg, #7C3AED 0%, #2046B3 50%, #FDBA17 100%);
+    }
+    .hero-pattern {
+      background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="1" fill="white" fill-opacity="0.1"/><circle cx="15" cy="15" r="0.5" fill="white" fill-opacity="0.1"/><circle cx="45" cy="45" r="0.5" fill="white" fill-opacity="0.1"/></svg>');
+    }
+    /* Card hover effects */
+    .mission-card {
+      transition: all 0.3s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+    }
+    /* Scripture quote styling */
+    .scripture-quote {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(253, 186, 23, 0.1) 100%);
+      border-left: 4px solid #FDBA17;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
@@ -132,7 +152,7 @@
           <li><a href="discipleship.html" class="nav-link" id="nav-discipleship">Discipleship</a></li>
           <li><a href="missions.html" class="nav-link active" id="nav-missions">Missions</a></li>
           <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-        </ul>
+      </ul>
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
       <!-- CTA Button -->
@@ -144,112 +164,333 @@
     </nav>
   </header>
 
-  <main class="pt-24 pb-12 px-4 max-w-5xl mx-auto">
+  <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
     <!-- Hero Section -->
-    <section class="pt-32 pb-12 bg-gradient-to-br from-blue-50 to-white text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Missions</h1>
-      <p class="text-lg md:text-xl text-gray-700 mb-6 max-w-2xl mx-auto">Partnering to share the love of Christ locally and globally. Learn more about our mission projects and how you can get involved.</p>
-    </section>
-
-    <!-- Missions Cards Section -->
-    <section class="max-w-5xl mx-auto py-12 px-4 grid md:grid-cols-2 gap-8">
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
-        <h2 class="font-bold text-lg mb-2 text-primary">Local Outreach</h2>
-        <p class="text-gray-600 mb-2">Serving our city through food drives, mentoring, and community support.</p>
-        <a href="#" class="text-primary underline hover:text-secondary">Learn More</a>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
-        <h2 class="font-bold text-lg mb-2 text-primary">International Missions</h2>
-        <p class="text-gray-600 mb-2">Supporting churches, schools, and relief efforts around the world.</p>
-        <a href="#" class="text-primary underline hover:text-secondary">Learn More</a>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
-        <h2 class="font-bold text-lg mb-2 text-primary">Short-Term Trips</h2>
-        <p class="text-gray-600 mb-2">Opportunities to serve on mission trips and experience global ministry firsthand.</p>
-        <a href="#" class="text-primary underline hover:text-secondary">Learn More</a>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
-        <h2 class="font-bold text-lg mb-2 text-primary">Partner With Us</h2>
-        <p class="text-gray-600 mb-2">Pray, give, or go—discover how you can make a difference through missions.</p>
-        <a href="#" class="text-primary underline hover:text-secondary">Learn More</a>
-      </div>
-    </section>
-
-    <!-- Mission Opportunities & Regions -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6 text-center">Mission Opportunities</h2>
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="bg-blue-50 rounded-lg p-6 shadow flex flex-col">
-          <h3 class="font-semibold text-lg mb-2 text-primary">Medical Missions</h3>
-          <p class="text-gray-700 mb-2">Serve in mobile clinics, health education, and compassion outreaches in rural Africa and Asia.</p>
-          <span class="inline-block px-3 py-1 bg-accent text-white text-xs rounded mb-2">Africa, Asia</span>
-        </div>
-        <div class="bg-blue-50 rounded-lg p-6 shadow flex flex-col">
-          <h3 class="font-semibold text-lg mb-2 text-primary">Children & Youth Ministry</h3>
-          <p class="text-gray-700 mb-2">Lead VBS, youth camps, and discipleship programs in urban and remote communities.</p>
-          <span class="inline-block px-3 py-1 bg-secondary text-primary text-xs rounded mb-2">Americas, Europe</span>
-        </div>
-        <div class="bg-blue-50 rounded-lg p-6 shadow flex flex-col">
-          <h3 class="font-semibold text-lg mb-2 text-primary">Evangelism Teams</h3>
-          <p class="text-gray-700 mb-2">Join street outreaches, crusades, and church planting efforts in spiritually hungry regions.</p>
-          <span class="inline-block px-3 py-1 bg-primary text-white text-xs rounded mb-2">Asia, Africa</span>
-        </div>
-        <div class="bg-blue-50 rounded-lg p-6 shadow flex flex-col">
-          <h3 class="font-semibold text-lg mb-2 text-primary">Community Development</h3>
-          <p class="text-gray-700 mb-2">Empower local leaders through education, clean water, and microenterprise projects.</p>
-          <span class="inline-block px-3 py-1 bg-blue-200 text-primary text-xs rounded mb-2">Global</span>
+    <section class="hero-gradient hero-pattern relative overflow-hidden rounded-3xl mb-16">
+      <div class="absolute inset-0 bg-black/20"></div>
+      <div class="relative z-10 px-8 py-20 text-center text-white">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            Global <span class="text-[#FDBA17]">Missions</span>
+          </h1>
+          <p class="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed">
+            Partnering to share the love of Christ locally and globally. Join us in reaching the world for Jesus.
+          </p>
+          
+          <!-- Scripture Quote -->
+          <div class="scripture-quote p-6 rounded-2xl mb-8 max-w-3xl mx-auto">
+            <blockquote class="text-lg md:text-xl italic text-white/95 mb-2">
+              "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."
+            </blockquote>
+            <cite class="text-[#FDBA17] font-semibold">— Matthew 28:19</cite>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#opportunities" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full hover:bg-[#E0A615] transition-all transform hover:scale-105 shadow-lg">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"/>
+              </svg>
+              Explore Opportunities
+            </a>
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-[#2046B3] transition-all transform hover:scale-105">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              Get Involved
+            </a>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Recruitment Info -->
-    <section class="mb-12 bg-blue-50 rounded-lg p-6 shadow text-center">
-      <h2 class="text-2xl font-bold mb-2">Join the Mission</h2>
-      <p class="text-gray-700 mb-4">Ready to go? We're looking for passionate volunteers, leaders, and partners. No experience required—just a willing heart and a desire to serve!</p>
-      <a href="contact.html" class="inline-block px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow hover:bg-secondary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary transition">Start Your Journey</a>
+    <!-- Mission Categories -->
+    <section class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Our Mission Focus</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">We serve in various capacities to spread the Gospel and meet practical needs around the world.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="mission-card bg-white rounded-2xl shadow-lg p-8 text-center border border-gray-100">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#2046B3] rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-[#2046B3] mb-4">Local Outreach</h3>
+          <p class="text-gray-600 mb-6">Serving our community through food drives, mentoring programs, and practical support initiatives.</p>
+          <a href="#local" class="inline-flex items-center gap-2 text-[#7C3AED] font-semibold hover:text-[#2046B3] transition-colors">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mission-card bg-white rounded-2xl shadow-lg p-8 text-center border border-gray-100">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#FDBA17] to-[#E0A615] rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-[#2046B3] mb-4">International Missions</h3>
+          <p class="text-gray-600 mb-6">Supporting churches, schools, and relief efforts across Africa, Asia, and beyond.</p>
+          <a href="#international" class="inline-flex items-center gap-2 text-[#7C3AED] font-semibold hover:text-[#2046B3] transition-colors">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mission-card bg-white rounded-2xl shadow-lg p-8 text-center border border-gray-100">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#2046B3] to-[#7C3AED] rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-[#2046B3] mb-4">Short-Term Trips</h3>
+          <p class="text-gray-600 mb-6">Life-changing opportunities to serve on mission trips and experience global ministry firsthand.</p>
+          <a href="#trips" class="inline-flex items-center gap-2 text-[#7C3AED] font-semibold hover:text-[#2046B3] transition-colors">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mission-card bg-white rounded-2xl shadow-lg p-8 text-center border border-gray-100">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+      </div>
+          <h3 class="text-xl font-bold text-[#2046B3] mb-4">Partnership</h3>
+          <p class="text-gray-600 mb-6">Pray, give, or go—discover how you can make a difference through missions support.</p>
+          <a href="#partnership" class="inline-flex items-center gap-2 text-[#7C3AED] font-semibold hover:text-[#2046B3] transition-colors">
+            Learn More
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+      </div>
+      </div>
+    </section>
+
+    <!-- Mission Opportunities -->
+    <section id="opportunities" class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Current Opportunities</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Join our mission teams and make a lasting impact in communities around the world.</p>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-gradient-to-br from-[#7C3AED]/5 to-[#FDBA17]/5 rounded-2xl p-8 border border-[#7C3AED]/20">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-[#7C3AED] rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#2046B3] mb-2">Medical Missions</h3>
+              <p class="text-gray-700 mb-4">Serve in mobile clinics, health education, and compassion outreaches in rural Africa and Asia. Provide medical care and share the love of Christ.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm rounded-full">Africa</span>
+                <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm rounded-full">Asia</span>
+                <span class="px-3 py-1 bg-[#2046B3] text-white text-sm rounded-full">Healthcare</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#FDBA17]/5 to-[#7C3AED]/5 rounded-2xl p-8 border border-[#FDBA17]/20">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-[#FDBA17] rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-[#2046B3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#2046B3] mb-2">Children & Youth Ministry</h3>
+              <p class="text-gray-700 mb-4">Lead VBS, youth camps, and discipleship programs in urban and remote communities. Shape the next generation for Christ.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm rounded-full">Americas</span>
+                <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm rounded-full">Europe</span>
+                <span class="px-3 py-1 bg-[#2046B3] text-white text-sm rounded-full">Education</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#2046B3]/5 to-[#FDBA17]/5 rounded-2xl p-8 border border-[#2046B3]/20">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-[#2046B3] rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#2046B3] mb-2">Evangelism Teams</h3>
+              <p class="text-gray-700 mb-4">Join street outreaches, crusades, and church planting efforts in spiritually hungry regions. Share the Gospel boldly.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm rounded-full">Asia</span>
+                <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm rounded-full">Africa</span>
+                <span class="px-3 py-1 bg-[#2046B3] text-white text-sm rounded-full">Evangelism</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-[#7C3AED]/5 to-[#2046B3]/5 rounded-2xl p-8 border border-[#7C3AED]/20">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-[#7C3AED] rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-[#2046B3] mb-2">Community Development</h3>
+              <p class="text-gray-700 mb-4">Empower local leaders through education, clean water, and microenterprise projects. Build sustainable communities.</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm rounded-full">Global</span>
+                <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm rounded-full">Development</span>
+                <span class="px-3 py-1 bg-[#2046B3] text-white text-sm rounded-full">Sustainability</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="mb-16">
+      <div class="bg-gradient-to-r from-[#7C3AED] to-[#2046B3] rounded-3xl p-12 text-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="relative z-10">
+          <h2 class="text-4xl font-bold mb-4">Ready to Join the Mission?</h2>
+          <p class="text-xl mb-8 text-white/90 max-w-2xl mx-auto">
+            We're looking for passionate volunteers, leaders, and partners. No experience required—just a willing heart and a desire to serve!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full hover:bg-[#E0A615] transition-all transform hover:scale-105 shadow-lg">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+              Start Your Journey
+            </a>
+            <a href="#testimonies" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-[#2046B3] transition-all transform hover:scale-105">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              Hear Stories
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Testimonies Section -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-6 text-center">Testimonies</h2>
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="bg-white rounded-lg shadow p-6">
-          <p class="italic text-gray-700 mb-4">"I saw God heal and restore lives in ways I never imagined. Serving in the Glow for Christ outreach changed my faith forever!"</p>
-          <div class="flex items-center gap-3">
-            <span class="inline-block w-10 h-10 bg-primary rounded-full"></span>
-            <span class="font-semibold">Maria A., Medical Team</span>
+    <section id="testimonies" class="mb-16">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Mission Stories</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hear from our mission team members about their life-changing experiences.</p>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#2046B3] rounded-full flex items-center justify-center">
+              <span class="text-white font-bold text-xl">M</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-[#2046B3] text-lg">Maria A.</h4>
+              <p class="text-gray-600">Medical Team Member</p>
+            </div>
           </div>
+          <blockquote class="text-gray-700 italic text-lg leading-relaxed">
+            "I saw God heal and restore lives in ways I never imagined. Serving in the mission field changed my faith forever! The people we met showed me what true faith looks like."
+          </blockquote>
         </div>
-        <div class="bg-white rounded-lg shadow p-6">
-          <p class="italic text-gray-700 mb-4">"The children's smiles and hunger for God's Word inspired me to keep going. I found my calling on the mission field."</p>
-          <div class="flex items-center gap-3">
-            <span class="inline-block w-10 h-10 bg-secondary rounded-full"></span>
-            <span class="font-semibold">James L., Youth Ministry</span>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-16 h-16 bg-gradient-to-br from-[#FDBA17] to-[#E0A615] rounded-full flex items-center justify-center">
+              <span class="text-[#2046B3] font-bold text-xl">J</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-[#2046B3] text-lg">James L.</h4>
+              <p class="text-gray-600">Youth Ministry Leader</p>
+            </div>
+          </div>
+          <blockquote class="text-gray-700 italic text-lg leading-relaxed">
+            "The children's smiles and hunger for God's Word inspired me to keep going. I found my calling on the mission field. Every child we reached was a victory for the Kingdom."
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Outreach Planning -->
+    <section class="mb-16">
+      <div class="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-12 border border-gray-200">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Preparing for Mission</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto">Essential steps to prepare for your mission journey with us.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#7C3AED] rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-white font-bold text-xl">1</span>
+            </div>
+            <h3 class="text-xl font-bold text-[#2046B3] mb-2">Pray & Prepare</h3>
+            <p class="text-gray-600">Pray for the region and team assignments. Attend pre-trip training and orientation sessions.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#FDBA17] rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-[#2046B3] font-bold text-xl">2</span>
+            </div>
+            <h3 class="text-xl font-bold text-[#2046B3] mb-2">Fundraise & Gather</h3>
+            <p class="text-gray-600">Fundraise and gather resources for the mission. Connect with local partners and churches.</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-[#2046B3] rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-white font-bold text-xl">3</span>
+            </div>
+            <h3 class="text-xl font-bold text-[#2046B3] mb-2">Go & Serve</h3>
+            <p class="text-gray-600">Prepare testimonies and ministry materials. Embark on your mission journey with confidence.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Outreach Planning Section -->
-    <section class="mb-12">
-      <h2 class="text-2xl font-bold mb-4 text-center">Outreach Planning</h2>
-      <div class="bg-blue-50 rounded-lg p-6 shadow">
-        <ul class="list-disc list-inside text-gray-700 space-y-2">
-          <li>Pray for the region and team assignments</li>
-          <li>Attend pre-trip training and orientation</li>
-          <li>Fundraise and gather resources for the mission</li>
-          <li>Connect with local partners and churches</li>
-          <li>Prepare testimonies and ministry materials</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Sponsorship & Prayer Support CTA -->
-    <section class="mb-8 text-center">
-      <div class="inline-block bg-accent text-white px-8 py-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-bold mb-2">Support the Mission</h2>
-        <p class="mb-4">You can make a difference! Sponsor a missionary, give to outreach projects, or commit to pray for the team. Every gift and prayer helps spread the light of Christ further.</p>
-        <a href="contact.html" class="inline-block px-6 py-2 bg-secondary text-primary font-semibold rounded hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-secondary transition">Become a Sponsor or Prayer Partner</a>
+    <!-- Support CTA -->
+    <section class="mb-8">
+      <div class="bg-gradient-to-r from-[#FDBA17] to-[#E0A615] rounded-3xl p-12 text-center text-[#2046B3] relative overflow-hidden">
+        <div class="absolute inset-0 bg-white/10"></div>
+        <div class="relative z-10">
+          <h2 class="text-4xl font-bold mb-4">Support the Mission</h2>
+          <p class="text-xl mb-8 text-[#2046B3]/90 max-w-3xl mx-auto">
+            You can make a difference! Sponsor a missionary, give to outreach projects, or commit to pray for the team. Every gift and prayer helps spread the light of Christ further.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#2046B3] text-white font-bold rounded-full hover:bg-[#7C3AED] transition-all transform hover:scale-105 shadow-lg">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+              Become a Sponsor
+            </a>
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 border-2 border-[#2046B3] text-[#2046B3] font-bold rounded-full hover:bg-[#2046B3] hover:text-white transition-all transform hover:scale-105">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              Prayer Partner
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -338,20 +579,20 @@
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
               </svg>
-              <span class="text-sm">info@heartsaftergod.org</span>
+              <span class="text-sm">heartsaftergodministries254@gmail.com</span>
             </div>
             <div class="flex items-center gap-3 text-white/80">
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
               </svg>
-              <span class="text-sm">+1 (555) 123-4567</span>
+              <span class="text-sm">+254 707 529 090</span>
             </div>
             <div class="flex items-center gap-3 text-white/80">
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Global Ministry</span>
+              <span class="text-sm">Founder: Cyrilla Chikamai</span>
             </div>
           </div>
           

@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Hearts After God Ministry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ministry-purple': '#7C3AED',
+            'ministry-gold': '#FDBA17',
+            'ministry-blue': '#2046B3'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-[#2046B3] to-[#7C3AED] text-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <!-- Logo and Title -->
+        <div class="flex items-center gap-4">
+          <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Ministry Logo" class="h-10 w-10 rounded-full shadow-lg border-2 border-[#FDBA17]">
+          <div>
+            <h1 class="text-xl font-bold">Admin Dashboard</h1>
+            <p class="text-sm text-gray-200">Hearts After God Ministry</p>
+          </div>
+        </div>
+
+        <!-- Admin Info and Controls -->
+        <div class="flex items-center gap-4">
+          <!-- Sync Status -->
+          <div id="sync-indicator" class="flex items-center gap-2 text-sm">
+            <div id="sync-status-dot" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span id="sync-status-text">Synced</span>
+          </div>
+
+          <!-- Notifications -->
+          <div id="notification-bell" class="relative cursor-pointer p-2 hover:bg-white/10 rounded-lg transition-colors">
+            <i class="fas fa-bell text-lg"></i>
+            <span id="notification-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+          </div>
+
+          <!-- Admin Profile -->
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-gray-200">Super Administrator</p>
+            </div>
+            <div class="w-8 h-8 bg-[#FDBA17] rounded-full flex items-center justify-center text-[#2046B3] font-bold">
+              A
+            </div>
+            <button id="logout-btn" class="px-3 py-1 bg-red-600 hover:bg-red-700 rounded-lg text-sm transition-colors">
+              <i class="fas fa-sign-out-alt mr-1"></i>Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg">
+      <nav class="p-4 space-y-2">
+        <a href="#dashboard" class="sidebar-link active flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white transition-all">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#users" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-users"></i>
+          <span>Users</span>
+        </a>
+        <a href="#courses" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-book"></i>
+          <span>Courses</span>
+        </a>
+        <a href="#certificates" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-certificate"></i>
+          <span>Certificates</span>
+        </a>
+        <a href="#support" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-headset"></i>
+          <span>Support</span>
+        </a>
+        <a href="#analytics" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-chart-bar"></i>
+          <span>Analytics</span>
+        </a>
+        <a href="#settings" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-6">
+      <!-- Dashboard Section -->
+      <section id="dashboard" class="dashboard-section">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-600 text-sm font-medium">Total Users</p>
+                <p class="text-3xl font-bold text-[#2046B3]" id="total-users">0</p>
+                <p class="text-green-600 text-sm">+12% this month</p>
+              </div>
+              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-users text-[#2046B3] text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-600 text-sm font-medium">Active Courses</p>
+                <p class="text-3xl font-bold text-[#7C3AED]" id="active-courses">0</p>
+                <p class="text-green-600 text-sm">+5% this month</p>
+              </div>
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-book text-[#7C3AED] text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-600 text-sm font-medium">Certificates Issued</p>
+                <p class="text-3xl font-bold text-[#FDBA17]" id="certificates-issued">0</p>
+                <p class="text-green-600 text-sm">+8% this month</p>
+              </div>
+              <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-certificate text-[#FDBA17] text-xl"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 shadow-lg border border-gray-200">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-600 text-sm font-medium">Support Tickets</p>
+                <p class="text-3xl font-bold text-red-600" id="support-tickets">0</p>
+                <p class="text-red-600 text-sm">-3% this month</p>
+              </div>
+              <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                <i class="fas fa-headset text-red-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Activity and Online Users -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <!-- Live Activity Feed -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-broadcast-tower text-[#FDBA17]"></i>
+                Live Activity Feed
+                <span class="ml-2 inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  <span class="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></span>
+                  Live
+                </span>
+              </h3>
+            </div>
+            <div class="p-6">
+              <div id="live-activity-feed" class="space-y-3 max-h-64 overflow-y-auto">
+                <!-- Live activities will be populated here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Online Users -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-circle text-green-500"></i>
+                Online Users
+                <span class="text-sm font-normal text-gray-500" id="online-count">(0 online)</span>
+              </h3>
+            </div>
+            <div class="p-6">
+              <div id="online-users-list" class="space-y-2 max-h-64 overflow-y-auto">
+                <!-- Online users will be listed here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity Chart -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+              <i class="fas fa-chart-line text-[#FDBA17]"></i>
+              User Activity (Last 24 Hours)
+            </h3>
+          </div>
+          <div class="p-6">
+            <div id="activity-chart" class="h-64">
+              <!-- Activity chart will be rendered here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users Section -->
+      <section id="users" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-users text-[#FDBA17]"></i>
+                User Management
+              </h3>
+              <button id="add-user-btn" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                <i class="fas fa-plus mr-2"></i>Add User
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <!-- Search and Filters -->
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+              <div class="flex-1">
+                <input type="text" id="user-search" placeholder="Search users..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              </div>
+              <select id="user-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+                <option value="">All Users</option>
+                <option value="online">Online</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+
+            <!-- Users Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Progress</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Activity</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="user-table-body">
+                  <!-- User rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Courses Section -->
+      <section id="courses" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-book text-[#FDBA17]"></i>
+                Course Management
+              </h3>
+              <button class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                <i class="fas fa-plus mr-2"></i>Add Course
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="courses-grid">
+              <!-- Course cards will be populated here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certificates Section -->
+      <section id="certificates" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-certificate text-[#FDBA17]"></i>
+                Certificate Management
+              </h3>
+              <button class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                <i class="fas fa-plus mr-2"></i>Issue Certificate
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Certificate ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issued Date</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="certificate-table-body">
+                  <!-- Certificate rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Support Section -->
+      <section id="support" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-headset text-[#FDBA17]"></i>
+                Support Tickets
+              </h3>
+              <div class="flex gap-2">
+                <select id="ticket-filter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none text-sm">
+                  <option value="">All Tickets</option>
+                  <option value="open">Open</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="resolved">Resolved</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ticket ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="support-table-body">
+                  <!-- Support ticket rows will be populated here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics Section -->
+      <section id="analytics" class="dashboard-section hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- User Growth Chart -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-chart-line text-[#FDBA17]"></i>
+                User Growth
+              </h3>
+            </div>
+            <div class="p-6">
+              <div id="user-growth-chart" class="h-64">
+                <!-- Chart will be rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Completion Chart -->
+          <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+            <div class="p-6 border-b border-gray-200">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-chart-pie text-[#FDBA17]"></i>
+                Course Completion
+              </h3>
+            </div>
+            <div class="p-6">
+              <div id="completion-chart" class="h-64">
+                <!-- Chart will be rendered here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="settings" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+              <i class="fas fa-cog text-[#FDBA17]"></i>
+              System Settings
+            </h3>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- General Settings -->
+              <div class="space-y-4">
+                <h4 class="font-semibold text-gray-900">General Settings</h4>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Real-time Updates</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" checked class="sr-only peer">
+                      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#7C3AED]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#7C3AED]"></div>
+                    </label>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Email Notifications</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" checked class="sr-only peer">
+                      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#7C3AED]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#7C3AED]"></div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Export Options -->
+              <div class="space-y-4">
+                <h4 class="font-semibold text-gray-900">Data Management</h4>
+                <div class="space-y-3">
+                  <button id="export-data-btn" class="w-full px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                    <i class="fas fa-download mr-2"></i>Export All Data
+                  </button>
+                  <button class="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all font-semibold">
+                    <i class="fas fa-database mr-2"></i>Backup Database
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Notification Panel -->
+  <div id="notification-panel" class="fixed top-20 right-4 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 z-50 hidden max-h-96 overflow-hidden">
+    <div class="bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white p-4 rounded-t-xl">
+      <div class="flex items-center justify-between">
+        <h3 class="font-bold">Notifications</h3>
+        <button id="close-notifications" class="text-white hover:text-[#FDBA17] transition-colors">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="flex items-center gap-2 mt-2">
+        <span id="notification-count" class="text-sm">0 notifications</span>
+        <button id="mark-all-read" class="text-xs underline hover:text-[#FDBA17]">Mark all read</button>
+      </div>
+    </div>
+    <div id="notification-list" class="max-h-64 overflow-y-auto">
+      <!-- Notifications will be populated here -->
+    </div>
+    <div class="p-3 border-t border-gray-200 bg-gray-50">
+      <button id="view-all-notifications" class="w-full text-center text-[#7C3AED] hover:text-[#6D28D9] text-sm font-medium">
+        View All Notifications
+      </button>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div id="user-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-bold text-[#2046B3]">Add New User</h3>
+        <button onclick="closeUserModal()" class="text-gray-400 hover:text-red-500 text-2xl">&times;</button>
+      </div>
+      <form id="add-user-form" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+          <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Role</label>
+          <select name="role" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+        <div class="flex gap-3 pt-4">
+          <button type="button" onclick="closeUserModal()" class="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="flex-1 px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+            Add User
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="assets/js/discipleship-backend.js"></script>
+  <script src="assets/js/admin-simple.js"></script>
+  <script>
+    // Initialize admin dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sidebar navigation
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active class from all links
+          document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+          
+          // Add active class to clicked link
+          this.classList.add('active');
+          
+          // Hide all sections
+          document.querySelectorAll('.dashboard-section').forEach(section => {
+            section.classList.add('hidden');
+          });
+          
+          // Show target section
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) {
+            targetSection.classList.remove('hidden');
+          }
+        });
+      });
+
+      // User modal functionality
+      function openUserModal() {
+        document.getElementById('user-modal').classList.remove('hidden');
+      }
+
+      function closeUserModal() {
+        document.getElementById('user-modal').classList.add('hidden');
+      }
+
+      // Add user button
+      document.getElementById('add-user-btn').addEventListener('click', openUserModal);
+
+      // Close modal on outside click
+      document.getElementById('user-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeUserModal();
+        }
+      });
+
+      // Add user form submission
+      document.getElementById('add-user-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const userData = {
+          name: formData.get('name'),
+          email: formData.get('email'),
+          role: formData.get('role'),
+          joinedDate: new Date().toISOString()
+        };
+        
+        // Add user to backend
+        if (window.DiscipleshipBackend) {
+          window.DiscipleshipBackend.addUser(userData);
+        }
+        
+        closeUserModal();
+        this.reset();
+      });
+
+      // Logout functionality
+      document.getElementById('logout-btn').addEventListener('click', function() {
+        if (confirm('Are you sure you want to logout?')) {
+          window.location.href = 'discipleship-login.html';
+        }
+      });
+
+      // Notification bell click
+      document.getElementById('notification-bell').addEventListener('click', function() {
+        const panel = document.getElementById('notification-panel');
+        panel.classList.toggle('hidden');
+      });
+
+      // Close notifications
+      document.getElementById('close-notifications').addEventListener('click', function() {
+        document.getElementById('notification-panel').classList.add('hidden');
+      });
+
+      // Initialize real-time updates
+      if (window.AdminSync) {
+        window.AdminSync.performDataSync();
+      }
+    });
+
+    // Make functions globally available
+    window.openUserModal = function() {
+      document.getElementById('user-modal').classList.remove('hidden');
+    };
+
+    window.closeUserModal = function() {
+      document.getElementById('user-modal').classList.add('hidden');
+    };
+  </script>
+</body>
+</html> 
