@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sermon-1",
+    "title": "Rooted in Christ: The Foundation of Faith",
+    "date": "2025-06-15",
+    "preacher": "Pastor Grace Mwangi",
+    "description": "Discover how to build your life on the unshakable foundation of Christ, drawing from Colossians 2:6-7. Practical steps for spiritual growth and resilience.",
+    "image": "assets/images/hero/IMG-20250705-WA0020.jpg",
+    "tags": ["Faith", "Growth", "Discipleship"],
+    "audioUrl": "assets/audio/sermon-rooted-in-christ.mp3"
+  },
+  {
+    "id": "sermon-2",
+    "title": "The Power of Persistent Prayer",
+    "date": "2025-06-22",
+    "preacher": "Evangelist John Otieno",
+    "description": "A call to a lifestyle of prayer, exploring the parable of the persistent widow (Luke 18:1-8) and testimonies of breakthrough through prayer.",
+    "image": "assets/images/hero/IMG-20250705-WA0021.jpg",
+    "tags": ["Prayer", "Breakthrough", "Testimony"],
+    "audioUrl": "assets/audio/sermon-persistent-prayer.mp3"
+  },
+  {
+    "id": "sermon-3",
+    "title": "Walking in Freedom: Victory Over Bondage",
+    "date": "2025-06-29",
+    "preacher": "Rev. Esther Wanjiru",
+    "description": "Experience the freedom Christ offers. Learn how to break free from spiritual strongholds and walk in victory every day.",
+    "image": "assets/images/hero/IMG-20250705-WA0022.jpg",
+    "tags": ["Freedom", "Victory", "Deliverance"],
+    "audioUrl": "assets/audio/sermon-walking-in-freedom.mp3"
+  }
+] 

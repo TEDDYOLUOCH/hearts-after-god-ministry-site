@@ -9,8 +9,8 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
-    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
-    .fade-in.visible { opacity: 1; transform: none; }
+    .fade-in { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: none; } }
     .event-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 50; align-items: center; justify-content: center; }
     .event-modal.active { display: flex; }
     .calendar-day.has-event { position: relative; }
@@ -106,6 +106,15 @@
       position: relative;
       z-index: 2;
     }
+    @keyframes floatSlow { 0%{transform:translateY(0);} 50%{transform:translateY(-20px);} 100%{transform:translateY(0);} }
+    .animate-float-slow { animation: floatSlow 8s ease-in-out infinite; }
+    .btn-animated { transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s; }
+    .btn-animated:hover, .btn-animated:focus { transform: scale(1.05); box-shadow: 0 4px 24px 0 #7C3AED22; }
+    .card-animated { transition: box-shadow 0.3s, transform 0.3s; }
+    .card-animated:hover, .card-animated:focus-within { box-shadow: 0 8px 32px 0 #2046B322; transform: translateY(-6px) scale(1.01); }
+    .fade-in-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+    .fade-in-on-scroll.visible { opacity: 1; transform: none; }
+    .focus-outline { outline: 2px solid #FDBA17; outline-offset: 2px; }
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased dark:bg-dark dark:text-white">
@@ -133,26 +142,159 @@
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
       <!-- CTA Button -->
+      <div class="hidden md:flex gap-3 ml-6">
       <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      </div>
       <!-- Mobile Hamburger -->
-      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Open menu">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <!-- Mobile Menu Overlay -->
+      <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
+      <!-- Mobile Slide-in Menu -->
+      <nav id="mobile-menu" class="mobile-menu md:hidden overflow-y-auto">
+        <button class="close-btn" aria-label="Close menu">&times;</button>
+        <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="vision.html" class="nav-link">Vision</a></li>
+          <li><a href="events.html" class="nav-link active">Events</a></li>
+          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link">Missions</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="mt-8">
+          <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+        </div>
+      </nav>
     </nav>
   </header>
-  <main class="pt-28">
+  <main class="">
     <!-- Hero Banner: Enhanced -->
-    <section class="relative min-h-[80vh] flex flex-col items-center justify-center bg-gradient-to-br from-[#2046B3] to-[#7C3AED] overflow-hidden px-4" aria-label="Events Hero">
+    <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-12 px-4 text-center text-white overflow-hidden">
       <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1600&q=80" alt="Ministry Events" class="absolute inset-0 w-full h-full object-cover object-center brightness-50 z-0" />
       <div class="absolute inset-0 bg-gradient-to-br from-[#2046B3]/80 via-[#7C3AED]/60 to-[#2046B3]/80 z-0"></div>
-      <div class="relative z-10 flex flex-col items-center text-center gap-8 max-w-4xl mx-auto py-20">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-32 h-32 rounded-full shadow-2xl mb-4 mx-auto bg-white/90 p-3 border-4 border-[#FDBA17]" />
+      <!-- Animated SVG Overlay -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none z-10 animate-float-slow" viewBox="0 0 1440 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.18">
+        <circle cx="200" cy="120" r="60" fill="#FDBA17"/>
+        <circle cx="1240" cy="200" r="40" fill="#7C3AED"/>
+        <rect x="700" y="60" width="80" height="80" rx="20" fill="#2046B3"/>
+        <ellipse cx="400" cy="260" rx="30" ry="18" fill="#E02424"/>
+      </svg>
+      <style>
+        @keyframes floatSlow { 0%{transform:translateY(0);} 50%{transform:translateY(-20px);} 100%{transform:translateY(0);} }
+        .animate-float-slow { animation: floatSlow 8s ease-in-out infinite; }
+      </style>
+      <div class="relative z-20 flex flex-col items-center text-center max-w-4xl mx-auto">
         <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white drop-shadow-2xl leading-tight">Events</h1>
-        <span class="block text-[#FDBA17] text-2xl font-semibold animate-pulse">Experience revival, community, and transformation—one event at a time!</span>
-        <p class="text-xl text-white/90 mb-6 leading-relaxed max-w-3xl">Join us for worship, conferences, outreach, and more as we gather together to grow in faith and serve our community.</p>
-        <a href="#cta" class="inline-block px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-full shadow-xl hover:bg-[#E0A615] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FDBA17] transition mt-4" role="button">Submit Your Event</a>
+        <!-- Dynamic Tagline -->
+        <span id="dynamic-tagline" class="block text-[#FDBA17] text-2xl font-semibold animate-pulse"></span>
+        <p class="text-xl text-white/90 leading-relaxed max-w-3xl">Join us for worship, conferences, outreach, and more as we gather together to grow in faith and serve our community.</p>
+        <div id="next-event-highlight" class="w-full flex flex-col items-center"></div>
+        <a href="#upcoming-events" class="inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold text-lg rounded-lg shadow hover:bg-[#FDBA17] hover:text-[#2046B3] hover:scale-105 hover:shadow-xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7C3AED]/60 transition-all duration-300" role="button">See All Events</a>
       </div>
+      <script>
+        // Helper to robustly parse event date+time
+        function getEventDateTime(ev) {
+          let time = "00:00";
+          if (ev.time) {
+            // Extract the start time (before '-') and trim
+            let startTime = ev.time.split('-')[0].trim();
+            // Convert to 24-hour format if AM/PM present
+            const match = startTime.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+            if (match) {
+              let hour = parseInt(match[1], 10);
+              const min = match[2];
+              const ampm = match[3] ? match[3].toUpperCase() : null;
+              if (ampm) {
+                if (ampm === 'PM' && hour !== 12) hour += 12;
+                if (ampm === 'AM' && hour === 12) hour = 0;
+              }
+              time = `${hour.toString().padStart(2, '0')}:${min}`;
+            }
+          }
+          return new Date(ev.date + 'T' + time);
+        }
+        // Dynamic tagline typewriter/rotator
+        const taglines = [
+          'Experience Revival',
+          'Grow in Community',
+          'Serve the Nations',
+          'Be Equipped, Be Sent',
+          'Transform Your World',
+        ];
+        let taglineIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const taglineEl = document.getElementById('dynamic-tagline');
+        function typeTagline() {
+          const current = taglines[taglineIdx];
+          taglineEl.textContent = isDeleting ? current.substring(0, charIdx--) : current.substring(0, charIdx++);
+          if (!isDeleting && charIdx === current.length + 1) {
+            setTimeout(() => { isDeleting = true; typeTagline(); }, 1200);
+          } else if (isDeleting && charIdx === 0) {
+            isDeleting = false;
+            taglineIdx = (taglineIdx + 1) % taglines.length;
+            setTimeout(typeTagline, 400);
+          } else {
+            setTimeout(typeTagline, isDeleting ? 40 : 80);
+          }
+        }
+        if (taglineEl) typeTagline();
+        // Next upcoming event highlight (from events.json)
+        fetch('events.json').then(res => res.json()).then(events => {
+          const now = new Date();
+          // Clean and robust filter
+          const upcoming = events.filter(ev => {
+            // Defensive: trim status and date
+            const status = (ev.status || '').trim();
+            const date = (ev.date || '').trim();
+            // Defensive: check date format
+            const dt = getEventDateTime({...ev, date});
+            if (status !== 'upcoming') return false;
+            if (isNaN(dt.getTime())) {
+              console.warn('Event skipped due to invalid date:', ev);
+              return false;
+            }
+            return dt > now;
+          }).sort((a, b) => getEventDateTime(a) - getEventDateTime(b));
+          // Debug log
+          console.log('Upcoming events (sorted):', upcoming.map(ev => ({id: ev.id, title: ev.title, date: ev.date, time: ev.time, dt: getEventDateTime(ev)})));
+          const container = document.getElementById('next-event-highlight');
+          if (upcoming.length > 0) {
+            const ev = upcoming[0];
+            container.innerHTML = `
+              <div class="bg-white/90 rounded-xl shadow-lg px-6 py-4 mb-6 flex flex-col sm:flex-row items-center gap-4 max-w-xl mx-auto border-l-8" style="border-color:${ev.color}">
+                <img src="${ev.image}" alt="${ev.title}" class="w-20 h-20 object-cover rounded-lg border-2 border-[#FDBA17] shadow" />
+                <div class="flex-1 text-left">
+                  <div class="text-[#2046B3] font-bold text-lg mb-1">Next Up: ${ev.title}</div>
+                  <div class="text-[#2046B3]/80 text-sm mb-1">${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })} &bull; ${ev.time} &bull; ${ev.location}</div>
+                  <div class="text-[#2046B3]/80 text-sm line-clamp-2">${ev.description}</div>
+                </div>
+                <a href="#" class="learn-more-btn inline-block px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow hover:bg-[#E0A615] hover:text-[#7C3AED] transition relative" data-event-id="${ev.id}" aria-label="Learn more about ${ev.title}" role="button" tabindex="0">
+                  Learn More
+                  <span class="spinner hidden absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 border-2 border-t-transparent border-[#2046B3] rounded-full animate-spin"></span>
+                </a>
+              </div>
+            `;
+            if (typeof attachLearnMoreHandlers === 'function') attachLearnMoreHandlers();
+          } else {
+            container.innerHTML = '<div class="bg-white/90 rounded-xl shadow-lg px-6 py-4 mb-6 text-[#2046B3] font-semibold text-center">No upcoming events. Please check back soon!</div>';
+          }
+        });
+      </script>
     </section>
+
+    <!-- Example SVG wave divider (insert between major sections) -->
+    <div class="w-full overflow-hidden" aria-hidden="true">
+      <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-12 md:h-20">
+        <path d="M0 40 Q360 80 720 40T1440 40V80H0V40Z" fill="#7C3AED" fill-opacity="0.07"/>
+      </svg>
+    </div>
+    <!-- Add this divider between: Hero/Featured, Featured/Filters, Filters/Calendar, Calendar/Upcoming, Upcoming/Past, Past/CTA -->
 
     <!-- Featured Events Carousel -->
     <section class="max-w-7xl mx-auto py-20 px-4" aria-label="Featured Events">
@@ -161,214 +303,243 @@
         <div class="w-24 h-1 bg-[#FDBA17] mx-auto rounded-full mb-8"></div>
         <p class="text-xl text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Don't miss these upcoming events that will inspire, equip, and connect you with our ministry community.</p>
       </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="inline-block bg-[#FDBA17] text-[#2046B3] px-3 py-1 rounded-full text-xs font-bold">Worship</span>
-              <span class="text-[#2046B3] font-semibold text-sm">Apr 28, 6:00 PM</span>
+      <div class="relative">
+        <button id="carousel-prev" aria-label="Previous" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-[#FDBA17] text-[#2046B3] rounded-full shadow p-3 transition-all focus:outline-none focus:ring-2 focus:ring-[#FDBA17] hidden sm:block"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <div id="carousel-track" class="flex transition-transform duration-700 ease-in-out gap-8 overflow-x-auto snap-x snap-mandatory pb-4" style="scroll-behavior:smooth;"></div>
+        <button id="carousel-next" aria-label="Next" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/80 hover:bg-[#FDBA17] text-[#2046B3] rounded-full shadow p-3 transition-all focus:outline-none focus:ring-2 focus:ring-[#FDBA17] hidden sm:block"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
             </div>
-            <h3 class="font-bold text-xl text-[#2046B3] mb-3">Spring Worship Night</h3>
-            <p class="text-[#2046B3]/80 mb-4 leading-relaxed">Join us for an evening of worship, prayer, and community. All are welcome to experience the presence of God together.</p>
-            <a href="#" class="inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-full hover:bg-[#6D28A9] transition-colors">Learn More</a>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=600&q=80" alt="Youth Fire Conference" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="inline-block bg-[#7C3AED] text-white px-3 py-1 rounded-full text-xs font-bold">Youth</span>
-              <span class="text-[#2046B3] font-semibold text-sm">May 5, 5:00 PM</span>
-            </div>
-            <h3 class="font-bold text-xl text-[#2046B3] mb-3">Youth Fire Conference</h3>
-            <p class="text-[#2046B3]/80 mb-4 leading-relaxed">Empowering the next generation for Christ. Register to reserve your spot and be part of this transformative experience.</p>
-            <a href="#" class="inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-full hover:bg-[#6D28A9] transition-colors">Learn More</a>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=600&q=80" alt="Community Food Drive" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="inline-block bg-[#E02424] text-white px-3 py-1 rounded-full text-xs font-bold">Outreach</span>
-              <span class="text-[#2046B3] font-semibold text-sm">May 20, 10:00 AM</span>
-            </div>
-            <h3 class="font-bold text-xl text-[#2046B3] mb-3">Community Food Drive</h3>
-            <p class="text-[#2046B3]/80 mb-4 leading-relaxed">Blessing our city with food and hope. Thank you to all volunteers and donors who make this possible.</p>
-            <a href="#" class="inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-full hover:bg-[#6D28A9] transition-colors">Learn More</a>
-          </div>
-        </div>
-      </div>
+      <div class="flex justify-center gap-2 mt-6" id="carousel-dots"></div>
     </section>
+    <script>
+    // Carousel logic with countdown timers
+    fetch('events.json')
+      .then(res => res.json())
+      .then(events => {
+        const now = new Date();
+        const currentMonth = now.getMonth();
+        const currentYear = now.getFullYear();
+        const upcoming = events.filter(ev => {
+          if (ev.status !== 'upcoming') return false;
+          const d = new Date(ev.date);
+          return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
+        }).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 6);
+        const track = document.getElementById('carousel-track');
+        const dots = document.getElementById('carousel-dots');
+        if (upcoming.length === 0) {
+          track.innerHTML = '<div class="w-full text-center text-gray-500 text-lg">No featured events at this time.</div>';
+          return;
+        }
+        // Render event cards
+        track.innerHTML = upcoming.map((ev, idx) => `
+          <div class="event-card min-w-[320px] max-w-xs flex-shrink-0 snap-center bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden border-t-4 relative fade-in-on-scroll" style="border-color: ${ev.color}; animation-delay: ${idx*0.1}s;">
+            <img src="${ev.image}" alt="${ev.title}" class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="inline-block" style="background:${ev.color};color:${ev.color==='#FDBA17'?'#2046B3':'#fff'};padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:700;">${ev.tags[0]||''}</span>
+                <span class="text-[#2046B3] font-semibold text-sm">${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })} &bull; ${ev.time}</span>
+                ${ev.mode ? `<span class="ml-2 px-2 py-1 rounded-full text-xs font-bold ${ev.mode==='Online'?'bg-[#7C3AED] text-white':'bg-[#FDBA17] text-[#2046B3]'}">${ev.mode}</span>` : ''}
+                ${ev.free ? `<span class="ml-2 px-2 py-1 rounded-full text-xs font-bold bg-[#16a34a]/20 text-[#16a34a] border border-[#16a34a]/30">Free</span>` : ''}
+                ${ev.spotsLeft ? `<span class="ml-2 px-2 py-1 rounded-full text-xs font-bold bg-[#E02424]/10 text-[#E02424] border border-[#E02424]/30">${ev.spotsLeft} Spots Left</span>` : ''}
+            </div>
+              <h3 class="font-bold text-xl text-[#2046B3] mb-3">${ev.title}</h3>
+              <div class="text-[#2046B3]/80 mb-2">${ev.location}</div>
+              <p class="text-[#2046B3]/80 mb-4 leading-relaxed line-clamp-2">${ev.description}</p>
+              <div class="flex items-center gap-2 mb-4">
+                <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/></svg>
+                <span class="text-sm text-[#2046B3]/80">Countdown: <span class="countdown" data-date="${ev.date}T${ev.time}"></span></span>
+          </div>
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-full bg-[#2046B3]/10 flex items-center justify-center font-bold text-[#2046B3] text-lg border-2 border-[#FDBA17]">
+                  ${ev.hostImage ? `<img src="${ev.hostImage}" alt="${ev.host}" class="w-10 h-10 rounded-full object-cover" />` : (ev.host ? ev.host.split(' ').map(n=>n[0]).join('').toUpperCase() : '?')}
+        </div>
+                <span class="text-[#2046B3]/80 text-sm">Host: ${ev.host||'TBA'}</span>
+            </div>
+              <a href="#" class="inline-block px-6 py-2" style="background:${ev.color};color:${ev.color==='#FDBA17'?'#2046B3':'#fff'};font-weight:600;border-radius:0.75rem;transition:all .3s;">Learn More</a>
+          </div>
+        </div>
+        `).join('');
+        // Dots
+        dots.innerHTML = upcoming.map((_, idx) => `<button class="w-3 h-3 rounded-full bg-[#2046B3]/30 hover:bg-[#FDBA17] transition-all" data-dot="${idx}" aria-label="Go to slide ${idx+1}"></button>`).join('');
+        // Carousel logic
+        let current = 0;
+        const cards = track.children;
+        function updateCarousel(idx) {
+          current = idx;
+          const offset = cards[0].offsetWidth + 32; // gap-8
+          track.scrollTo({ left: offset * idx, behavior: 'smooth' });
+          Array.from(dots.children).forEach((dot, i) => dot.classList.toggle('bg-[#FDBA17]', i === idx));
+        }
+        document.getElementById('carousel-prev').onclick = () => updateCarousel((current-1+cards.length)%cards.length);
+        document.getElementById('carousel-next').onclick = () => updateCarousel((current+1)%cards.length);
+        Array.from(dots.children).forEach((dot, i) => dot.onclick = () => updateCarousel(i));
+        // Auto-play
+        let autoPlay = setInterval(() => updateCarousel((current+1)%cards.length), 6000);
+        track.onmouseenter = () => clearInterval(autoPlay);
+        track.onmouseleave = () => autoPlay = setInterval(() => updateCarousel((current+1)%cards.length), 6000);
+        // Swipe support
+        let startX = 0;
+        track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+        track.addEventListener('touchend', e => {
+          const dx = e.changedTouches[0].clientX - startX;
+          if (dx > 50) updateCarousel((current-1+cards.length)%cards.length);
+          else if (dx < -50) updateCarousel((current+1)%cards.length);
+        });
+        // Countdown timers
+        function updateCountdowns() {
+          document.querySelectorAll('.countdown').forEach(el => {
+            const dateStr = el.getAttribute('data-date');
+            const eventDate = new Date(dateStr);
+            const now = new Date();
+            let diff = eventDate - now;
+            if (diff < 0) { el.textContent = 'Started'; return; }
+            const days = Math.floor(diff/(1000*60*60*24));
+            diff -= days*1000*60*60*24;
+            const hours = Math.floor(diff/(1000*60*60));
+            diff -= hours*1000*60*60;
+            const mins = Math.floor(diff/(1000*60));
+            el.textContent = `${days}d ${hours}h ${mins}m`;
+          });
+        }
+        updateCountdowns();
+        setInterval(updateCountdowns, 60000);
+        // Initial state
+        updateCarousel(0);
+      });
+    </script>
 
     <!-- Advanced Event Filters -->
-    <section class="max-w-7xl mx-auto py-20 px-4 bg-gradient-to-br from-[#2046B3]/5 to-[#7C3AED]/5" aria-label="Event Filters">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Find Your Perfect Event</h2>
-        <div class="w-24 h-1 bg-[#FDBA17] mx-auto rounded-full mb-8"></div>
-        <p class="text-xl text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Use our advanced filters to discover events that match your interests and schedule.</p>
+    <section id="event-filters" class="max-w-7xl mx-auto py-6 px-4 bg-gradient-to-br from-[#2046B3]/5 to-[#7C3AED]/5 shadow-md" aria-label="Event Filters">
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-bold text-[#2046B3] mb-2">Find Your Perfect Event</h2>
+        <div class="w-16 h-1 bg-[#FDBA17] mx-auto rounded-full mb-4"></div>
+        <p class="text-lg text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Use our advanced filters to discover events that match your interests and schedule.</p>
       </div>
-      <div class="bg-white rounded-2xl shadow-lg p-8">
-        <div class="flex flex-col lg:flex-row gap-6 justify-between items-center">
+      <div class="bg-white rounded-2xl shadow-lg p-6 flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+        <div class="flex flex-wrap gap-2 mb-2 md:mb-0" id="tag-chips">
+          <!-- Tag chips will be rendered here -->
+        </div>
           <div class="flex flex-wrap gap-4 flex-1">
-            <select class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] font-medium" aria-label="Filter by type">
-              <option value="">All Event Types</option>
-            <option value="worship">Worship</option>
-            <option value="conference">Conference</option>
-            <option value="outreach">Outreach</option>
-            <option value="youth">Youth</option>
-              <option value="prayer">Prayer</option>
-              <option value="discipleship">Discipleship</option>
-          </select>
-            <input type="text" class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] placeholder-[#2046B3]/60" placeholder="Search events..." aria-label="Live search events" />
-            <input type="date" class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] font-medium" aria-label="Start date" />
-            <input type="date" class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] font-medium" aria-label="End date" />
+          <input type="text" id="event-search" class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] placeholder-[#2046B3]/60" placeholder="Search events..." aria-label="Live search events" />
+          <input type="date" id="start-date" class="px-4 py-3 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3] font-medium" aria-label="Start date" />
           </div>
           <div class="flex gap-4">
-            <button class="px-6 py-3 bg-[#2046B3]/10 text-[#2046B3] font-semibold rounded-lg hover:bg-[#2046B3]/20 transition-colors border border-[#2046B3]/20" aria-label="Clear filters">Clear</button>
-            <button class="px-8 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg hover:bg-[#E0A615] transition-colors shadow-lg">Filter Events</button>
+          <button id="clear-filters" class="px-6 py-3 bg-[#2046B3]/10 text-[#2046B3] font-semibold rounded-lg hover:bg-[#2046B3]/20 transition-colors border border-[#2046B3]/20" aria-label="Clear filters">Clear</button>
           </div>
         </div>
-      </div>
+      <div class="text-right mt-2 text-[#2046B3]/80 text-sm" id="results-count"></div>
     </section>
-
-    <!-- Interactive Calendar -->
-    <section class="max-w-7xl mx-auto py-20 px-4" aria-label="Event Calendar">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Event Calendar</h2>
-        <div class="w-24 h-1 bg-[#FDBA17] mx-auto rounded-full mb-8"></div>
-        <p class="text-xl text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Browse our monthly calendar to see all upcoming events at a glance.</p>
-      </div>
-      <div class="bg-white rounded-2xl shadow-lg p-8">
-        <div class="grid grid-cols-7 gap-2 text-center text-sm">
-          <div class="font-bold text-[#2046B3] p-3">Sun</div>
-          <div class="font-bold text-[#2046B3] p-3">Mon</div>
-          <div class="font-bold text-[#2046B3] p-3">Tue</div>
-          <div class="font-bold text-[#2046B3] p-3">Wed</div>
-          <div class="font-bold text-[#2046B3] p-3">Thu</div>
-          <div class="font-bold text-[#2046B3] p-3">Fri</div>
-          <div class="font-bold text-[#2046B3] p-3">Sat</div>
-        <!-- Example: clickable days with popovers -->
-          <div class="calendar-day has-event p-3 rounded-lg hover:bg-[#FDBA17]/10 cursor-pointer transition-colors" tabindex="0">
-            <span class="text-[#2046B3] font-medium">5</span>
-          <div class="calendar-popover">
-              <span class="inline-block bg-[#7C3AED] text-white px-2 py-1 rounded-full text-xs font-bold mb-1">Youth</span>
-              <div class="font-bold text-[#2046B3]">Youth Fire Conference</div>
-              <div class="text-xs text-[#2046B3]/60 mb-2">May 5, 5:00 PM</div>
-              <a href="#" class="text-[#FDBA17] underline hover:text-[#7C3AED] transition-colors">Details</a>
-            </div>
-          </div>
-          <div class="p-3 text-[#2046B3]/60">6</div>
-          <div class="p-3 text-[#2046B3]/60">7</div>
-          <div class="p-3 text-[#2046B3]/60">8</div>
-          <div class="p-3 text-[#2046B3]/60">9</div>
-          <div class="p-3 text-[#2046B3]/60">10</div>
-          <div class="p-3 text-[#2046B3]/60">11</div>
-          <div class="p-3 text-[#2046B3]/60">12</div>
-          <div class="p-3 text-[#2046B3]/60">13</div>
-          <div class="p-3 text-[#2046B3]/60">14</div>
-          <div class="p-3 text-[#2046B3]/60">15</div>
-          <div class="p-3 text-[#2046B3]/60">16</div>
-          <div class="p-3 text-[#2046B3]/60">17</div>
-          <div class="p-3 text-[#2046B3]/60">18</div>
-          <div class="p-3 text-[#2046B3]/60">19</div>
-          <div class="p-3 text-[#2046B3]/60">20</div>
-          <div class="p-3 text-[#2046B3]/60">21</div>
-          <div class="p-3 text-[#2046B3]/60">22</div>
-          <div class="p-3 text-[#2046B3]/60">23</div>
-          <div class="p-3 text-[#2046B3]/60">24</div>
-          <div class="p-3 text-[#2046B3]/60">25</div>
-          <div class="p-3 text-[#2046B3]/60">26</div>
-          <div class="p-3 text-[#2046B3]/60">27</div>
-          <div class="p-3 text-[#2046B3]/60">28</div>
-          <div class="p-3 text-[#2046B3]/60">29</div>
-          <div class="p-3 text-[#2046B3]/60">30</div>
-          <div class="p-3 text-[#2046B3]/20"> </div>
-          <div class="p-3 text-[#2046B3]/20"> </div>
-          <div class="p-3 text-[#2046B3]/20"> </div>
-        </div>
-      </div>
-    </section>
+    <script>
+    // Tag chips and filter logic
+    const tagList = ["Worship","Conference","Outreach","Youth","Prayer","Discipleship"];
+    const tagChips = document.getElementById('tag-chips');
+    tagChips.innerHTML = tagList.map(tag => `<button class='tag-chip px-4 py-2 rounded-full bg-[#2046B3]/10 text-[#2046B3] font-semibold hover:bg-[#7C3AED] hover:text-white transition' data-tag='${tag}'>${tag}</button>`).join('');
+    let activeTag = '';
+    tagChips.querySelectorAll('.tag-chip').forEach(btn => {
+      btn.onclick = function() {
+        if (activeTag === btn.dataset.tag) { activeTag = ''; btn.classList.remove('bg-[#7C3AED]','text-white'); btn.classList.add('bg-[#2046B3]/10','text-[#2046B3]'); } 
+        else {
+          tagChips.querySelectorAll('.tag-chip').forEach(b=>b.classList.remove('bg-[#7C3AED]','text-white'));
+          tagChips.querySelectorAll('.tag-chip').forEach(b=>b.classList.add('bg-[#2046B3]/10','text-[#2046B3]'));
+          btn.classList.add('bg-[#7C3AED]','text-white');
+          btn.classList.remove('bg-[#2046B3]/10','text-[#2046B3]');
+          activeTag = btn.dataset.tag;
+        }
+        filterEvents();
+      };
+    });
+    // Filter logic
+    const searchInput = document.getElementById('event-search');
+    const startDateInput = document.getElementById('start-date');
+    const clearBtn = document.getElementById('clear-filters');
+    const resultsCount = document.getElementById('results-count');
+    let allEvents = [];
+    fetch('events.json').then(res=>res.json()).then(events=>{ allEvents = events; filterEvents(); });
+    function filterEvents() {
+      let filtered = allEvents;
+      if (activeTag) filtered = filtered.filter(ev => ev.tags && ev.tags.includes(activeTag));
+      if (searchInput.value) filtered = filtered.filter(ev => ev.title.toLowerCase().includes(searchInput.value.toLowerCase()) || (ev.description && ev.description.toLowerCase().includes(searchInput.value.toLowerCase())));
+      if (startDateInput.value) filtered = filtered.filter(ev => new Date(ev.date) >= new Date(startDateInput.value));
+      // Show count
+      resultsCount.textContent = `${filtered.length} event${filtered.length!==1?'s':''} found`;
+      // Optionally, update event listings here (if you want to filter the main event list)
+    }
+    searchInput.oninput = filterEvents;
+    startDateInput.onchange = filterEvents;
+    clearBtn.onclick = function() {
+      searchInput.value = '';
+      startDateInput.value = '';
+      activeTag = '';
+      tagChips.querySelectorAll('.tag-chip').forEach(b=>b.classList.remove('bg-[#7C3AED]','text-white'));
+      tagChips.querySelectorAll('.tag-chip').forEach(b=>b.classList.add('bg-[#2046B3]/10','text-[#2046B3]'));
+      filterEvents();
+    };
+    </script>
 
     <!-- Upcoming Events Listing: Advanced -->
-    <section class="max-w-7xl mx-auto py-20 px-4 bg-gradient-to-br from-[#2046B3]/5 to-[#7C3AED]/5" aria-label="Upcoming Events">
+    <section id="upcoming-events" class="max-w-7xl mx-auto py-20 px-4 bg-gradient-to-br from-[#2046B3]/5 to-[#7C3AED]/5" aria-label="Upcoming Events">
       <div class="text-center mb-16">
         <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Upcoming Events</h2>
         <div class="w-24 h-1 bg-[#FDBA17] mx-auto rounded-full mb-8"></div>
         <p class="text-xl text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Mark your calendar and join us for these life-changing events that will inspire and equip you.</p>
       </div>
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Example Event Card -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4">
-              <span class="inline-block bg-[#FDBA17] text-[#2046B3] px-3 py-1 rounded-full text-xs font-bold">Worship</span>
-              <span class="text-[#2046B3]/60 text-sm">Apr 28, Sunday 6:00 PM</span>
-            </div>
-            <h3 class="font-bold text-2xl text-[#2046B3] mb-4">Spring Worship Night</h3>
-            <div class="space-y-3 mb-6">
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <span class="text-sm">Online via Zoom/YouTube</span>
-              </div>
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/></svg>
-                <span class="text-sm">Countdown: 3d 4h 12m</span>
-              </div>
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <div class="w-8 h-8 bg-[#FDBA17] rounded-full flex items-center justify-center">
-                  <span class="text-[#2046B3] font-bold text-xs">JS</span>
-          </div>
-                <span class="text-sm">Host: John Smith</span>
-          </div>
-          </div>
-            <div class="flex gap-3 mb-4">
-              <a href="#" class="inline-block px-4 py-2 bg-[#2046B3] text-white rounded-lg text-sm font-semibold hover:bg-[#1E3A8A] transition-colors">Add to Calendar</a>
-              <a href="#" class="inline-block px-4 py-2 bg-[#7C3AED] text-white rounded-lg text-sm font-semibold hover:bg-[#6D28A9] transition-colors">Share</a>
-          </div>
-            <button class="w-full px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg hover:bg-[#E0A615] transition-colors event-details-btn" data-event="1">Details & Register</button>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=600&q=80" alt="Youth Fire Conference" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-4">
-              <span class="inline-block bg-[#7C3AED] text-white px-3 py-1 rounded-full text-xs font-bold">Youth</span>
-              <span class="text-[#2046B3]/60 text-sm">May 5, Friday 5:00 PM</span>
-            </div>
-            <h3 class="font-bold text-2xl text-[#2046B3] mb-4">Youth Fire Conference</h3>
-            <div class="space-y-3 mb-6">
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <span class="text-sm">Online via Zoom/YouTube</span>
-              </div>
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3"/></svg>
-                <span class="text-sm">Countdown: 10d 2h 8m</span>
-              </div>
-              <div class="flex items-center gap-3 text-[#2046B3]/80">
-                <div class="w-8 h-8 bg-[#7C3AED] rounded-full flex items-center justify-center">
-                  <span class="text-white font-bold text-xs">MJ</span>
-          </div>
-                <span class="text-sm">Host: Mary Johnson</span>
-          </div>
-          </div>
-            <div class="flex gap-3 mb-4">
-              <a href="#" class="inline-block px-4 py-2 bg-[#2046B3] text-white rounded-lg text-sm font-semibold hover:bg-[#1E3A8A] transition-colors">Add to Calendar</a>
-              <a href="#" class="inline-block px-4 py-2 bg-[#7C3AED] text-white rounded-lg text-sm font-semibold hover:bg-[#6D28A9] transition-colors">Share</a>
-          </div>
-            <button class="w-full px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg hover:bg-[#E0A615] transition-colors event-details-btn" data-event="2">Details & Register</button>
-          </div>
-        </div>
-      </div>
+      <div id="upcoming-events-list" class="grid md:grid-cols-2 gap-8"></div>
     </section>
+    <script>
+    fetch('events.json')
+      .then(res => res.json())
+      .then(events => {
+        const upcoming = events.filter(ev =>
+          ev.status === 'upcoming' && getEventDateTime(ev) > new Date()
+        ).sort((a, b) => getEventDateTime(a) - getEventDateTime(b));
+        const container = document.getElementById('upcoming-events-list');
+        if (!container) return;
+        if (upcoming.length === 0) {
+          container.innerHTML = '<div class="col-span-2 text-center text-gray-500 text-lg">No upcoming events at this time. Please check back soon!</div>';
+          return;
+        }
+        container.innerHTML = upcoming.map(ev => `
+          <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden border-t-4" style="border-color: ${ev.color};">
+            <img src="${ev.image}" alt="${ev.title}" class="w-full h-48 object-cover" />
+          <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="inline-block" style="background:${ev.color};color:${ev.color==='#FDBA17'?'#2046B3':'#fff'};padding:0.25rem 0.75rem;border-radius:999px;font-size:0.75rem;font-weight:700;">${ev.tags[0]||''}</span>
+                <span class="text-[#2046B3] font-semibold text-sm">${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })} &bull; ${ev.time}</span>
+            </div>
+              <h3 class="font-bold text-xl text-[#2046B3] mb-3">${ev.title}</h3>
+              <div class="text-[#2046B3]/80 mb-2">${ev.location}</div>
+              <p class="text-[#2046B3]/80 mb-4 leading-relaxed">${ev.description}</p>
+              <a href="#" class="learn-more-btn inline-block px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow hover:bg-[#E0A615] hover:text-[#7C3AED] transition relative" data-event-id="${ev.id}" aria-label="Learn more about ${ev.title}" role="button" tabindex="0">
+                Learn More
+                <span class="spinner hidden absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 border-2 border-t-transparent border-[#2046B3] rounded-full animate-spin"></span>
+              </a>
+              </div>
+              </div>
+        `).join('');
+        if (typeof attachLearnMoreHandlers === 'function') attachLearnMoreHandlers();
+      });
+    </script>
 
     <!-- Event Details Modals: Advanced -->
     <div id="event-modal-1" class="event-modal" aria-modal="true" role="dialog">
       <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
         <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('event-modal-1').classList.remove('active')">&times;</button>
-        <img src="assets/images/event1.jpg" alt="Spring Worship Night" class="w-full h-40 object-cover rounded-xl mb-4" />
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-40 object-cover rounded-xl mb-4" />
+        <h2 class="text-2xl font-bold text-primary mb-2">Spring Worship Night</h2>
+        <div class="mb-2 text-gray-700"><strong>Date:</strong> Apr 28, Sunday 6:00 PM</div>
+        <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
+        <div class="mb-2 text-gray-700"><strong>Type:</strong> Worship</div>
+        <div class="mb-2 text-gray-700"><strong>Host:</strong> John Smith</div>
+        <div class="mb-2 text-gray-700"><strong>Countdown:</strong> <span class="countdown" data-date="2025-04-28T18:00:00">3d 4h 12m</span></div>
+        <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 6:00 PM - Worship, 7:00 PM - Prayer, 8:00 PM - Fellowship</div>
+        <div class="mb-2 text-gray-700"><strong>Description:</strong> Join us online for an evening of worship, prayer, and community. All are welcome!</div>
+       
+        <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-gold transition">Register Now</a>
+      </div>
+    </div>
+    <div id="event-modal-2" class="event-modal" aria-modal="true" role="dialog">
+      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
+        <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('event-modal-2').classList.remove('active')">&times;</button>
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-40 object-cover rounded-xl mb-4" />
         <h2 class="text-2xl font-bold text-primary mb-2">Spring Worship Night</h2>
         <div class="mb-2 text-gray-700"><strong>Date:</strong> Apr 28, Sunday 6:00 PM</div>
         <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
@@ -378,45 +549,9 @@
         <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 6:00 PM - Worship, 7:00 PM - Prayer, 8:00 PM - Fellowship</div>
         <div class="mb-2 text-gray-700"><strong>Description:</strong> Join us online for an evening of worship, prayer, and community. All are welcome!</div>
         <div class="mb-4 flex gap-2">
-          <a href="#" class="inline-block px-3 py-1 bg-gold text-blue rounded-full text-xs font-semibold hover:bg-blue hover:text-white transition">Add to Calendar</a>
           <a href="#" class="inline-block px-3 py-1 bg-purple text-white rounded-full text-xs font-semibold hover:bg-gold hover:text-blue transition">Share</a>
         </div>
-        <div class="w-full h-32 rounded-lg border-2 border-blue mb-4 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-          <div class="text-center">
-            <svg class="w-8 h-8 mx-auto mb-2 text-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-blue font-semibold">Online Event</p>
-          </div>
-        </div>
-        <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-gold transition">Register Now</a>
-      </div>
-    </div>
-    <div id="event-modal-2" class="event-modal" aria-modal="true" role="dialog">
-      <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
-        <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('event-modal-2').classList.remove('active')">&times;</button>
-        <img src="assets/images/event2.jpg" alt="Youth Fire Conference" class="w-full h-40 object-cover rounded-xl mb-4" />
-        <h2 class="text-2xl font-bold text-primary mb-2">Youth Fire Conference</h2>
-        <div class="mb-2 text-gray-700"><strong>Date:</strong> May 5, Friday 5:00 PM</div>
-        <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
-        <div class="mb-2 text-gray-700"><strong>Type:</strong> Youth</div>
-        <div class="mb-2 text-gray-700"><strong>Host:</strong> Mary Johnson</div>
-        <div class="mb-2 text-gray-700"><strong>Countdown:</strong> <span class="countdown" data-date="2025-05-05T17:00:00">10d 2h 8m</span></div>
-        <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 5:00 PM - Worship, 6:00 PM - Message, 7:00 PM - Games</div>
-        <div class="mb-2 text-gray-700"><strong>Description:</strong> Empowering the next generation for Christ online. Register to reserve your spot!</div>
-        <div class="mb-4 flex gap-2">
-          <a href="#" class="inline-block px-3 py-1 bg-gold text-blue rounded-full text-xs font-semibold hover:bg-blue hover:text-white transition">Add to Calendar</a>
-          <a href="#" class="inline-block px-3 py-1 bg-purple text-white rounded-full text-xs font-semibold hover:bg-gold hover:text-blue transition">Share</a>
-        </div>
-        <div class="w-full h-32 rounded-lg border-2 border-blue mb-4 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
-          <div class="text-center">
-            <svg class="w-8 h-8 mx-auto mb-2 text-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <p class="text-blue font-semibold">Online Event</p>
-          </div>
-        </div>
-        <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-gold transition">Register Now</a>
+        <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-[#E0A615] focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition">Register Now</a>
       </div>
     </div>
 
@@ -493,37 +628,34 @@
       </div>
     </section>
 
-    <!-- Call to Action: Host, Volunteer, Subscribe -->
-    <section id="cta" class="max-w-7xl mx-auto py-20 px-4 text-center bg-gradient-to-br from-[#2046B3]/5 to-[#7C3AED]/5" aria-label="Get Involved">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Get Involved</h2>
-        <div class="w-24 h-1 bg-[#FDBA17] mx-auto rounded-full mb-8"></div>
-        <p class="text-xl text-[#2046B3]/80 max-w-3xl mx-auto leading-relaxed">Want to host an event, volunteer, or stay updated? Join our community and make a difference!</p>
+    <!-- Enhanced Get Involved CTA -->
+    <section id="cta" class="relative max-w-7xl mx-auto py-20 px-4 text-center bg-gradient-to-br from-[#FDBA17]/10 to-[#7C3AED]/10 rounded-2xl shadow-lg border border-[#7C3AED]/20 mb-16 overflow-hidden">
+      <!-- Parallax/Animated SVG Background -->
+      <div class="absolute inset-0 z-0 pointer-events-none">
+        <svg class="absolute left-0 top-0 w-40 h-40 animate-float-slow" viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="80" fill="#FDBA17" fill-opacity="0.12"/></svg>
+        <svg class="absolute right-0 bottom-0 w-48 h-48 animate-float-slower" viewBox="0 0 192 192" fill="none"><rect x="0" y="0" width="192" height="192" rx="48" fill="#7C3AED" fill-opacity="0.10"/></svg>
+        <svg class="absolute left-1/2 top-1/2 w-32 h-32 animate-float" style="transform:translate(-50%,-50%)" viewBox="0 0 128 128" fill="none"><ellipse cx="64" cy="64" rx="64" ry="32" fill="#2046B3" fill-opacity="0.08"/></svg>
       </div>
-      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <div class="w-16 h-16 bg-[#FDBA17]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-            <svg class="w-8 h-8 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+      <style>
+        @keyframes float { 0%{transform:translateY(0);} 50%{transform:translateY(-10px);} 100%{transform:translateY(0);} }
+        @keyframes float-slow { 0%{transform:translateY(0);} 50%{transform:translateY(-20px);} 100%{transform:translateY(0);} }
+        @keyframes float-slower { 0%{transform:translateY(0);} 50%{transform:translateY(20px);} 100%{transform:translateY(0);} }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float-slow { animation: float-slow 10s ease-in-out infinite; }
+        .animate-float-slower { animation: float-slower 14s ease-in-out infinite; }
+      </style>
+      <div class="relative z-10">
+        <div class="flex flex-col items-center gap-6 mb-10">
+          <div class="flex gap-6 justify-center">
+            <!-- Animated SVG Icons -->
+            <svg class="w-14 h-14 animate-float" viewBox="0 0 56 56" fill="none"><path d="M28 52c13.255 0 24-10.745 24-24S41.255 4 28 4 4 14.745 4 28s10.745 24 24 24Z" fill="#FDBA17" fill-opacity="0.18"/><path d="M28 38c5.523 0 10-4.477 10-10S33.523 18 28 18s-10 4.477-10 10 4.477 10 10 10Z" fill="#7C3AED" fill-opacity="0.22"/></svg>
+            <svg class="w-14 h-14 animate-float-slow" viewBox="0 0 56 56" fill="none"><path d="M28 52c13.255 0 24-10.745 24-24S41.255 4 28 4 4 14.745 4 28s10.745 24 24 24Z" fill="#2046B3" fill-opacity="0.13"/><path d="M28 38c5.523 0 10-4.477 10-10S33.523 18 28 18s-10 4.477-10 10 4.477 10 10 10Z" fill="#FDBA17" fill-opacity="0.18"/></svg>
+            <svg class="w-14 h-14 animate-float-slower" viewBox="0 0 56 56" fill="none"><path d="M28 52c13.255 0 24-10.745 24-24S41.255 4 28 4 4 14.745 4 28s10.745 24 24 24Z" fill="#7C3AED" fill-opacity="0.13"/><path d="M28 38c5.523 0 10-4.477 10-10S33.523 18 28 18s-10 4.477-10 10 4.477 10 10 10Z" fill="#2046B3" fill-opacity="0.18"/></svg>
+            <svg class="w-14 h-14 animate-float" viewBox="0 0 56 56" fill="none"><path d="M28 52c13.255 0 24-10.745 24-24S41.255 4 28 4 4 14.745 4 28s10.745 24 24 24Z" fill="#FDBA17" fill-opacity="0.13"/><path d="M28 38c5.523 0 10-4.477 10-10S33.523 18 28 18s-10 4.477-10 10 4.477 10 10 10Z" fill="#7C3AED" fill-opacity="0.18"/></svg>
           </div>
-          <h3 class="font-bold text-[#2046B3] text-xl mb-4">Host an Event</h3>
-          <p class="text-[#2046B3]/80 mb-6 leading-relaxed">Share your vision and host an event that will impact lives and grow our ministry community.</p>
-          <a href="#" class="inline-block px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg hover:bg-[#E0A615] transition-colors">Get Started</a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <div class="w-16 h-16 bg-[#2046B3]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-            <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2h5"/></svg>
-          </div>
-          <h3 class="font-bold text-[#2046B3] text-xl mb-4">Volunteer</h3>
-          <p class="text-[#2046B3]/80 mb-6 leading-relaxed">Join our volunteer team and help make our events successful while serving our community.</p>
-          <a href="#" class="inline-block px-6 py-3 bg-[#2046B3] text-white font-bold rounded-lg hover:bg-[#1E3A8A] transition-colors">Join Team</a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <div class="w-16 h-16 bg-[#7C3AED]/10 rounded-full flex items-center justify-center mb-6 mx-auto">
-            <svg class="w-8 h-8 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <h3 class="font-bold text-[#2046B3] text-xl mb-4">Stay Updated</h3>
-          <p class="text-[#2046B3]/80 mb-6 leading-relaxed">Subscribe to our newsletter and never miss an event or ministry update.</p>
-          <a href="#" class="inline-block px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-lg hover:bg-[#6D28A9] transition-colors">Subscribe</a>
+          <h2 class="text-4xl font-bold text-[#E02424] mb-6">Get Involved</h2>
+          <p class="text-xl text-gray-700 mb-8 leading-relaxed">You are invited to be part of this vision! Whether through prayer, serving, giving, or joining a discipleship group, there is a place for you in our global family. Let's reach the world for Christ together.</p>
+          <a href="contact.html" class="inline-block px-10 py-4 bg-[#2046B3] text-white font-bold rounded-lg shadow-lg hover:bg-[#16337e] transition-all duration-300 transform hover:scale-105">Join the Mission</a>
         </div>
       </div>
     </section>
@@ -660,7 +792,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Founder: Cyrilla Chikamai</span>
+              <span class="text-sm">Global Online Ministry</span>
             </div>
           </div>
           
@@ -731,6 +863,271 @@
       const active = document.querySelector('#nav-links .nav-link.active');
       moveUnderline(active);
     });
+  </script>
+  <!-- Add a single dynamic event modal at the end of <main> -->
+  <div id="event-modal" class="event-modal" aria-modal="true" role="dialog">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
+      <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('event-modal-1').classList.remove('active')">&times;</button>
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-40 object-cover rounded-xl mb-4" />
+      <h2 class="text-2xl font-bold text-primary mb-2">Spring Worship Night</h2>
+      <div class="mb-2 text-gray-700"><strong>Date:</strong> Apr 28, Sunday 6:00 PM</div>
+      <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
+      <div class="mb-2 text-gray-700"><strong>Type:</strong> Worship</div>
+      <div class="mb-2 text-gray-700"><strong>Host:</strong> John Smith</div>
+      <div class="mb-2 text-gray-700"><strong>Countdown:</strong> <span class="countdown" data-date="2025-04-28T18:00:00">3d 4h 12m</span></div>
+      <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 6:00 PM - Worship, 7:00 PM - Prayer, 8:00 PM - Fellowship</div>
+      <div class="mb-2 text-gray-700"><strong>Description:</strong> Join us online for an evening of worship, prayer, and community. All are welcome!</div>
+      <div class="mb-4 flex gap-2">
+        <a href="#" class="inline-block px-3 py-1 bg-purple text-white rounded-full text-xs font-semibold hover:bg-gold hover:text-blue transition">Share</a>
+      </div>
+      <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-[#E0A615] focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition">Register Now</a>
+    </div>
+  </div>
+  <div id="event-modal-2" class="event-modal" aria-modal="true" role="dialog">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-8 relative">
+      <button class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none" onclick="document.getElementById('event-modal-2').classList.remove('active')">&times;</button>
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Spring Worship Night" class="w-full h-40 object-cover rounded-xl mb-4" />
+      <h2 class="text-2xl font-bold text-primary mb-2">Spring Worship Night</h2>
+      <div class="mb-2 text-gray-700"><strong>Date:</strong> Apr 28, Sunday 6:00 PM</div>
+      <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
+      <div class="mb-2 text-gray-700"><strong>Type:</strong> Worship</div>
+      <div class="mb-2 text-gray-700"><strong>Host:</strong> John Smith</div>
+      <div class="mb-2 text-gray-700"><strong>Countdown:</strong> <span class="countdown" data-date="2025-04-28T18:00:00">3d 4h 12m</span></div>
+      <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 6:00 PM - Worship, 7:00 PM - Prayer, 8:00 PM - Fellowship</div>
+      <div class="mb-2 text-gray-700"><strong>Description:</strong> Join us online for an evening of worship, prayer, and community. All are welcome!</div>
+      <div class="mb-4 flex gap-2">
+        <a href="#" class="inline-block px-3 py-1 bg-purple text-white rounded-full text-xs font-semibold hover:bg-gold hover:text-blue transition">Share</a>
+      </div>
+      <a href="#" class="inline-block px-8 py-3 bg-gold text-blue font-bold rounded-full shadow hover:bg-[#E0A615] focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition">Register Now</a>
+    </div>
+  </div>
+  <script>
+  // Helper to render event modal content
+  function renderEventModal(ev) {
+    // Use getEventDateTime for countdown
+    const countdownDate = getEventDateTime(ev);
+    return `
+      <button id="close-event-modal" class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none">&times;</button>
+      <img src="${ev.image}" alt="${ev.title}" class="w-full h-40 object-cover rounded-xl mb-4" />
+      <h2 class="text-2xl font-bold text-primary mb-2">${ev.title}</h2>
+      <div class="mb-2 text-gray-700"><strong>Date:</strong> ${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}${ev.time ? ', ' + ev.time : ''}</div>
+      <div class="mb-2 text-gray-700"><strong>Platform:</strong> Online via Zoom/YouTube <a href="#" class="text-blue underline ml-2">Join Live</a></div>
+      <div class="mb-2 text-gray-700"><strong>Type:</strong> ${ev.tags && ev.tags.length ? ev.tags.join(', ') : 'Worship'}</div>
+      <div class="mb-2 text-gray-700"><strong>Host:</strong> ${ev.host || 'John Smith'}</div>
+      <div class="mb-2 text-gray-700"><strong>Countdown:</strong> <span class="countdown" data-date="${countdownDate.toISOString()}"></span></div>
+      <div class="mb-2 text-gray-700"><strong>Schedule:</strong> 6:00 PM - Worship, 7:00 PM - Prayer, 8:00 PM - Fellowship</div>
+      <div class="mb-2 text-gray-700"><strong>Description:</strong> Join us online for an evening of worship, prayer, and community. All are welcome!</div>
+    `;
+  }
+  // Attach modal logic to all event cards (carousel and listings)
+  function attachEventModalHandlers() {
+    document.querySelectorAll('a,button').forEach(btn => {
+      if (
+        btn.textContent &&
+        (btn.textContent.includes('Details') ||
+         btn.textContent.includes('Register') ||
+         btn.textContent.includes('Learn More'))
+      ) {
+        btn.onclick = function (e) {
+          e.preventDefault();
+          let ev;
+          const href = btn.getAttribute('href');
+          if (href && href !== '#') {
+            ev = events.find(ev => ev.link === href);
+          }
+          if (!ev && btn.closest('.min-w-[320px]')) {
+            const idx = Array.from(document.querySelectorAll('#carousel-track .min-w-[320px]'))
+              .indexOf(btn.closest('.min-w-[320px]'));
+            ev = events
+              .filter(ev => ev.status === 'upcoming')
+              .sort((a, b) => new Date(a.date) - new Date(b.date))
+              .slice(0, 6)[idx];
+          }
+          if (!ev) return;
+          document.getElementById('event-modal-content').innerHTML = renderEventModal(ev);
+          var modal = document.getElementById('event-modal');
+          modal.classList.remove('hidden');
+          modal.classList.add('active');
+          // Attach close handler for dynamically generated close button
+          var closeBtn = document.getElementById('close-event-modal');
+          if (closeBtn) {
+            closeBtn.onclick = function() {
+              modal.classList.remove('active');
+              modal.classList.add('hidden');
+            };
+          }
+          updateCountdowns();
+        };
+      }
+    });
+  }
+
+  attachEventModalHandlers();
+  
+
+  // Fade-in on scroll
+  function revealOnScroll() {
+    document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 60) el.classList.add('visible');
+    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('DOMContentLoaded', revealOnScroll);
+
+  // Make updateCountdowns globally available
+  function updateCountdowns() {
+    document.querySelectorAll('.countdown').forEach(el => {
+      const dateStr = el.getAttribute('data-date');
+      const eventDate = new Date(dateStr);
+      const now = new Date();
+      let diff = eventDate - now;
+      if (diff < 0) { el.textContent = 'Started'; return; }
+      const days = Math.floor(diff/(1000*60*60*24));
+      diff -= days*1000*60*60*24;
+      const hours = Math.floor(diff/(1000*60*60));
+      diff -= hours*1000*60*60;
+      const mins = Math.floor(diff/(1000*60));
+      el.textContent = `${days}d ${hours}h ${mins}m`;
+    });
+  }
+
+  // Add this to enable the close button for the new event modal
+  document.addEventListener('DOMContentLoaded', function() {
+    var closeBtn = document.getElementById('close-event-modal');
+    var modal = document.getElementById('event-modal');
+    if (closeBtn && modal) {
+      closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+        modal.classList.add('hidden'); // <-- Add this line
+      });
+    }
+  });
+  </script>
+  <!-- Event Details Modal -->
+  <div id="event-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 p-6 relative flex flex-col items-center max-h-[90vh] overflow-y-auto" style="margin-top:2vh;margin-bottom:2vh;">
+      <button id="close-event-modal" class="absolute top-3 right-3 text-gray-400 hover:text-primary text-2xl font-bold focus:outline-none">&times;</button>
+      <div id="event-modal-content" class="w-full"></div>
+    </div>
+  </div>
+  </div>
+  <script>
+  // Helper to open modal with event details
+  async function openEventModal(eventId, triggerBtn) {
+    const res = await fetch('events.json');
+    const events = await res.json();
+    const ev = events.find(e => e.id === eventId);
+    if (!ev) return;
+    // Social sharing links
+    const url = window.location.origin + window.location.pathname + `?id=${ev.id}`;
+    const text = encodeURIComponent(`Check out this event: ${ev.title}`);
+    // Related events
+    const related = events.filter(e => e.status === 'upcoming' && e.id !== ev.id).slice(0, 3);
+    document.getElementById('event-modal-content').innerHTML = `
+      <img src="${ev.image}" alt="${ev.title}" class="w-full h-64 object-cover rounded-xl mb-6 border-4 border-[#FDBA17]" />
+      <h1 class="text-3xl font-bold brand mb-2 text-center">${ev.title}</h1>
+      <div class="mb-2 text-gray-700 text-center"><strong>Date:</strong> ${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}${ev.time ? ', ' + ev.time : ''}</div>
+      <div class="mb-2 text-gray-700 text-center"><strong>Location:</strong> ${ev.location}</div>
+      <div class="mb-2 text-gray-700 text-center"><strong>Type:</strong> ${(ev.tags||[]).join(', ')}</div>
+      <div class="mb-2 text-gray-700"><strong>Description:</strong> ${ev.description}</div>
+      ${ev.files && ev.files.length ? `<div class='mb-4'><strong>Files/Resources:</strong><ul class='list-disc pl-6'>${ev.files.map(file => `<li><a href='${file.dataUrl}' download='${file.name}' class='text-blue-700 underline hover:text-[#7C3AED]'>${file.name}</a></li>`).join('')}</ul></div>` : ''}
+      <hr class="my-6 w-full border-t-2 border-[#7C3AED]/20">
+      <h2 class="text-2xl font-bold brand mb-4">Register / RSVP for this Event</h2>
+      <form id="modalRegistrationForm" action="https://formspree.io/f/mkgbadkw" method="POST" class="w-full max-w-lg mx-auto bg-[#f8f8ff] rounded-xl p-6 shadow-md flex flex-col gap-4">
+        <input type="hidden" name="event" value="${ev.title}">
+        <div>
+          <label for="modal-name" class="block font-semibold text-[#2046B3] mb-1">Your Name</label>
+          <input type="text" name="name" id="modal-name" required class="w-full px-4 py-2 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3]">
+        </div>
+        <div>
+          <label for="modal-email" class="block font-semibold text-[#2046B3] mb-1">Your Email</label>
+          <input type="email" name="email" id="modal-email" required class="w-full px-4 py-2 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3]">
+        </div>
+        <div>
+          <label for="modal-message" class="block font-semibold text-[#2046B3] mb-1">Message (optional)</label>
+          <textarea name="message" id="modal-message" rows="3" class="w-full px-4 py-2 rounded-lg border border-[#2046B3]/20 focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white text-[#2046B3]"></textarea>
+        </div>
+        <button type="submit" class="w-full px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow hover:bg-[#E0A615] transition">Send Registration</button>
+      </form>
+      <div id="modal-form-success" style="display:none; color:#16a34a; font-weight:bold; text-align:center; margin-top:1.5rem;">Thank you for registering! We have received your submission.</div>
+      <hr class="my-8 w-full border-t-2 border-[#7C3AED]/20">
+      <h2 class="text-xl font-bold brand mb-4">Share this Event</h2>
+      <div class="flex flex-wrap gap-4 justify-center mb-8">
+        <a id="modal-share-whatsapp" class="px-4 py-2 rounded-lg bg-[#25D366] text-white font-bold flex items-center gap-2 hover:bg-[#128C7E] transition" target="_blank" rel="noopener" onclick="navigator.share ? navigator.share({title: '...', url: ...}) : alert('Share not supported on this browser.')"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>WhatsApp</a>
+        <a id="modal-share-facebook" class="px-4 py-2 rounded-lg bg-[#1877F3] text-white font-bold flex items-center gap-2 hover:bg-[#145db2] transition" target="_blank" rel="noopener"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.733 0-1.325.592-1.325 1.326v21.348c0 .733.592 1.326 1.325 1.326h11.495v-9.294h-3.128v-3.622h3.128v-2.672c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.326v-21.35c0-.733-.593-1.326-1.326-1.326z"/></svg>Facebook</a>
+        <a id="modal-share-twitter" class="px-4 py-2 rounded-lg bg-[#1DA1F2] text-white font-bold flex items-center gap-2 hover:bg-[#0d8ddb] transition" target="_blank" rel="noopener"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557a9.83 9.83 0 0 1-2.828.775 4.932 4.932 0 0 0 2.165-2.724c-.951.555-2.005.959-3.127 1.184a4.916 4.916 0 0 0-8.38 4.482c-4.083-.205-7.697-2.162-10.125-5.138a4.822 4.822 0 0 0-.664 2.475c0 1.708.87 3.216 2.188 4.099a4.904 4.904 0 0 1-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.936 4.936 0 0 1-2.224.084c.627 1.956 2.444 3.377 4.6 3.417a9.867 9.867 0 0 1-6.102 2.104c-.396 0-.787-.023-1.175-.069a13.945 13.945 0 0 0 7.548 2.212c9.057 0 14.009-7.513 14.009-14.009 0-.213-.005-.425-.014-.636a10.012 10.012 0 0 0 2.457-2.548z"/></svg>X (Twitter)</a>
+        <a id="modal-share-email" class="px-4 py-2 rounded-lg bg-[#FDBA17] text-[#2046B3] font-bold flex items-center gap-2 hover:bg-[#e0a615] transition" target="_blank" rel="noopener"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 20V8.99l8 7 8-7V20H4z"/></svg>Email</a>
+      </div>
+      <h2 class="text-xl font-bold brand mb-4">Related / Upcoming Events</h2>
+      <div id="modal-related-events" class="w-full flex flex-col gap-6 md:flex-row md:gap-8 justify-center"></div>
+    `;
+    // Update sharing links
+    document.getElementById('modal-share-whatsapp').href = `https://wa.me/?text=${text}%20${encodeURIComponent(url)}`;
+    document.getElementById('modal-share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    document.getElementById('modal-share-twitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(url)}`;
+    document.getElementById('modal-share-email').href = `mailto:?subject=${encodeURIComponent(ev.title)}&body=${text}%20${encodeURIComponent(url)}`;
+    // Related events
+    if (related.length === 0) {
+      document.getElementById('modal-related-events').innerHTML = '<div class="text-gray-500 text-center w-full">No other upcoming events.</div>';
+    } else {
+      document.getElementById('modal-related-events').innerHTML = related.map(ev => `
+        <div class="flex-1 min-w-[220px] max-w-xs bg-white rounded-xl shadow p-4 flex flex-col items-center border-t-4" style="border-color: ${ev.color};">
+          <img src="${ev.image}" alt="${ev.title}" class="w-full h-32 object-cover rounded-lg mb-3">
+          <div class="font-bold text-[#2046B3] text-lg mb-1 text-center">${ev.title}</div>
+          <div class="text-gray-600 text-sm mb-1">${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}${ev.time ? ', ' + ev.time : ''}</div>
+          <div class="text-[#2046B3]/80 text-xs mb-2 text-center">${ev.location}</div>
+          <a href="#" onclick="openEventModal('${ev.id}');return false;" class="inline-block mt-auto px-4 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow hover:bg-[#E0A615] transition">Learn More</a>
+        </div>
+      `).join('');
+    }
+    // Show modal
+    document.getElementById('event-modal').classList.add('active');
+    // Move focus to modal
+    setTimeout(() => {
+      const modal = document.getElementById('event-modal');
+      modal.setAttribute('tabindex', '-1');
+      modal.focus();
+    }, 100);
+    // Remove loading state from button
+    if (triggerBtn) {
+      triggerBtn.classList.remove('loading');
+      const spinner = triggerBtn.querySelector('.spinner');
+      if (spinner) spinner.classList.add('hidden');
+    }
+    // When modal closes, return focus
+    const eventModal = document.getElementById('event-modal');
+    const closeHandler = () => {
+      if (triggerBtn) triggerBtn.focus();
+      eventModal.removeEventListener('transitionend', closeHandler);
+    };
+    eventModal.addEventListener('transitionend', closeHandler);
+  }
+  // ... existing code ...
+  </script>
+  <script>
+  // Move this function to the global scope:
+  function attachLearnMoreHandlers() {
+    document.querySelectorAll('.learn-more-btn').forEach(btn => {
+      btn.onclick = function(e) {
+        e.preventDefault();
+        if (btn.classList.contains('loading')) return; // Prevent double click
+        btn.classList.add('loading');
+        btn.querySelector('.spinner').classList.remove('hidden');
+        const eventId = btn.getAttribute('data-event-id');
+        if (eventId) {
+          openEventModal(eventId, btn);
+        }
+      };
+      btn.onkeydown = function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      };
+    });
+  }
+  document.addEventListener('DOMContentLoaded', attachLearnMoreHandlers);
   </script>
 </body>
 </html> 

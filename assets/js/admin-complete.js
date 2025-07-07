@@ -866,6 +866,12 @@
     }
   };
 
+  window.viewUserDashboard = function(userId) {
+    if (window.AdminComplete) {
+      window.AdminComplete.viewUserDashboard(userId);
+    }
+  };
+
   window.editCourse = function(courseId) {
     if (window.AdminComplete) {
       window.AdminComplete.openEditCourseModal(courseId);
@@ -1915,6 +1921,31 @@
         // TODO: Implement delete course logic
         showNotification('Delete course functionality coming soon!', 'info');
       }
+    },
+    viewUserDashboard: function(userId) {
+      console.log('Viewing user dashboard for:', userId);
+      
+      if (!window.DiscipleshipBackend) {
+        showNotification('Backend not available', 'error');
+        return;
+      }
+
+      const users = window.DiscipleshipBackend.getAllUsers();
+      const user = users.find(u => u.id === userId);
+      
+      if (!user) {
+        showNotification('User not found', 'error');
+        return;
+      }
+
+      // Store the user data temporarily for the dashboard view
+      localStorage.setItem('admin_viewing_user', JSON.stringify(user));
+      
+      // Open user dashboard in a new tab/window
+      const userDashboardUrl = 'discipleship-user.html?admin_view=true&user_id=' + userId;
+      window.open(userDashboardUrl, '_blank');
+      
+      showNotification(`Opening dashboard for ${user.name}`, 'info');
     },
     testSidebar: function() {
       console.log('Testing sidebar functionality...');

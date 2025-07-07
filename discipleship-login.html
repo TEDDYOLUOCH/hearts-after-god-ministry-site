@@ -448,7 +448,7 @@
           } else {
             console.log('User not found with email:', email);
             console.log('Available users:', allUsers.map(u => u.email));
-            messageDiv.textContent = 'Invalid email or password. Please try again.';
+          messageDiv.textContent = 'Invalid email or password. Please try again.';
             messageDiv.className = 'mt-4 md:mt-6 text-center text-sm font-semibold text-red-600';
           }
           

@@ -9,8 +9,11 @@ class DiscipleshipBackend {
     this.certificates = this.loadCertificates();
     this.supportTickets = this.loadSupportTickets();
     this.announcements = this.loadAnnouncements();
+    this.notes = this.loadNotes();
+    this.quizzes = this.loadQuizzes();
     this.realtimeConnections = new Map();
     this.activityLog = this.loadActivityLog();
+    this.events = this.loadEvents();
     
     // Ensure admin user exists
     this.ensureAdminUser();
@@ -738,6 +741,12 @@ class DiscipleshipBackend {
         </td>
         <td class="px-6 py-4">
           <div class="flex items-center gap-2">
+            <button class="p-2 text-green-600 hover:bg-green-100 rounded-lg transition-colors" title="View User Dashboard" onclick="viewUserDashboard('${user.id}')">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"/>
+              </svg>
+            </button>
             <button class="p-2 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-lg transition-colors" title="View Profile">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -1068,6 +1077,262 @@ class DiscipleshipBackend {
 
   saveAnnouncements() {
     localStorage.setItem('discipleship_announcements', JSON.stringify(this.announcements));
+  }
+
+  // Load notes
+  loadNotes() {
+    return JSON.parse(localStorage.getItem('admin_notes') || '[]');
+  }
+
+  // Save notes
+  saveNotes(notes) {
+    localStorage.setItem('admin_notes', JSON.stringify(notes));
+  }
+
+  // Create notes
+  createNotes(notesData) {
+    this.notes.unshift(notesData);
+    this.saveNotes(this.notes);
+    this.logActivity('notes_created', { notesId: notesData.id, title: notesData.title });
+    
+    // Broadcast to users
+    this.broadcastToUsers({
+      type: 'new_notes',
+      data: notesData
+    });
+    
+    return { success: true, message: 'Notes created successfully' };
+  }
+
+  // Get all notes
+  getAllNotes() {
+    return this.notes;
+  }
+
+  // Get notes for specific user
+  getUserNotes(userId) {
+    return this.notes.filter(note => 
+      note.targetUsers === 'all' || 
+      (Array.isArray(note.targetUsers) && note.targetUsers.includes(userId))
+    );
+  }
+
+  // Update notes
+  updateNotes(notesId, updates) {
+    const noteIndex = this.notes.findIndex(n => n.id === notesId);
+    if (noteIndex !== -1) {
+      this.notes[noteIndex] = { ...this.notes[noteIndex], ...updates };
+      this.saveNotes(this.notes);
+      this.logActivity('notes_updated', { notesId, title: this.notes[noteIndex].title });
+      return { success: true, message: 'Notes updated successfully' };
+    }
+    return { success: false, message: 'Notes not found' };
+  }
+
+  // Delete notes
+  deleteNotes(notesId) {
+    const noteIndex = this.notes.findIndex(n => n.id === notesId);
+    if (noteIndex !== -1) {
+      const deletedNote = this.notes[noteIndex];
+      this.notes.splice(noteIndex, 1);
+      this.saveNotes(this.notes);
+      this.logActivity('notes_deleted', { notesId, title: deletedNote.title });
+      return { success: true, message: 'Notes deleted successfully' };
+    }
+    return { success: false, message: 'Notes not found' };
+  }
+
+  // Track notes view
+  trackNotesView(notesId, userId) {
+    const note = this.notes.find(n => n.id === notesId);
+    if (note) {
+      note.views = (note.views || 0) + 1;
+      this.saveNotes(this.notes);
+    }
+  }
+
+  // Track notes download
+  trackNotesDownload(notesId, userId) {
+    const note = this.notes.find(n => n.id === notesId);
+    if (note) {
+      note.downloads = (note.downloads || 0) + 1;
+      this.saveNotes(this.notes);
+    }
+  }
+
+  // Load quizzes
+  loadQuizzes() {
+    return JSON.parse(localStorage.getItem('admin_quizzes') || '[]');
+  }
+
+  // Save quizzes
+  saveQuizzes(quizzes) {
+    localStorage.setItem('admin_quizzes', JSON.stringify(quizzes));
+  }
+
+  // Create quiz
+  createQuiz(quizData) {
+    this.quizzes.unshift(quizData);
+    this.saveQuizzes(this.quizzes);
+    this.logActivity('quiz_created', { quizId: quizData.id, title: quizData.title });
+    
+    // Broadcast to users
+    this.broadcastToUsers({
+      type: 'new_quiz',
+      data: quizData
+    });
+    
+    return { success: true, message: 'Quiz created successfully' };
+  }
+
+  // Get all quizzes
+  getAllQuizzes() {
+    return this.quizzes;
+  }
+
+  // Get quizzes for specific user
+  getUserQuizzes(userId) {
+    return this.quizzes.filter(quiz => 
+      quiz.targetUsers === 'all' || 
+      (Array.isArray(quiz.targetUsers) && quiz.targetUsers.includes(userId))
+    );
+  }
+
+  // Get quiz by ID
+  getQuizById(quizId) {
+    return this.quizzes.find(quiz => quiz.id === quizId);
+  }
+
+  // Update quiz
+  updateQuiz(quizId, updates) {
+    const quizIndex = this.quizzes.findIndex(q => q.id === quizId);
+    if (quizIndex !== -1) {
+      this.quizzes[quizIndex] = { ...this.quizzes[quizIndex], ...updates };
+      this.saveQuizzes(this.quizzes);
+      this.logActivity('quiz_updated', { quizId, title: this.quizzes[quizIndex].title });
+      return { success: true, message: 'Quiz updated successfully' };
+    }
+    return { success: false, message: 'Quiz not found' };
+  }
+
+  // Delete quiz
+  deleteQuiz(quizId) {
+    const quizIndex = this.quizzes.findIndex(q => q.id === quizId);
+    if (quizIndex !== -1) {
+      const deletedQuiz = this.quizzes[quizIndex];
+      this.quizzes.splice(quizIndex, 1);
+      this.saveQuizzes(this.quizzes);
+      this.logActivity('quiz_deleted', { quizId, title: deletedQuiz.title });
+      return { success: true, message: 'Quiz deleted successfully' };
+    }
+    return { success: false, message: 'Quiz not found' };
+  }
+
+  // Submit quiz attempt
+  submitQuizAttempt(quizId, userId, answers) {
+    const quiz = this.getQuizById(quizId);
+    if (!quiz) {
+      return { success: false, message: 'Quiz not found' };
+    }
+
+    // Calculate score
+    let correctAnswers = 0;
+    let totalQuestions = quiz.questions.length;
+
+    quiz.questions.forEach(question => {
+      const userAnswer = answers[question.id];
+      if (question.type === 'multiple-choice') {
+        const correctOption = question.options.find(opt => opt.isCorrect);
+        if (userAnswer === correctOption?.id) {
+          correctAnswers++;
+        }
+      } else if (question.type === 'true-false') {
+        if (userAnswer === question.correctAnswer.toString()) {
+          correctAnswers++;
+        }
+      } else if (question.type === 'short-answer') {
+        if (userAnswer && userAnswer.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim()) {
+          correctAnswers++;
+        }
+      }
+    });
+
+    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    const passed = score >= quiz.passingScore;
+
+    // Update quiz statistics
+    quiz.attempts = (quiz.attempts || 0) + 1;
+    if (passed) {
+      quiz.completions = (quiz.completions || 0) + 1;
+    }
+
+    // Update average score
+    const currentTotal = (quiz.averageScore || 0) * (quiz.attempts - 1);
+    quiz.averageScore = Math.round((currentTotal + score) / quiz.attempts);
+
+    this.saveQuizzes(this.quizzes);
+
+    // Save user's quiz attempt
+    const userProgress = this.getUserProgress(userId);
+    if (!userProgress.quizAttempts) {
+      userProgress.quizAttempts = {};
+    }
+    if (!userProgress.quizAttempts[quizId]) {
+      userProgress.quizAttempts[quizId] = [];
+    }
+
+    const attempt = {
+      id: 'attempt_' + Date.now(),
+      quizId: quizId,
+      score: score,
+      passed: passed,
+      answers: answers,
+      submittedAt: new Date().toISOString()
+    };
+
+    userProgress.quizAttempts[quizId].push(attempt);
+    this.updateUserProgress(userId, userProgress);
+
+    // Log activity
+    this.logActivity('quiz_attempted', { 
+      quizId, 
+      userId, 
+      score, 
+      passed,
+      quizTitle: quiz.title 
+    });
+
+    return {
+      success: true,
+      score: score,
+      passed: passed,
+      correctAnswers: correctAnswers,
+      totalQuestions: totalQuestions,
+      message: passed ? 'Congratulations! You passed the quiz!' : 'Keep studying and try again!'
+    };
+  }
+
+  // Get user quiz attempts
+  getUserQuizAttempts(userId, quizId = null) {
+    const userProgress = this.getUserProgress(userId);
+    if (!userProgress.quizAttempts) return [];
+
+    if (quizId) {
+      return userProgress.quizAttempts[quizId] || [];
+    }
+
+    // Return all attempts
+    const allAttempts = [];
+    Object.entries(userProgress.quizAttempts).forEach(([quizId, attempts]) => {
+      attempts.forEach(attempt => {
+        allAttempts.push({
+          ...attempt,
+          quizTitle: this.getQuizById(quizId)?.title || 'Unknown Quiz'
+        });
+      });
+    });
+
+    return allAttempts.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
   }
 
   saveCourses() {
@@ -1530,6 +1795,90 @@ class DiscipleshipBackend {
     this.logActivity('certificate_issued', { certificateId, certificateData });
     this.broadcastToAdmins({ type: 'certificate_issued', data: certificate });
     return certificate;
+  }
+
+  // Event storage methods
+  loadEvents() {
+    const stored = localStorage.getItem('discipleship_events');
+    return stored ? JSON.parse(stored) : [];
+  }
+
+  saveEvents(events) {
+    localStorage.setItem('discipleship_events', JSON.stringify(events));
+    this.events = events;
+  }
+
+  getAllEvents() {
+    return this.events;
+  }
+
+  getEventById(eventId) {
+    return this.events.find(e => e.id === eventId);
+  }
+
+  createEvent(eventData) {
+    const id = 'event_' + Date.now();
+    const event = {
+      id,
+      title: eventData.title,
+      date: eventData.date,
+      location: eventData.location,
+      tags: eventData.tags || [],
+      description: eventData.description || '',
+      files: [], // file metadata array
+      ...eventData
+    };
+    this.events.push(event);
+    this.saveEvents(this.events);
+    this.logActivity('event_created', { eventId: id, title: event.title });
+    return event;
+  }
+
+  updateEvent(eventId, updates) {
+    const idx = this.events.findIndex(e => e.id === eventId);
+    if (idx !== -1) {
+      this.events[idx] = { ...this.events[idx], ...updates };
+      this.saveEvents(this.events);
+      this.logActivity('event_updated', { eventId, updates });
+      return this.events[idx];
+    }
+    return null;
+  }
+
+  deleteEvent(eventId) {
+    const idx = this.events.findIndex(e => e.id === eventId);
+    if (idx !== -1) {
+      const deleted = this.events.splice(idx, 1)[0];
+      this.saveEvents(this.events);
+      this.logActivity('event_deleted', { eventId });
+      return deleted;
+    }
+    return null;
+  }
+
+  // Add file to event
+  addEventFile(eventId, fileMeta) {
+    const event = this.getEventById(eventId);
+    if (event) {
+      event.files = event.files || [];
+      event.files.push(fileMeta);
+      this.saveEvents(this.events);
+      this.logActivity('event_file_added', { eventId, fileName: fileMeta.name });
+      return fileMeta;
+    }
+    return null;
+  }
+
+  // Remove file from event
+  removeEventFile(eventId, fileName) {
+    const event = this.getEventById(eventId);
+    if (event && event.files) {
+      event.files = event.files.filter(f => f.name !== fileName);
+      this.saveEvents(this.events);
+      this.logActivity('event_file_removed', { eventId, fileName });
+      return true;
+    }
+    return false;
   }
 }
 

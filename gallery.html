@@ -33,7 +33,6 @@
       align-items: center;
       justify-content: center;
       z-index: 50;
-      backdrop-blur-sm; 
       opacity: 0; 
       transition: opacity 0.3s ease-out; 
     }
@@ -176,48 +175,38 @@
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
       <!-- CTA Button -->
+      <div class="hidden md:flex gap-3 ml-6">
       <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      </div>
       <!-- Mobile Hamburger -->
-      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Open menu">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <!-- Mobile Menu Overlay -->
+      <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
+      <!-- Mobile Slide-in Menu -->
+      <nav id="mobile-menu" class="mobile-menu md:hidden overflow-y-auto">
+        <button class="close-btn" aria-label="Close menu">&times;</button>
+        <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="vision.html" class="nav-link">Vision</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link">Missions</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="mt-8">
+          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+        </div>
+      </nav>
     </nav>
   </header>
 
-  <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
-    <!-- Hero Section -->
-    <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden px-4 mb-16" aria-label="Gallery Hero">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED] via-[#2046B3] to-[#FDBA17] opacity-90"></div>
-      <div class="absolute inset-0 bg-black/30"></div>
-      <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-4xl mx-auto py-16">
-        <div class="flex items-center gap-4 mb-4">
-          <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-16 h-16 rounded-full shadow-2xl border-4 border-white/20" />
-          <div class="h-px w-16 bg-[#FDBA17]"></div>
-        </div>
-        <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
-          <span class="block">Photo</span>
-          <span class="block text-[#FDBA17]">Gallery</span>
-        </h1>
-        <p class="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8">
-          Experience the life of Hearts After God Ministry through photos of worship, outreach, fellowship, and moments that capture our journey of faith.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#gallery-grid" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-full shadow-xl hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-            View Gallery
-          </a>
-          <a href="#instagram-feed" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-full border-2 border-white/20 hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 transition-all duration-300 backdrop-blur-sm">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-            </svg>
-            Instagram Feed
-          </a>
-        </div>
-      </div>
-    </section>
-
+  <main class="">
     <!-- Gallery Grid Section -->
     <section id="gallery-grid" class="max-w-7xl mx-auto mb-16 px-4">
       <!-- Section Header -->
@@ -225,153 +214,137 @@
         <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Ministry Moments</h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">Capturing the spirit of worship, fellowship, and service in our ministry community.</p>
       </div>
-      
       <!-- Gallery Categories -->
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <button class="gallery-filter px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50 transition-all duration-300 transform hover:scale-105" data-category="all">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-          All Photos
-        </button>
-        <button class="gallery-filter px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="worship">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
-          </svg>
-          Worship
-        </button>
-        <button class="gallery-filter px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="outreach">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-          </svg>
-          Outreach
-        </button>
-        <button class="gallery-filter px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="events">
-          <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-          </svg>
-          Events
-        </button>
-      </div>
-      
+      <div class="flex flex-wrap justify-center gap-4 mb-12" id="gallery-filters"></div>
       <!-- Gallery Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Worship Images -->
-        <div class="gallery-item group" data-category="worship">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0019.jpg" alt="Worship Service" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Worship Service</h3>
-              <p class="text-sm text-white/80">Praising God together in unity</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm font-bold rounded-full shadow-lg">Worship</span>
-            </div>
-          </div>
+      <div id="gallery-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+      <!-- Lightbox Overlay -->
+      <div id="lightbox" class="lightbox fixed inset-0 bg-black/90 z-50 hidden flex-col items-center justify-center transition-opacity duration-300">
+        <button id="lightbox-close" class="absolute top-6 right-8 text-white text-4xl font-bold bg-black/40 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition">&times;</button>
+        <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl bg-black/40 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition">&#8592;</button>
+        <div class="flex flex-col items-center justify-center w-full max-w-2xl">
+          <img id="lightbox-img" src="" alt="" class="max-h-[70vh] w-auto rounded-2xl shadow-xl mb-6" />
+          <div class="text-white text-xl font-bold mb-2" id="lightbox-caption"></div>
+          <div class="flex flex-wrap gap-2 mb-2" id="lightbox-tags"></div>
         </div>
-        
-        <div class="gallery-item group" data-category="worship">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0020.jpg" alt="Prayer Time" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Prayer Time</h3>
-              <p class="text-sm text-white/80">Seeking God's presence</p>
+        <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl bg-black/40 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition">&#8594;</button>
             </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm font-bold rounded-full shadow-lg">Worship</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Outreach Images -->
-        <div class="gallery-item group" data-category="outreach">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0021.jpg" alt="Community Outreach" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Community Outreach</h3>
-              <p class="text-sm text-white/80">Serving our neighbors</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm font-bold rounded-full shadow-lg">Outreach</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item group" data-category="outreach">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0022.jpg" alt="Mission Work" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Mission Work</h3>
-              <p class="text-sm text-white/80">Spreading the Gospel</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm font-bold rounded-full shadow-lg">Outreach</span>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Events Images -->
-        <div class="gallery-item group" data-category="events">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0023.jpg" alt="Youth Event" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Youth Event</h3>
-              <p class="text-sm text-white/80">Empowering young believers</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#2046B3] text-white text-sm font-bold rounded-full shadow-lg">Events</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item group" data-category="events">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0024.jpg" alt="Bible Study" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Bible Study</h3>
-              <p class="text-sm text-white/80">Growing in God's Word</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#2046B3] text-white text-sm font-bold rounded-full shadow-lg">Events</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item group" data-category="worship">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0025.jpg" alt="Worship Team" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Worship Team</h3>
-              <p class="text-sm text-white/80">Leading in praise</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm font-bold rounded-full shadow-lg">Worship</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="gallery-item group" data-category="outreach">
-          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-            <img src="assets/images/hero/IMG-20250705-WA0026.jpg" alt="Fellowship" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer" data-lightbox="gallery" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 class="font-bold text-lg mb-1">Fellowship</h3>
-              <p class="text-sm text-white/80">Building community</p>
-            </div>
-            <div class="absolute top-4 right-4">
-              <span class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] text-sm font-bold rounded-full shadow-lg">Outreach</span>
-      </div>
-      </div>
-      </div>
-      </div>
     </section>
+    <script>
+      let galleryImages = [];
+      let currentFilter = 'all';
+      let currentIndex = 0;
+      fetch('gallery.json')
+        .then(res => res.json())
+        .then(images => {
+          galleryImages = images;
+          // Collect unique tags
+          const allTags = Array.from(new Set(images.flatMap(img => img.tags)));
+          const filters = [
+            { tag: 'all', label: 'All Photos', color: '#7C3AED' },
+            ...allTags.map(tag => ({ tag, label: tag.charAt(0).toUpperCase() + tag.slice(1), color: '#2046B3' }))
+          ];
+          const filterBar = document.getElementById('gallery-filters');
+          filterBar.innerHTML = filters.map(f => `
+            <button class="gallery-filter px-6 py-3 ${f.tag==='all'?'bg-[#7C3AED] text-white':'bg-white text-[#2046B3]'} font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="${f.tag}">
+              ${f.label}
+            </button>
+          `).join('');
+          const grid = document.getElementById('gallery-items');
+          function renderGallery(filter) {
+            currentFilter = filter;
+            let filtered = filter && filter !== 'all' ? images.filter(img => img.tags.includes(filter)) : images;
+            grid.innerHTML = filtered.map((img, idx) => `
+              <div class="gallery-item group" data-tags="${img.tags.join(',')}" data-idx="${idx}">
+          <div class="relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                  <img src="${img.src}" alt="${img.alt}" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer gallery-img" data-idx="${idx}" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <h3 class="font-bold text-lg mb-1">${img.caption}</h3>
+                    <div class="flex flex-wrap gap-2 mt-2">${img.tags.map(tag => `<span class='px-3 py-1 bg-[#7C3AED]/80 text-white text-xs font-bold rounded-full shadow gallery-tag' data-tag='${tag}'>${tag}</span>`).join('')}</div>
+            </div>
+          </div>
+        </div>
+            `).join('');
+          }
+          renderGallery('all');
+          filterBar.addEventListener('click', e => {
+            if (e.target.closest('.gallery-filter')) {
+              const cat = e.target.closest('.gallery-filter').getAttribute('data-category');
+              renderGallery(cat);
+            }
+          });
+          // Tag click filtering
+          grid.addEventListener('click', e => {
+            if (e.target.classList.contains('gallery-tag')) {
+              const tag = e.target.getAttribute('data-tag');
+              renderGallery(tag);
+            }
+          });
+          // Lightbox logic
+          function showLightbox(idx, filteredImages) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const caption = document.getElementById('lightbox-caption');
+            const tags = document.getElementById('lightbox-tags');
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+            const closeBtn = document.getElementById('lightbox-close');
+            let imagesToShow = filteredImages || (currentFilter && currentFilter !== 'all' ? images.filter(img => img.tags.includes(currentFilter)) : images);
+            currentIndex = idx;
+            function updateLightbox() {
+              const image = imagesToShow[currentIndex];
+              img.src = image.src;
+              img.alt = image.alt;
+              caption.textContent = image.caption;
+              tags.innerHTML = image.tags.map(tag => `<span class='px-3 py-1 bg-[#7C3AED]/80 text-white text-xs font-bold rounded-full shadow gallery-tag' data-tag='${tag}'>${tag}</span>`).join(' ');
+            }
+            updateLightbox();
+            lightbox.classList.remove('hidden');
+            // Navigation
+            prevBtn.onclick = () => {
+              currentIndex = (currentIndex - 1 + imagesToShow.length) % imagesToShow.length;
+              updateLightbox();
+            };
+            nextBtn.onclick = () => {
+              currentIndex = (currentIndex + 1) % imagesToShow.length;
+              updateLightbox();
+            };
+            closeBtn.onclick = () => {
+              lightbox.classList.add('hidden');
+            };
+            // Keyboard navigation
+            function keyHandler(e) {
+              if (lightbox.classList.contains('hidden')) return;
+              if (e.key === 'Escape') lightbox.classList.add('hidden');
+              if (e.key === 'ArrowLeft') prevBtn.onclick();
+              if (e.key === 'ArrowRight') nextBtn.onclick();
+            }
+            document.addEventListener('keydown', keyHandler);
+            // Remove event on close
+            closeBtn.addEventListener('click', () => document.removeEventListener('keydown', keyHandler), { once: true });
+            lightbox.onclick = e => {
+              if (e.target === lightbox) lightbox.classList.add('hidden');
+            };
+            // Tag click in lightbox
+            tags.onclick = e => {
+              if (e.target.classList.contains('gallery-tag')) {
+                const tag = e.target.getAttribute('data-tag');
+                renderGallery(tag);
+                lightbox.classList.add('hidden');
+              }
+            };
+          }
+          // Open lightbox on image click
+          grid.addEventListener('click', e => {
+            if (e.target.classList.contains('gallery-img')) {
+              const idx = parseInt(e.target.getAttribute('data-idx'));
+              let filtered = currentFilter && currentFilter !== 'all' ? images.filter(img => img.tags.includes(currentFilter)) : images;
+              showLightbox(idx, filtered);
+            }
+          });
+        });
+    </script>
 
     <!-- Instagram Feed Section -->
     <section id="instagram-feed" class="max-w-7xl mx-auto mb-16 px-4">
@@ -523,21 +496,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Founder: Cyrilla Chikamai</span>
+              <span class="text-sm">Global Online Ministry</span>
             </div>
-          </div>
-          
-          <!-- Newsletter Signup -->
-          <div class="mt-6">
-            <h5 class="text-sm font-semibold text-white mb-2">Newsletter</h5>
-            <form class="flex gap-2">
-              <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 text-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-[#FDBA17] transition-colors">
-              <button type="submit" class="px-4 py-2 bg-[#FDBA17] text-[#2046B3] text-sm font-semibold rounded-lg hover:bg-[#e0a615] transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                </svg>
-              </button>
-            </form>
           </div>
         </div>
       </div>

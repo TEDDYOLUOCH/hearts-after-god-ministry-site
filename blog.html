@@ -8,119 +8,38 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    html { scroll-behavior: smooth; }
-    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
-    .fade-in.visible { opacity: 1; transform: none; }
-    .highlight { background: #fef08a; color: #92400e; border-radius: 0.25rem; padding: 0 0.2em; }
-
-    .social-btn { display: inline-flex; align-items: center; gap: 0.25em; border-radius: 9999px; padding: 0.25em 0.75em; font-size: 0.95em; font-weight: 500; transition: background 0.2s; }
-    .social-btn:hover { background: #fbbf24; color: #1e293b; }
-    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 50; align-items: center; justify-content: center; backdrop-blur-sm; }
-    .modal.active { display: flex; animation: fadeIn 0.3s ease-out; }
-    .modal-content { background: #fff; border-radius: 2rem; max-width: 800px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 2rem; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-    .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 2rem; color: #6b7280; cursor: pointer; background: white; border-radius: 50%; width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: all 0.3s; }
-    .modal-close:hover { color: #7C3AED; transform: scale(1.1); }
-    .modal-close:focus { outline: 2px solid #7C3AED; outline-offset: 2px; }
-
-    /* Animated underline for nav */
-    .nav-underline {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      background: #E02424;
-      border-radius: 2px;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      z-index: 10;
-    }
-    .nav-link {
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.2s;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #FDBA17;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link:focus {
-      outline: 2px solid #FDBA17;
-      outline-offset: 2px;
-    }
-    /* Mobile menu overlay */
-    .mobile-overlay {
-      background: rgba(44, 44, 44, 0.5);
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      display: none;
-    }
-    .mobile-overlay.open {
-      display: block;
-      animation: fadeIn 0.2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    /* Slide-in mobile menu */
-    .mobile-menu {
-      position: fixed;
-      top: 0; right: 0;
-      width: 80vw; max-width: 320px;
-      height: 100vh;
-      background: #fff;
-      box-shadow: -2px 0 16px rgba(0,0,0,0.08);
-      z-index: 50;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-      display: flex; flex-direction: column;
-      padding: 2rem 1.5rem;
-    }
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
-    .mobile-menu .close-btn {
-      align-self: flex-end;
-      font-size: 2rem;
-      color: #7C3AED;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 2rem;
-    }
-    /* Custom SVG pattern for header */
-    .header-pattern {
-      background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
-      background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>');
-      background-repeat: repeat-x;
-      background-size: 600px 120px;
-      position: relative;
-    }
-    .header-pattern::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%);
-      border-radius: inherit;
-    }
-    .header-pattern > * {
-      position: relative;
-      z-index: 2;
-    }
+    /* Copy nav, header, and footer styles from index.html */
+    .nav-underline { position: absolute; left: 0; bottom: 0; height: 3px; background: #E02424; border-radius: 2px; transition: all 0.3s cubic-bezier(.4,0,.2,1); z-index: 10; }
+    .nav-link { position: relative; padding-bottom: 4px; transition: color 0.2s; text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18); }
+    .nav-link.active { font-weight: bold; color: #FDBA17; text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18); }
+    .nav-link:focus { outline: 2px solid #FDBA17; outline-offset: 2px; }
+    .mobile-overlay { background: rgba(44, 44, 44, 0.5); position: fixed; inset: 0; z-index: 40; display: none; }
+    .mobile-overlay.open { display: block; animation: fadeIn 0.2s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .mobile-menu { position: fixed; top: 0; right: 0; width: 80vw; max-width: 320px; height: 100vh; background: #fff; box-shadow: -2px 0 16px rgba(0,0,0,0.08); z-index: 50; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; padding: 2rem 1.5rem; }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu .close-btn { align-self: flex-end; font-size: 2rem; color: #7C3AED; background: none; border: none; cursor: pointer; margin-bottom: 2rem; }
+    .header-pattern { background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%); background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>'); background-repeat: repeat-x; background-size: 600px 120px; position: relative; }
+    .header-pattern::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%); border-radius: inherit; }
+    .header-pattern > * { position: relative; z-index: 2; }
+    /* Blog-specific styles */
+    .blog-card { transition: transform 0.3s, box-shadow 0.3s; }
+    .blog-card:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 8px 32px rgba(124,58,237,0.10); }
+    .tag { background: #f3e8ff; color: #7C3AED; border-radius: 0.5rem; padding: 0.25em 0.75em; font-size: 0.95em; font-weight: 500; margin-right: 0.5em; }
+    .tag-gold { background: #fef3c7; color: #FDBA17; }
+    .tag-blue { background: #e0e7ff; color: #2046B3; }
+    .filter-btn { background: #f3e8ff; color: #7C3AED; border-radius: 0.5rem; padding: 0.25em 0.75em; font-size: 0.95em; font-weight: 500; margin-right: 0.5em; cursor: pointer; border: none; transition: background 0.2s; }
+    .filter-btn.active, .filter-btn:hover { background: #7C3AED; color: #fff; }
+    .search-bar { border: 2px solid #7C3AED; border-radius: 0.75rem; padding: 0.75em 1em; font-size: 1.1em; width: 100%; max-width: 340px; margin-bottom: 1.5em; }
   </style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
-  <!-- Header & Navigation (reuse from homepage) -->
+<body class="bg-white text-gray-900 antialiased min-h-screen flex flex-col">
+  <!-- HEADER -->
   <header class="sticky top-0 z-50 header-pattern backdrop-blur shadow-lg rounded-b-2xl">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
-      <!-- Logo -->
       <a href="index.html" class="flex items-center gap-2 group">
         <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-[#2046B3] transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl" />
       </a>
-      <!-- Navigation Links -->
       <div class="hidden md:flex gap-8 font-semibold text-white text-lg mx-auto relative" id="nav-links">
         <ul class="flex gap-8">
           <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
@@ -133,139 +52,97 @@
           <li><a href="discipleship.html" class="nav-link" id="nav-discipleship">Discipleship</a></li>
           <li><a href="missions.html" class="nav-link" id="nav-missions">Missions</a></li>
           <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-      </ul>
+        </ul>
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
-      <!-- CTA Button -->
-      <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
-      <!-- Mobile Hamburger -->
-      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Open menu">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <div class="hidden md:flex gap-3 ml-6">
+        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      </div>
+      <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
+      <nav id="mobile-menu" class="mobile-menu md:hidden overflow-y-auto">
+        <button class="close-btn" aria-label="Close menu">&times;</button>
+        <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="vision.html" class="nav-link">Vision</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link">Missions</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="mt-8">
+          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+        </div>
+      </nav>
     </nav>
   </header>
-  <main class="pt-24 pb-12 px-4 max-w-7xl mx-auto">
-    <!-- Hero Section -->
-    <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden px-4 mb-16" aria-label="Blog Hero">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED] via-[#2046B3] to-[#FDBA17] opacity-90"></div>
-      <div class="absolute inset-0 bg-black/30"></div>
-      <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-4xl mx-auto py-16">
-        <div class="flex items-center gap-4 mb-4">
-          <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-16 h-16 rounded-full shadow-2xl border-4 border-white/20" />
-          <div class="h-px w-16 bg-[#FDBA17]"></div>
+
+  <!-- HERO SECTION -->
+  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-12 px-4 text-center text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/40 z-0"></div>
+    <div class="absolute inset-0 animate-pulse bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FDBA17]/10 via-transparent to-transparent z-0"></div>
+    <div class="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-2xl tracking-tight">Blog & Devotionals</h1>
+      <h2 class="text-2xl md:text-3xl font-semibold mb-6 drop-shadow-xl text-[#FDBA17] tracking-wide">Grow in Faith, Be Inspired</h2>
+      <p class="text-xl md:text-2xl mb-8 font-medium text-white/90 leading-relaxed">Explore devotionals, testimonies, and teachings to encourage your walk with Christ. Stay up to date with the latest inspiration from Hearts After God Ministry.</p>
+    </div>
+  </section>
+
+  <main class="flex-1 max-w-7xl mx-auto px-4 py-8 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <!-- Blog List -->
+      <div class="md:col-span-3">
+        <section class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <input id="blog-search" class="search-bar" type="text" placeholder="Search by title, author, or keyword..." />
+          <div id="blog-tags" class="flex flex-wrap gap-2 justify-center md:justify-end"></div>
+        </section>
+        <div class="w-full flex justify-center my-8">
+          <div class="h-1 w-24 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full"></div>
         </div>
-        <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
-          <span class="block">Blog &</span>
-          <span class="block text-[#FDBA17]">Devotionals</span>
-        </h1>
-        <p class="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed mb-8">
-          Grow in faith, stay connected, and be encouraged with inspiring articles, devotionals, and ministry updates from Hearts After God Ministry.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="#blog-feed" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-full shadow-xl hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-            </svg>
-            Browse Articles
-          </a>
-          <a href="#newsletter" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-full border-2 border-white/20 hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 transition-all duration-300 backdrop-blur-sm">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-            </svg>
-            Subscribe
-          </a>
-        </div>
+        <section>
+          <div id="blog-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+          <div id="blog-empty" class="text-center text-xl text-gray-400 mt-12 hidden">No blog posts found.</div>
+        </section>
       </div>
-    </section>
-    <!-- Filter/Search Bar -->
-    <section class="max-w-7xl mx-auto mb-16 px-4">
-      <div class="bg-gray-50 rounded-3xl p-8">
-        <div class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-[#2046B3] mb-4">Find Your Inspiration</h2>
-          <p class="text-lg text-gray-600">Filter by category or search for specific topics to find exactly what you need.</p>
+      <!-- Sidebar -->
+      <aside class="space-y-8">
+        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
+          <h3 class="text-lg font-bold text-[#2046B3] mb-2">About This Blog</h3>
+          <p class="text-gray-700 text-sm">Hearts After God Ministry Blog features devotionals, testimonies, and teachings to inspire and equip believers worldwide.</p>
         </div>
-        
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <!-- Category Filters -->
-          <div class="flex flex-wrap gap-3" id="category-filters">
-            <button class="filter-btn px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50 transition-all duration-300 transform hover:scale-105" data-category="all">
-              <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-              </svg>
-              All Articles
-            </button>
-            <button class="filter-btn px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="devotionals">
-              <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
-              Devotionals
-            </button>
-            <button class="filter-btn px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="testimonies">
-              <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-              </svg>
-              Testimonies
-            </button>
-            <button class="filter-btn px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="teachings">
-              <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-              </svg>
-              Teachings
-            </button>
-            <button class="filter-btn px-6 py-3 bg-white text-[#2046B3] font-bold rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105 border-2 border-[#2046B3]" data-category="updates">
-              <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m4 0h-1v4h-1m-4 0h1v-4h1"></path>
-              </svg>
-              Updates
-            </button>
-          </div>
-          
-          <!-- Search Bar -->
-          <div class="relative">
-            <input 
-              type="text" 
-              id="blog-search" 
-              placeholder="Search articles..." 
-              class="w-full lg:w-80 px-6 py-3 pl-12 text-lg border-2 border-gray-200 rounded-full focus:border-[#7C3AED] focus:ring-4 focus:ring-[#7C3AED]/20 transition-all duration-300" 
-              aria-label="Search blog"
-            />
-            <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
+        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Popular Tags</h3>
+          <div id="sidebar-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
+          <h3 class="text-lg font-bold text-[#2046B3] mb-2">Recent Posts</h3>
+          <ul id="recent-posts" class="space-y-4"></ul>
+        </div>
+        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Follow Us</h3>
+          <div class="flex gap-3">
+            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
+            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram"><svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg></a>
+            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg></a>
+            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg></a>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Blog Article Grid -->
-    <section class="max-w-7xl mx-auto mb-16 px-4">
-      <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Latest Articles</h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Discover inspiring content to strengthen your faith and grow in your spiritual journey.</p>
-      </div>
-      
-      <div id="blog-feed" class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Sample articles will be rendered by JS -->
-      </div>
-      
-      <!-- Pagination -->
-      <nav class="flex justify-center mt-16" aria-label="Pagination">
-        <div id="pagination" class="flex gap-2"></div>
-      </nav>
-    </section>
-    <!-- Article Modal -->
-    <div id="article-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-      <div class="modal-content">
-        <button class="modal-close" id="close-modal" aria-label="Close article">&times;</button>
-        <div id="modal-article-content"></div>
-      </div>
+      </aside>
     </div>
   </main>
-  <!-- Modern Footer -->
-  <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-      <svg class="w-full h-full" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- FOOTER (copied from index.html) -->
+  <footer class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] text-white mt-24 rounded-t-3xl overflow-hidden shadow-2xl">
+    <div class="absolute inset-0 w-full h-full opacity-10 pointer-events-none select-none">
+      <svg width="100%" height="100%" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
         <defs>
           <pattern id="footer-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
             <circle cx="30" cy="30" r="2" fill="currentColor"/>
@@ -276,12 +153,8 @@
         <rect width="100%" height="100%" fill="url(#footer-pattern)"/>
       </svg>
     </div>
-    
     <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
-      <!-- Main Footer Content -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-        
-        <!-- Ministry Info -->
         <div class="space-y-4">
           <div class="flex items-center gap-3">
             <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
@@ -295,7 +168,7 @@
           </p>
           <div class="flex gap-3">
             <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
             </a>
             <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram">
               <svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg>
@@ -304,7 +177,7 @@
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg>
             </a>
             <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 23.027 22 17 22 12z"/></svg>
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
             <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -314,8 +187,6 @@
             </a>
           </div>
         </div>
-
-        <!-- Quick Links -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Quick Links</h4>
           <ul class="space-y-2">
@@ -327,8 +198,6 @@
             <li><a href="gallery.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Gallery</a></li>
           </ul>
         </div>
-
-        <!-- Ministries -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Ministries</h4>
           <ul class="space-y-2">
@@ -336,8 +205,6 @@
             <li><a href="missions.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Missions</a></li>
           </ul>
         </div>
-
-        <!-- Contact & Newsletter -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Stay Connected</h4>
           <div class="space-y-3">
@@ -358,26 +225,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Founder: Cyrilla Chikamai</span>
+              <span class="text-sm">Global Online Ministry</span>
             </div>
-          </div>
-          
-          <!-- Newsletter Signup -->
-          <div class="mt-6">
-            <h5 class="text-sm font-semibold text-white mb-2">Newsletter</h5>
-            <form class="flex gap-2">
-              <input type="email" placeholder="Your email" class="flex-1 px-3 py-2 text-sm bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:outline-none focus:border-[#FDBA17] transition-colors">
-              <button type="submit" class="px-4 py-2 bg-[#FDBA17] text-[#2046B3] text-sm font-semibold rounded-lg hover:bg-[#e0a615] transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                </svg>
-              </button>
-            </form>
           </div>
         </div>
       </div>
-
-      <!-- Bottom Bar -->
       <div class="border-t border-white/20 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-sm text-white/70">
@@ -393,279 +245,9 @@
       </div>
     </div>
   </footer>
-  <!-- Blog Interactivity JS -->
+  <script src="assets/js/discipleship.js"></script>
   <script>
-    // Sample blog data
-    const articles = [
-      {
-        id: 1,
-        title: "Growing in Faith",
-        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
-        excerpt: "Discover practical steps to deepen your relationship with God and walk in faith daily.",
-        content: `<p>Faith is the foundation of our walk with God. In this article, we explore practical ways to grow in faith, including daily devotion, prayer, and community.</p><ul><li>Start each day with the Word</li><li>Pray with expectation</li><li>Surround yourself with believers</li></ul>`,
-        author: "Jane Doe",
-        date: "April 2025",
-        category: "devotionals",
-        tags: ["faith", "growth"],
-        related: [2,3]
-      },
-      {
-        id: 2,
-        title: "Serving with Joy",
-        image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=600&q=80",
-        excerpt: "How serving others can transform your life and bring joy to your walk with Christ.",
-        content: `<p>Service is at the heart of the Christian life. Learn how joyful service impacts you and those around you.</p><blockquote>"The greatest among you will be your servant." — Matthew 23:11</blockquote>`,
-        author: "John Smith",
-        date: "March 2025",
-        category: "teachings",
-        tags: ["service", "joy"],
-        related: [1,4]
-      },
-      {
-        id: 3,
-        title: "The Power of Prayer",
-        image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
-        excerpt: "Explore the importance of prayer and how it connects us to God's heart and will.",
-        content: `<p>Prayer is our lifeline to God. This article covers how to develop a powerful prayer life and see God move.</p><ul><li>Set aside daily time</li><li>Pray with others</li><li>Keep a prayer journal</li></ul>`,
-        author: "Mary Johnson",
-        date: "February 2025",
-        category: "devotionals",
-        tags: ["prayer", "spiritual"],
-        related: [1,2]
-      },
-      {
-        id: 4,
-        title: "Faith in Action",
-        image: "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80",
-        excerpt: "Stories of lives changed through faith, service, and the love of Christ in our community.",
-        content: `<p>Read testimonies of transformation and how faith is making a difference in our city and beyond.</p>`,
-        author: "Samuel K.",
-        date: "January 2025",
-        category: "testimonies",
-        tags: ["testimony", "community"],
-        related: [2,3]
-      },
-      {
-        id: 5,
-        title: "Ministry Updates: 2025 Vision",
-        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
-        excerpt: "Exciting updates and vision for the year ahead at Hearts After God Ministry.",
-        content: `<p>We are excited to share our vision for 2025, including new outreach programs, discipleship classes, and global missions.</p>`,
-        author: "Pastor Jane Doe",
-        date: "May 2025",
-        category: "updates",
-        tags: ["vision", "ministry"],
-        related: [1,4]
-      }
-    ];
-    // Category map for badges
-    const categoryMap = {
-      devotionals: { label: "Devotionals", class: "category-devotionals" },
-      testimonies: { label: "Testimonies", class: "category-testimonies" },
-      teachings: { label: "Teachings", class: "category-teachings" },
-      updates: { label: "Updates", class: "category-updates" }
-    };
-    // Render articles
-    const blogFeed = document.getElementById('blog-feed');
-    const searchInput = document.getElementById('blog-search');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const modal = document.getElementById('article-modal');
-    const modalContent = document.getElementById('modal-article-content');
-    const closeModal = document.getElementById('close-modal');
-    const pagination = document.getElementById('pagination');
-    let currentCategory = 'all';
-    let searchTerm = '';
-    let currentPage = 1;
-    const perPage = 6;
-    function highlight(text, term) {
-      if (!term) return text;
-      const re = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-      return text.replace(re, '<span class="highlight">$1</span>');
-    }
-    function renderArticles() {
-      let filtered = articles.filter(a =>
-        (currentCategory === 'all' || a.category === currentCategory) &&
-        (!searchTerm || a.title.toLowerCase().includes(searchTerm) || a.excerpt.toLowerCase().includes(searchTerm))
-      );
-      const totalPages = Math.ceil(filtered.length / perPage) || 1;
-      if (currentPage > totalPages) currentPage = totalPages;
-      const start = (currentPage - 1) * perPage;
-      const end = start + perPage;
-      blogFeed.innerHTML = filtered.slice(start, end).map(a => `
-        <article class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group overflow-hidden border border-gray-100">
-          <div class="relative overflow-hidden">
-            <img src="${a.image}" alt="${a.title}" class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
-            <div class="absolute top-4 left-4">
-              <span class="px-3 py-1 bg-[#7C3AED] text-white text-sm font-bold rounded-full shadow-lg">${categoryMap[a.category].label}</span>
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </div>
-          <div class="p-6 flex flex-col flex-1">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-sm text-gray-500 font-medium">${a.date}</span>
-              <span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>
-              <span class="text-sm text-gray-500">By ${a.author}</span>
-            </div>
-            <h2 class="font-bold text-xl mb-3 text-[#2046B3] group-hover:text-[#7C3AED] transition-colors duration-300 leading-tight">${highlight(a.title, searchTerm)}</h2>
-            <p class="text-gray-600 mb-6 leading-relaxed flex-1">${highlight(a.excerpt, searchTerm)}</p>
-            <div class="flex items-center justify-between">
-              <button class="inline-flex items-center gap-2 px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full hover:bg-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50 transition-all duration-300 transform hover:scale-105 read-more-btn" data-id="${a.id}">
-                <span>Read More</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-              </button>
-              <div class="flex gap-2">
-                <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300" aria-label="Share on Facebook">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 23.027 22 17 22 12z"/></svg>
-                </a>
-                <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300" aria-label="Share on WhatsApp">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
-      `).join('');
-      
-      // Pagination
-      pagination.innerHTML = '';
-      if (totalPages > 1) {
-        // Previous button
-        if (currentPage > 1) {
-          pagination.innerHTML += `<button class="px-4 py-2 bg-white text-[#2046B3] border-2 border-[#2046B3] rounded-full hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 pagination-btn" data-page="${currentPage - 1}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-          </button>`;
-        }
-        
-        // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
-          const isActive = i === currentPage;
-          pagination.innerHTML += `<button class="px-4 py-2 font-bold rounded-full transition-all duration-300 pagination-btn ${isActive ? 'bg-[#7C3AED] text-white shadow-lg' : 'bg-white text-[#2046B3] border-2 border-[#2046B3] hover:bg-[#FDBA17] hover:text-[#2046B3]'} focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50" data-page="${i}">${i}</button>`;
-        }
-        
-        // Next button
-        if (currentPage < totalPages) {
-          pagination.innerHTML += `<button class="px-4 py-2 bg-white text-[#2046B3] border-2 border-[#2046B3] rounded-full hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/50 transition-all duration-300 pagination-btn" data-page="${currentPage + 1}">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </button>`;
-        }
-      }
-      
-      // Attach event listeners
-      document.querySelectorAll('.read-more-btn').forEach(btn => {
-        btn.onclick = function() {
-          const id = parseInt(btn.getAttribute('data-id'));
-          openModal(id);
-        };
-      });
-      document.querySelectorAll('.pagination-btn').forEach(btn => {
-        btn.onclick = function() {
-          currentPage = parseInt(btn.getAttribute('data-page'));
-          renderArticles();
-          window.scrollTo({ top: blogFeed.offsetTop - 100, behavior: 'smooth' });
-        };
-      });
-    }
-    // Modal logic
-    function openModal(id) {
-      const a = articles.find(x => x.id === id);
-      if (!a) return;
-      modalContent.innerHTML = `
-        <div class="mb-6">
-          <img src="${a.image}" alt="${a.title}" class="rounded-2xl w-full mb-4 shadow-lg" />
-          <div class="flex items-center gap-4 mb-4">
-            <span class="px-4 py-2 bg-[#7C3AED] text-white text-sm font-bold rounded-full shadow-lg">${categoryMap[a.category].label}</span>
-            <span class="text-sm text-gray-500 font-medium">${a.date}</span>
-            <span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>
-            <span class="text-sm text-gray-500">By ${a.author}</span>
-          </div>
-        </div>
-        <h2 id="modal-title" class="text-3xl font-bold text-[#2046B3] mb-4 leading-tight">${a.title}</h2>
-        <div class="prose prose-lg max-w-none mb-8 text-gray-700 leading-relaxed">${a.content}</div>
-        
-        <div class="flex gap-3 mb-8">
-          <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-[#7C3AED] text-white font-bold rounded-full hover:bg-[#2046B3] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50 transition-all duration-300" aria-label="Share on Facebook">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5 3.657 9.127 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.632.771-1.632 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.343 23.027 22 17 22 12z"/></svg>
-            Share
-          </a>
-          <a href="#" class="inline-flex items-center gap-2 px-4 py-2 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-500/50 transition-all duration-300" aria-label="Share on WhatsApp">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-        
-        <div class="mb-8">
-          <h3 class="text-2xl font-bold text-[#2046B3] mb-4">Related Articles</h3>
-          <div class="grid gap-4 md:grid-cols-2">
-            ${a.related.map(rid => {
-              const r = articles.find(x => x.id === rid);
-              if (!r) return '';
-              return `<div class="bg-gray-50 rounded-xl p-4 hover:bg-[#FDBA17]/10 transition-colors duration-300 border border-gray-200">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="px-2 py-1 bg-[#7C3AED] text-white text-xs font-bold rounded-full">${categoryMap[r.category].label}</span>
-                <span class="text-xs text-gray-500">${r.date}</span>
-                </div>
-                <a href="#" class="font-bold text-[#2046B3] hover:text-[#7C3AED] transition-colors duration-300 block mb-2" onclick="document.getElementById('article-modal').classList.remove('active'); setTimeout(()=>openModal(${r.id}), 200); return false;">${r.title}</a>
-                <p class="text-sm text-gray-600">${r.excerpt.substring(0, 80)}...</p>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>
-        
-        <div class="border-t border-gray-200 pt-6">
-          <h3 class="text-xl font-bold text-[#2046B3] mb-4">Comments</h3>
-          <div class="bg-gray-50 rounded-xl p-6 text-center">
-            <svg class="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-            </svg>
-            <p class="text-gray-500 font-medium">Comments feature coming soon!</p>
-            <p class="text-sm text-gray-400 mt-1">Share your thoughts and engage with our community.</p>
-          </div>
-        </div>
-      `;
-      modal.classList.add('active');
-      closeModal.focus();
-    }
-    closeModal.onclick = () => { modal.classList.remove('active'); };
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') modal.classList.remove('active');
-    });
-    // Filtering
-    filterBtns.forEach(btn => {
-      btn.onclick = function() {
-        // Remove active styling from all buttons
-        filterBtns.forEach(b => {
-          b.classList.remove('bg-[#7C3AED]', 'text-white');
-          b.classList.add('bg-white', 'text-[#2046B3]', 'border-2', 'border-[#2046B3]');
-        });
-        
-        // Add active styling to clicked button
-        btn.classList.remove('bg-white', 'text-[#2046B3]', 'border-2', 'border-[#2046B3]');
-        btn.classList.add('bg-[#7C3AED]', 'text-white');
-        
-        currentCategory = btn.getAttribute('data-category');
-        currentPage = 1;
-        renderArticles();
-      };
-    });
-    // Search
-    searchInput.oninput = function() {
-      searchTerm = searchInput.value.trim().toLowerCase();
-      currentPage = 1;
-      renderArticles();
-    };
-    // Initial render
-    renderArticles();
-    // Fade-in effect
-    document.querySelectorAll('.fade-in').forEach(el => {
-      setTimeout(() => el.classList.add('visible'), 200);
-    });
-    // Animated underline logic
+    // Animated underline logic for nav
     const navLinks = document.querySelectorAll('#nav-links .nav-link');
     const navUnderline = document.getElementById('nav-underline');
     function moveUnderline(el) {
@@ -686,6 +268,124 @@
     window.addEventListener('DOMContentLoaded', () => {
       const active = document.querySelector('#nav-links .nav-link.active');
       moveUnderline(active);
+    });
+    // Mobile menu logic
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileCloseBtn = mobileMenu.querySelector('.close-btn');
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      mobileOverlay.classList.add('open');
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    });
+    mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMobileMenu();
+    });
+    // Blog logic
+    let allPosts = [];
+    let activeTag = '';
+    function tagClass(tag) {
+      if (tag.toLowerCase().includes('prayer')) return 'tag tag-gold';
+      if (tag.toLowerCase().includes('joy')) return 'tag tag-blue';
+      return 'tag';
+    }
+    function renderPosts(posts) {
+      const list = document.getElementById('blog-list');
+      const empty = document.getElementById('blog-empty');
+      if (!posts.length) {
+        list.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      list.innerHTML = posts.map(post => `
+        <div class="blog-card bg-white rounded-2xl shadow-xl p-8 flex flex-col border-t-4 border-[#7C3AED] hover:shadow-2xl transition-all duration-300">
+          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="block w-full h-40 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 overflow-hidden">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
+          </a>
+          <div class="flex items-center gap-3 mb-2">
+            <img src="assets/images/leadership/Bonnie Onduso.jpg" alt="${post.author}" class="w-8 h-8 rounded-full border-2 border-[#FDBA17] object-cover" />
+            <div class="text-[#FDBA17] font-semibold">${post.author}</div>
+          </div>
+          <div class="text-xl font-bold text-[#2046B3] mb-1">
+            <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="hover:underline">${post.title}</a>
+          </div>
+          <div class="text-gray-500 mb-2 text-sm">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+          <div class="flex flex-wrap gap-2 mb-4">
+            ${(post.tags||[]).map(tag => `<span class="${tagClass(tag)}">${tag}</span>`).join('')}
+          </div>
+          <div class="text-gray-700 mb-4 line-clamp-3">${post.excerpt}</div>
+          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="mt-auto px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Read More</a>
+        </div>
+      `).join('');
+    }
+    function renderTags(posts) {
+      const tagSet = new Map();
+      posts.forEach(p => (p.tags||[]).forEach(t => tagSet.set(t, (tagSet.get(t)||0)+1)));
+      const tags = Array.from(tagSet.keys()).sort();
+      const tagBar = document.getElementById('blog-tags');
+      tagBar.innerHTML = tags.map(tag => `<button class="filter-btn${activeTag===tag?' active':''}" data-tag="${tag}">${tag}</button>`).join('');
+      tagBar.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', function() {
+          activeTag = activeTag===this.dataset.tag ? '' : this.dataset.tag;
+          filterAndRender();
+        });
+      });
+      // Sidebar tags with counts
+      const sidebarTags = document.getElementById('sidebar-tags');
+      if (sidebarTags) {
+        sidebarTags.innerHTML = tags.map(tag => `<span class="tag">${tag} <span class='text-xs text-gray-500'>(${tagSet.get(tag)})</span></span>`).join('');
+      }
+    }
+    function filterAndRender() {
+      const search = document.getElementById('blog-search').value.trim().toLowerCase();
+      let filtered = allPosts;
+      if (activeTag) {
+        filtered = filtered.filter(p => (p.tags||[]).includes(activeTag));
+      }
+      if (search) {
+        filtered = filtered.filter(p =>
+          (p.title && p.title.toLowerCase().includes(search)) ||
+          (p.author && p.author.toLowerCase().includes(search)) ||
+          (p.excerpt && p.excerpt.toLowerCase().includes(search)) ||
+          (p.tags && p.tags.some(tag => tag.toLowerCase().includes(search)))
+        );
+      }
+      renderPosts(filtered);
+    }
+    // Recent posts in sidebar
+    function renderRecent(posts) {
+      const ul = document.getElementById('recent-posts');
+      if (!ul) return;
+      ul.innerHTML = posts.slice(0, 4).map(post => `
+        <li class="flex items-center gap-3">
+          <img src="${post.image}" alt="${post.title}" class="w-12 h-12 rounded-lg object-cover border-2 border-[#7C3AED]" />
+          <div>
+            <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="font-semibold text-[#2046B3] hover:text-[#FDBA17]">${post.title}</a>
+            <div class="text-xs text-gray-500">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+          </div>
+        </li>
+      `).join('');
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('blog.json')
+        .then(res => res.json())
+        .then(posts => {
+          posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+          allPosts = posts;
+          renderTags(posts);
+          renderRecent(posts);
+          renderPosts(posts);
+        });
+      document.getElementById('blog-search').addEventListener('input', filterAndRender);
     });
   </script>
 </body>

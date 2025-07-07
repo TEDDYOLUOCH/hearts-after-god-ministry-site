@@ -131,6 +131,9 @@
       console.log('Export data button found:', !!exportDataBtn);
       exportDataBtn?.addEventListener('click', exportData);
       
+      // Event Files section
+      setupEventFilesSection();
+      
       console.log('Event listeners setup completed');
     } catch (error) {
       console.error('Error setting up event listeners:', error);
@@ -182,6 +185,16 @@
         break;
       case 'support':
         loadSupportTickets();
+        break;
+      case 'notes':
+        if (window.AdminNotes) {
+          window.AdminNotes.loadNotes();
+        }
+        break;
+      case 'quizzes':
+        if (window.AdminQuiz) {
+          window.AdminQuiz.loadQuizzes();
+        }
         break;
       case 'analytics':
         loadAnalytics();
@@ -680,5 +693,135 @@
 
   // Don't auto-initialize - let the main script handle it
   // window.DiscipleshipBackend = new DiscipleshipBackend();
+
+  // --- Event Files Section Logic ---
+  function setupEventFilesSection() {
+    const sectionId = 'event-files';
+    const addBtn = document.getElementById('add-event-file-btn');
+    const uploadForm = document.getElementById('event-file-upload-form');
+    const cancelBtn = document.getElementById('cancel-event-file-upload');
+    const eventSelect = document.getElementById('event-file-event');
+    const fileInput = document.getElementById('event-file-input');
+    const descInput = document.getElementById('event-file-description');
+    const tableBody = document.getElementById('event-files-table-body');
+    const createEventBtn = document.getElementById('create-event-btn');
+    const createEventModal = document.getElementById('create-event-modal');
+    const closeCreateEventModal = document.getElementById('close-create-event-modal');
+    const createEventForm = document.getElementById('create-event-form');
+    const newEventTitle = document.getElementById('new-event-title');
+    const newEventDate = document.getElementById('new-event-date');
+    const newEventLocation = document.getElementById('new-event-location');
+    const newEventTags = document.getElementById('new-event-tags');
+    const newEventDescription = document.getElementById('new-event-description');
+
+    // Show upload form
+    addBtn?.addEventListener('click', () => {
+      uploadForm.classList.remove('hidden');
+      addBtn.classList.add('hidden');
+      populateEventDropdown();
+    });
+    // Hide upload form
+    cancelBtn?.addEventListener('click', () => {
+      uploadForm.classList.add('hidden');
+      addBtn.classList.remove('hidden');
+      uploadForm.reset();
+    });
+    // Populate event dropdown
+    function populateEventDropdown() {
+      const events = backend.getAllEvents();
+      eventSelect.innerHTML = events.length
+        ? events.map(e => `<option value="${e.id}">${e.title} (${e.date})</option>`).join('')
+        : '<option value="">No events found</option>';
+    }
+    // Handle file upload
+    uploadForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const eventId = eventSelect.value;
+      const file = fileInput.files[0];
+      if (!eventId || !file) return alert('Please select an event and file.');
+      // Read file as base64
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const fileMeta = {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          description: descInput.value,
+          uploaded: new Date().toISOString(),
+          dataUrl: evt.target.result
+        };
+        backend.addEventFile(eventId, fileMeta);
+        renderEventFilesTable();
+        uploadForm.classList.add('hidden');
+        addBtn.classList.remove('hidden');
+        uploadForm.reset();
+      };
+      reader.readAsDataURL(file);
+    });
+    // Render files table
+    function renderEventFilesTable() {
+      const events = backend.getAllEvents();
+      let rows = '';
+      events.forEach(event => {
+        (event.files||[]).forEach(file => {
+          rows += `<tr>
+            <td class="px-6 py-4 text-sm text-gray-900">${event.title}</td>
+            <td class="px-6 py-4 text-sm text-blue-700 underline"><a href="${file.dataUrl}" download="${file.name}" target="_blank">${file.name}</a></td>
+            <td class="px-6 py-4 text-sm">${file.type}</td>
+            <td class="px-6 py-4 text-sm">${file.description||''}</td>
+            <td class="px-6 py-4 text-xs text-gray-500">${new Date(file.uploaded).toLocaleString()}</td>
+            <td class="px-6 py-4">
+              <button class="text-red-600 hover:text-red-900 font-bold" data-event="${event.id}" data-file="${file.name}">Delete</button>
+            </td>
+          </tr>`;
+        });
+      });
+      tableBody.innerHTML = rows || '<tr><td colspan="6" class="text-center text-gray-400 py-8">No event files uploaded yet.</td></tr>';
+    }
+    // Handle file deletion
+    tableBody?.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON' && e.target.textContent === 'Delete') {
+        const eventId = e.target.getAttribute('data-event');
+        const fileName = e.target.getAttribute('data-file');
+        if (confirm('Delete this file?')) {
+          backend.removeEventFile(eventId, fileName);
+          renderEventFilesTable();
+        }
+      }
+    });
+    // Initial render
+    renderEventFilesTable();
+
+    // Open modal
+    createEventBtn?.addEventListener('click', () => {
+      createEventModal.classList.remove('hidden');
+    });
+    // Close modal
+    closeCreateEventModal?.addEventListener('click', () => {
+      createEventModal.classList.add('hidden');
+      createEventForm.reset();
+    });
+    // Handle event creation
+    createEventForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = newEventTitle.value.trim();
+      const date = newEventDate.value;
+      const location = newEventLocation.value.trim();
+      const tags = newEventTags.value.split(',').map(t => t.trim()).filter(Boolean);
+      const description = newEventDescription.value.trim();
+      if (!title || !date || !location) return alert('Please fill in all required fields.');
+      backend.createEvent({ title, date, location, tags, description });
+      createEventModal.classList.add('hidden');
+      createEventForm.reset();
+      populateEventDropdown();
+      renderEventFilesTable();
+      showMiniToast && showMiniToast('Event created!');
+    });
+  }
+
+  // Call setup for Event Files section after dashboard init
+  document.addEventListener('DOMContentLoaded', function() {
+    setupEventFilesSection();
+  });
 
 })(); 

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes System Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8 text-[#2046B3]">Notes System Test</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Admin Notes Test -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-[#7C3AED]">Admin Notes Test</h2>
+                <div class="space-y-4">
+                    <button onclick="testAdminNotes()" class="w-full bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white py-3 rounded-lg font-bold">
+                        Test Admin Notes System
+                    </button>
+                    <button onclick="testCreateNotes()" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg font-bold">
+                        Create Test Notes
+                    </button>
+                    <button onclick="testUserNotes()" class="w-full bg-gradient-to-r from-[#FDBA17] to-[#F59E0B] text-white py-3 rounded-lg font-bold">
+                        Test User Notes View
+                    </button>
+                </div>
+                <div id="admin-test-results" class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-gray-600">Test results will appear here...</p>
+                </div>
+            </div>
+
+            <!-- Backend Test -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h2 class="text-xl font-bold mb-4 text-[#7C3AED]">Backend Test</h2>
+                <div class="space-y-4">
+                    <button onclick="testBackend()" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg font-bold">
+                        Test Backend
+                    </button>
+                    <button onclick="testNotesAPI()" class="w-full bg-gradient-to-r from-purple-500 to-purple-600 text-white py-3 rounded-lg font-bold">
+                        Test Notes API
+                    </button>
+                    <button onclick="clearTestData()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-3 rounded-lg font-bold">
+                        Clear Test Data
+                    </button>
+                </div>
+                <div id="backend-test-results" class="mt-4 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-gray-600">Backend test results will appear here...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results -->
+        <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
+            <h2 class="text-xl font-bold mb-4 text-[#2046B3]">Test Results</h2>
+            <div id="test-results" class="space-y-2">
+                <p class="text-gray-600">Run tests to see results...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/discipleship-backend.js"></script>
+    <script src="assets/js/admin-notes.js"></script>
+    <script src="assets/js/user-notes.js"></script>
+    <script>
+        let backend = null;
+
+        // Initialize backend
+        function initBackend() {
+            if (!window.DiscipleshipBackend) {
+                setTimeout(initBackend, 100);
+                return;
+            }
+            backend = new DiscipleshipBackend();
+            console.log('Backend initialized for testing');
+        }
+
+        // Test admin notes system
+        function testAdminNotes() {
+            const results = document.getElementById('admin-test-results');
+            results.innerHTML = '<p class="text-blue-600">Testing admin notes system...</p>';
+
+            try {
+                if (!window.AdminNotes) {
+                    results.innerHTML = '<p class="text-red-600">❌ AdminNotes not available</p>';
+                    return;
+                }
+
+                if (!backend) {
+                    results.innerHTML = '<p class="text-red-600">❌ Backend not available</p>';
+                    return;
+                }
+
+                results.innerHTML = '<p class="text-green-600">✅ Admin notes system loaded successfully</p>';
+                addTestResult('Admin Notes System', 'PASS', 'System loaded successfully');
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('Admin Notes System', 'FAIL', error.message);
+            }
+        }
+
+        // Test creating notes
+        function testCreateNotes() {
+            const results = document.getElementById('admin-test-results');
+            results.innerHTML = '<p class="text-blue-600">Creating test notes...</p>';
+
+            try {
+                if (!backend) {
+                    results.innerHTML = '<p class="text-red-600">❌ Backend not available</p>';
+                    return;
+                }
+
+                const testNotes = {
+                    id: 'test_notes_' + Date.now(),
+                    title: 'Test Notes - ' + new Date().toLocaleString(),
+                    description: 'This is a test note created by the test system.',
+                    category: 'general',
+                    priority: 'medium',
+                    targetUsers: 'all',
+                    uploadedBy: { name: 'Test Admin', email: 'test@admin.com' },
+                    uploadedDate: new Date().toISOString(),
+                    status: 'active',
+                    views: 0,
+                    downloads: 0
+                };
+
+                const result = backend.createNotes(testNotes);
+                
+                if (result.success) {
+                    results.innerHTML = '<p class="text-green-600">✅ Test notes created successfully</p>';
+                    addTestResult('Create Notes', 'PASS', 'Notes created successfully');
+                } else {
+                    results.innerHTML = `<p class="text-red-600">❌ Failed to create notes: ${result.message}</p>`;
+                    addTestResult('Create Notes', 'FAIL', result.message);
+                }
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('Create Notes', 'FAIL', error.message);
+            }
+        }
+
+        // Test user notes view
+        function testUserNotes() {
+            const results = document.getElementById('admin-test-results');
+            results.innerHTML = '<p class="text-blue-600">Testing user notes view...</p>';
+
+            try {
+                if (!window.UserNotes) {
+                    results.innerHTML = '<p class="text-red-600">❌ UserNotes not available</p>';
+                    return;
+                }
+
+                // Create a test user
+                const testUser = {
+                    id: 'test_user_123',
+                    name: 'Test User',
+                    email: 'test@user.com',
+                    role: 'student'
+                };
+
+                window.UserNotes.setCurrentUser(testUser);
+                
+                results.innerHTML = '<p class="text-green-600">✅ User notes system initialized</p>';
+                addTestResult('User Notes System', 'PASS', 'System initialized with test user');
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('User Notes System', 'FAIL', error.message);
+            }
+        }
+
+        // Test backend
+        function testBackend() {
+            const results = document.getElementById('backend-test-results');
+            results.innerHTML = '<p class="text-blue-600">Testing backend...</p>';
+
+            try {
+                if (!backend) {
+                    results.innerHTML = '<p class="text-red-600">❌ Backend not available</p>';
+                    return;
+                }
+
+                const notes = backend.getAllNotes();
+                results.innerHTML = `<p class="text-green-600">✅ Backend working. Found ${notes.length} notes</p>`;
+                addTestResult('Backend', 'PASS', `Found ${notes.length} notes`);
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('Backend', 'FAIL', error.message);
+            }
+        }
+
+        // Test notes API
+        function testNotesAPI() {
+            const results = document.getElementById('backend-test-results');
+            results.innerHTML = '<p class="text-blue-600">Testing notes API...</p>';
+
+            try {
+                if (!backend) {
+                    results.innerHTML = '<p class="text-red-600">❌ Backend not available</p>';
+                    return;
+                }
+
+                // Test all notes API methods
+                const allNotes = backend.getAllNotes();
+                const testUserId = 'test_user_123';
+                const userNotes = backend.getUserNotes(testUserId);
+                
+                results.innerHTML = `
+                    <p class="text-green-600">✅ Notes API working</p>
+                    <p class="text-sm text-gray-600">Total notes: ${allNotes.length}</p>
+                    <p class="text-sm text-gray-600">User notes: ${userNotes.length}</p>
+                `;
+                addTestResult('Notes API', 'PASS', `API methods working correctly`);
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('Notes API', 'FAIL', error.message);
+            }
+        }
+
+        // Clear test data
+        function clearTestData() {
+            const results = document.getElementById('backend-test-results');
+            results.innerHTML = '<p class="text-blue-600">Clearing test data...</p>';
+
+            try {
+                localStorage.removeItem('admin_notes');
+                results.innerHTML = '<p class="text-green-600">✅ Test data cleared</p>';
+                addTestResult('Clear Data', 'PASS', 'Test data cleared successfully');
+            } catch (error) {
+                results.innerHTML = `<p class="text-red-600">❌ Error: ${error.message}</p>`;
+                addTestResult('Clear Data', 'FAIL', error.message);
+            }
+        }
+
+        // Add test result
+        function addTestResult(testName, status, message) {
+            const results = document.getElementById('test-results');
+            const timestamp = new Date().toLocaleTimeString();
+            const statusColor = status === 'PASS' ? 'text-green-600' : 'text-red-600';
+            const statusIcon = status === 'PASS' ? '✅' : '❌';
+            
+            const resultHtml = `
+                <div class="flex items-center gap-3 p-2 bg-gray-50 rounded">
+                    <span class="${statusColor} font-bold">${statusIcon} ${testName}</span>
+                    <span class="text-gray-600">${message}</span>
+                    <span class="text-gray-400 text-sm ml-auto">${timestamp}</span>
+                </div>
+            `;
+            
+            results.insertAdjacentHTML('afterbegin', resultHtml);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initBackend();
+        });
+    </script>
+</body>
+</html> 

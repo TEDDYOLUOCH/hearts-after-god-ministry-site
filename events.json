@@ -1,0 +1,93 @@
+[
+  {
+    "id": "revival-conference",
+    "title": "Revival Conference",
+    "date": "2024-05-20",
+    "description": "A powerful gathering for worship, impartation, and revival. Join us for a life-changing encounter! Speakers from across the region, prophetic ministry, and healing sessions.",
+    "location": "Nairobi, Kenya",
+    "time": "9:00 AM - 5:00 PM",
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Conference", "Revival"],
+    "color": "#E02424",
+    "link": "event.html?id=revival-conference",
+    "status": "past"
+  },
+  {
+    "id": "youth-camp",
+    "title": "Youth Camp",
+    "date": "2024-08-15",
+    "description": "A fun and faith-filled camp for youth to grow, connect, and be equipped for their calling. Includes workshops, games, and worship nights.",
+    "location": "Eldoret, Kenya",
+    "time": "All Day",
+    "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Youth", "Camp"],
+    "color": "#FDBA17",
+    "link": "event.html?id=youth-camp",
+    "status": "past"
+  },
+  {
+    "id": "discipleship-training",
+    "title": "Discipleship Training (Past)",
+    "date": "2024-09-10",
+    "description": "Intensive discipleship and leadership training for all ages. Be equipped to make a difference! Includes guest speakers and certificate awards.",
+    "location": "Kitale, Kenya",
+    "time": "10:00 AM - 4:00 PM",
+    "image": "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Discipleship", "Training"],
+    "color": "#7C3AED",
+    "link": "event.html?id=discipleship-training",
+    "status": "past"
+  },
+  {
+    "id": "prayer-fasting-2025",
+    "title": "Prayer And Fasting",
+    "date": "2025-01-05",
+    "description": "Join us for a powerful season of prayer and fasting as we seek God's presence, breakthrough, and spiritual renewal together. Experience transformation, unity, and fresh vision for your life and ministry.",
+    "location": "Online & Local Hubs",
+    "time": "6:00 AM - 6:00 PM",
+    "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Prayer", "Fasting", "Spiritual Growth"],
+    "color": "#7C3AED",
+    "link": "event.html?id=prayer-fasting-2025",
+    "status": "past"
+  },
+  {
+    "id": "event-1",
+    "title": "Discipleship Training",
+    "date": "2025-08-01",
+    "description": "Join us for an intensive discipleship training designed to equip believers for effective ministry and spiritual growth. Open to all ages and backgrounds. Includes breakout sessions and Q&A.",
+    "location": "Nakuru, Kenya",
+    "time": "9:00 AM - 4:00 PM",
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Discipleship", "Training", "Growth"],
+    "color": "#7C3AED",
+    "link": "event.html?id=event-1",
+    "status": "upcoming"
+  },
+  {
+    "id": "event-2",
+    "title": "Kapenguria Mission Trip",
+    "date": "2025-11-28",
+    "description": "Be part of our mission outreach to Kapenguria! Experience hands-on ministry, evangelism, and community service as we share the love of Christ. Includes medical camp and children's ministry.",
+    "location": "Kapenguria, Kenya",
+    "time": "All Day",
+    "image": "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Mission", "Outreach", "Kapenguria"],
+    "color": "#FDBA17",
+    "link": "event.html?id=event-2",
+    "status": "upcoming"
+  },
+  {
+    "id": "event-3",
+    "title": "Revival Youth Conference",
+    "date": "2025-12-27",
+    "description": "A powerful youth conference focused on revival, worship, and empowerment. Connect with other young believers and ignite your passion for Christ! Includes worship concerts and leadership workshops.",
+    "location": "Kisumu, Kenya",
+    "time": "8:00 AM - 6:00 PM",
+    "image": "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+    "tags": ["Youth", "Conference", "Revival"],
+    "color": "#2046B3",
+    "link": "event.html?id=event-3",
+    "status": "upcoming"
+  }
+] 

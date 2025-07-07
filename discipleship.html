@@ -118,25 +118,46 @@
           <li><a href="discipleship.html" class="nav-link active" id="nav-discipleship">Discipleship</a></li>
           <li><a href="missions.html" class="nav-link" id="nav-missions">Missions</a></li>
           <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-      </ul>
+        </ul>
         <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
       </div>
       <!-- CTA Button -->
-      <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      <div class="hidden md:flex gap-3 ml-6">
+        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      </div>
       <!-- Mobile Hamburger -->
-      <button class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Open menu">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <!-- Mobile Menu Overlay -->
+      <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
+      <!-- Mobile Slide-in Menu -->
+      <nav id="mobile-menu" class="mobile-menu md:hidden overflow-y-auto">
+        <button class="close-btn" aria-label="Close menu">&times;</button>
+        <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="vision.html" class="nav-link">Vision</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link active">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link">Missions</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="mt-8">
+          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+        </div>
+      </nav>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden px-4 mb-16" aria-label="Discipleship Hero">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED] via-[#2046B3] to-[#FDBA17] opacity-90"></div>
+  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-12 px-4 text-center text-white overflow-hidden">
     <div class="absolute inset-0 bg-black/30"></div>
     <div class="relative z-10 flex flex-col items-center text-center gap-6 max-w-4xl mx-auto py-16">
       <div class="flex items-center gap-4 mb-4">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="w-16 h-16 rounded-full shadow-2xl border-4 border-white/20" />
         <div class="h-px w-16 bg-[#FDBA17]"></div>
       </div>
       <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
@@ -153,18 +174,8 @@
         </p>
       </div>
       <div class="flex flex-col sm:flex-row gap-4">
-        <a href="discipleship-login.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-full shadow-xl hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/50 transition-all duration-300 transform hover:scale-105">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-          </svg>
-          Login / Register
-        </a>
-        <a href="#how-it-works" class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-bold text-lg rounded-full border-2 border-white/20 hover:bg-white hover:text-[#2046B3] focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 transition-all duration-300 backdrop-blur-sm">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          Learn More
-        </a>
+        <a href="discipleship-login.html" class="inline-flex items-center gap-2 px-8 py-4 bg-[#FDBA17] text-[#2046B3] font-bold text-lg rounded-xl shadow-xl hover:bg-[#e0a615] hover:text-[#7C3AED] hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/60 transition-all duration-300">Login / Register</a>
+        <a href="#how-it-works" class="inline-flex items-center gap-2 px-8 py-4 bg-[#2046B3] text-white font-bold text-lg rounded-xl shadow-xl hover:bg-[#7C3AED] hover:text-[#FDBA17] hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#2046B3]/60 transition-all duration-300">Learn More</a>
       </div>
     </div>
   </section>
@@ -481,7 +492,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
-              <span class="text-sm">Founder: Cyrilla Chikamai</span>
+              <span class="text-sm">Global Online Ministry</span>
             </div>
           </div>
           

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sermon Details | Hearts After God Ministry</title>
+  <meta name="description" content="Sermon details - Hearts After God Ministry">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background: #f9fafb; }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    .tag { background: #f3e8ff; color: #7C3AED; border-radius: 0.5rem; padding: 0.25em 0.75em; font-size: 0.95em; font-weight: 500; margin-right: 0.5em; }
+    .tag-gold { background: #fef3c7; color: #FDBA17; }
+    .tag-blue { background: #e0e7ff; color: #2046B3; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#FDBA17] py-8 px-4 text-white text-center shadow-lg">
+    <a href="index.html" class="inline-flex items-center gap-3 mb-2">
+      <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Logo" class="h-12 w-12 rounded-full border-2 border-[#FDBA17] shadow" />
+      <span class="text-2xl font-bold tracking-tight">Hearts After God Ministry</span>
+    </a>
+    <nav class="mt-2">
+      <a href="sermons.html" class="text-[#FDBA17] font-semibold hover:underline">All Sermons</a>
+      <span class="mx-2 text-white/60">|</span>
+      <a href="index.html" class="text-white hover:underline">Home</a>
+    </nav>
+  </header>
+  <main class="flex-1 flex items-center justify-center px-4 py-12">
+    <div id="sermon-detail" class="max-w-2xl w-full mx-auto bg-white rounded-3xl shadow-xl p-8 fade-in"></div>
+  </main>
+  <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white text-center py-8 mt-12">
+    <div class="text-sm">&copy; 2025 Hearts After God Ministry. All rights reserved.</div>
+  </footer>
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    function tagClass(tag) {
+      if (tag.toLowerCase().includes('faith')) return 'tag tag-blue';
+      if (tag.toLowerCase().includes('prayer')) return 'tag tag-gold';
+      if (tag.toLowerCase().includes('freedom')) return 'tag';
+      return 'tag';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const id = getQueryParam('id');
+      const container = document.getElementById('sermon-detail');
+      fetch('sermons.json')
+        .then(res => res.json())
+        .then(sermons => {
+          const sermon = sermons.find(s => s.id === id);
+          if (!sermon) {
+            container.innerHTML = `<div class='text-center text-2xl text-[#E02424] font-bold py-16'>Sermon not found.</div>`;
+            return;
+          }
+          container.innerHTML = `
+            <div class="mb-6 text-center">
+              <h1 class="text-3xl md:text-4xl font-bold text-[#2046B3] mb-2">${sermon.title}</h1>
+              <div class="text-[#FDBA17] font-semibold mb-1">${sermon.preacher}</div>
+              <div class="text-gray-500 mb-2 text-sm">${new Date(sermon.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+              <div class="flex flex-wrap justify-center gap-2 mb-4">
+                ${(sermon.tags||[]).map(tag => `<span class="${tagClass(tag)}">${tag}</span>`).join('')}
+              </div>
+            </div>
+            <div class="w-full h-56 md:h-72 rounded-xl overflow-hidden mb-6 flex items-center justify-center bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20">
+              <img src="${sermon.image}" alt="${sermon.title}" class="w-full h-full object-cover" />
+            </div>
+            <div class="text-lg text-gray-700 mb-6 text-center">${sermon.description}</div>
+            ${sermon.audioUrl ? `<div class='mb-6 text-center'><audio controls src="${sermon.audioUrl}" class="w-full"></audio></div>` : ''}
+            <div class="text-center mt-8">
+              <a href="sermons.html" class="inline-block px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Back to All Sermons</a>
+            </div>
+          `;
+          setTimeout(() => container.classList.add('visible'), 100);
+        })
+        .catch(() => {
+          container.innerHTML = `<div class='text-center text-2xl text-[#E02424] font-bold py-16'>Sermon not found.</div>`;
+        });
+    });
+  </script>
+</body>
+</html> 

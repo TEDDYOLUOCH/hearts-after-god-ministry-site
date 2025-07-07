@@ -223,6 +223,20 @@ function renderEvents(events) {
       </div>
       <div class="flex gap-2 mb-2">${(event.tags||[]).map(tag=>`<a href='events.html?tag=${encodeURIComponent(tag)}' class='bg-purple/20 text-purple px-2 py-0.5 rounded text-xs hover:underline focus:underline'>${tag}</a>`).join('')}</div>
       <p class="text-gray-700 mb-4">${event.description||''}</p>
+      ${event.files && event.files.length ? `
+        <div class='mb-4'>
+          <div class='font-semibold text-[#7C3AED] mb-1 flex items-center gap-2'><i class='fas fa-paperclip'></i>Files/Resources:</div>
+          <ul class='space-y-1'>
+            ${event.files.map(file => `
+              <li class='flex items-center gap-2 text-sm'>
+                <a href='${file.dataUrl}' download='${file.name}' target='_blank' class='text-blue-700 underline hover:text-[#7C3AED]'>${file.name}</a>
+                <span class='text-gray-400'>${file.type.replace('application/','').replace('image/','').toUpperCase()||''}</span>
+                ${file.description ? `<span class='text-gray-500 italic'>${file.description}</span>` : ''}
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      ` : ''}
       <a href="event-detail.html?id=${encodeURIComponent(event.id||event.title)}" class="mt-auto px-4 py-2 bg-primary text-white rounded hover:bg-secondary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary transition">Details</a>
     </div>
   `).join('');
@@ -252,7 +266,6 @@ function sortItems(items, sortValue) {
   // Default: newest
   return items.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 }
-const _setupSection = setupSection;
 setupSection = function(section, fetchFn, renderFn, filterId, searchId, listId, paginationId, perPage) {
   let allItems = [];
   let filtered = [];

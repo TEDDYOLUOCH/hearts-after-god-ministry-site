@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post | Hearts After God Ministry</title>
+  <meta name="description" content="Read devotionals, testimonies, and blog posts from Hearts After God Ministry.">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { background: #fff; color: #2046B3; }
+    .header-pattern {
+      background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
+      background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>');
+      background-repeat: repeat-x;
+      background-size: 600px 120px;
+      position: relative;
+    }
+    .header-pattern::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%);
+      border-radius: inherit;
+    }
+    .header-pattern > * { position: relative; z-index: 2; }
+  </style>
+</head>
+<body class="antialiased">
+  <header class="sticky top-0 z-50 header-pattern backdrop-blur shadow-lg rounded-b-2xl">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
+      <a href="index.html" class="flex items-center gap-2 group">
+        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-[#2046B3] transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl" />
+      </a>
+      <div class="hidden md:flex gap-8 font-semibold text-white text-lg mx-auto relative" id="nav-links">
+        <ul class="flex gap-8">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="vision.html" class="nav-link">Vision</a></li>
+          <li><a href="events.html" class="nav-link">Events</a></li>
+          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
+          <li><a href="blog.html" class="nav-link active">Blog</a></li>
+          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+          <li><a href="discipleship.html" class="nav-link">Discipleship</a></li>
+          <li><a href="missions.html" class="nav-link">Missions</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="hidden md:flex gap-3 ml-6">
+        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+      </div>
+    </nav>
+  </header>
+  <main class="max-w-3xl mx-auto py-12 px-4">
+    <a href="blog.html" class="inline-block mb-8 text-[#7C3AED] hover:text-[#FDBA17] font-bold text-lg transition"><span class="mr-2">&larr;</span>Back to Blog</a>
+    <div id="blog-detail" class="bg-white rounded-2xl shadow-lg p-8"></div>
+  </main>
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const postId = getQueryParam('id');
+    fetch('blog.json')
+      .then(res => res.json())
+      .then(posts => {
+        const post = posts.find(p => p.id === postId);
+        const container = document.getElementById('blog-detail');
+        if (!post) {
+          container.innerHTML = `<div class='text-center text-gray-500 text-xl py-20'>Blog post not found.</div>`;
+          return;
+        }
+        container.innerHTML = `
+          <div class="mb-8">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-64 object-cover rounded-xl shadow mb-6" />
+            <h1 class="text-4xl font-bold text-[#2046B3] mb-4">${post.title}</h1>
+            <div class="flex flex-wrap gap-4 items-center mb-4">
+              <span class="inline-block bg-[#FDBA17] text-[#2046B3] font-bold px-4 py-1 rounded-full text-sm">${post.author}</span>
+              <span class="text-[#7C3AED] font-semibold text-sm">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              ${post.tags.map(tag => `<span class='inline-block bg-[#7C3AED]/10 text-[#7C3AED] px-3 py-1 rounded-full text-xs font-bold'>${tag}</span>`).join('')}
+            </div>
+          </div>
+          <article class="prose prose-lg max-w-none text-[#2046B3]">${post.content}</article>
+        `;
+      });
+  </script>
+</body>
+</html> 

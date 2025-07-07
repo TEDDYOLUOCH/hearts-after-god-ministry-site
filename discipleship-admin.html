@@ -106,6 +106,14 @@
           <i class="fas fa-headset"></i>
           <span>Support</span>
         </a>
+        <a href="#notes" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-sticky-note"></i>
+          <span>Notes</span>
+        </a>
+        <a href="#quizzes" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
+          <i class="fas fa-question-circle"></i>
+          <span>Quizzes</span>
+        </a>
         <a href="#analytics" class="sidebar-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-all">
           <i class="fas fa-chart-bar"></i>
           <span>Analytics</span>
@@ -386,6 +394,162 @@
                   <!-- Support ticket rows will be populated here -->
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Notes Section -->
+      <section id="notes" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-sticky-note text-[#FDBA17]"></i>
+                Notes Management
+              </h3>
+              <div class="flex gap-2">
+                <button id="add-notes-btn" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-plus mr-2"></i>Upload Notes
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <!-- Notes Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Total Notes</p>
+                    <p class="text-2xl font-bold" id="total-notes">0</p>
+                  </div>
+                  <i class="fas fa-sticky-note text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Total Views</p>
+                    <p class="text-2xl font-bold" id="total-views">0</p>
+                  </div>
+                  <i class="fas fa-eye text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Downloads</p>
+                    <p class="text-2xl font-bold" id="total-downloads">0</p>
+                  </div>
+                  <i class="fas fa-download text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Recent Notes</p>
+                    <p class="text-2xl font-bold" id="recent-notes">0</p>
+                  </div>
+                  <i class="fas fa-clock text-2xl opacity-80"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+              <div class="flex-1">
+                <input type="text" id="notes-search" placeholder="Search notes..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              </div>
+              <select id="notes-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+                <option value="">All Notes</option>
+                <option value="recent">Recent</option>
+                <option value="popular">Popular</option>
+                <option value="priority-high">High Priority</option>
+              </select>
+            </div>
+
+            <!-- Notes List -->
+            <div id="notes-list" class="space-y-4">
+              <!-- Notes will be populated here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quizzes Section -->
+      <section id="quizzes" class="dashboard-section hidden">
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-[#2046B3] flex items-center gap-2">
+                <i class="fas fa-question-circle text-[#FDBA17]"></i>
+                Quiz Management
+              </h3>
+              <div class="flex gap-2">
+                <button id="add-quiz-btn" class="px-4 py-2 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white rounded-lg hover:shadow-lg transition-all font-semibold">
+                  <i class="fas fa-plus mr-2"></i>Create Quiz
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <!-- Quiz Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Total Quizzes</p>
+                    <p class="text-2xl font-bold" id="total-quizzes">0</p>
+                  </div>
+                  <i class="fas fa-question-circle text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Total Attempts</p>
+                    <p class="text-2xl font-bold" id="total-attempts">0</p>
+                  </div>
+                  <i class="fas fa-users text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Completions</p>
+                    <p class="text-2xl font-bold" id="total-completions">0</p>
+                  </div>
+                  <i class="fas fa-trophy text-2xl opacity-80"></i>
+                </div>
+              </div>
+              <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white rounded-xl p-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm opacity-90">Avg Score</p>
+                    <p class="text-2xl font-bold" id="average-score">0%</p>
+                  </div>
+                  <i class="fas fa-chart-line text-2xl opacity-80"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="flex flex-col md:flex-row gap-4 mb-6">
+              <div class="flex-1">
+                <input type="text" id="quiz-search" placeholder="Search quizzes..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              </div>
+              <select id="quiz-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+                <option value="">All Quizzes</option>
+                <option value="recent">Recent</option>
+                <option value="difficulty-hard">Hard Difficulty</option>
+                <option value="category-bible-study">Bible Study</option>
+              </select>
+            </div>
+
+            <!-- Quiz List -->
+            <div id="quiz-list" class="space-y-4">
+              <!-- Quizzes will be populated here -->
             </div>
           </div>
         </div>
@@ -1051,6 +1215,8 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="assets/js/discipleship-backend.js"></script>
   <script src="assets/js/admin-complete.js"></script>
+  <script src="assets/js/admin-notes.js"></script>
+  <script src="assets/js/admin-quiz.js"></script>
   <style>
     /* Loading spinner for admin dashboard */
     .loading-spinner {
@@ -1352,6 +1518,362 @@
         console.error('AdminComplete not available for deleteCourse');
       }
     };
+
+    // Notes management global functions
+    window.openNotesModal = function() {
+      if (window.AdminNotes) {
+        window.AdminNotes.openNotesModal();
+      } else {
+        console.error('AdminNotes not available for openNotesModal');
+      }
+    };
+
+    window.closeNotesModal = function() {
+      if (window.AdminNotes) {
+        window.AdminNotes.closeNotesModal();
+      } else {
+        console.error('AdminNotes not available for closeNotesModal');
+      }
+    };
+
+    window.downloadNotes = function(notesId) {
+      if (window.AdminNotes) {
+        window.AdminNotes.downloadNotes(notesId);
+      } else {
+        console.error('AdminNotes not available for downloadNotes');
+      }
+    };
+
+    window.editNotes = function(notesId) {
+      if (window.AdminNotes) {
+        window.AdminNotes.editNotes(notesId);
+      } else {
+        console.error('AdminNotes not available for editNotes');
+      }
+    };
+
+    window.deleteNotes = function(notesId) {
+      if (window.AdminNotes) {
+        window.AdminNotes.deleteNotes(notesId);
+      } else {
+        console.error('AdminNotes not available for deleteNotes');
+      }
+    };
+
+    window.removeFile = function() {
+      if (window.AdminNotes) {
+        window.AdminNotes.removeFile();
+      } else {
+        console.error('AdminNotes not available for removeFile');
+      }
+    };
+
+    // Quiz management global functions
+    window.openQuizModal = function() {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.openQuizModal();
+      } else {
+        console.error('AdminQuiz not available for openQuizModal');
+      }
+    };
+
+    window.closeQuizModal = function() {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.closeQuizModal();
+      } else {
+        console.error('AdminQuiz not available for closeQuizModal');
+      }
+    };
+
+    window.previewQuiz = function(quizId) {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.previewQuiz(quizId);
+      } else {
+        console.error('AdminQuiz not available for previewQuiz');
+      }
+    };
+
+    window.editQuiz = function(quizId) {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.editQuiz(quizId);
+      } else {
+        console.error('AdminQuiz not available for editQuiz');
+      }
+    };
+
+    window.deleteQuiz = function(quizId) {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.deleteQuiz(quizId);
+      } else {
+        console.error('AdminQuiz not available for deleteQuiz');
+      }
+    };
+
+    window.addQuestionField = function() {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.addQuestionField();
+      } else {
+        console.error('AdminQuiz not available for addQuestionField');
+      }
+    };
+
+    window.removeQuestion = function(button) {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.removeQuestion(button);
+      } else {
+        console.error('AdminQuiz not available for removeQuestion');
+      }
+    };
+
+    window.toggleQuestionOptions = function(selectElement) {
+      if (window.AdminQuiz) {
+        window.AdminQuiz.toggleQuestionOptions(selectElement);
+      } else {
+        console.error('AdminQuiz not available for toggleQuestionOptions');
+      }
+    };
   </script>
+
+  <!-- Notes Upload Modal -->
+  <div id="notes-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-[#2046B3]">Upload Notes</h3>
+        <button id="close-notes-modal" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="notes-upload-form" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+          <input type="text" name="notes-title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+          <textarea name="notes-description" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none"></textarea>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Day</label>
+            <select name="notes-day" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="">Select Day</option>
+              <option value="day-1">Day 1</option>
+              <option value="day-2">Day 2</option>
+              <option value="day-3">Day 3</option>
+              <option value="day-4">Day 4</option>
+              <option value="day-5">Day 5</option>
+              <option value="day-6">Day 6</option>
+              <option value="day-7">Day 7</option>
+              <option value="day-8">Day 8</option>
+              <option value="day-9">Day 9</option>
+              <option value="day-10">Day 10</option>
+              <option value="day-11">Day 11</option>
+              <option value="day-12">Day 12</option>
+              <option value="day-13">Day 13</option>
+              <option value="day-14">Day 14</option>
+              <option value="day-15">Day 15</option>
+              <option value="day-16">Day 16</option>
+              <option value="day-17">Day 17</option>
+              <option value="day-18">Day 18</option>
+              <option value="day-19">Day 19</option>
+              <option value="day-20">Day 20</option>
+              <option value="day-21">Day 21</option>
+              <option value="day-22">Day 22</option>
+              <option value="day-23">Day 23</option>
+              <option value="day-24">Day 24</option>
+              <option value="day-25">Day 25</option>
+              <option value="day-26">Day 26</option>
+              <option value="day-27">Day 27</option>
+              <option value="day-28">Day 28</option>
+              <option value="day-29">Day 29</option>
+              <option value="day-30">Day 30</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+            <select name="notes-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="general">General</option>
+              <option value="bible-study">Bible Study</option>
+              <option value="prayer">Prayer</option>
+              <option value="worship">Worship</option>
+              <option value="discipleship">Discipleship</option>
+              <option value="ministry">Ministry</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+            <select name="notes-priority" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Target Users</label>
+          <select name="notes-target-users" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+            <option value="all">All Users</option>
+            <option value="students">Students Only</option>
+            <option value="leaders">Leaders Only</option>
+          </select>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Upload File (Optional)</label>
+          <input type="file" id="notes-file-input" name="notes-file" accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+          <div id="file-preview" class="mt-2"></div>
+        </div>
+        
+        <div id="upload-status" class="text-sm font-medium"></div>
+        
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white py-3 rounded-lg font-bold hover:shadow-lg transition-all">
+            Upload Notes
+          </button>
+          <button type="button" id="close-notes-modal" class="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-bold hover:bg-gray-50 transition-all">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Quiz Upload Modal -->
+  <div id="quiz-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl p-8 max-w-4xl mx-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-[#2046B3]">Create Quiz</h3>
+        <button id="close-quiz-modal" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="quiz-upload-form" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+            <input type="text" name="quiz-title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Day</label>
+            <select name="quiz-day" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="">Select Day</option>
+              <option value="day-1">Day 1</option>
+              <option value="day-2">Day 2</option>
+              <option value="day-3">Day 3</option>
+              <option value="day-4">Day 4</option>
+              <option value="day-5">Day 5</option>
+              <option value="day-6">Day 6</option>
+              <option value="day-7">Day 7</option>
+              <option value="day-8">Day 8</option>
+              <option value="day-9">Day 9</option>
+              <option value="day-10">Day 10</option>
+              <option value="day-11">Day 11</option>
+              <option value="day-12">Day 12</option>
+              <option value="day-13">Day 13</option>
+              <option value="day-14">Day 14</option>
+              <option value="day-15">Day 15</option>
+              <option value="day-16">Day 16</option>
+              <option value="day-17">Day 17</option>
+              <option value="day-18">Day 18</option>
+              <option value="day-19">Day 19</option>
+              <option value="day-20">Day 20</option>
+              <option value="day-21">Day 21</option>
+              <option value="day-22">Day 22</option>
+              <option value="day-23">Day 23</option>
+              <option value="day-24">Day 24</option>
+              <option value="day-25">Day 25</option>
+              <option value="day-26">Day 26</option>
+              <option value="day-27">Day 27</option>
+              <option value="day-28">Day 28</option>
+              <option value="day-29">Day 29</option>
+              <option value="day-30">Day 30</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+            <select name="quiz-category" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="general">General</option>
+              <option value="bible-study">Bible Study</option>
+              <option value="prayer">Prayer</option>
+              <option value="worship">Worship</option>
+              <option value="discipleship">Discipleship</option>
+              <option value="ministry">Ministry</option>
+            </select>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+          <textarea name="quiz-description" rows="3" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none"></textarea>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Difficulty</label>
+            <select name="quiz-difficulty" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Time Limit (minutes)</label>
+            <input type="number" name="quiz-time-limit" min="0" placeholder="No limit" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Passing Score (%)</label>
+            <input type="number" name="quiz-passing-score" min="0" max="100" value="70" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Target Users</label>
+          <select name="quiz-target-users" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] outline-none">
+            <option value="all">All Users</option>
+            <option value="students">Students Only</option>
+            <option value="leaders">Leaders Only</option>
+          </select>
+        </div>
+        
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <label class="block text-sm font-medium text-gray-700">Questions</label>
+            <button type="button" id="add-question-btn" class="px-4 py-2 bg-[#7C3AED] text-white rounded-lg hover:bg-[#6D28D9] transition-colors">
+              <i class="fas fa-plus mr-2"></i>Add Question
+            </button>
+          </div>
+          <div id="questions-container" class="space-y-4">
+            <!-- Questions will be added here -->
+          </div>
+        </div>
+        
+        <div id="upload-status" class="text-sm font-medium"></div>
+        
+        <div class="flex gap-4">
+          <button type="submit" class="flex-1 bg-gradient-to-r from-[#7C3AED] to-[#2046B3] text-white py-3 rounded-lg font-bold hover:shadow-lg transition-all">
+            Create Quiz
+          </button>
+          <button type="button" id="close-quiz-modal" class="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-bold hover:bg-gray-50 transition-all">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html> 
