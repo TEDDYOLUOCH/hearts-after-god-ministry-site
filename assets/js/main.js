@@ -185,6 +185,27 @@ async function fetchAndRenderContent(section, url, renderFn) {
 function renderBlogPosts(posts) {
   const container = document.getElementById('home-blog-list') || document.getElementById('blog-list');
   if (!container) return;
+  // If rendering for home page, use image and modern card style
+  if (container.id === 'home-blog-list') {
+    container.innerHTML = posts.map(post => `
+      <div class="bg-white rounded-2xl shadow-xl p-0 flex flex-col group blog-card overflow-hidden">
+        <a href="blog-detail.html?id=${encodeURIComponent(post.id||post.title)}" class="block">
+          <img src="${post.image||'assets/images/hero/IMG-20250705-WA0023.jpg'}" alt="${post.title}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </a>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex gap-2 mb-2">${(post.tags||[]).map(tag=>`<span class='tag'>${tag}</span>`).join('')}</div>
+          <a href="blog-detail.html?id=${encodeURIComponent(post.id||post.title)}" class="block group-hover:text-primary transition-colors font-bold text-lg mb-1 line-clamp-2">${post.title}</a>
+          <div class="flex items-center gap-2 mb-2 text-sm text-gray-500">
+            <span>${post.date}</span> &bull; <span>${post.author || ''}</span>
+          </div>
+          <p class="text-gray-700 mb-4 line-clamp-3">${post.excerpt||''}</p>
+          <a href="blog-detail.html?id=${encodeURIComponent(post.id||post.title)}" class="mt-auto px-4 py-2 bg-[#7C3AED] text-white rounded-lg shadow hover:bg-[#FDBA17] hover:text-[#2046B3] focus:outline-none focus:ring-2 focus:ring-[#7C3AED] transition">Read More</a>
+        </div>
+      </div>
+    `).join('');
+    return;
+  }
+  // Default rendering (blog page)
   container.innerHTML = posts.map(post => `
     <div class="bg-white rounded-xl shadow p-6 flex flex-col group">
       <a href="blog-detail.html?id=${encodeURIComponent(post.id||post.title)}" class="block group-hover:text-primary transition-colors font-semibold text-lg mb-2">${post.title}</a>

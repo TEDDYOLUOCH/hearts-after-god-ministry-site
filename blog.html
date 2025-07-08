@@ -84,60 +84,39 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-12 px-4 text-center text-white overflow-hidden">
-    <div class="absolute inset-0 bg-black/40 z-0"></div>
-    <div class="absolute inset-0 animate-pulse bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FDBA17]/10 via-transparent to-transparent z-0"></div>
-    <div class="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-2xl tracking-tight">Blog & Devotionals</h1>
-      <h2 class="text-2xl md:text-3xl font-semibold mb-6 drop-shadow-xl text-[#FDBA17] tracking-wide">Grow in Faith, Be Inspired</h2>
-      <p class="text-xl md:text-2xl mb-8 font-medium text-white/90 leading-relaxed">Explore devotionals, testimonies, and teachings to encourage your walk with Christ. Stay up to date with the latest inspiration from Hearts After God Ministry.</p>
+  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-10 px-4 text-center text-white overflow-hidden rounded-b-3xl shadow-xl mb-8">
+    <div class="absolute inset-0 bg-black/30 z-0"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FDBA17]/20 via-transparent to-transparent z-0"></div>
+    <div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-2 drop-shadow-2xl tracking-tight">Blog & Devotionals</h1>
+      <h2 class="text-xl md:text-2xl font-semibold mb-4 drop-shadow-xl text-[#FDBA17] tracking-wide">Grow in Faith, Be Inspired</h2>
+      <p class="text-lg md:text-xl mb-4 font-medium text-white/90 leading-relaxed">Explore devotionals, testimonies, and teachings to encourage your walk with Christ. Stay up to date with the latest inspiration from Hearts After God Ministry.</p>
     </div>
-  </section>
+    </section>
 
-  <main class="flex-1 max-w-7xl mx-auto px-4 py-8 md:py-16">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-      <!-- Blog List -->
-      <div class="md:col-span-3">
-        <section class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <input id="blog-search" class="search-bar" type="text" placeholder="Search by title, author, or keyword..." />
-          <div id="blog-tags" class="flex flex-wrap gap-2 justify-center md:justify-end"></div>
-        </section>
-        <div class="w-full flex justify-center my-8">
-          <div class="h-1 w-24 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full"></div>
-        </div>
-        <section>
-          <div id="blog-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-          <div id="blog-empty" class="text-center text-xl text-gray-400 mt-12 hidden">No blog posts found.</div>
-        </section>
+  <main class="flex-1 max-w-6xl mx-auto px-2 sm:px-4 py-6 md:py-10">
+    <section class="sticky top-4 z-30 bg-white/90 backdrop-blur rounded-xl shadow px-2 py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+      <div class="relative w-full max-w-md flex items-center">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="blog-search" class="search-bar pl-10 pr-4 py-2 w-full rounded-lg border-2 border-[#7C3AED] focus:ring-2 focus:ring-[#FDBA17] focus:border-[#FDBA17] transition text-base" type="text" placeholder="Search by title, author, or keyword..." />
       </div>
-      <!-- Sidebar -->
-      <aside class="space-y-8">
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
-          <h3 class="text-lg font-bold text-[#2046B3] mb-2">About This Blog</h3>
-          <p class="text-gray-700 text-sm">Hearts After God Ministry Blog features devotionals, testimonies, and teachings to inspire and equip believers worldwide.</p>
-        </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Popular Tags</h3>
-          <div id="sidebar-tags" class="flex flex-wrap gap-2"></div>
-        </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
-          <h3 class="text-lg font-bold text-[#2046B3] mb-2">Recent Posts</h3>
-          <ul id="recent-posts" class="space-y-4"></ul>
-        </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Follow Us</h3>
-          <div class="flex gap-3">
-            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
-            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram"><svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg></a>
-            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg></a>
-            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg></a>
-          </div>
-        </div>
-      </aside>
+      <div id="blog-tags" class="flex flex-nowrap gap-2 overflow-x-auto py-1"></div>
+    </section>
+    <div id="top-authors-row" class="flex gap-4 overflow-x-auto py-4 mb-6"></div>
+    <div id="featured-post-card" class="mb-8"></div>
+    <div class="w-full flex justify-center my-6">
+      <div class="h-1 w-24 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full"></div>
     </div>
+    <section>
+      <div id="blog-list" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"></div>
+      <div id="blog-empty" class="text-center text-xl text-gray-400 mt-12 hidden">No blog posts found.</div>
+    </section>
   </main>
+  <style>
+    @media (max-width: 1023px) {
+      aside { position: static !important; top: auto !important; }
+    }
+  </style>
 
   <!-- FOOTER (copied from index.html) -->
   <footer class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] text-white mt-24 rounded-t-3xl overflow-hidden shadow-2xl">
@@ -292,12 +271,23 @@
     // Blog logic
     let allPosts = [];
     let activeTag = '';
+    function getInitials(name) {
+      if (!name) return '';
+      return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    }
+    function isNewPost(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diff = (now - date) / (1000 * 60 * 60 * 24);
+      return diff <= 30;
+    }
     function tagClass(tag) {
+      if (tag.toLowerCase().includes('faith')) return 'tag tag-blue';
       if (tag.toLowerCase().includes('prayer')) return 'tag tag-gold';
-      if (tag.toLowerCase().includes('joy')) return 'tag tag-blue';
+      if (tag.toLowerCase().includes('freedom')) return 'tag';
       return 'tag';
     }
-    function renderPosts(posts) {
+    function renderBlog(posts) {
       const list = document.getElementById('blog-list');
       const empty = document.getElementById('blog-empty');
       if (!posts.length) {
@@ -306,75 +296,181 @@
         return;
       }
       empty.classList.add('hidden');
-      list.innerHTML = posts.map(post => `
-        <div class="blog-card bg-white rounded-2xl shadow-xl p-8 flex flex-col border-t-4 border-[#7C3AED] hover:shadow-2xl transition-all duration-300">
-          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="block w-full h-40 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 overflow-hidden">
+      list.innerHTML = posts.map(post => {
+        const avatar = post.authorAvatar || '';
+        const initials = getInitials(post.author);
+        const isNew = isNewPost(post.date);
+        return `
+          <div class="blog-card bg-white rounded-2xl shadow-xl p-8 flex flex-col border-t-4 hover:shadow-2xl transition-all duration-300 relative" style="border-color: #7C3AED;">
+            ${isNew ? '<span class="absolute top-4 right-4 bg-[#FDBA17] text-[#2046B3] text-xs font-bold px-3 py-1 rounded-full shadow">NEW</span>' : ''}
+            <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="block w-full h-48 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 overflow-hidden group">
             <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
           </a>
-          <div class="flex items-center gap-3 mb-2">
-            <img src="assets/images/leadership/Bonnie Onduso.jpg" alt="${post.author}" class="w-8 h-8 rounded-full border-2 border-[#FDBA17] object-cover" />
-            <div class="text-[#FDBA17] font-semibold">${post.author}</div>
-          </div>
-          <div class="text-xl font-bold text-[#2046B3] mb-1">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-lg font-bold text-[#7C3AED] overflow-hidden">
+                ${avatar ? `<img src="${avatar}" alt="${post.author}" class="w-full h-full object-cover rounded-full" />` : initials}
+              </div>
+              <div class="text-[#FDBA17] font-semibold">${post.author}</div>
+              <span class="ml-2 text-xs text-gray-500 bg-gray-100 rounded px-2 py-0.5">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div class="text-xl font-bold text-[#2046B3] mb-1">
             <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="hover:underline">${post.title}</a>
           </div>
-          <div class="text-gray-500 mb-2 text-sm">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
           <div class="flex flex-wrap gap-2 mb-4">
             ${(post.tags||[]).map(tag => `<span class="${tagClass(tag)}">${tag}</span>`).join('')}
           </div>
           <div class="text-gray-700 mb-4 line-clamp-3">${post.excerpt}</div>
-          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="mt-auto px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Read More</a>
+            <div class="flex gap-2 mt-auto">
+              <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="px-5 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Read More</a>
+              <button onclick="navigator.share ? navigator.share({title: '${post.title}', url: location.origin + '/blog-detail.html?id=${encodeURIComponent(post.id)}'}) : alert('Share not supported on this browser.')" class="px-4 py-2 bg-gray-100 text-[#2046B3] font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-white transition-all duration-300" title="Share" aria-label="Share"><svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v14"/></svg></button>
+            </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
     function renderTags(posts) {
       const tagSet = new Map();
-      posts.forEach(p => (p.tags||[]).forEach(t => tagSet.set(t, (tagSet.get(t)||0)+1)));
+      posts.forEach(s => (s.tags||[]).forEach(t => tagSet.set(t, (tagSet.get(t)||0)+1)));
       const tags = Array.from(tagSet.keys()).sort();
       const tagBar = document.getElementById('blog-tags');
-      tagBar.innerHTML = tags.map(tag => `<button class="filter-btn${activeTag===tag?' active':''}" data-tag="${tag}">${tag}</button>`).join('');
+      tagBar.innerHTML = tags.map(tag => `<button class="filter-btn" data-tag="${tag}">${tag} <span class='ml-1 text-xs text-gray-500 bg-white/60 rounded px-1.5'>${tagSet.get(tag)}</span></button>`).join('');
       tagBar.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', function() {
-          activeTag = activeTag===this.dataset.tag ? '' : this.dataset.tag;
-          filterAndRender();
+          filterByTag(this.dataset.tag);
         });
       });
-      // Sidebar tags with counts
+      // Sidebar tags
       const sidebarTags = document.getElementById('sidebar-tags');
       if (sidebarTags) {
-        sidebarTags.innerHTML = tags.map(tag => `<span class="tag">${tag} <span class='text-xs text-gray-500'>(${tagSet.get(tag)})</span></span>`).join('');
+        sidebarTags.innerHTML = tags.map(tag => `<span class="tag">${tag} <span class='ml-1 text-xs text-gray-500 bg-white/60 rounded px-1.5'>${tagSet.get(tag)}</span></span>`).join('');
       }
+    }
+    function renderFeaturedPost(posts) {
+      if (!posts.length) return;
+      // Pick the most recent post as featured
+      const featured = posts.slice().sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+      const avatar = featured.authorAvatar || '';
+      const initials = getInitials(featured.author);
+      document.getElementById('featured-post').innerHTML = `
+        <div class='w-full flex flex-col items-center'>
+          <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="block w-full aspect-video rounded-xl overflow-hidden mb-4 shadow-lg">
+            <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover" />
+          </a>
+          <span class="text-xs uppercase tracking-widest text-[#FDBA17] font-bold mb-1">Featured Post</span>
+          <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="text-lg font-bold text-[#2046B3] hover:underline mb-1">${featured.title}</a>
+          <div class="flex flex-row items-center gap-3 mb-2 w-full justify-center">
+            <div class="w-8 h-8 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-base font-bold text-[#7C3AED] overflow-hidden">
+              ${avatar ? `<img src="${avatar}" alt="${featured.author}" class="w-full h-full object-cover rounded-full" />` : initials}
+            </div>
+            <span class="text-[#FDBA17] font-semibold whitespace-nowrap">${featured.author}</span>
+            <span class='text-xs text-gray-500 bg-gray-100 rounded px-2 py-0.5 whitespace-nowrap'>${new Date(featured.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+          <div class="text-gray-700 text-sm line-clamp-2 mb-2">${featured.excerpt}</div>
+          <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="px-4 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Read More</a>
+        </div>
+      `;
+    }
+    function renderTopAuthors(posts) {
+      const authors = {};
+      posts.forEach(s => {
+        if (!authors[s.author]) authors[s.author] = { count: 0, avatar: s.authorAvatar };
+        authors[s.author].count++;
+      });
+      const sorted = Object.entries(authors).sort((a,b)=>b[1].count-a[1].count).slice(0,5);
+      document.getElementById('top-authors').innerHTML = sorted.map(([name, data]) => `
+        <li class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-base font-bold text-[#7C3AED] overflow-hidden">
+            ${data.avatar ? `<img src="${data.avatar}" alt="${name}" class="w-full h-full object-cover rounded-full" />` : getInitials(name)}
+          </div>
+          <span class="font-semibold text-[#2046B3]">${name}</span>
+          <span class="ml-auto text-xs bg-[#FDBA17]/20 text-[#7C3AED] rounded px-2 py-0.5">${data.count} posts</span>
+        </li>
+      `).join('');
+    }
+    function filterByTag(tag) {
+      activeTag = tag;
+      filterAndRender();
     }
     function filterAndRender() {
       const search = document.getElementById('blog-search').value.trim().toLowerCase();
       let filtered = allPosts;
       if (activeTag) {
-        filtered = filtered.filter(p => (p.tags||[]).includes(activeTag));
+        filtered = filtered.filter(s => (s.tags||[]).includes(activeTag));
       }
       if (search) {
-        filtered = filtered.filter(p =>
-          (p.title && p.title.toLowerCase().includes(search)) ||
-          (p.author && p.author.toLowerCase().includes(search)) ||
-          (p.excerpt && p.excerpt.toLowerCase().includes(search)) ||
-          (p.tags && p.tags.some(tag => tag.toLowerCase().includes(search)))
+        filtered = filtered.filter(s =>
+          (s.title && s.title.toLowerCase().includes(search)) ||
+          (s.author && s.author.toLowerCase().includes(search)) ||
+          (s.excerpt && s.excerpt.toLowerCase().includes(search)) ||
+          (s.tags && s.tags.some(tag => tag.toLowerCase().includes(search)))
         );
       }
-      renderPosts(filtered);
+      renderBlog(filtered);
     }
-    // Recent posts in sidebar
-    function renderRecent(posts) {
-      const ul = document.getElementById('recent-posts');
-      if (!ul) return;
-      ul.innerHTML = posts.slice(0, 4).map(post => `
-        <li class="flex items-center gap-3">
-          <img src="${post.image}" alt="${post.title}" class="w-12 h-12 rounded-lg object-cover border-2 border-[#7C3AED]" />
-          <div>
-            <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="font-semibold text-[#2046B3] hover:text-[#FDBA17]">${post.title}</a>
-            <div class="text-xs text-gray-500">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+    // Make search bar sticky on scroll
+    window.addEventListener('DOMContentLoaded', function() {
+      const searchBar = document.getElementById('blog-search');
+      const stickyClass = 'sticky top-4 z-30 bg-white/90 backdrop-blur rounded-xl shadow px-2';
+      if (searchBar) {
+        searchBar.parentElement.classList.add('relative');
+        searchBar.classList.add('transition-all');
+        window.addEventListener('scroll', function() {
+          if (window.scrollY > 120) {
+            searchBar.classList.add(...stickyClass.split(' '));
+          } else {
+            searchBar.classList.remove(...stickyClass.split(' '));
+          }
+        });
+      }
+    });
+    function renderTopAuthorsRow(posts) {
+      const authors = {};
+      posts.forEach(s => {
+        if (!authors[s.author]) authors[s.author] = { count: 0, avatar: s.authorAvatar };
+        authors[s.author].count++;
+      });
+      const sorted = Object.entries(authors).sort((a,b)=>b[1].count-a[1].count).slice(0,8);
+      document.getElementById('top-authors-row').innerHTML = sorted.map(([name, data]) => `
+        <div class="flex flex-col items-center group cursor-pointer min-w-[72px]">
+          <div class="w-12 h-12 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-lg font-bold text-[#7C3AED] overflow-hidden mb-1 transition-transform duration-200 group-hover:scale-110">
+            ${data.avatar ? `<img src="${data.avatar}" alt="${name}" class="w-full h-full object-cover rounded-full" />` : getInitials(name)}
           </div>
-        </li>
+          <span class="text-xs font-semibold text-[#2046B3] group-hover:text-[#FDBA17] transition-colors">${name.split(' ')[0]}</span>
+          <span class="text-[10px] text-[#FDBA17]">${data.count} post${data.count > 1 ? 's' : ''}</span>
+        </div>
       `).join('');
     }
+    function renderFeaturedPostCard(posts) {
+      if (!posts.length) return;
+      const featured = posts.slice().sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
+      const avatar = featured.authorAvatar || '';
+      const initials = getInitials(featured.author);
+      const isNew = isNewPost(featured.date);
+      document.getElementById('featured-post-card').innerHTML = `
+        <div class="relative bg-gradient-to-br from-[#FDBA17]/20 to-[#7C3AED]/10 rounded-3xl shadow-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center border-l-8 border-[#FDBA17] hover:shadow-3xl transition-all duration-300">
+          <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="block w-full max-w-xs aspect-[4/5] rounded-2xl overflow-hidden shadow-lg group flex-shrink-0">
+            <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+          </a>
+          <div class="flex-1 flex flex-col gap-2">
+            <span class="text-xs uppercase tracking-widest text-[#FDBA17] font-bold mb-1">Featured Post${isNew ? ' <span class=\'ml-2 bg-[#FDBA17] text-[#2046B3] text-xs font-bold px-2 py-0.5 rounded-full shadow\'>NEW</span>' : ''}</span>
+            <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="text-2xl md:text-3xl font-bold text-[#2046B3] hover:underline mb-1 leading-tight">${featured.title}</a>
+            <div class="flex items-center gap-3 mb-1">
+              <div class="w-10 h-10 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-base font-bold text-[#7C3AED] overflow-hidden">
+                ${avatar ? `<img src="${avatar}" alt="${featured.author}" class="w-full h-full object-cover rounded-full" />` : initials}
+              </div>
+              <span class="text-[#FDBA17] font-semibold whitespace-nowrap">${featured.author}</span>
+              <span class='text-xs text-gray-500 bg-gray-100 rounded px-2 py-0.5 whitespace-nowrap'>${new Date(featured.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-1">
+              ${(featured.tags||[]).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="text-gray-700 text-base line-clamp-3 mb-2">${featured.excerpt}</div>
+            <a href="blog-detail.html?id=${encodeURIComponent(featured.id)}" class="inline-flex items-center gap-2 px-5 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300 group">Read More <svg class='w-5 h-5 group-hover:translate-x-1 transition-transform' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M17 8l4 4m0 0l-4 4m4-4H3'/></svg></a>
+          </div>
+        </div>
+      `;
+    }
+    // Update DOMContentLoaded logic
     document.addEventListener('DOMContentLoaded', function() {
       fetch('blog.json')
         .then(res => res.json())
@@ -382,8 +478,9 @@
           posts.sort((a, b) => new Date(b.date) - new Date(a.date));
           allPosts = posts;
           renderTags(posts);
-          renderRecent(posts);
-          renderPosts(posts);
+          renderBlog(posts);
+          renderFeaturedPostCard(posts);
+          renderTopAuthorsRow(posts);
         });
       document.getElementById('blog-search').addEventListener('input', filterAndRender);
     });

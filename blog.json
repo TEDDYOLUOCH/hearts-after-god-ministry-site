@@ -1,32 +1,16 @@
 [
   {
-    "id": "blog-1",
-    "title": "5 Ways to Deepen Your Prayer Life",
-    "date": "2025-07-01",
-    "author": "Mary Njeri",
-    "excerpt": "Practical steps to transform your daily prayer routine and experience God's presence more deeply.",
-    "content": "Prayer is more than words—it's a relationship. Discover five practical ways to make your prayer life vibrant and powerful, including setting aside quiet time, journaling, and praying Scripture.",
-    "image": "assets/images/hero/IMG-20250705-WA0023.jpg",
-    "tags": ["Prayer", "Devotional", "Growth"]
+    "id": "blog1",
+    "title": "How to Grow Spiritually",
+    "author": "Mary K.",
+    "image": "assets/images/blog/blog1.jpg",
+    "date": "2024-07-03"
   },
   {
-    "id": "blog-2",
-    "title": "Overcoming Discouragement: Hope in Christ",
-    "date": "2025-07-05",
-    "author": "Samuel Kimani",
-    "excerpt": "How to find hope and encouragement in Christ during life's toughest seasons.",
-    "content": "Everyone faces discouragement, but God's Word offers hope. Learn how to anchor your heart in Christ, find encouragement in community, and keep moving forward in faith.",
-    "image": "assets/images/hero/IMG-20250705-WA0024.jpg",
-    "tags": ["Hope", "Encouragement", "Faith"]
-  },
-  {
-    "id": "blog-3",
-    "title": "The Joy of Serving Others",
-    "date": "2025-07-10",
-    "author": "Faith Achieng",
-    "excerpt": "Discover the blessings and joy that come from serving others in love.",
-    "content": "Serving others is at the heart of the Gospel. Explore biblical principles and practical ways to serve in your family, church, and community, and experience the joy that comes from giving.",
-    "image": "assets/images/hero/IMG-20250705-WA0025.jpg",
-    "tags": ["Service", "Joy", "Community"]
+    "id": "blog2",
+    "title": "Serving Others Like Jesus",
+    "author": "John Doe",
+    "image": "assets/images/blog/blog2.jpg",
+    "date": "2024-06-28"
   }
 ] 

@@ -121,9 +121,19 @@
     @keyframes popIn {
       from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; }
     }
+    .glow-hero { box-shadow: 0 0 32px 0 #7C3AED44, 0 0 0 4px #FDBA1744; }
+    .glow-cta { box-shadow: 0 0 12px 0 #FDBA1744, 0 0 0 2px #7C3AED44; }
+    .animate-fade-in { animation: fadeInHero 1s both; }
+    .animate-slide-in { animation: slideInHero 1s both; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    @keyframes fadeInHero { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInHero { from { opacity: 0; transform: translateY(32px);} to { opacity: 1; transform: none; } }
   </style>
 </head>
-<body class="bg-white text-gray-900 antialiased">
+<body class="bg-white text-gray-900 font-sans">
   <header class="sticky top-0 z-50 header-pattern backdrop-blur shadow-lg rounded-b-2xl">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
       <!-- Logo -->
@@ -178,84 +188,104 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative hero-slideshow bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-20 px-4 text-center text-white overflow-hidden">
-    <!-- Slideshow background -->
-    <div id="hero-slideshow-bg" class="absolute inset-0 w-full h-full z-0"></div>
-    <!-- Overlay for readability -->
-    <div class="absolute inset-0 bg-black/50 z-10"></div>
-    <div class="relative z-20 max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 drop-shadow-2xl">
-        Hearts After God Ministry
-      </h1>
-      <h2 class="text-2xl md:text-3xl font-semibold mb-6 drop-shadow-xl text-[#FDBA17]">
-        Empowering Believers. Winning Souls.
-      </h2>
-      <p class="text-xl md:text-2xl mb-8 font-medium text-white/90 leading-relaxed">Hearts After God Ministry is a global family passionate about soul-winning, discipleship, and revival. Join us as we reach the world for Christ!</p>
-      <div class="flex flex-col sm:flex-row gap-6 justify-center mb-8">
-        <a href="contact.html" class="px-10 py-4 bg-[#E02424] text-white font-bold rounded-xl shadow-xl hover:bg-[#b91c1c] hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#E02424]/60 transition-all duration-300">Connect With Us</a>
-        <a href="discipleship.html" class="px-10 py-4 bg-[#FDBA17] text-[#2046B3] font-bold rounded-xl shadow-xl hover:bg-[#e0a615] hover:text-[#7C3AED] hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FDBA17]/60 transition-all duration-300">Join Discipleship</a>
-        <a href="sermons.html" class="px-10 py-4 bg-[#2046B3] text-white font-bold rounded-xl shadow-xl hover:bg-[#7C3AED] hover:text-[#FDBA17] hover:scale-105 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#2046B3]/60 transition-all duration-300">Watch Sermons</a>
+  <!-- HERO SLIDESHOW SECTION -->
+  <section class="relative min-h-[60vh] flex items-center justify-center bg-center bg-cover overflow-hidden" id="hero-slideshow">
+    <div id="hero-slideshow-bg" class="absolute inset-0 w-full h-full transition-opacity duration-1000 bg-cover bg-center"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
+    <div class="relative z-10 text-center px-4 py-32 w-full flex flex-col items-center justify-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg animate-fade-in">Hearts After God Ministry</h1>
+      <p class="mt-4 text-xl md:text-2xl text-white font-medium animate-fade-in delay-100">Raising a Generation After God's Heart</p>
+      <a href="#visit" class="mt-8 inline-block px-8 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow-lg hover:bg-[#7C3AED] hover:text-white transition animate-fade-in delay-200">Join Us for Worship</a>
+      <!-- Slideshow navigation dots -->
+      <div id="hero-slideshow-dots" class="flex gap-2 justify-center mt-8"></div>
+    </div>
+  </section>
+
+  <!-- WELCOME & PURPOSE -->
+  <section class="py-12 bg-white">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Welcome</h2>
+      <p class="text-lg text-gray-700 mb-4">
+        We're glad you're here! At Hearts After God Ministry, we believe that salvation is God's greatest gift, received by grace through faith in Jesus Christ. Our purpose is to empower believers, build community, and share the love of Christ with all.
+      </p>
+      <a href="#about" class="inline-block px-6 py-2 bg-[#7C3AED] text-white rounded-lg font-semibold hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Learn More About Us</a>
+    </div>
+  </section>
+
+  <!-- VISION, MISSION, BELIEFS -->
+  <section class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4">
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#7C3AED]">
+        <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Our Vision</h3>
+        <p class="text-gray-700">To raise a generation after God's heart, impacting families, communities, and nations for Christ.</p>
       </div>
-      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-        <span class="block text-lg font-semibold text-white">"But you will receive power when the Holy Spirit comes on you; and you will be my witnesses..." <span class="text-[#FDBA17]">— Acts 1:8</span></span>
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#FDBA17]">
+        <h3 class="text-xl font-bold text-[#FDBA17] mb-2">Our Mission</h3>
+        <p class="text-gray-700">To disciple, equip, and send believers to fulfill the Great Commission through worship, teaching, and acts of love.</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#2046B3]">
+        <h3 class="text-xl font-bold text-[#2046B3] mb-2">What We Believe</h3>
+        <p class="text-gray-700">We believe in the authority of Scripture, the power of prayer, and the transforming grace of Jesus Christ.</p>
       </div>
     </div>
   </section>
 
-  <!-- About Us / Welcome Section -->
-  <section class="max-w-5xl mx-auto py-16 px-4 text-center bg-gray-50">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-4xl font-bold text-[#2046B3] mb-6">Welcome to Hearts After God Ministry</h2>
-      <p class="text-xl text-gray-700 mb-8 leading-relaxed">We are a global family passionate about soul-winning, discipleship, and revival. Our mission is to empower believers and reach the world for Christ. Join us on this journey!</p>
-      <a href="about.html" class="inline-block px-10 py-4 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow-lg hover:bg-[#e0a615] transition-all duration-300">Learn More</a>
+  <!-- QUICK LINKS / MINISTRIES / RESOURCES -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+      <a href="events.html" class="group bg-gradient-to-br from-[#7C3AED]/10 to-[#FDBA17]/10 rounded-xl shadow p-8 flex flex-col items-center hover:shadow-xl transition">
+        <svg class="w-10 h-10 text-[#7C3AED] mb-4 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <h4 class="font-bold text-lg text-[#7C3AED] mb-2">Events</h4>
+        <p class="text-gray-600 text-center">See what's happening and join us for worship, study, and fellowship.</p>
+      </a>
+      <a href="sermons.html" class="group bg-gradient-to-br from-[#2046B3]/10 to-[#FDBA17]/10 rounded-xl shadow p-8 flex flex-col items-center hover:shadow-xl transition">
+        <svg class="w-10 h-10 text-[#2046B3] mb-4 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A2 2 0 0021 6.382V5a2 2 0 00-2-2H5a2 2 0 00-2 2v1.382a2 2 0 001.447 1.342L9 10m6 0v10a2 2 0 01-2 2H7a2 2 0 01-2-2V10m6 0l-6-3"/></svg>
+        <h4 class="font-bold text-lg text-[#2046B3] mb-2">Sermons</h4>
+        <p class="text-gray-600 text-center">Listen to recent messages and be encouraged in your faith.</p>
+      </a>
+      <a href="missions.html" class="group bg-gradient-to-br from-[#FDBA17]/10 to-[#7C3AED]/10 rounded-xl shadow p-8 flex flex-col items-center hover:shadow-xl transition">
+        <svg class="w-10 h-10 text-[#FDBA17] mb-4 group-hover:scale-110 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 0C7.582 4 4 7.582 4 12c0 4.418 3.582 8 8 8s8-3.582 8-8c0-4.418-3.582-8-8-8z"/></svg>
+        <h4 class="font-bold text-lg text-[#FDBA17] mb-2">Missions</h4>
+        <p class="text-gray-600 text-center">Learn how we serve our community and the world through missions.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- VISIT/CONNECT SECTION -->
+  <section id="visit" class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#7C3AED]/10">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold text-[#2046B3] mb-4">Plan Your Visit</h2>
+      <p class="text-lg text-gray-700 mb-4">
+        We invite you to join us for worship this Sunday! Whether you're new to faith or looking for a church family, you are welcome here.
+      </p>
+      <a href="contact.html" class="inline-block px-6 py-2 bg-[#FDBA17] text-[#2046B3] rounded-lg font-semibold hover:bg-[#7C3AED] hover:text-white transition">Contact Us</a>
     </div>
   </section>
 
   <!-- Upcoming Events Section -->
-  <section class="max-w-6xl mx-auto py-16 px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Upcoming Events</h2>
-      <p class="text-xl text-gray-600">Join us for these life-changing events</p>
+  <section id="events-preview" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-[#2046B3] mb-8 text-center">Upcoming Events</h2>
+      <div id="events-preview-list" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+      <div class="flex justify-center mt-8">
+        <a href="events.html" class="px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition">See All Events</a>
+      </div>
     </div>
-    <div id="home-event-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
   </section>
-  <script>
-  fetch('events.json')
-    .then(res => res.json())
-    .then(events => {
-      const upcoming = events.filter(ev => ev.status === 'upcoming').sort((a, b) => new Date(a.date) - new Date(b.date));
-      const container = document.getElementById('home-event-list');
-      if (upcoming.length === 0) {
-        container.innerHTML = '<div class="col-span-3 text-center text-gray-500 text-lg">No upcoming events at this time. Please check back soon!</div>';
-        return;
-      }
-      container.innerHTML = upcoming.slice(0,3).map(ev => `
-        <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center border-t-4" style="border-color: ${ev.color};">
-          <div class="w-full h-48 bg-gradient-to-br from-[${ev.color}]/20 to-[#7C3AED]/20 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-            <img src="${ev.image}" alt="${ev.title}" class="w-full h-full object-cover rounded-lg" />
-        </div>
-          <div class="text-xl font-bold text-[#2046B3] mb-3">${ev.title}</div>
-          <div class="text-gray-600 mb-2 font-semibold">${new Date(ev.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })} &bull; ${ev.time}</div>
-          <div class="text-[#2046B3]/80 mb-4 text-center">${ev.location}</div>
-          <p class="text-gray-700 mb-4 text-center">${ev.description}</p>
-          <a href="${ev.link}" class="px-6 py-2" style="background:${ev.color};color:${ev.color==='#FDBA17'?'#2046B3':'#fff'};font-weight:600;border-radius:0.5rem;transition:all .3s;display:inline-block;">Learn More</a>
-        </div>
-      `).join('');
-    });
-  </script>
 
   <!-- Weekly Schedule Section -->
-  <section class="max-w-4xl mx-auto py-8 px-4">
-    <div class="bg-gradient-to-br from-[#7C3AED]/20 via-[#FDBA17]/10 to-[#7C3AED]/10 rounded-2xl shadow-lg p-8">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-6 text-center">Weekly Schedule <span class='text-[#FDBA17] text-lg'>(8–9pm)</span></h2>
+  <section class="max-w-4xl mx-auto py-12 px-4 animate-fade-in delay-200 schedule-bg relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none z-0">
+      <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,120 1080,-40 1440,40 L1440,120 L0,120 Z" fill="#7C3AED" fill-opacity="0.04"/></svg>
+    </div>
+    <div class="bg-gradient-to-br from-[#7C3AED]/20 via-[#FDBA17]/10 to-[#7C3AED]/10 rounded-2xl shadow-lg p-8 relative z-10 animate-section">
+      <h2 class="text-2xl font-bold text-[#7C3AED] mb-6 text-center animate-heading">Weekly Schedule <span class='text-[#FDBA17] text-lg'>(8–9pm)</span></h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
         <!-- Monday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#7C3AED]/80 to-[#FDBA17]/80 rounded-xl shadow-lg border-2 border-[#7C3AED] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#7C3AED]/30 transition group">
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#7C3AED]/80 to-[#FDBA17]/80 rounded-xl shadow-lg border-2 border-[#7C3AED] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#7C3AED]/30 transition group animate-card">
           <span class="text-xs font-bold text-white mb-1">Mon</span>
           <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <!-- Prayer Hands SVG -->
-            <svg class="w-7 h-7 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a3 3 0 016 0v6m-6 0a3 3 0 01-6 0V5a3 3 0 016 0v6zm6 0a3 3 0 006 0V5a3 3 0 00-6 0v6z"/></svg>
+            <svg class="w-7 h-7 text-[#7C3AED] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a3 3 0 016 0v6m-6 0a3 3 0 01-6 0V5a3 3 0 016 0v6zm6 0a3 3 0 006 0V5a3 3 0 00-6 0v6z"/></svg>
           </span>
           <span class="text-sm font-semibold text-white mb-1">Prayers & Fasting</span>
           <span class="text-xs text-white font-bold mb-1">The Word</span>
@@ -266,11 +296,10 @@
           <span class="text-xs font-bold text-gray-400 mb-1">Tue</span>
         </div>
         <!-- Wednesday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#FDBA17]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#FDBA17] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#FDBA17]/30 transition group">
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#FDBA17]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#FDBA17] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#FDBA17]/30 transition group animate-card">
           <span class="text-xs font-bold text-white mb-1">Wed</span>
           <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <!-- Fire SVG -->
-            <svg class="w-7 h-7 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0C9.613 5 7.5 7.134 7.5 9.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5C16.5 7.134 14.387 5 12 5z"/></svg>
+            <svg class="w-7 h-7 text-[#FDBA17] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0C9.613 5 7.5 7.134 7.5 9.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5C16.5 7.134 14.387 5 12 5z"/></svg>
           </span>
           <span class="text-sm font-semibold text-white mb-1">Tongues Session</span>
           <span class="text-xs text-white/80">8–9pm</span>
@@ -280,11 +309,10 @@
           <span class="text-xs font-bold text-gray-400 mb-1">Thu</span>
         </div>
         <!-- Friday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#2046B3]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#2046B3] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#2046B3]/30 transition group">
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#2046B3]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#2046B3] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#2046B3]/30 transition group animate-card">
           <span class="text-xs font-bold text-white mb-1">Fri</span>
           <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <!-- Bible SVG -->
-            <svg class="w-7 h-7 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v20"/></svg>
+            <svg class="w-7 h-7 text-[#2046B3] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v20"/></svg>
           </span>
           <span class="text-sm font-semibold text-white mb-1">Bible Study</span>
           <span class="text-xs text-white/80">8–9pm</span>
@@ -302,172 +330,199 @@
   </section>
 
   <!-- Ministries Overview Section -->
-  <section class="max-w-6xl mx-auto py-16 px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Our Ministries</h2>
-      <p class="text-xl text-gray-600">Discover how we serve and minister</p>
+  <section class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-300 ministries-bg relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none z-0">
+      <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="720" cy="60" r="100" fill="#FDBA17" fill-opacity="0.04"/><rect x="200" y="20" width="200" height="80" rx="40" fill="#7C3AED" fill-opacity="0.04"/></svg>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Who We Are -->
-      <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-[#2046B3] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-        <h3 class="text-2xl font-bold text-[#2046B3] mb-4">Who We Are</h3>
-        <p class="text-gray-700 mb-6 leading-relaxed">Hearts After God Ministry is dedicated to global soul-winning, discipleship, and revival. We are a family of believers committed to empowering lives and birthing new ministries as God leads.</p>
-        <a href="about.html" class="inline-block px-6 py-3 bg-[#2046B3] text-white font-semibold rounded-lg hover:bg-[#16337e] transition-all duration-300">Learn More</a>
+    <div class="text-center mb-12 relative z-10">
+      <h2 class="text-4xl font-bold text-[#2046B3] mb-4 animate-heading">Our Ministries</h2>
+      <p class="text-xl text-gray-700">Discover how we serve and minister</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+      <!-- Example ministry card -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-[#7C3AED] hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col items-center text-center animate-card">
+        <span class="bg-[#7C3AED]/10 rounded-full p-4 mb-4 animate-icon-bounce">
+          <svg class="w-12 h-12 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 0C7.582 4 4 7.582 4 12c0 4.418 3.582 8 8 8s8-3.582 8-8c0-4.418-3.582-8-8-8z"/></svg>
+        </span>
+        <h3 class="text-2xl font-bold text-[#7C3AED] mb-2">Discipleship</h3>
+        <p class="text-gray-700 mb-4">Grow in faith and community through our discipleship programs and resources.</p>
+        <a href="discipleship.html" class="cta-btn inline-flex items-center gap-2 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-lg shadow hover:bg-[#e0a615] hover:text-[#7C3AED] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#FDBA17]">Learn More<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
       </div>
-      <!-- What We Believe -->
-      <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-[#FDBA17] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-        <h3 class="text-2xl font-bold text-[#FDBA17] mb-4">What We Believe</h3>
-        <p class="text-gray-700 mb-6 leading-relaxed">We believe in the power of the Holy Spirit, the authority of Scripture, and the call to make disciples of all nations. Our foundation is Acts 1:8 and the teachings of Jesus Christ.</p>
-        <a href="vision.html" class="inline-block px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-semibold rounded-lg hover:bg-[#e0a615] transition-all duration-300">Our Vision & Mission</a>
-    </div>
-    <!-- Ministries -->
-      <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-[#E02424] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-        <h3 class="text-2xl font-bold text-[#E02424] mb-4">Ministries</h3>
-        <ul class="space-y-3 mb-6">
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#E02424] rounded-full mr-3"></span>
-            <a href="discipleship.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Discipleship Training</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#E02424] rounded-full mr-3"></span>
-            <a href="missions.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Missions Outreach</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#E02424] rounded-full mr-3"></span>
-            <a href="events.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Revival Events</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#E02424] rounded-full mr-3"></span>
-            <a href="sermons.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Sermons & Teachings</a>
-          </li>
-      </ul>
-        <a href="missions.html" class="inline-block px-6 py-3 bg-[#E02424] text-white font-semibold rounded-lg hover:bg-[#c81e1e] transition-all duration-300">Explore Ministries</a>
-    </div>
-    <!-- Resources -->
-      <div class="bg-white rounded-xl shadow-lg p-8 border-l-4 border-[#7C3AED] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-        <h3 class="text-2xl font-bold text-[#7C3AED] mb-4">Resources</h3>
-        <ul class="space-y-3 mb-6">
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#7C3AED] rounded-full mr-3"></span>
-            <a href="blog.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Blog & Devotionals</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#7C3AED] rounded-full mr-3"></span>
-            <a href="gallery.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Photo Gallery</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#7C3AED] rounded-full mr-3"></span>
-            <a href="sermons.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Audio & Video Sermons</a>
-          </li>
-          <li class="flex items-center">
-            <span class="w-2 h-2 bg-[#7C3AED] rounded-full mr-3"></span>
-            <a href="contact.html" class="text-[#2046B3] hover:text-[#FDBA17] font-semibold transition-colors">Contact & Prayer Requests</a>
-          </li>
-      </ul>
-        <a href="blog.html" class="inline-block px-6 py-3 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#6d28d9] transition-all duration-300">View All Resources</a>
-      </div>
+      <!-- ...other ministry cards... -->
     </div>
   </section>
+
+  <!-- Latest Blog & Devotionals Section -->
+  <section class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-400 blog-bg relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#F3E8FF]/40 to-[#7C3AED]/10 opacity-5 pointer-events-none z-0"></div>
+    <div class="text-center mb-12 relative z-10">
+      <h2 class="text-4xl font-bold text-[#7C3AED] mb-4 animate-heading">Latest Blog & Devotionals</h2>
+      <p class="text-xl text-gray-700">Grow in faith with our daily devotionals</p>
+    </div>
+    <div id="home-blog-list" class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"></div>
+    <div class="flex justify-center mt-8 relative z-10">
+      <a href="blog.html" class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7C3AED]">See All Blog Posts<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+
   <!-- Latest Sermons/Media Section -->
-  <section class="max-w-6xl mx-auto py-16 px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-[#2046B3] mb-4">Latest Sermons</h2>
-      <p class="text-xl text-gray-600">Watch our latest messages and teachings</p>
+  <section class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-500 sermons-bg relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#2046B3]/10 to-[#FDBA17]/10 opacity-5 pointer-events-none z-0"></div>
+    <div class="text-center mb-12 relative z-10">
+      <h2 class="text-4xl font-bold text-[#2046B3] mb-4 animate-heading">Latest Sermons</h2>
+      <p class="text-xl text-gray-700">Watch our latest messages and teachings</p>
     </div>
-    <div id="home-sermon-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-  </section>
-  <script>
-  fetch('sermons.json')
-    .then(res => res.json())
-    .then(sermons => {
-      sermons.sort((a, b) => new Date(b.date) - new Date(a.date));
-      const container = document.getElementById('home-sermon-list');
-      container.innerHTML = sermons.slice(0,3).map(sermon => `
-        <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center border-t-4" style="border-color: #7C3AED;">
-          <div class="w-full h-48 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-            <img src="${sermon.image}" alt="${sermon.title}" class="w-full h-full object-cover rounded-lg" />
-        </div>
-          <div class="text-xl font-bold text-[#2046B3] mb-3">${sermon.title}</div>
-          <div class="text-gray-600 mb-2 font-semibold">${sermon.preacher}</div>
-          <div class="text-gray-500 mb-4 text-sm">${new Date(sermon.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-          <a href="sermon-detail.html?id=${encodeURIComponent(sermon.id)}" class="px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#6d28d9] transition-all duration-300">Watch Now</a>
-        </div>
-      `).join('');
-    });
-  </script>
-
-  <!-- Latest Blog & Devotionals Section (moved here) -->
-  <section class="max-w-6xl mx-auto py-16 px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-[#7C3AED] mb-4">Latest Blog & Devotionals</h2>
-      <p class="text-xl text-gray-600">Grow in faith with our daily devotionals</p>
-    </div>
-    <div id="home-blog-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-  </section>
-  <script>
-  fetch('blog.json')
-    .then(res => res.json())
-    .then(posts => {
-      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-      const container = document.getElementById('home-blog-list');
-      container.innerHTML = posts.slice(0,3).map(post => `
-        <div class="blog-card bg-white rounded-2xl shadow-xl p-8 flex flex-col border-t-4 border-[#7C3AED] hover:shadow-2xl transition-all duration-300">
-          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="block w-full h-40 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 overflow-hidden">
-            <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
-          </a>
-          <div class="text-xl font-bold text-[#2046B3] mb-2">
-            <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="hover:underline">${post.title}</a>
-        </div>
-          <div class="text-[#FDBA17] font-semibold mb-1">${post.author}</div>
-          <div class="text-gray-500 mb-2 text-sm">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-          <div class="flex flex-wrap gap-2 mb-4">
-            ${(post.tags||[]).map(tag => `<span class="tag" style="background:#f3e8ff;color:#7C3AED;">${tag}</span>`).join('')}
-      </div>
-          <div class="text-gray-700 mb-4 line-clamp-3">${post.excerpt}</div>
-          <a href="blog-detail.html?id=${encodeURIComponent(post.id)}" class="mt-auto px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Read More</a>
-        </div>
-      `).join('');
-    });
-  </script>
-
-  <!-- Gallery Highlights Section (moved here) -->
-  <section class="max-w-6xl mx-auto py-16 px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-[#7C3AED] mb-4">Gallery Highlights</h2>
-      <p class="text-xl text-gray-600">A glimpse into our ministry moments</p>
-    </div>
-    <div id="home-gallery-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"></div>
-    <div class="text-center mt-8">
-      <a href="gallery.html" class="inline-block px-8 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">View Full Gallery</a>
+    <div id="home-sermon-list" class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10"></div>
+    <div class="flex justify-center mt-8 relative z-10">
+      <a href="sermons.html" class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-[#2046B3] text-white font-bold rounded-lg shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#2046B3]">See All Sermons<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
     </div>
   </section>
-  <script>
-  fetch('gallery.json')
-    .then(res => res.json())
-    .then(images => {
-      // Find Cyrilla's image from the galleries folder
-      const cyrilla = images.find(img => img.src === 'assets/images/galleries/Cyrilla Chikamai.jpg');
-      // Exclude Cyrilla from the rest
-      const rest = images.filter(img => img.src !== 'assets/images/galleries/Cyrilla Chikamai.jpg');
-      // Get the latest 7 images (excluding Cyrilla), most recent first
-      const latest = rest.slice(-7).reverse();
-      // Combine Cyrilla first, then the latest 7
-      const display = cyrilla ? [cyrilla, ...latest] : latest;
-      const container = document.getElementById('home-gallery-list');
-      container.innerHTML = display.map(img => `
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
-          <div class="h-48 w-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-[#7C3AED]/10 to-[#FDBA17]/10">
-            <img src="${img.src}" alt="${img.alt}" class="w-full h-full object-cover" />
-    </div>
-          <div class="p-4 flex-1 flex flex-col justify-between">
-            <div class="font-bold text-[#2046B3] mb-2 text-lg line-clamp-2">${img.caption}</div>
-            <div class="flex flex-wrap gap-2 mt-2">${img.tags.map(tag => `<span class='px-3 py-1 bg-[#7C3AED]/80 text-white text-xs font-bold rounded-full shadow'>${tag}</span>`).join('')}</div>
-      </div>
-    </div>
-      `).join('');
-    });
-  </script>
 
+  <!-- Gallery Highlights Section (mosaic background) -->
+  <section class="max-w-6xl mx-auto py-16 px-4 gallery-bg relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none z-0">
+      <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1440" height="120" fill="#FDBA17" fill-opacity="0.03"/><rect x="100" y="20" width="200" height="80" rx="40" fill="#7C3AED" fill-opacity="0.04"/><rect x="400" y="40" width="120" height="40" rx="20" fill="#2046B3" fill-opacity="0.04"/></svg>
+        </div>
+    <div class="text-center mb-12 relative z-10">
+      <h2 class="text-4xl font-bold text-[#7C3AED] mb-4 animate-heading">Gallery Highlights</h2>
+      <p class="text-xl text-gray-700">A glimpse into our ministry moments</p>
+    </div>
+    <div id="home-gallery-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 relative z-10"></div>
+    <div class="text-center mt-8 relative z-10">
+      <a href="gallery.html" class="cta-btn inline-block px-8 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">View Full Gallery</a>
+    </div>
+  </section>
+
+  <!-- Floating Back to Top Button -->
+  <button id="backToTop" class="fixed bottom-8 right-8 z-50 bg-[#7C3AED] text-white p-4 rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/40" aria-label="Back to top" style="display:none;">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+  </button>
+
+  <!-- Section/Card Animation & CTA Ripple Scripts -->
+  <script>
+  // Intersection Observer for section/card animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.animate-section, .animate-card, .animate-heading').forEach(el => observer.observe(el));
+  // Icon bounce/pulse
+  const iconBounce = `@keyframes icon-bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}`;
+  const iconPulse = `@keyframes icon-pulse {0%,100%{opacity:1;}50%{opacity:0.7;}}`;
+  const styleSheet = document.createElement('style');
+  styleSheet.innerText = `
+  .animate-icon-bounce { animation: icon-bounce 2s infinite; }
+  .animate-icon-pulse { animation: icon-pulse 1.5s infinite; }
+  .animate-section, .animate-card, .animate-heading { opacity:0; transform:translateY(32px); transition:all 0.8s cubic-bezier(.4,0,.2,1); }
+  .in-view { opacity:1 !important; transform:none !important; }
+  `;
+  document.head.appendChild(styleSheet);
+  // CTA ripple/glow
+  function ripple(e) {
+    const btn = e.currentTarget;
+    const circle = document.createElement('span');
+    circle.className = 'ripple';
+    circle.style.left = `${e.offsetX}px`;
+    circle.style.top = `${e.offsetY}px`;
+    btn.appendChild(circle);
+    setTimeout(() => circle.remove(), 600);
+  }
+  document.querySelectorAll('.cta-btn').forEach(btn => {
+    btn.addEventListener('click', ripple);
+  });
+  const rippleStyle = document.createElement('style');
+  rippleStyle.innerText = `.ripple{position:absolute;width:48px;height:48px;background:rgba(124,58,237,0.18);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;animation:ripple-anim 0.6s;z-index:10;}@keyframes ripple-anim{from{opacity:1;transform:scale(0);}to{opacity:0;transform:scale(2);}}.cta-btn{position:relative;overflow:hidden;}`;
+  document.head.appendChild(rippleStyle);
+  // Back to Top button
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 400) backToTop.style.display = 'block';
+    else backToTop.style.display = 'none';
+  });
+  backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+  </script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Animated underline logic
+    const navLinks = document.querySelectorAll('#nav-links .nav-link');
+    const navUnderline = document.getElementById('nav-underline');
+    function moveUnderline(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
+      navUnderline.style.width = rect.width + 'px';
+      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
+    }
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', e => moveUnderline(e.target));
+      link.addEventListener('focus', e => moveUnderline(e.target));
+      link.addEventListener('mouseleave', () => {
+        const active = document.querySelector('#nav-links .nav-link.active');
+        moveUnderline(active);
+      });
+    });
+    // On page load, set underline to active
+    window.addEventListener('DOMContentLoaded', () => {
+      const active = document.querySelector('#nav-links .nav-link.active');
+      moveUnderline(active);
+    });
+    // Accessibility: close mobile menu with Esc
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeMobileMenu && closeMobileMenu();
+    });
+    // HERO SLIDESHOW LOGIC
+(function() {
+  const images = [
+    'assets/images/hero/IMG-20250705-WA0019.jpg',
+    'assets/images/hero/IMG-20250705-WA0020.jpg',
+    'assets/images/hero/IMG-20250705-WA0021.jpg',
+    'assets/images/hero/IMG-20250705-WA0022.jpg',
+    'assets/images/hero/IMG-20250705-WA0023.jpg',
+    'assets/images/hero/IMG-20250705-WA0024.jpg',
+    'assets/images/hero/IMG-20250705-WA0025.jpg',
+    'assets/images/hero/IMG-20250705-WA0026.jpg',
+    'assets/images/hero/IMG-20250705-WA0027.jpg'
+  ];
+  let idx = 0;
+  const bgDiv = document.getElementById('hero-slideshow-bg');
+  const dotsDiv = document.getElementById('hero-slideshow-dots');
+  // Preload images
+  images.forEach(src => { const img = new Image(); img.src = src; });
+  function setBg(i) {
+    bgDiv.style.backgroundImage = `url('${images[i]}')`;
+    bgDiv.style.opacity = 1;
+  }
+  function updateDots() {
+    dotsDiv.innerHTML = images.map((_, i) => `<button aria-label="Go to slide ${i+1}" class="w-3 h-3 rounded-full mx-1 focus:outline-none ${i===idx?'bg-[#FDBA17]':'bg-white/60'}" style="transition:background 0.3s;"></button>`).join('');
+    Array.from(dotsDiv.children).forEach((btn, i) => {
+      btn.onclick = () => { idx = i; showSlide(); resetInterval(); };
+    });
+  }
+  function showSlide() {
+    bgDiv.style.opacity = 0;
+    setTimeout(() => {
+      setBg(idx);
+      bgDiv.style.opacity = 1;
+      updateDots();
+    }, 400);
+  }
+  function nextSlide() { idx = (idx + 1) % images.length; showSlide(); }
+  let interval = setInterval(nextSlide, 5000);
+  function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, 5000); }
+  setBg(idx); updateDots();
+  bgDiv.style.transition = 'opacity 0.8s';
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if(document.activeElement.tagName === 'INPUT') return;
+    if(e.key === 'ArrowRight') { nextSlide(); resetInterval(); }
+    if(e.key === 'ArrowLeft') { idx = (idx-1+images.length)%images.length; showSlide(); resetInterval(); }
+  });
+})();
+  </script>
   <!-- Modern Footer -->
   <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white relative overflow-hidden">
     <!-- Background Pattern -->
@@ -483,11 +538,9 @@
         <rect width="100%" height="100%" fill="url(#footer-pattern)"/>
       </svg>
     </div>
-    
     <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
       <!-- Main Footer Content -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-        
         <!-- Ministry Info -->
         <div class="space-y-4">
           <div class="flex items-center gap-3">
@@ -521,7 +574,6 @@
             </a>
           </div>
         </div>
-
         <!-- Quick Links -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Quick Links</h4>
@@ -534,7 +586,6 @@
             <li><a href="gallery.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Gallery</a></li>
           </ul>
         </div>
-
         <!-- Ministries -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Ministries</h4>
@@ -543,7 +594,6 @@
             <li><a href="missions.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Missions</a></li>
           </ul>
         </div>
-
         <!-- Contact & Newsletter -->
         <div class="space-y-4">
           <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Stay Connected</h4>
@@ -570,14 +620,13 @@
           </div>
         </div>
       </div>
-
       <!-- Bottom Bar -->
       <div class="border-t border-white/20 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-sm text-white/70">
             &copy; 2025 Hearts After God Ministry. All rights reserved. | Empowering Believers. Winning Souls.
-      </div>
-      <div class="flex gap-6 text-sm">
+          </div>
+          <div class="flex gap-6 text-sm">
             <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Privacy Policy</a>
             <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Terms of Service</a>
             <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Donate</a>
@@ -587,89 +636,5 @@
       </div>
     </div>
   </footer>
-  <script src="assets/js/discipleship.js"></script>
-  <script>
-    // Animated underline logic
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-    const navUnderline = document.getElementById('nav-underline');
-    function moveUnderline(el) {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
-      navUnderline.style.width = rect.width + 'px';
-      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
-    }
-    navLinks.forEach(link => {
-      link.addEventListener('mouseenter', e => moveUnderline(e.target));
-      link.addEventListener('focus', e => moveUnderline(e.target));
-      link.addEventListener('mouseleave', () => {
-        const active = document.querySelector('#nav-links .nav-link.active');
-        moveUnderline(active);
-      });
-    });
-    // On page load, set underline to active
-    window.addEventListener('DOMContentLoaded', () => {
-      const active = document.querySelector('#nav-links .nav-link.active');
-      moveUnderline(active);
-    });
-    // Mobile menu logic
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileOverlay = document.getElementById('mobile-overlay');
-    const mobileCloseBtn = mobileMenu.querySelector('.close-btn');
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenu.classList.add('open');
-      mobileOverlay.classList.add('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'true');
-    });
-    mobileCloseBtn.addEventListener('click', closeMobileMenu);
-    mobileOverlay.addEventListener('click', closeMobileMenu);
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      mobileOverlay.classList.remove('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    }
-    // Accessibility: close mobile menu with Esc
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeMobileMenu();
-    });
-    // Hero slideshow background
-    (function() {
-      const images = [
-        'assets/images/hero/IMG-20250705-WA0019.jpg',
-        'assets/images/hero/IMG-20250705-WA0020.jpg',
-        'assets/images/hero/IMG-20250705-WA0021.jpg',
-        'assets/images/hero/IMG-20250705-WA0022.jpg',
-        'assets/images/hero/IMG-20250705-WA0023.jpg',
-        'assets/images/hero/IMG-20250705-WA0024.jpg',
-        'assets/images/hero/IMG-20250705-WA0025.jpg',
-        'assets/images/hero/IMG-20250705-WA0026.jpg',
-        'assets/images/hero/IMG-20250705-WA0027.jpg',
-        'assets/images/hero/WhatsApp Image 2025-07-05 at 18.50.41_a0f51c46.jpg',
-        'assets/images/hero/WhatsApp Image 2025-07-05 at 18.50.41_f193bf17.jpg',
-        'assets/images/hero/WhatsApp Image 2025-07-05 at 19.00.15_66d00200.jpg',
-        'assets/images/hero/WhatsApp Image 2025-07-05 at 19.00.15_95233417.jpg',
-        'assets/images/hero/WhatsApp Image 2025-07-05 at 19.00.16_c50ebd13.jpg'
-      ];
-      let idx = 0;
-      const bgDiv = document.getElementById('hero-slideshow-bg');
-      if (!bgDiv) return;
-      // Preload images
-      images.forEach(src => { const img = new Image(); img.src = src; });
-      function setBg(i) {
-        bgDiv.style.backgroundImage = `url('${images[i]}')`;
-        bgDiv.style.backgroundSize = 'cover';
-        bgDiv.style.backgroundPosition = 'center';
-        bgDiv.style.transition = 'background-image 1s ease-in-out';
-        bgDiv.style.opacity = 1;
-      }
-      setBg(idx);
-      setInterval(() => {
-        idx = (idx + 1) % images.length;
-        bgDiv.style.opacity = 0;
-        setTimeout(() => setBg(idx), 500);
-      }, 4000);
-    })();
-  </script>
 </body>
 </html> 

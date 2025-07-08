@@ -82,67 +82,147 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-12 px-4 text-center text-white overflow-hidden">
+  <section class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] py-16 px-4 text-center text-white overflow-hidden">
     <div class="absolute inset-0 bg-black/40 z-0"></div>
-    <div class="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-2xl tracking-tight">Sermons Library</h1>
-      <h2 class="text-2xl md:text-3xl font-semibold mb-6 drop-shadow-xl text-[#FDBA17] tracking-wide">Watch & Listen to Powerful Messages</h2>
-      <p class="text-xl md:text-2xl mb-8 font-medium text-white/90 leading-relaxed">Be inspired, challenged, and transformed by the Word of God through our sermon archive.</p>
+    <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-2xl tracking-tight">Sermons Library</h1>
+      <h2 class="text-2xl md:text-3xl font-semibold mb-8 drop-shadow-xl text-[#FDBA17] tracking-wide">Watch & Listen to Powerful Messages</h2>
+      <p class="text-xl md:text-2xl mb-10 font-medium text-white/90 leading-relaxed max-w-3xl">Be inspired, challenged, and transformed by the Word of God through our comprehensive sermon archive. Discover biblical wisdom for every aspect of life.</p>
+      
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-2xl">
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+          <div class="text-3xl font-bold text-[#FDBA17] mb-2" id="total-sermons">12</div>
+          <div class="text-white/80">Total Sermons</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+          <div class="text-3xl font-bold text-[#FDBA17] mb-2" id="total-views">18,234</div>
+          <div class="text-white/80">Total Views</div>
+        </div>
+        <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+          <div class="text-3xl font-bold text-[#FDBA17] mb-2" id="categories">8</div>
+          <div class="text-white/80">Categories</div>
+        </div>
+      </div>
     </div>
-  </section>
+    </section>
 
   <main class="flex-1 max-w-7xl mx-auto px-4 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
       <!-- Sermon List -->
-      <div class="md:col-span-3">
-        <section class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <input id="sermon-search" class="search-bar" type="text" placeholder="Search by title, preacher, or keyword..." />
-          <div id="sermon-tags" class="flex flex-wrap gap-2 justify-center md:justify-end"></div>
-        </section>
-        <div class="w-full flex justify-center my-8">
-          <div class="h-1 w-24 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full"></div>
+      <div class="lg:col-span-3">
+        <!-- Enhanced Search and Filter Section -->
+        <section class="mb-12 bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div class="flex-1">
+              <input id="sermon-search" class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] text-lg" type="text" placeholder="Search sermons by title, speaker, or keyword..." />
+            </div>
+            <div class="flex gap-3">
+              <select id="category-filter" class="px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white">
+                <option value="">All Categories</option>
+              </select>
+              <select id="sort-filter" class="px-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] bg-white">
+                <option value="date">Latest First</option>
+                <option value="views">Most Viewed</option>
+                <option value="title">Alphabetical</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Tag Filters -->
+          <!-- Popular Topics section removed as per user request -->
+    </section>
+
+        <!-- Featured Sermon Banner -->
+        <section id="featured-banner" class="mb-12 bg-gradient-to-r from-[#FDBA17]/20 to-[#7C3AED]/20 rounded-2xl p-8 border-l-4 border-[#FDBA17] hidden">
+          <div class="flex items-center gap-4 mb-4">
+            <span class="bg-[#FDBA17] text-white px-3 py-1 rounded-full text-sm font-bold">Featured</span>
+            <span class="text-gray-600">Most Popular This Week</span>
+          </div>
+          <div id="featured-content" class="grid md:grid-cols-2 gap-6 items-center">
+            <!-- Featured sermon content will be inserted here -->
         </div>
-        <section>
-          <div id="sermon-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-          <div id="sermon-empty" class="text-center text-xl text-gray-400 mt-12 hidden">No sermons found.</div>
         </section>
+
+        <!-- Sermon Grid -->
+    <section>
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-2xl font-bold text-gray-800">All Sermons</h2>
+            <div class="text-gray-600">
+              <span id="sermon-count">12</span> sermons available
+            </div>
+          </div>
+          <div id="sermon-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+          <div id="sermon-empty" class="text-center py-16">
+            <div class="text-gray-400 text-xl mb-4">No sermons found matching your search.</div>
+            <button onclick="clearFilters()" class="text-[#7C3AED] hover:text-[#FDBA17] font-semibold">Clear all filters</button>
+          </div>
+    </section>
       </div>
-      <!-- Sidebar -->
+      <!-- Enhanced Sidebar -->
       <aside class="space-y-8">
-        <div id="featured-sermon" class="bg-gradient-to-br from-[#FDBA17]/20 to-[#7C3AED]/10 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17] flex flex-col items-center">
+        <!-- Featured Sermon -->
+        <div id="featured-sermon" class="bg-gradient-to-br from-[#FDBA17]/20 to-[#7C3AED]/10 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-4 flex items-center gap-2">
+            <span class="bg-[#FDBA17] text-white px-2 py-1 rounded-full text-xs">Featured</span>
+            Featured Sermon
+          </h3>
+          <div id="featured-content" class="text-center">
           <!-- Featured sermon will be rendered here -->
+          </div>
         </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Popular Tags</h3>
-          <div id="sidebar-tags" class="flex flex-wrap gap-2"></div>
+
+        <!-- Categories -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-4">Browse by Category</h3>
+          <div id="category-list" class="space-y-3">
+            <!-- Categories will be populated here -->
+          </div>
         </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
-          <h3 class="text-lg font-bold text-[#2046B3] mb-2">Top Preachers</h3>
-          <ul id="top-preachers" class="space-y-4"></ul>
-        </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Recent Sermons</h3>
+
+        <!-- Recent Sermons -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-4">Recent Sermons</h3>
           <ul id="recent-sermons" class="space-y-4"></ul>
         </div>
-        <div class="bg-white/90 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Follow Us</h3>
-          <div class="flex gap-3">
-            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
-            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram"><svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg></a>
-            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg></a>
-            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg></a>
+
+        <!-- Most Viewed -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#FDBA17]">
+          <h3 class="text-lg font-bold text-[#2046B3] mb-4">Most Viewed</h3>
+          <ul id="most-viewed" class="space-y-4"></ul>
+        </div>
+
+        <!-- Newsletter Signup -->
+        <div class="bg-gradient-to-br from-[#7C3AED]/10 to-[#FDBA17]/10 rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-3">Stay Updated</h3>
+          <p class="text-gray-600 text-sm mb-4">Get notified when new sermons are uploaded</p>
+          <div class="space-y-3">
+            <input type="email" placeholder="Your email address" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED]" />
+            <button class="w-full bg-[#7C3AED] text-white py-2 rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition font-semibold">Subscribe</button>
+          </div>
+        </div>
+
+        <!-- Follow Us -->
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-[#7C3AED]">
+          <h3 class="text-lg font-bold text-[#7C3AED] mb-4">Follow Us</h3>
+          <div class="flex gap-3 justify-center">
+            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-3 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
+            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram"><svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg></a>
+            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-3 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg></a>
+            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-3 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-3 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-3 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg></a>
           </div>
         </div>
       </aside>
     </div>
   </main>
 
-  <!-- FOOTER (modernized) -->
-  <footer class="relative bg-gradient-to-br from-[#2046B3] to-[#7C3AED] text-white mt-24 rounded-t-3xl overflow-hidden shadow-2xl">
-    <div class="absolute inset-0 opacity-10 pointer-events-none select-none">
-      <svg width="100%" height="100%" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+  <!-- Modern Footer -->
+  <footer class="bg-gradient-to-br from-[#2046B3] via-[#7C3AED] to-[#2046B3] text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <svg class="w-full h-full" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="footer-pattern" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
             <circle cx="30" cy="30" r="2" fill="currentColor"/>
@@ -153,45 +233,45 @@
         <rect width="100%" height="100%" fill="url(#footer-pattern)"/>
       </svg>
     </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-4 py-20">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-16">
       <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
         <!-- Ministry Info -->
-        <div class="space-y-5">
-          <div class="flex items-center gap-4">
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
             <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
             <div>
-              <h3 class="text-2xl font-extrabold text-[#FDBA17] tracking-tight">Hearts After God</h3>
-              <p class="text-base text-white/80 font-medium">Ministry</p>
+              <h3 class="text-xl font-bold text-[#FDBA17]">Hearts After God</h3>
+              <p class="text-sm text-white/80">Ministry</p>
             </div>
           </div>
-          <p class="text-white/90 leading-relaxed text-sm md:text-base">
+          <p class="text-white/90 leading-relaxed">
             Empowering believers worldwide through discipleship, soul-winning, and revival. Join our global family as we reach the world for Christ.
           </p>
-          <div class="flex gap-3 mt-2">
-            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="group p-2 bg-green-500 rounded-full hover:bg-green-600 focus:ring-2 focus:ring-green-400 transition-colors" aria-label="WhatsApp" title="WhatsApp">
+          <div class="flex gap-3">
+            <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" class="p-2 bg-green-500 rounded-full hover:bg-green-600 transition-colors" aria-label="WhatsApp">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
             </a>
-            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="group p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 focus:ring-2 focus:ring-pink-400 transition-colors" aria-label="Instagram" title="Instagram">
+            <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full hover:from-purple-600 hover:to-pink-600 transition-colors" aria-label="Instagram">
               <svg class="w-5 h-5" viewBox="0 0 448 512" fill="currentColor"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg>
             </a>
-            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="group p-2 bg-blue-400 rounded-full hover:bg-blue-500 focus:ring-2 focus:ring-blue-300 transition-colors" aria-label="Telegram" title="Telegram">
+            <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" class="p-2 bg-blue-400 rounded-full hover:bg-blue-500 transition-colors" aria-label="Telegram">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.04 16.56l-.39 3.67c.56 0 .8-.24 1.09-.53l2.62-2.5 5.44 3.98c1 .55 1.72.26 1.97-.92l3.58-16.76c.32-1.48-.54-2.06-1.5-1.7L2.18 9.13c-1.45.56-1.43 1.36-.25 1.72l4.59 1.43 10.65-6.7c.5-.32.96-.14.58.18z"/></svg>
             </a>
-            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="group p-2 bg-blue-600 rounded-full hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 transition-colors" aria-label="Facebook" title="Facebook">
+            <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors" aria-label="Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
-            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="group p-2 bg-red-600 rounded-full hover:bg-red-700 focus:ring-2 focus:ring-red-400 transition-colors" aria-label="YouTube" title="YouTube">
+            <a href="https://www.youtube.com/@HeartsAfterGodMinistries" target="_blank" class="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors" aria-label="YouTube">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
-            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="group p-2 bg-black rounded-full hover:bg-gray-800 focus:ring-2 focus:ring-gray-700 transition-colors" aria-label="TikTok" title="TikTok">
+            <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" class="p-2 bg-black rounded-full hover:bg-gray-800 transition-colors" aria-label="TikTok">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#000"/><path d="M22 13.5c-.5 0-1-.1-1.5-.3v4.3c0 2.2-1.8 4-4 4s-4-1.8-4-4 1.8-4 4-4c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2v-7.5h2c0 1.1.9 2 2 2v1.5z" fill="#fff"/></svg>
             </a>
           </div>
         </div>
         <!-- Quick Links -->
-        <div class="space-y-5">
-          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2 tracking-wide">Quick Links</h4>
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Quick Links</h4>
           <ul class="space-y-2">
             <li><a href="about.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>About Us</a></li>
             <li><a href="vision.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Our Vision</a></li>
@@ -202,16 +282,16 @@
           </ul>
         </div>
         <!-- Ministries -->
-        <div class="space-y-5">
-          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2 tracking-wide">Ministries</h4>
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Ministries</h4>
           <ul class="space-y-2">
             <li><a href="discipleship.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Discipleship</a></li>
             <li><a href="missions.html" class="text-white/80 hover:text-[#FDBA17] transition-colors flex items-center gap-2"><span class="w-1 h-1 bg-[#FDBA17] rounded-full"></span>Missions</a></li>
           </ul>
         </div>
         <!-- Contact & Newsletter -->
-        <div class="space-y-5">
-          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2 tracking-wide">Stay Connected</h4>
+        <div class="space-y-4">
+          <h4 class="text-lg font-bold text-[#FDBA17] border-b-2 border-[#FDBA17] pb-2">Stay Connected</h4>
           <div class="space-y-3">
             <div class="flex items-center gap-3 text-white/80">
               <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,248 +316,300 @@
         </div>
       </div>
       <!-- Bottom Bar -->
-      <div class="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="border-t border-white/20 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
         <div class="text-sm text-white/70">
           &copy; 2025 Hearts After God Ministry. All rights reserved. | Empowering Believers. Winning Souls.
         </div>
         <div class="flex gap-6 text-sm">
-          <a href="#" class="text-white/70 hover:text-[#FDBA17] focus:text-[#FDBA17] focus:ring-2 focus:ring-[#FDBA17] rounded transition-colors" tabindex="0">Privacy Policy</a>
-          <a href="#" class="text-white/70 hover:text-[#FDBA17] focus:text-[#FDBA17] focus:ring-2 focus:ring-[#FDBA17] rounded transition-colors" tabindex="0">Terms of Service</a>
-          <a href="#" class="text-white/70 hover:text-[#FDBA17] focus:text-[#FDBA17] focus:ring-2 focus:ring-[#FDBA17] rounded transition-colors" tabindex="0">Donate</a>
-          <a href="contact.html" class="text-white/70 hover:text-[#FDBA17] focus:text-[#FDBA17] focus:ring-2 focus:ring-[#FDBA17] rounded transition-colors" tabindex="0">Contact</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Privacy Policy</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Terms of Service</a>
+            <a href="#" class="text-white/70 hover:text-[#FDBA17] transition-colors">Donate</a>
+            <a href="contact.html" class="text-white/70 hover:text-[#FDBA17] transition-colors">Contact</a>
+          </div>
         </div>
       </div>
     </div>
-    <!-- Back to Top Button -->
-    <button id="backToTop" aria-label="Back to top" class="hidden fixed bottom-8 right-8 z-50 bg-[#7C3AED] hover:bg-[#FDBA17] text-white hover:text-[#2046B3] rounded-full shadow-lg p-4 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#FDBA17]/60">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-    </button>
-    <script>
-      // Show/hide back to top button
-      const backToTop = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          backToTop.classList.remove('hidden');
-        } else {
-          backToTop.classList.add('hidden');
-        }
-      });
-      backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    </script>
   </footer>
-  <script src="assets/js/discipleship.js"></script>
   <script>
-    // Animated underline logic for nav
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-    const navUnderline = document.getElementById('nav-underline');
-    function moveUnderline(el) {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
-      navUnderline.style.width = rect.width + 'px';
-      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
-    }
-    navLinks.forEach(link => {
-      link.addEventListener('mouseenter', e => moveUnderline(e.target));
-      link.addEventListener('focus', e => moveUnderline(e.target));
-      link.addEventListener('mouseleave', () => {
-        const active = document.querySelector('#nav-links .nav-link.active');
-        moveUnderline(active);
-      });
-    });
-    window.addEventListener('DOMContentLoaded', () => {
-      const active = document.querySelector('#nav-links .nav-link.active');
-      moveUnderline(active);
-    });
-    // Mobile menu logic
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileOverlay = document.getElementById('mobile-overlay');
-    const mobileCloseBtn = mobileMenu.querySelector('.close-btn');
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenu.classList.add('open');
-      mobileOverlay.classList.add('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'true');
-    });
-    mobileCloseBtn.addEventListener('click', closeMobileMenu);
-    mobileOverlay.addEventListener('click', closeMobileMenu);
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      mobileOverlay.classList.remove('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    }
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeMobileMenu();
-    });
-    // Sermon logic
+    // Global variables
     let allSermons = [];
-    let activeTag = '';
-    function tagClass(tag) {
-      if (tag.toLowerCase().includes('faith')) return 'tag tag-blue';
-      if (tag.toLowerCase().includes('prayer')) return 'tag tag-gold';
-      if (tag.toLowerCase().includes('freedom')) return 'tag';
-      return 'tag';
+    let filteredSermons = [];
+
+    // Load and initialize sermons
+    async function loadSermons() {
+      try {
+        const response = await fetch('sermons.json');
+        const data = await response.json();
+        allSermons = data.sermons || data;
+        filteredSermons = [...allSermons];
+        
+        updateStats();
+        renderSermons(filteredSermons);
+        setupFilters();
+        setupSidebar();
+        
+        // Show featured sermon if available
+        const featuredSermon = allSermons.find(s => s.featured);
+        if (featuredSermon) {
+          showFeaturedSermon(featuredSermon);
+        }
+      } catch (error) {
+        console.error('Error loading sermons:', error);
+        document.getElementById('sermon-list').innerHTML = '<div class="text-center text-gray-500">Error loading sermons. Please try again later.</div>';
+      }
     }
-    function getInitials(name) {
-      if (!name) return '';
-      return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+
+    // Update statistics
+    function updateStats() {
+      const categories = [...new Set(allSermons.map(s => s.category))];
+      const totalViews = allSermons.reduce((sum, s) => sum + (s.views || 0), 0);
+      
+      document.getElementById('total-sermons').textContent = allSermons.length;
+      document.getElementById('total-views').textContent = totalViews.toLocaleString();
+      document.getElementById('categories').textContent = categories.length;
+      document.getElementById('sermon-count').textContent = filteredSermons.length;
     }
-    function isNewSermon(dateStr) {
-      const date = new Date(dateStr);
-      const now = new Date();
-      const diff = (now - date) / (1000 * 60 * 60 * 24);
-      return diff <= 30;
-    }
+
+    // Render sermons
     function renderSermons(sermons) {
-      const list = document.getElementById('sermon-list');
-      const empty = document.getElementById('sermon-empty');
-      if (!sermons.length) {
-        list.innerHTML = '';
-        empty.classList.remove('hidden');
+      const container = document.getElementById('sermon-list');
+      const emptyState = document.getElementById('sermon-empty');
+      
+      if (sermons.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
         return;
       }
-      empty.classList.add('hidden');
-      list.innerHTML = sermons.map(sermon => {
-        const avatar = sermon.preacherAvatar || '';
-        const initials = getInitials(sermon.preacher);
-        const isNew = isNewSermon(sermon.date);
-        return `
-          <div class="sermon-card bg-white rounded-2xl shadow-xl p-8 flex flex-col border-t-4 hover:shadow-2xl transition-all duration-300 relative" style="border-color: #7C3AED;">
-            ${isNew ? '<span class="absolute top-4 right-4 bg-[#FDBA17] text-[#2046B3] text-xs font-bold px-3 py-1 rounded-full shadow">NEW</span>' : ''}
-            <a href="sermon-detail.html?id=${encodeURIComponent(sermon.id)}" class="block w-full h-48 bg-gradient-to-br from-[#7C3AED]/20 to-[#FDBA17]/20 rounded-lg mb-6 overflow-hidden group">
-              <img src="${sermon.image}" alt="${sermon.title}" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105" />
-            </a>
-            <div class="flex items-center gap-3 mb-2">
-              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-lg font-bold text-[#7C3AED] overflow-hidden">
-                ${avatar ? `<img src="${avatar}" alt="${sermon.preacher}" class="w-full h-full object-cover rounded-full" />` : initials}
+      
+      emptyState.classList.add('hidden');
+      
+      container.innerHTML = sermons.map(sermon => `
+        <article class="sermon-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
+          <div class="relative">
+            <img src="${sermon.thumbnail || 'assets/images/hero/IMG-20250705-WA0019.jpg'}" alt="${sermon.title}" class="w-full h-48 object-cover" />
+            <div class="absolute top-4 right-4">
+              <span class="bg-[#7C3AED] text-white px-3 py-1 rounded-full text-sm font-bold">${sermon.category || 'Sermon'}</span>
               </div>
-              <div class="text-[#FDBA17] font-semibold">${sermon.preacher}</div>
-              ${sermon.duration ? `<span class="ml-2 text-xs text-gray-500 bg-gray-100 rounded px-2 py-0.5">${sermon.duration}</span>` : ''}
-              ${sermon.type ? `<span class="ml-2 text-xs text-white bg-[#2046B3] rounded px-2 py-0.5">${sermon.type}</span>` : ''}
+            <div class="absolute bottom-4 left-4 flex items-center gap-2 text-white text-sm">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              <span>${sermon.views || 0} views</span>
             </div>
-            <div class="text-xl font-bold text-[#2046B3] mb-1">
-              <a href="sermon-detail.html?id=${encodeURIComponent(sermon.id)}" class="hover:underline">${sermon.title}</a>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 line-clamp-2">${sermon.title}</h3>
+            <p class="text-gray-600 mb-3">${sermon.speaker || 'Unknown Speaker'}</p>
+            <p class="text-gray-500 text-sm mb-4 line-clamp-3">${sermon.description || 'No description available.'}</p>
+            
+          <div class="flex flex-wrap gap-2 mb-4">
+              ${(sermon.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-500">${new Date(sermon.date).toLocaleDateString()}</span>
+              <button onclick="openSermonModal('${sermon.id}')" class="bg-[#7C3AED] text-white px-4 py-2 rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition font-semibold">
+                Watch Now
+              </button>
             </div>
-            <div class="text-gray-500 mb-2 text-sm">${new Date(sermon.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-            <div class="flex flex-wrap gap-2 mb-4">
-              ${(sermon.tags||[]).map(tag => `<span class="${tagClass(tag)}">${tag}</span>`).join('')}
-            </div>
-            <div class="text-gray-700 mb-4 line-clamp-3">${sermon.description}</div>
-            <div class="flex gap-2 mt-auto">
-              <a href="sermon-detail.html?id=${encodeURIComponent(sermon.id)}" class="px-5 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Watch Now</a>
-              <a href="${sermon.download || '#'}" class="px-4 py-2 bg-gray-100 text-[#2046B3] font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-white transition-all duration-300" title="Download" aria-label="Download" target="_blank"><svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg></a>
-              <button onclick="navigator.share ? navigator.share({title: '${sermon.title}', url: location.origin + '/sermon-detail.html?id=${encodeURIComponent(sermon.id)}'}) : alert('Share not supported on this browser.')" class="px-4 py-2 bg-gray-100 text-[#2046B3] font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-white transition-all duration-300" title="Share" aria-label="Share"><svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v14"/></svg></button>
-            </div>
+        </div>
+        </article>
+      `).join('');
+    }
+
+    // Setup filters
+    function setupFilters() {
+      const searchInput = document.getElementById('sermon-search');
+      const categoryFilter = document.getElementById('category-filter');
+      const sortFilter = document.getElementById('sort-filter');
+      
+      // Populate category filter
+      const categories = [...new Set(allSermons.map(s => s.category))];
+      categoryFilter.innerHTML = '<option value="">All Categories</option>' + 
+        categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
+      
+      // Populate tags
+      // (Popular Topics section removed, so no tag rendering)
+      
+      // Event listeners
+      searchInput.addEventListener('input', filterSermons);
+      categoryFilter.addEventListener('change', filterSermons);
+      sortFilter.addEventListener('change', filterSermons);
+    }
+
+    // Filter sermons
+    function filterSermons() {
+      const searchTerm = document.getElementById('sermon-search').value.toLowerCase();
+      const category = document.getElementById('category-filter').value;
+      const sortBy = document.getElementById('sort-filter').value;
+      // (Popular Topics section removed, so no tag filtering)
+      
+      filteredSermons = allSermons.filter(sermon => {
+        const matchesSearch = !searchTerm || 
+          sermon.title.toLowerCase().includes(searchTerm) ||
+          sermon.speaker?.toLowerCase().includes(searchTerm) ||
+          sermon.description?.toLowerCase().includes(searchTerm);
+        
+        const matchesCategory = !category || sermon.category === category;
+        
+        // (Popular Topics section removed, so no tag filtering)
+        
+        return matchesSearch && matchesCategory;
+      });
+      
+      // Sort sermons
+      filteredSermons.sort((a, b) => {
+        switch (sortBy) {
+          case 'views':
+            return (b.views || 0) - (a.views || 0);
+          case 'title':
+            return a.title.localeCompare(b.title);
+          case 'date':
+          default:
+            return new Date(b.date) - new Date(a.date);
+        }
+      });
+      
+      renderSermons(filteredSermons);
+      updateStats();
+    }
+
+    // Toggle tag filter
+    // (Popular Topics dropdown JS removed as per user request)
+
+    // Clear all filters
+    function clearFilters() {
+      document.getElementById('sermon-search').value = '';
+      document.getElementById('category-filter').value = '';
+      document.getElementById('sort-filter').value = 'date';
+      // (Popular Topics section removed, so no tag clearing)
+      filteredSermons = [...allSermons];
+      renderSermons(filteredSermons);
+      updateStats();
+    }
+
+    // Make clearFilters globally available
+    window.clearFilters = clearFilters;
+
+    // Setup sidebar
+    function setupSidebar() {
+      // Featured sermon
+      const featuredSermon = allSermons.find(s => s.featured);
+      if (featuredSermon) {
+        const featuredContent = document.querySelector('#featured-sermon #featured-content');
+        featuredContent.innerHTML = `
+          <div class="text-left">
+            <h4 class="font-bold text-gray-800 mb-2">${featuredSermon.title}</h4>
+            <p class="text-sm text-gray-600 mb-3">${featuredSermon.speaker}</p>
+            <button onclick="openSermonModal('${featuredSermon.id}')" class="bg-[#7C3AED] text-white px-4 py-2 rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition text-sm font-semibold">
+              Watch Featured
+            </button>
           </div>
         `;
-      }).join('');
-    }
-    function renderTags(sermons) {
-      const tagSet = new Map();
-      sermons.forEach(s => (s.tags||[]).forEach(t => tagSet.set(t, (tagSet.get(t)||0)+1)));
-      const tags = Array.from(tagSet.keys()).sort();
-      const tagBar = document.getElementById('sermon-tags');
-      tagBar.innerHTML = tags.map(tag => `<button class="filter-btn${activeTag===tag?' active':''}" data-tag="${tag}">${tag} <span class='ml-1 text-xs text-gray-500 bg-white/60 rounded px-1.5'>${tagSet.get(tag)}</span></button>`).join('');
-      tagBar.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', function() {
-          activeTag = activeTag===this.dataset.tag ? '' : this.dataset.tag;
-          filterAndRender();
-        });
-      });
-      // Sidebar tags
-      const sidebarTags = document.getElementById('sidebar-tags');
-      if (sidebarTags) {
-        sidebarTags.innerHTML = tags.map(tag => `<span class="tag">${tag} <span class='ml-1 text-xs text-gray-500 bg-white/60 rounded px-1.5'>${tagSet.get(tag)}</span></span>`).join('');
       }
-    }
-    function filterAndRender() {
-      const search = document.getElementById('sermon-search').value.trim().toLowerCase();
-      let filtered = allSermons;
-      if (activeTag) {
-        filtered = filtered.filter(s => (s.tags||[]).includes(activeTag));
-      }
-      if (search) {
-        filtered = filtered.filter(s =>
-          (s.title && s.title.toLowerCase().includes(search)) ||
-          (s.preacher && s.preacher.toLowerCase().includes(search)) ||
-          (s.description && s.description.toLowerCase().includes(search)) ||
-          (s.tags && s.tags.some(tag => tag.toLowerCase().includes(search)))
-        );
-      }
-      renderSermons(filtered);
-    }
-    function renderFeaturedSermon(sermons) {
-      if (!sermons.length) return;
-      // Pick the most recent sermon as featured
-      const featured = sermons.slice().sort((a,b)=>new Date(b.date)-new Date(a.date))[0];
-      const avatar = featured.preacherAvatar || '';
-      const initials = getInitials(featured.preacher);
-      document.getElementById('featured-sermon').innerHTML = `
-        <div class='w-full flex flex-col items-center'>
-          <a href="sermon-detail.html?id=${encodeURIComponent(featured.id)}" class="block w-full aspect-video rounded-xl overflow-hidden mb-4 shadow-lg">
-            <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover" />
+      
+      // Categories
+      const categories = [...new Set(allSermons.map(s => s.category))];
+      const categoryList = document.getElementById('category-list');
+      categoryList.innerHTML = categories.map(cat => {
+        const count = allSermons.filter(s => s.category === cat).length;
+        return `
+          <a href="#" onclick="filterByCategory('${cat}'); return false;" class="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition">
+            <span class="text-gray-700">${cat}</span>
+            <span class="bg-[#7C3AED] text-white px-2 py-1 rounded-full text-xs">${count}</span>
           </a>
-          <span class="text-xs uppercase tracking-widest text-[#FDBA17] font-bold mb-1">Featured Sermon</span>
-          <a href="sermon-detail.html?id=${encodeURIComponent(featured.id)}" class="text-lg font-bold text-[#2046B3] hover:underline mb-1">${featured.title}</a>
-          <div class="flex items-center gap-2 mb-2">
-            <div class="w-8 h-8 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-base font-bold text-[#7C3AED] overflow-hidden">
-              ${avatar ? `<img src="${avatar}" alt="${featured.preacher}" class="w-full h-full object-cover rounded-full" />` : initials}
-            </div>
-            <span class="text-[#FDBA17] font-semibold">${featured.preacher}</span>
-            ${featured.duration ? `<span class='ml-2 text-xs text-gray-500 bg-gray-100 rounded px-2 py-0.5'>${featured.duration}</span>` : ''}
-          </div>
-          <div class="text-gray-700 text-sm line-clamp-2 mb-2">${featured.description}</div>
-          <a href="sermon-detail.html?id=${encodeURIComponent(featured.id)}" class="px-4 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300">Watch Now</a>
-        </div>
-      `;
-    }
-    function renderTopPreachers(sermons) {
-      const preachers = {};
-      sermons.forEach(s => {
-        if (!preachers[s.preacher]) preachers[s.preacher] = { count: 0, avatar: s.preacherAvatar };
-        preachers[s.preacher].count++;
-      });
-      const sorted = Object.entries(preachers).sort((a,b)=>b[1].count-a[1].count).slice(0,5);
-      document.getElementById('top-preachers').innerHTML = sorted.map(([name, data]) => `
+        `;
+      }).join('');
+      
+      // Recent sermons
+      const recentSermons = allSermons.slice(0, 5);
+      const recentList = document.getElementById('recent-sermons');
+      recentList.innerHTML = recentSermons.map(sermon => `
         <li class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-base font-bold text-[#7C3AED] overflow-hidden">
-            ${data.avatar ? `<img src="${data.avatar}" alt="${name}" class="w-full h-full object-cover rounded-full" />` : getInitials(name)}
+          <img src="${sermon.thumbnail || 'assets/images/hero/IMG-20250705-WA0019.jpg'}" alt="${sermon.title}" class="w-12 h-12 rounded object-cover" />
+          <div class="flex-1 min-w-0">
+            <h4 class="text-sm font-semibold text-gray-800 truncate">${sermon.title}</h4>
+            <p class="text-xs text-gray-500">${sermon.speaker}</p>
           </div>
-          <span class="font-semibold text-[#2046B3]">${name}</span>
-          <span class="ml-auto text-xs bg-[#FDBA17]/20 text-[#7C3AED] rounded px-2 py-0.5">${data.count} sermons</span>
+        </li>
+      `).join('');
+      
+      // Most viewed
+      const mostViewed = [...allSermons].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 5);
+      const mostViewedList = document.getElementById('most-viewed');
+      mostViewedList.innerHTML = mostViewed.map(sermon => `
+        <li class="flex items-center gap-3">
+          <img src="${sermon.thumbnail || 'assets/images/hero/IMG-20250705-WA0019.jpg'}" alt="${sermon.title}" class="w-12 h-12 rounded object-cover" />
+          <div class="flex-1 min-w-0">
+            <h4 class="text-sm font-semibold text-gray-800 truncate">${sermon.title}</h4>
+            <p class="text-xs text-gray-500">${sermon.views || 0} views</p>
+          </div>
         </li>
       `).join('');
     }
-    // Make search bar sticky on scroll
-    window.addEventListener('DOMContentLoaded', function() {
-      const searchBar = document.getElementById('sermon-search');
-      const stickyClass = 'sticky top-4 z-30 bg-white/90 backdrop-blur rounded-xl shadow px-2';
-      if (searchBar) {
-        searchBar.parentElement.classList.add('relative');
-        searchBar.classList.add('transition-all');
-        window.addEventListener('scroll', function() {
-          if (window.scrollY > 120) {
-            searchBar.classList.add(...stickyClass.split(' '));
+
+    // Filter by category
+    function filterByCategory(category) {
+      document.getElementById('category-filter').value = category;
+      filterSermons();
+    }
+    window.filterByCategory = filterByCategory;
+
+    // Show featured sermon banner
+    function showFeaturedSermon(sermon) {
+      const banner = document.getElementById('featured-banner');
+      const content = document.getElementById('featured-content');
+      
+      content.innerHTML = `
+        <div class="flex-1">
+          <h3 class="text-2xl font-bold text-gray-800 mb-3">${sermon.title}</h3>
+          <p class="text-gray-600 mb-4">${sermon.speaker}</p>
+          <p class="text-gray-500 mb-6">${sermon.description}</p>
+          <button onclick="openSermonModal('${sermon.id}')" class="bg-[#7C3AED] text-white px-6 py-3 rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition font-semibold">
+            Watch Featured Sermon
+          </button>
+        </div>
+        <div class="flex-1">
+          <img src="${sermon.thumbnail || 'assets/images/hero/IMG-20250705-WA0019.jpg'}" alt="${sermon.title}" class="w-full h-64 object-cover rounded-lg" />
+        </div>
+      `;
+      
+      banner.classList.remove('hidden');
+    }
+
+    // Open sermon modal (placeholder function)
+    function openSermonModal(sermonId) {
+      const sermon = allSermons.find(s => s.id === sermonId);
+      if (sermon && sermon.video) {
+        window.open(sermon.video, '_blank');
           } else {
-            searchBar.classList.remove(...stickyClass.split(' '));
-          }
-        });
+        alert('Video not available for this sermon.');
       }
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('sermons.json')
-        .then(res => res.json())
-        .then(sermons => {
-          allSermons = sermons;
-          renderTags(sermons);
-          renderSermons(sermons);
-          renderFeaturedSermon(sermons);
-          renderTopPreachers(sermons);
-        });
-      document.getElementById('sermon-search').addEventListener('input', filterAndRender);
-    });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', loadSermons);
+
+    // Real-time stats updater (every 30 seconds)
+    function updateStatsRealtime() {
+      fetch('sermons.json?_=' + Date.now()) // prevent caching
+        .then(response => response.json())
+        .then(data => {
+          const sermons = data.sermons || data;
+          const categories = [...new Set(sermons.map(s => s.category))];
+          const totalViews = sermons.reduce((sum, s) => sum + (s.views || 0), 0);
+          document.getElementById('total-sermons').textContent = sermons.length;
+          document.getElementById('total-views').textContent = totalViews.toLocaleString();
+          document.getElementById('categories').textContent = categories.length;
+        })
+        .catch(() => {/* ignore errors for polling */});
+    }
+    setInterval(updateStatsRealtime, 30000); // 30 seconds
+    document.addEventListener('DOMContentLoaded', updateStatsRealtime);
+
+    // Dropdown toggle for tags
+    // (Popular Topics dropdown JS removed as per user request)
   </script>
 </body>
 </html> 
