@@ -3,14 +3,65 @@
     "id": "blog1",
     "title": "How to Grow Spiritually",
     "author": "Mary K.",
+    "authorAvatar": "assets/images/leadership/Mary.jpg",
     "image": "assets/images/blog/blog1.jpg",
-    "date": "2024-07-03"
+    "date": "2024-07-03",
+    "excerpt": "Discover practical steps to deepen your spiritual walk and grow closer to God through daily practices and biblical wisdom.",
+    "tags": ["Spiritual Growth", "Faith", "Prayer", "Bible Study"],
+    "category": "Devotionals",
+    "readingTime": "5 min read",
+    "featured": true
   },
   {
     "id": "blog2",
     "title": "Serving Others Like Jesus",
     "author": "John Doe",
+    "authorAvatar": "assets/images/leadership/John.jpg",
     "image": "assets/images/blog/blog2.jpg",
-    "date": "2024-06-28"
+    "date": "2024-06-28",
+    "excerpt": "Learn how to serve others with the heart of Christ and make a difference in your community through acts of love and kindness.",
+    "tags": ["Service", "Love", "Community", "Ministry"],
+    "category": "Teachings",
+    "readingTime": "7 min read",
+    "featured": false
+  },
+  {
+    "id": "blog3",
+    "title": "The Power of Prayer in Daily Life",
+    "author": "Sarah M.",
+    "authorAvatar": "assets/images/leadership/Sarah.jpg",
+    "image": "assets/images/blog/blog3.jpg",
+    "date": "2024-06-25",
+    "excerpt": "Explore how prayer can transform your daily life and strengthen your relationship with God through practical examples and biblical insights.",
+    "tags": ["Prayer", "Faith", "Spiritual Growth", "Daily Life"],
+    "category": "Devotionals",
+    "readingTime": "6 min read",
+    "featured": false
+  },
+  {
+    "id": "blog4",
+    "title": "My Testimony: From Darkness to Light",
+    "author": "David W.",
+    "authorAvatar": "assets/images/leadership/David.jpg",
+    "image": "assets/images/blog/blog4.jpg",
+    "date": "2024-06-20",
+    "excerpt": "A powerful personal testimony of how God's grace transformed a life from addiction and despair to hope and purpose in Christ.",
+    "tags": ["Testimony", "Grace", "Transformation", "Hope"],
+    "category": "Testimonies",
+    "readingTime": "8 min read",
+    "featured": true
+  },
+  {
+    "id": "blog5",
+    "title": "Building Strong Family Relationships",
+    "author": "Mary K.",
+    "authorAvatar": "assets/images/leadership/Mary.jpg",
+    "image": "assets/images/blog/blog5.jpg",
+    "date": "2024-06-15",
+    "excerpt": "Biblical principles for building strong, loving family relationships that honor God and create a foundation of faith for future generations.",
+    "tags": ["Family", "Relationships", "Marriage", "Parenting"],
+    "category": "Teachings",
+    "readingTime": "9 min read",
+    "featured": false
   }
 ] 
