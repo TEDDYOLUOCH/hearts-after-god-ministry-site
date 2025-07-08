@@ -180,7 +180,7 @@ class DiscipleshipBackend {
       role: 'student',
       profile: {
         phone: userData.phone || '',
-        church: userData.church || '',
+        ministry: userData.ministry || '',
         location: userData.location || '',
         avatar: this.generateAvatar(userData.name)
       },
@@ -263,7 +263,7 @@ class DiscipleshipBackend {
       role: 'admin',
       profile: {
         phone: '+254 700 000 000',
-        church: 'Hearts After God Ministry',
+        ministry: 'Hearts After God Ministry',
         location: 'Nairobi, Kenya',
         avatar: this.generateAvatar('Admin User')
       },
@@ -953,7 +953,7 @@ class DiscipleshipBackend {
         role: 'admin',
         profile: {
           phone: '+254 700 000 000',
-          church: 'Hearts After God Ministry',
+          ministry: 'Hearts After God Ministry',
           location: 'Nairobi, Kenya',
           avatar: this.generateAvatar('Admin User')
         },
@@ -976,7 +976,7 @@ class DiscipleshipBackend {
         role: 'student',
         profile: {
           phone: '+254 700 000 001',
-          church: 'Hearts After God Ministry',
+          ministry: 'Hearts After God Ministry',
           location: 'Nairobi, Kenya',
           avatar: this.generateAvatar('Demo Student')
         },

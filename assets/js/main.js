@@ -567,15 +567,26 @@ function initMobileMenu() {
 function initGalleryPage() {
   // Only run on gallery.html
   if (!window.location.pathname.endsWith('gallery.html')) return;
+  console.log('[Gallery] initGalleryPage running');
   let allImages = [];
   let activeCategory = '';
   fetch('gallery.json')
-    .then(res => res.json())
+    .then(res => {
+      console.log('[Gallery] Fetched gallery.json:', res.status);
+      if (!res.ok) throw new Error('Failed to fetch gallery.json');
+      return res.json();
+    })
     .then(images => {
+      console.log('[Gallery] Parsed images:', images.length, images);
       allImages = images;
       renderSidebar(images);
       renderGalleryFeaturedAndStats(images);
       filterAndRender();
+    })
+    .catch(err => {
+      console.error('[Gallery] Error loading gallery.json:', err);
+      const grid = document.getElementById('gallery-list');
+      if (grid) grid.innerHTML = '<div class="text-red-600">Failed to load gallery images.</div>';
     });
   // Render category filter buttons (future-proof)
   function renderCategories(images) {
@@ -646,14 +657,19 @@ function renderGalleryFeaturedAndStats(images) {
     document.getElementById('featured-img').src = featuredImg.url;
     document.getElementById('featured-title').textContent = featuredImg.album || 'Featured';
     document.getElementById('featured-caption').textContent = featuredImg.caption || '';
-    document.getElementById('view-featured').onclick = () => {
-      // Filter to featured album
-      if (featuredImg.album) {
-        activeAlbum = featuredImg.album;
-        filterAndRender();
-        window.scrollTo({ top: document.getElementById('gallery-list').offsetTop - 80, behavior: 'smooth' });
-      }
-    };
+    const viewBtn = document.getElementById('view-featured');
+    if (viewBtn) {
+      viewBtn.onclick = () => {
+        console.log('[Gallery] View Album button clicked');
+        if (featuredImg.album) {
+          activeAlbum = featuredImg.album;
+          filterAndRender();
+          window.scrollTo({ top: document.getElementById('gallery-list').offsetTop - 80, behavior: 'smooth' });
+        }
+      };
+    } else {
+      console.warn('[Gallery] View Album button not found in DOM');
+    }
   }
   // Stats
   document.getElementById('stat-images').textContent = images.length;
@@ -671,11 +687,13 @@ function renderGalleryFeaturedAndStats(images) {
 // Remove Masonry Layout for Gallery and related functions
 // Restore renderGallery to use standard grid
 function renderGallery(images) {
+  console.log('[Gallery] Rendering gallery. Images:', images.length, images);
   const grid = document.getElementById('gallery-list');
   const empty = document.getElementById('gallery-empty');
   if (!images.length) {
     grid.innerHTML = '';
     empty.classList.remove('hidden');
+    console.log('[Gallery] No images to display.');
     return;
   }
   empty.classList.add('hidden');
@@ -775,12 +793,19 @@ function resetInfiniteScroll() {
 }
 
 function renderGallery(images, append = false, skipScroll) {
+  console.log('[Gallery] Rendering gallery. Images:', images.length, images);
   const grid = document.getElementById('gallery-list');
   const empty = document.getElementById('gallery-empty');
   let pagedImages = images.slice(0, imagesPerPage * currentPage);
   if (!pagedImages.length) {
     grid.innerHTML = '';
     empty.classList.remove('hidden');
+    if (showFavoritesOnly) {
+      empty.textContent = 'You have no favorite images yet. Click the star on any image to add it to your favorites!';
+    } else {
+      empty.textContent = 'No images to display.';
+    }
+    console.log('[Gallery] No images to display.');
     return;
   }
   empty.classList.add('hidden');
@@ -799,9 +824,10 @@ function renderGallery(images, append = false, skipScroll) {
   `).join('');
   // Modal triggers
   grid.querySelectorAll('.gallery-card').forEach((item, idx) => {
+    const img = pagedImages[idx];
     item.onclick = (e) => {
       if (e.target.closest('.star-btn')) return;
-      openModal(idx);
+      openModalByAlbum(img.id);
     };
   });
   // Star button logic
@@ -873,6 +899,16 @@ function toggleFavorite(id) {
   }
   setFavorites(favs);
   renderGallery(filteredImages, false, true);
+  // Always update sidebar and analytics after toggling favorite
+  console.log('[Gallery] Updating sidebar and analytics after favorite toggle');
+  renderSidebar(filteredImages);
+  // Recompute albums for analytics
+  const albums = {};
+  filteredImages.forEach(img => {
+    if (!albums[img.album]) albums[img.album] = [];
+    albums[img.album].push(img);
+  });
+  updateGalleryAnalytics(filteredImages, albums);
 }
 let showFavoritesOnly = false;
 
@@ -917,15 +953,24 @@ function renderSidebar(images) {
   // Favorites toggle
   let favToggle = document.getElementById('gallery-fav-toggle');
   if (favToggle) {
+    const favCount = getFavorites().length;
+    favToggle.innerHTML = `<svg class="w-5 h-5 text-[#FDBA17]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.175 0l-3.388 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.388-2.46c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z"/></svg> Show Favorites${favCount > 0 ? ` (${favCount})` : ''}`;
     favToggle.setAttribute('aria-pressed', showFavoritesOnly ? 'true' : 'false');
     favToggle.setAttribute('tabindex', '0');
-    favToggle.setAttribute('aria-label', 'Show Favorites');
+    favToggle.setAttribute('aria-label', `Show Favorites${favCount > 0 ? ` (${favCount})` : ''}`);
     favToggle.onclick = function() {
       showFavoritesOnly = !showFavoritesOnly;
       favToggle.classList.toggle('bg-[#FDBA17]', showFavoritesOnly);
       favToggle.classList.toggle('text-white', showFavoritesOnly);
       favToggle.setAttribute('aria-pressed', showFavoritesOnly ? 'true' : 'false');
       filterAndRender();
+    };
+    // Keyboard accessibility
+    favToggle.onkeydown = function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        favToggle.click();
+      }
     };
   }
 }
@@ -942,7 +987,15 @@ function filterAndRender() {
     const matchesSearch = !searchTerm || (img.caption && img.caption.toLowerCase().includes(searchTerm)) || (img.album && img.album.toLowerCase().includes(searchTerm)) || (img.tags && img.tags.join(' ').toLowerCase().includes(searchTerm));
     return matchesAlbum && matchesTag && matchesYear && matchesSearch;
   });
+  console.log('[Gallery] filterAndRender: activeAlbum =', activeAlbum, '| images after filter =', filteredImages.length);
   renderGallery(filteredImages);
+  // Update analytics for the current filtered set
+  const albums = {};
+  filteredImages.forEach(img => {
+    if (!albums[img.album]) albums[img.album] = [];
+    albums[img.album].push(img);
+  });
+  updateGalleryAnalytics(filteredImages, albums);
   infiniteScrollActive = filteredImages.length > imagesPerPage;
 }
 
@@ -1362,13 +1415,15 @@ function modalPrevAlbum() {
   modalAlbumIndex = (modalAlbumIndex - 1 + modalAlbumImages.length) % modalAlbumImages.length;
   showModalImageByAlbum();
 }
-// Attach to modal next/prev buttons
-const modalNextBtn = document.getElementById('modal-next');
-const modalPrevBtn = document.getElementById('modal-prev');
-if (modalNextBtn && modalPrevBtn) {
-  modalNextBtn.onclick = modalNextAlbum;
-  modalPrevBtn.onclick = modalPrevAlbum;
-}
+// Attach to modal next/prev buttons only once
+(function() {
+  const modalNextBtn = document.getElementById('modal-next');
+  const modalPrevBtn = document.getElementById('modal-prev');
+  if (modalNextBtn && modalPrevBtn) {
+    modalNextBtn.onclick = modalNextAlbum;
+    modalPrevBtn.onclick = modalPrevAlbum;
+  }
+})();
 // Update gallery grid click logic to use openModalByAlbum
 function renderGallery(images, append = false, skipScroll) {
   const grid = document.getElementById('gallery-list');
@@ -1414,208 +1469,4 @@ function renderGallery(images, append = false, skipScroll) {
       card.classList.add('opacity-100');
     });
   }, 50);
-}
-// Patch modal to show favorite state
-function showModalImage() {
-  const img = filteredImages[currentIndex];
-  if (!img) return;
-  document.getElementById('modal-img').src = img.url;
-  document.getElementById('modal-caption').textContent = img.caption || '';
-  document.getElementById('modal-album').textContent = img.album || '';
-  document.getElementById('modal-year').textContent = img.year || '';
-  document.getElementById('modal-tags').innerHTML = '';
-  if (img.tags && img.tags.length > 0) {
-    img.tags.forEach(tag => {
-      const tagSpan = document.createElement('span');
-      tagSpan.classList.add('px-2', 'py-0.5', 'rounded-full', 'bg-gray-200', 'text-xs', 'font-medium', 'text-gray-800');
-      tagSpan.textContent = tag;
-      document.getElementById('modal-tags').appendChild(tagSpan);
-    });
-  }
-  // Favorite star in modal
-  let modalStar = document.getElementById('modal-fav-star');
-  if (!modalStar) {
-    modalStar = document.createElement('button');
-    modalStar.id = 'modal-fav-star';
-    modalStar.className = 'absolute top-2 left-2 z-10 p-1 rounded-full bg-white/80 hover:bg-[#FDBA17]/80 transition';
-    modalStar.innerHTML = '<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.175 0l-3.388 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.388-2.46c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z"/></svg>';
-    document.querySelector('.modal-content').appendChild(modalStar);
-  }
-  modalStar.querySelector('svg').setAttribute('fill', isFavorite(img.id) ? '#FDBA17' : 'none');
-  modalStar.querySelector('svg').classList.toggle('text-[#FDBA17]', isFavorite(img.id));
-  modalStar.onclick = function(e) {
-    e.stopPropagation();
-    toggleFavorite(img.id);
-    showModalImage();
-  };
-}
-
-// === Modal Download & Share ===
-function setupModalDownloadShare() {
-  const downloadBtn = document.getElementById('modal-download');
-  const shareBtn = document.getElementById('modal-share');
-  if (!downloadBtn || !shareBtn) return;
-  downloadBtn.onclick = function(e) {
-    e.preventDefault();
-    const img = filteredImages[currentIndex];
-    if (img) {
-      downloadBtn.href = img.url;
-      downloadBtn.setAttribute('download', img.url.split('/').pop());
-    }
-  };
-  shareBtn.onclick = function(e) {
-    e.preventDefault();
-    const img = filteredImages[currentIndex];
-    if (!img) return;
-    const shareData = {
-      title: img.caption || 'Gallery Image',
-      text: img.caption || 'Check out this photo from Hearts After God Ministry!',
-      url: window.location.origin + '/' + img.url
-    };
-    if (navigator.share) {
-      navigator.share(shareData).catch(() => {});
-    } else {
-      showShareFallback(shareData.url);
-    }
-  };
-}
-function showShareFallback(url) {
-  let fallback = document.getElementById('modal-share-fallback');
-  if (!fallback) {
-    fallback = document.createElement('div');
-    fallback.id = 'modal-share-fallback';
-    fallback.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/40';
-    fallback.innerHTML = `
-      <div class="bg-white rounded-xl shadow-lg p-6 max-w-xs w-full text-center relative">
-        <button id="close-share-fallback" class="absolute top-2 right-2 text-gray-400 hover:text-[#7C3AED] text-2xl font-bold">&times;</button>
-        <h3 class="text-lg font-bold mb-2 text-[#7C3AED]">Share Image</h3>
-        <input id="share-link" type="text" class="w-full px-2 py-1 border rounded mb-3 text-sm" readonly value="${url}" />
-        <button id="copy-share-link" class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] font-bold rounded mb-3 w-full">Copy Link</button>
-        <div class="flex gap-2 justify-center">
-          <a href="https://wa.me/?text=${encodeURIComponent(url)}" target="_blank" class="p-2 bg-green-500 rounded-full" aria-label="Share on WhatsApp"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}" target="_blank" class="p-2 bg-blue-600 rounded-full" aria-label="Share on Facebook"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(fallback);
-    document.getElementById('close-share-fallback').onclick = () => fallback.remove();
-    document.getElementById('copy-share-link').onclick = () => {
-      const input = document.getElementById('share-link');
-      input.select();
-      document.execCommand('copy');
-      document.getElementById('copy-share-link').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('copy-share-link').textContent = 'Copy Link'; }, 1200);
-    };
-  } else {
-    fallback.style.display = 'flex';
-  }
-}
-// Call setupModalDownloadShare after modal is shown
-const origShowModalImage = showModalImage;
-showModalImage = function() {
-  origShowModalImage.apply(this, arguments);
-  setupModalDownloadShare();
-}; 
-
-// === Modal Swipe Gestures & Autoplay ===
-let autoplayInterval = null;
-let autoplayActive = false;
-function startAutoplay() {
-  if (autoplayInterval) clearInterval(autoplayInterval);
-  autoplayActive = true;
-  autoplayInterval = setInterval(() => {
-    if (currentIndex < filteredImages.length - 1) {
-      currentIndex++;
-      showModalImage();
-    } else {
-      currentIndex = 0;
-      showModalImage();
-    }
-  }, 2500);
-  updateAutoplayBtn();
-}
-function stopAutoplay() {
-  autoplayActive = false;
-  if (autoplayInterval) clearInterval(autoplayInterval);
-  updateAutoplayBtn();
-}
-function updateAutoplayBtn() {
-  const btn = document.getElementById('modal-autoplay');
-  if (btn) {
-    btn.innerHTML = autoplayActive
-      ? '<svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 12L6 6V18Z"/></svg> Pause'
-      : '<svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-6.518-3.759A1 1 0 007 8.118v7.764a1 1 0 001.234.97l6.518-1.757A1 1 0 0016 14.882V9.118a1 1 0 00-1.248-.95z"/></svg> Play';
-    btn.setAttribute('aria-pressed', autoplayActive ? 'true' : 'false');
-  }
-}
-// Add autoplay button to modal
-function setupModalAutoplayBtn() {
-  let btn = document.getElementById('modal-autoplay');
-  if (!btn) {
-    btn = document.createElement('button');
-    btn.id = 'modal-autoplay';
-    btn.className = 'px-3 py-1 rounded bg-[#2046B3] text-white font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] transition ml-2';
-    btn.setAttribute('aria-label', 'Toggle slideshow autoplay');
-    btn.onclick = function(e) {
-      e.stopPropagation();
-      if (autoplayActive) stopAutoplay(); else startAutoplay();
-    };
-    document.querySelector('.modal-content .flex').appendChild(btn);
-  }
-  updateAutoplayBtn();
-}
-// Swipe gestures for modal
-function setupModalSwipe() {
-  const modal = document.getElementById('gallery-modal');
-  let startX = null;
-  modal.addEventListener('touchstart', function(e) {
-    if (e.touches.length === 1) startX = e.touches[0].clientX;
-  });
-  modal.addEventListener('touchend', function(e) {
-    if (startX === null) return;
-    const endX = e.changedTouches[0].clientX;
-    if (endX - startX > 60) document.getElementById('modal-prev').click();
-    if (startX - endX > 60) document.getElementById('modal-next').click();
-    startX = null;
-  });
-}
-// Trap focus in modal
-function trapModalFocus() {
-  const modal = document.getElementById('gallery-modal');
-  if (!modal) return;
-  const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-  const first = focusable[0];
-  const last = focusable[focusable.length - 1];
-  modal.addEventListener('keydown', function(e) {
-    if (e.key === 'Tab') {
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    }
-    if (e.key === 'Escape') {
-      document.getElementById('close-modal').click();
-    }
-  });
-}
-// Patch showModalImage to setup autoplay, swipe, and focus trap
-const origShowModalImage2 = showModalImage;
-showModalImage = function() {
-  origShowModalImage2.apply(this, arguments);
-  setupModalDownloadShare();
-  setupModalAutoplayBtn();
-  setupModalSwipe();
-  trapModalFocus();
-};
-// Stop autoplay when modal closes
-const closeModalBtn = document.getElementById('close-modal');
-if (closeModalBtn) {
-  closeModalBtn.addEventListener('click', stopAutoplay);
 } 
