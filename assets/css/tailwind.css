@@ -96,3 +96,15 @@ a {
 @keyframes fadeOutPage {
   to { opacity: 0; }
 } 
+
+/* Navigation active and hover styles */
+nav .nav-link.active, nav .nav-link[aria-current="page"] {
+  color: #7C3AED !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+}
+nav .nav-link:hover, nav .nav-link:focus {
+  color: #7C3AED !important;
+  text-decoration: underline !important;
+  font-weight: bold;
+} 

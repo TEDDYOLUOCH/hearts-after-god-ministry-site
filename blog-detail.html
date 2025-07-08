@@ -53,10 +53,35 @@
       </div>
     </nav>
   </header>
-  <main class="max-w-3xl mx-auto py-12 px-4">
-    <a href="blog.html" class="inline-block mb-8 text-[#7C3AED] hover:text-[#FDBA17] font-bold text-lg transition"><span class="mr-2">&larr;</span>Back to Blog</a>
-    <div id="blog-detail" class="bg-white rounded-2xl shadow-lg p-8"></div>
+  <main class="max-w-5xl mx-auto py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-4 gap-10">
+    <!-- Main Blog Content -->
+    <section class="lg:col-span-3">
+      <!-- Hero Banner -->
+      <div id="blog-hero"></div>
+      <!-- Floating Share Bar -->
+      <div id="share-bar" class="sticky top-24 z-20 flex gap-3 mb-6"></div>
+      <!-- Blog Content -->
+      <div id="blog-detail" class="bg-white rounded-2xl shadow-lg p-8 animate-fade-in"></div>
+      <!-- Call to Action -->
+      <div class="mt-12 bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-2xl shadow p-8 text-white text-center animate-fade-in">
+        <h3 class="text-2xl font-bold mb-2">Enjoyed this post?</h3>
+        <p class="mb-4">Share it with friends or connect with us for more inspiration and updates!</p>
+        <a href="contact.html" class="inline-block px-6 py-2 bg-white text-[#7C3AED] font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+      </div>
+    </section>
+    <!-- Sidebar: Recent Posts -->
+    <aside class="hidden lg:block lg:col-span-1 space-y-8">
+      <div class="bg-white rounded-2xl shadow p-6 border border-gray-100">
+        <h3 class="text-lg font-bold text-[#7C3AED] mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 7.165 6 9.388 6 12v2.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>Recent Posts</h3>
+        <ul id="recent-posts" class="space-y-3"></ul>
+      </div>
+    </aside>
   </main>
+  <style>
+    .animate-fade-in { animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(24px);} to { opacity: 1; transform: none; } }
+    .drop-cap:first-letter { float: left; font-size: 3.5em; line-height: 1; font-weight: bold; color: #7C3AED; margin-right: 0.15em; }
+  </style>
   <script>
     function getQueryParam(name) {
       const url = new URL(window.location.href);
@@ -67,24 +92,83 @@
       .then(res => res.json())
       .then(posts => {
         const post = posts.find(p => p.id === postId);
-        const container = document.getElementById('blog-detail');
         if (!post) {
-          container.innerHTML = `<div class='text-center text-gray-500 text-xl py-20'>Blog post not found.</div>`;
+          document.getElementById('blog-detail').innerHTML = `<div class='text-center text-gray-500 text-xl py-20'>Blog post not found.</div>`;
           return;
         }
-        container.innerHTML = `
-          <div class="mb-8">
-            <img src="${post.image}" alt="${post.title}" class="w-full h-64 object-cover rounded-xl shadow mb-6" />
-            <h1 class="text-4xl font-bold text-[#2046B3] mb-4">${post.title}</h1>
-            <div class="flex flex-wrap gap-4 items-center mb-4">
-              <span class="inline-block bg-[#FDBA17] text-[#2046B3] font-bold px-4 py-1 rounded-full text-sm">${post.author}</span>
-              <span class="text-[#7C3AED] font-semibold text-sm">${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              ${post.tags.map(tag => `<span class='inline-block bg-[#7C3AED]/10 text-[#7C3AED] px-3 py-1 rounded-full text-xs font-bold'>${tag}</span>`).join('')}
+        // Hero Banner
+        const hero = document.getElementById('blog-hero');
+        hero.innerHTML = `
+          <div class="relative rounded-3xl overflow-hidden shadow-xl mb-8 animate-fade-in">
+            <img src="${post.image}" alt="${post.title}" class="w-full h-72 sm:h-96 object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-6 sm:p-10 z-10">
+              <div class="flex flex-wrap gap-2 mb-2">
+                ${post.category ? `<span class='inline-block bg-[#FDBA17] text-[#2046B3] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow'>${post.category}</span>` : ''}
+                ${post.featured ? `<span class='inline-block bg-[#7C3AED] text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow'>Featured</span>` : ''}
+              </div>
+              <h1 class="text-3xl sm:text-5xl font-extrabold text-white drop-shadow mb-2">${post.title}</h1>
+              <div class="flex items-center gap-3 text-white/90 text-sm">
+                <span>${new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                ${post.readingTime ? `<span class='ml-2'>• ${post.readingTime}</span>` : ''}
+              </div>
             </div>
           </div>
-          <article class="prose prose-lg max-w-none text-[#2046B3]">${post.content}</article>
         `;
+        // Floating Share Bar
+        const shareBar = document.getElementById('share-bar');
+        const shareUrl = window.location.origin + '/blog-detail.html?id=' + post.id;
+        shareBar.innerHTML = `
+          <button onclick="navigator.share ? navigator.share({title: '${post.title}', url: '${shareUrl}'}) : copyShareLink('${post.id}')" class="p-2 rounded-full bg-[#7C3AED] text-white hover:bg-[#FDBA17] hover:text-[#2046B3] shadow transition" title="Share"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7M16 6l-4-4-4 4M12 2v14"/></svg></button>
+          <a href="https://wa.me/?text=${encodeURIComponent(post.title + ' ' + shareUrl)}" target="_blank" class="p-2 rounded-full bg-green-500 text-white hover:bg-green-600 shadow transition" title="WhatsApp"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg></a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 shadow transition" title="Facebook"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.title)}" target="_blank" class="p-2 rounded-full bg-blue-400 text-white hover:bg-blue-500 shadow transition" title="X/Twitter"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.72 0-4.924 2.204-4.924 4.924 0 .39.045.765.127 1.124C7.691 8.095 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.708.87 3.216 2.188 4.099-.807-.026-1.566-.247-2.228-.616v.062c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.318-3.809 2.105-6.102 2.105-.396 0-.788-.023-1.175-.069C2.29 19.29 5.01 20 7.548 20c9.142 0 14.307-7.721 14.307-14.417 0-.22-.005-.439-.015-.657.983-.712 1.834-1.6 2.506-2.617z"/></svg></a>
+          <a href="mailto:?subject=${encodeURIComponent(post.title)}&body=${encodeURIComponent(shareUrl)}" class="p-2 rounded-full bg-gray-300 text-[#2046B3] hover:bg-gray-400 shadow transition" title="Email"><svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
+        `;
+        // Author Card
+        const avatar = post.authorAvatar ? `<img src="${post.authorAvatar}" alt="${post.author}" class="w-14 h-14 rounded-full object-cover border-2 border-[#FDBA17] shadow" />` : `<span class="w-14 h-14 rounded-full bg-[#7C3AED]/10 border-2 border-[#FDBA17] flex items-center justify-center text-2xl font-bold text-[#7C3AED]">${(post.author||'').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}</span>`;
+        const authorLink = `<a href="blog.html?author=${encodeURIComponent(post.author)}" class="text-[#FDBA17] font-bold hover:underline">${post.author}</a>`;
+        // Blog Content
+        let content = post.content||'<p class="text-gray-400">No content available for this post.</p>';
+        // Add drop cap to first paragraph
+        content = content.replace(/<p>(.*?)<\/p>/, '<p class="drop-cap">$1</p>');
+        document.getElementById('blog-detail').innerHTML = `
+          <div class="flex items-center gap-4 mb-6 animate-fade-in">
+            ${avatar}
+            <div>
+              ${authorLink}
+              <div class="text-xs text-gray-500">${post.excerpt ? post.excerpt : ''}</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mb-6 animate-fade-in">
+            ${(post.tags||[]).map(tag => `<a href="blog.html?tag=${encodeURIComponent(tag)}" class='inline-block bg-[#7C3AED]/10 text-[#7C3AED] px-3 py-1 rounded-full text-xs font-bold hover:bg-[#7C3AED] hover:text-white transition'>${tag}</a>`).join(' ')}
+          </div>
+          <article class="prose prose-lg max-w-none text-[#2046B3] animate-fade-in">${content}</article>
+        `;
+        // Sidebar: Recent posts
+        const recent = posts.slice().sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+        const ul = document.getElementById('recent-posts');
+        if (ul) {
+          ul.innerHTML = recent.map(rp => `
+            <li>
+              <a href="blog-detail.html?id=${encodeURIComponent(rp.id)}" class="flex items-center gap-3 group">
+                <img src="${rp.image}" alt="${rp.title}" class="w-12 h-12 rounded-lg object-cover border-2 border-[#7C3AED] group-hover:scale-105 transition" />
+                <div>
+                  <div class="font-semibold text-[#2046B3] group-hover:text-[#FDBA17]">${rp.title}</div>
+                  <div class="text-xs text-gray-500">${new Date(rp.date).toLocaleDateString()}</div>
+                </div>
+              </a>
+            </li>
+          `).join('');
+        }
       });
+    // Copy link helper
+    function copyShareLink(postId) {
+      const url = window.location.origin + '/blog-detail.html?id=' + postId;
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+      });
+    }
   </script>
 </body>
 </html> 
