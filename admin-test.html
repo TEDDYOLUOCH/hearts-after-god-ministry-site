@@ -33,7 +33,7 @@
       if (!loggedInUser) {
         statusDiv.innerHTML = '<p class="text-red-600 text-center">No user logged in. Redirecting to login...</p>';
         setTimeout(() => {
-          window.location.href = 'discipleship-login.html';
+          window.location.href = 'admin-dashboard.html';
         }, 2000);
         return;
       }
@@ -43,7 +43,7 @@
       if (user.role !== 'admin') {
         statusDiv.innerHTML = '<p class="text-red-600 text-center">User is not admin. Redirecting to user dashboard...</p>';
         setTimeout(() => {
-          window.location.href = 'discipleship-user.html';
+          window.location.href = 'admin-dashboard.html';
         }, 2000);
         return;
       }
@@ -57,7 +57,7 @@
       // Logout functionality
       document.getElementById('logout-btn').addEventListener('click', function() {
         localStorage.removeItem('discipleship_logged_in_user');
-        window.location.href = 'discipleship-login.html';
+        window.location.href = 'admin-dashboard.html';
       });
     });
   </script>

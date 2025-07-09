@@ -1344,7 +1344,7 @@
         }
       } catch (e) {}
       document.getElementById('logout-btn').onclick = function() {
-        window.location.href = 'discipleship-login.html';
+        window.location.href = 'user-dashboard.html';
       };
       // Rotating motivational quotes/verses
       const quotes = [
@@ -2884,7 +2884,7 @@ Title: ${cert.title || 'Director'}
       
       if (!loggedInUser) {
         console.log('No user logged in, redirecting to login');
-        window.location.href = 'discipleship-login.html';
+        window.location.href = 'user-dashboard.html';
         return;
       }
       
@@ -2909,7 +2909,7 @@ Title: ${cert.title || 'Director'}
         logoutBtn.addEventListener('click', function() {
           if (confirm('Are you sure you want to logout?')) {
             localStorage.removeItem('discipleship_logged_in_user');
-            window.location.href = 'discipleship-login.html';
+            window.location.href = 'user-dashboard.html';
           }
         });
       }

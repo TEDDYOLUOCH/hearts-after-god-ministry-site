@@ -89,7 +89,7 @@
       }
     } else {
       // Redirect to login if not authenticated
-      window.location.href = 'discipleship-login.html';
+      window.location.href = 'user-dashboard.html';
     }
   }
 
@@ -873,7 +873,7 @@
     
     if (confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('discipleship_logged_in_user');
-      window.location.href = 'discipleship-login.html';
+      window.location.href = 'user-dashboard.html';
     }
   }
 

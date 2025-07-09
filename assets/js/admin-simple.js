@@ -51,7 +51,7 @@
         adminState.userRole = user.role;
       } else {
         // User is not admin, redirect to user dashboard
-        window.location.href = 'discipleship-user.html';
+        window.location.href = 'admin-dashboard.html';
       }
     } else {
       // For demo purposes, allow admin access without login
@@ -574,7 +574,7 @@
   function handleLogout() {
     if (confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('discipleship_logged_in_user');
-      window.location.href = 'discipleship-login.html';
+      window.location.href = 'admin-dashboard.html';
     }
   }
 

@@ -1470,3 +1470,161 @@ function renderGallery(images, append = false, skipScroll) {
     });
   }, 50);
 } 
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Only run on user-dashboard.html
+  if (!document.getElementById('modules-list')) return;
+
+  // Helper: Toast
+  function showModuleToast(msg) {
+    let toast = document.getElementById('module-toast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'module-toast';
+      toast.className = 'fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-[#7C3AED] text-white px-6 py-3 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 font-bold';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 1800);
+  }
+
+  // Module state persistence
+  const MODULE_KEY = 'discipleship_module_status';
+  function getModuleStatus() {
+    try {
+      return JSON.parse(localStorage.getItem(MODULE_KEY)) || {};
+    } catch { return {}; }
+  }
+  function setModuleStatus(status) {
+    localStorage.setItem(MODULE_KEY, JSON.stringify(status));
+  }
+
+  // Setup module cards
+  document.querySelectorAll('#modules-list > div[data-module]').forEach(card => {
+    const moduleIdx = card.getAttribute('data-module');
+    const startBtn = card.querySelector('.module-action');
+    const completeBtn = card.querySelector('.complete-module-btn');
+    const statusSpan = card.querySelector('.module-status');
+    let status = getModuleStatus();
+    let state = status[moduleIdx] || 'Not Started';
+
+    // Initial UI state
+    if (state === 'Completed') {
+      statusSpan.textContent = 'Completed';
+      statusSpan.className = 'text-xs text-green-600 font-bold mb-2 module-status';
+      startBtn.textContent = 'Review';
+      startBtn.disabled = false;
+      startBtn.classList.remove('bg-[#FDBA17]', 'text-[#2046B3]');
+      startBtn.classList.add('bg-[#7C3AED]', 'text-white');
+      completeBtn.style.display = 'none';
+    } else if (state === 'In Progress') {
+      statusSpan.textContent = 'In Progress';
+      statusSpan.className = 'text-xs text-yellow-600 font-bold mb-2 module-status';
+      startBtn.textContent = 'Continue';
+      startBtn.disabled = true;
+      startBtn.classList.remove('bg-[#7C3AED]', 'text-white');
+      startBtn.classList.add('bg-[#FDBA17]', 'text-[#2046B3]');
+      completeBtn.style.display = '';
+      completeBtn.disabled = false;
+    } else {
+      statusSpan.textContent = 'Not Started';
+      statusSpan.className = 'text-xs text-gray-400 font-bold mb-2 module-status';
+      startBtn.textContent = 'Start';
+      startBtn.disabled = false;
+      startBtn.classList.remove('bg-[#7C3AED]', 'text-white');
+      startBtn.classList.add('bg-[#FDBA17]', 'text-[#2046B3]');
+      completeBtn.style.display = '';
+      completeBtn.disabled = true;
+    }
+
+    // Start/Continue/Review button
+    startBtn.addEventListener('click', function () {
+      let status = getModuleStatus();
+      let state = status[moduleIdx] || 'Not Started';
+      if (state === 'Completed') {
+        showModuleToast('Reviewing completed module!');
+        return;
+      }
+      status[moduleIdx] = 'In Progress';
+      setModuleStatus(status);
+      statusSpan.textContent = 'In Progress';
+      statusSpan.className = 'text-xs text-yellow-600 font-bold mb-2 module-status';
+      startBtn.textContent = 'Continue';
+      startBtn.disabled = true;
+      startBtn.classList.remove('bg-[#7C3AED]', 'text-white');
+      startBtn.classList.add('bg-[#FDBA17]', 'text-[#2046B3]');
+      completeBtn.style.display = '';
+      completeBtn.disabled = false;
+      showModuleToast('Module started!');
+    });
+
+    // Complete button
+    completeBtn.addEventListener('click', function () {
+      let status = getModuleStatus();
+      status[moduleIdx] = 'Completed';
+      setModuleStatus(status);
+      statusSpan.textContent = 'Completed';
+      statusSpan.className = 'text-xs text-green-600 font-bold mb-2 module-status';
+      startBtn.textContent = 'Review';
+      startBtn.disabled = false;
+      startBtn.classList.remove('bg-[#FDBA17]', 'text-[#2046B3]');
+      startBtn.classList.add('bg-[#7C3AED]', 'text-white');
+      completeBtn.style.display = 'none';
+      showModuleToast('Module completed!');
+    });
+  });
+
+  // Modal logic for module review
+  const reviewModal = document.getElementById('module-review-modal');
+  const reviewModalTitle = document.getElementById('review-modal-title');
+  const reviewModalContent = document.getElementById('review-modal-content');
+  const closeReviewModalBtn = document.getElementById('close-review-modal');
+
+  // Day 1 content (HTML)
+  const day1Title = 'Day 1: I Am a Child of God';
+  const day1Content = `
+    <ol class='list-decimal list-inside mb-2'>
+      <li><span class='font-semibold'>Get to the knowledge that I am now a child of God.</span></li>
+    </ol>
+    <div class='text-sm text-[#2046B3] mb-2'>(John 1:12-13 ESV)</div>
+    <ol class='list-decimal list-inside mb-2' start='2'>
+      <li><span class='font-semibold'>Embrace the new beginnings from my thoughts to my actions that I have been made a new creation in Christ Jesus.</span></li>
+    </ol>
+    <div class='text-sm text-[#2046B3]'>(2nd Corinthians 5:17)</div>
+  `;
+
+  // Only attach to Day 1 Review button (robust)
+  const day1Card = document.querySelector('#modules-list > div[data-module="0"]');
+  if (day1Card) {
+    const reviewBtn = day1Card.querySelector('.module-action');
+    // Remove all previous click listeners by replacing the element
+    const newReviewBtn = reviewBtn.cloneNode(true);
+    reviewBtn.parentNode.replaceChild(newReviewBtn, reviewBtn);
+    newReviewBtn.addEventListener('click', function () {
+      if (newReviewBtn.textContent.trim().toLowerCase() === 'review') {
+        reviewModalTitle.textContent = day1Title;
+        reviewModalContent.innerHTML = day1Content;
+        reviewModal.classList.remove('hidden');
+      }
+    });
+  }
+
+  // Close modal logic
+  if (closeReviewModalBtn) {
+    closeReviewModalBtn.addEventListener('click', function () {
+      reviewModal.classList.add('hidden');
+    });
+  }
+  if (reviewModal) {
+    reviewModal.addEventListener('click', function (e) {
+      if (e.target === reviewModal) {
+        reviewModal.classList.add('hidden');
+      }
+    });
+  }
+}); 
