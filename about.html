@@ -48,7 +48,7 @@
       </div>
       <!-- CTA Button -->
       <div class="hidden md:flex gap-3 ml-6">
-        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+        <a href="contact.html" class="cta-btn hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] hover:text-[#2046B3] transition">Connect With Us</a>
       </div>
       <!-- Mobile Hamburger -->
       <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
@@ -72,71 +72,83 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
         <div class="mt-8">
-          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+          <a href="contact.html" class="cta-btn block w-full text-center px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] hover:text-[#2046B3] transition">Connect With Us</a>
         </div>
       </nav>
     </nav>
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative min-h-[32vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0023.jpg');">
+  <section class="relative min-h-[32vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0025.jpg');">
     <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
     <div class="relative z-10 text-center px-4 py-16 md:py-24">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">About Us</h1>
-      <p class="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto">“So we, being many, are one body in Christ, and every one members one of another.”<br><span class="block mt-2 text-lg text-[#FDBA17]">Romans 12:5</span></p>
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">About Our Ministry</h1>
+      <p class="mt-4 text-lg md:text-xl text-white font-medium max-w-2xl mx-auto">Discover our story, mission, and the hearts behind Hearts After God Ministry.</p>
+      <span class="block mt-2 text-[#FDBA17] text-base md:text-lg font-semibold">"For where two or three gather in my name, there am I with them." – Matthew 18:20</span>
     </div>
   </section>
 
-  <main class="relative">
+  <!-- TABLE OF CONTENTS -->
+  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <a href="#our-story" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Our Story</a>
+        <a href="#mission-vision" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Mission & Vision</a>
+        <a href="#leadership" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Leadership</a>
+        <a href="#timeline" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Timeline</a>
+        <a href="#values" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Values</a>
+        <a href="#get-involved" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Get Involved</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 py-12">
     <!-- SECTION DIVIDER -->
     <div class="w-full h-2 bg-gradient-to-r from-[#7C3AED]/20 via-[#FDBA17]/20 to-[#2046B3]/20 my-8"></div>
 
     <!-- HISTORY & IDENTITY -->
-    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Who We Are</h2>
-      <p class="text-lg text-gray-700 mb-6">
-        Hearts After God Ministry is a Christ-centered, Bible-believing community dedicated to raising a generation after God's heart. Founded in prayer and fellowship, we have grown into a vibrant family of believers passionate about worship, discipleship, and outreach. Our mission is to glorify God, build up the body of Christ, and share His love with the world.
-      </p>
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40 rounded-3xl shadow-2xl mb-12" id="our-story">
+      <h2 class="text-3xl font-extrabold text-[#7C3AED] mb-4 flex items-center gap-2"><svg class="w-7 h-7 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg>Who We Are</h2>
+      <p class="text-lg text-gray-700 mb-8">Hearts After God Ministry is a Christ-centered, Bible-believing community dedicated to raising a generation after God's heart. Founded in prayer and fellowship, we have grown into a vibrant family of believers passionate about worship, discipleship, and outreach. Our mission is to glorify God, build up the body of Christ, and share His love with the world.</p>
       <!-- Ministry at a Glance Stats -->
-      <div class="flex flex-wrap justify-center gap-6 mb-6">
-        <div class="flex flex-col items-center">
-          <span class="text-2xl font-bold text-[#7C3AED]">2018</span>
+      <div class="flex flex-wrap justify-center gap-8 mb-8">
+        <div class="flex flex-col items-center bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#7C3AED] min-w-[120px]">
+          <span class="text-3xl font-bold text-[#7C3AED]">2025</span>
           <span class="text-gray-500 text-sm">Founded</span>
         </div>
-        <div class="flex flex-col items-center">
-          <span class="text-2xl font-bold text-[#FDBA17]">500+</span>
+        <div class="flex flex-col items-center bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#FDBA17] min-w-[120px]">
+          <span class="text-3xl font-bold text-[#FDBA17]">20</span>
           <span class="text-gray-500 text-sm">Members</span>
         </div>
-        <div class="flex flex-col items-center">
-          <span class="text-2xl font-bold text-[#2046B3]">7</span>
-          <span class="text-gray-500 text-sm">Countries</span>
+        <div class="flex flex-col items-center bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#2046B3] min-w-[120px]">
+          <span class="text-3xl font-bold text-[#2046B3]">1</span>
+          <span class="text-gray-500 text-sm">Country</span>
         </div>
-        <div class="flex flex-col items-center">
-          <span class="text-2xl font-bold text-[#7C3AED]">12</span>
+        <div class="flex flex-col items-center bg-white rounded-xl shadow-lg p-6 border-t-4 border-[#7C3AED] min-w-[120px]">
+          <span class="text-3xl font-bold text-[#7C3AED]">2</span>
           <span class="text-gray-500 text-sm">Ministries</span>
         </div>
       </div>
-      <!-- Member/Leader Quote -->
-      <blockquote class="border-l-4 border-[#FDBA17] pl-4 italic text-gray-700 mb-2">“This ministry has changed my life and given me a family in Christ.” <span class="block text-[#7C3AED] font-semibold mt-1">– Ministry Member</span></blockquote>
+      <blockquote class="border-l-4 border-[#FDBA17] pl-4 italic text-gray-700 mb-2">"This ministry has changed my life and given me a family in Christ." <span class="block text-[#7C3AED] font-semibold mt-1">– Ministry Member</span></blockquote>
     </section>
 
     <!-- SECTION DIVIDER -->
     <div class="w-full h-2 bg-gradient-to-r from-[#7C3AED]/20 via-[#FDBA17]/20 to-[#2046B3]/20 my-8"></div>
 
     <!-- VISION, PURPOSE, MISSION -->
-    <section class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4 mb-12 fade-in">
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#7C3AED] transition-transform duration-200 hover:scale-105 group">
-        <div class="mb-2"><svg class="w-8 h-8 text-[#7C3AED] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
+    <section class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4 mb-12 fade-in" id="mission-vision">
+      <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center border-t-4 border-[#7C3AED] transition-transform duration-200 hover:scale-105 group">
+        <div class="mb-2"><svg class="w-10 h-10 text-[#7C3AED] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
         <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Our Vision</h3>
         <p class="text-gray-700">To raise a generation after God's heart, impacting families, communities, and nations for Christ.</p>
       </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#FDBA17] transition-transform duration-200 hover:scale-105 group">
-        <div class="mb-2"><svg class="w-8 h-8 text-[#FDBA17] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
+      <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center border-t-4 border-[#FDBA17] transition-transform duration-200 hover:scale-105 group">
+        <div class="mb-2"><svg class="w-10 h-10 text-[#FDBA17] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
         <h3 class="text-xl font-bold text-[#FDBA17] mb-2">Our Purpose</h3>
         <p class="text-gray-700">To glorify God, build up the body of Christ, and share His love with the world.</p>
       </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#2046B3] transition-transform duration-200 hover:scale-105 group">
-        <div class="mb-2"><svg class="w-8 h-8 text-[#2046B3] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
+      <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center text-center border-t-4 border-[#2046B3] transition-transform duration-200 hover:scale-105 group">
+        <div class="mb-2"><svg class="w-10 h-10 text-[#2046B3] mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg></div>
         <h3 class="text-xl font-bold text-[#2046B3] mb-2">Our Mission</h3>
         <p class="text-gray-700">To disciple, equip, and send believers to fulfill the Great Commission through worship, teaching, and acts of love.</p>
       </div>
@@ -146,12 +158,10 @@
     <div class="w-full h-2 bg-gradient-to-r from-[#7C3AED]/20 via-[#FDBA17]/20 to-[#2046B3]/20 my-8"></div>
 
     <!-- BELIEFS / DOCTRINE -->
-    <section class="max-w-3xl mx-auto py-8 px-4 fade-in">
-      <h3 class="text-xl font-bold text-[#2046B3] mb-4">What We Believe</h3>
-      <div class="bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow p-6">
-        <p class="text-gray-700 text-lg mb-2">
-          We believe that salvation is God's greatest treasure, received by grace through faith in Jesus Christ. The result is a changed life, peace with God, and the promise of eternal life.
-        </p>
+    <section class="max-w-3xl mx-auto py-12 px-4 fade-in bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40 rounded-3xl shadow-2xl mb-12">
+      <h3 class="text-2xl font-bold text-[#2046B3] mb-4 flex items-center gap-2"><svg class="w-7 h-7 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>What We Believe</h3>
+      <div class="bg-white rounded-xl shadow p-6">
+        <p class="text-gray-700 text-lg mb-2">We believe that salvation is God's greatest treasure, received by grace through faith in Jesus Christ. The result is a changed life, peace with God, and the promise of eternal life.</p>
         <ul class="list-none space-y-2 text-gray-700">
           <li class="flex items-start gap-2"><svg class="w-5 h-5 text-[#7C3AED] mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>The Bible is the inspired Word of God and our authority for faith and life.</li>
           <li class="flex items-start gap-2"><svg class="w-5 h-5 text-[#FDBA17] mt-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jesus Christ is the Son of God, Savior, and Lord.</li>
@@ -178,64 +188,44 @@
     <div class="w-full h-2 bg-gradient-to-r from-[#7C3AED]/20 via-[#FDBA17]/20 to-[#2046B3]/20 my-8"></div>
 
     <!-- LEADERSHIP -->
-    <section class="max-w-5xl mx-auto py-12 px-4 fade-in">
-      <h3 class="text-xl font-bold text-[#7C3AED] mb-2 text-center">Meet Our Team</h3>
-      <p class="text-gray-600 text-center mb-6">Our ministers are dedicated to serving, teaching, and empowering the ministry family. Get to know the leaders who guide Hearts After God Ministry.</p>
+    <section class="max-w-5xl mx-auto py-12 px-4 fade-in bg-white rounded-3xl shadow-2xl mb-12" id="leadership">
+      <h3 class="text-2xl font-bold text-[#7C3AED] mb-2 text-center flex items-center justify-center gap-2"><svg class="w-7 h-7 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4z"/></svg>Meet Our Team</h3>
+      <p class="text-gray-600 text-center mb-8">Our ministers are dedicated to serving, teaching, and empowering the ministry family. Get to know the leaders who guide Hearts After God Ministry.</p>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Leader 1 -->
-        <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 transition-transform duration-200 hover:scale-105 group">
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#FDBA17]">
           <img src="assets/images/leadership/Cyrilla Chikamai.jpg" alt="Cyrilla Chikamai" class="w-32 h-32 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4"/>
           <h4 class="text-lg font-bold text-[#7C3AED]">Cyrilla Chikamai</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
           <p class="text-gray-700 text-center mb-2">Pastor Cyrilla is passionate about discipleship and empowering believers to fulfill their God-given purpose. Her vision and leadership have inspired many to pursue a deeper relationship with Christ.</p>
-          <div class="flex gap-2 mt-2">
-            <a href="#" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
-            <a href="#" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-          </div>
         </div>
         <!-- Leader 2 -->
-        <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 transition-transform duration-200 hover:scale-105 group">
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#FEF3C7]/60 to-[#F3E8FF]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#7C3AED]">
           <img src="assets/images/leadership/Bonnie Onduso.jpg" alt="Bonnie Onduso" class="w-32 h-32 object-cover rounded-full border-4 border-[#7C3AED] shadow mb-4"/>
           <h4 class="text-lg font-bold text-[#2046B3]">Bonnie Onduso</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
-          <p class="text-gray-700 text-center mb-2">Pastor Bonnie is dedicated to teaching the Word and building strong families in the ministry. He brings a heart for worship and a gift for connecting with people of all ages.</p>
-          <div class="flex gap-2 mt-2">
-            <a href="#" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
-            <a href="#" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-          </div>
+          <p class="text-gray-700 text-center mb-2">Minister Bonnie is a teacher of the Word and a mentor to many. His journey of faith and commitment to the ministry has helped shape the discipleship program and outreach efforts.</p>
         </div>
         <!-- Leader 3 -->
-        <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 transition-transform duration-200 hover:scale-105 group">
-          <img src="assets/images/leadership/Humphrey Mulanda.jpg" alt="Humphrey Mulanda" class="w-32 h-32 object-cover rounded-full border-4 border-[#2046B3] shadow mb-4"/>
-          <h4 class="text-lg font-bold text-[#2046B3]">Humphrey Mulanda</h4>
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#FDBA17]">
+          <img src="assets/images/leadership/Humphrey Mulanda.jpg" alt="Humphrey Mulanda" class="w-32 h-32 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4"/>
+          <h4 class="text-lg font-bold text-[#7C3AED]">Humphrey Mulanda</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
-          <p class="text-gray-700 text-center mb-2">Minister Humphrey is committed to spiritual growth and pastoral care, supporting the ministry family with wisdom and compassion.</p>
-          <div class="flex gap-2 mt-2">
-            <a href="#" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
-            <a href="#" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-          </div>
+          <p class="text-gray-700 text-center mb-2">Minister Humphrey is a passionate worship leader and intercessor. His spiritual journey is marked by a deep love for God and a desire to see revival in this generation.</p>
         </div>
         <!-- Leader 4 -->
-        <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 transition-transform duration-200 hover:scale-105 group">
-          <img src="assets/images/leadership/Joyce Kakii.jpg" alt="Joyce Kakii" class="w-32 h-32 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4"/>
-          <h4 class="text-lg font-bold text-[#FDBA17]">Joyce Kakii</h4>
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#FEF3C7]/60 to-[#F3E8FF]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#7C3AED]">
+          <img src="assets/images/leadership/Joyce Kakii.jpg" alt="Joyce Kakii" class="w-32 h-32 object-cover rounded-full border-4 border-[#7C3AED] shadow mb-4"/>
+          <h4 class="text-lg font-bold text-[#2046B3]">Joyce Kakii</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
-          <p class="text-gray-700 text-center mb-2">Minister Joyce leads with a heart for prayer and outreach, encouraging others to walk in faith and serve the community.</p>
-          <div class="flex gap-2 mt-2">
-            <a href="#" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
-            <a href="#" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-          </div>
+          <p class="text-gray-700 text-center mb-2">Minister Joyce is a dedicated servant leader with a heart for prayer and intercession. Her faith journey is a testimony of God's grace and perseverance in ministry.</p>
         </div>
         <!-- Leader 5 -->
-        <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 transition-transform duration-200 hover:scale-105 group">
-          <img src="assets/images/leadership/Palm Naomi.jpg" alt="Palm Naomi" class="w-32 h-32 object-cover rounded-full border-4 border-[#7C3AED] shadow mb-4"/>
+        <div class="flex flex-col items-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#FDBA17]">
+          <img src="assets/images/leadership/Palm Naomi.jpg" alt="Palm Naomi" class="w-32 h-32 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4"/>
           <h4 class="text-lg font-bold text-[#7C3AED]">Palm Naomi</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
-          <p class="text-gray-700 text-center mb-2">Minister Naomi is passionate about worship and youth mentorship, inspiring the next generation to pursue God wholeheartedly.</p>
-          <div class="flex gap-2 mt-2">
-            <a href="#" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Email"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></a>
-            <a href="#" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg></a>
-          </div>
+          <p class="text-gray-700 text-center mb-2">Minister Naomi is a compassionate leader and encourager. Her ministry is marked by a love for people and a desire to see lives transformed by the power of Christ.</p>
         </div>
       </div>
     </section>
@@ -243,20 +233,20 @@
     <!-- SECTION DIVIDER -->
     <div class="w-full h-2 bg-gradient-to-r from-[#7C3AED]/20 via-[#FDBA17]/20 to-[#2046B3]/20 my-8"></div>
 
-    <!-- MINISTRIES & COMMUNITY -->
-    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
-      <h3 class="text-xl font-bold text-[#FDBA17] mb-4">Our Ministries</h3>
-      <p class="text-gray-700 mb-6">
-        We serve our community through a variety of ministries, including discipleship, missions, youth and children's programs, worship, and outreach. There's a place for everyone to grow, serve, and belong.
-      </p>
-      <div class="flex flex-wrap gap-4 mb-6">
-        <span class="flex items-center gap-2 bg-[#7C3AED]/10 text-[#7C3AED] px-4 py-2 rounded-full font-semibold"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Discipleship</span>
-        <span class="flex items-center gap-2 bg-[#FDBA17]/10 text-[#FDBA17] px-4 py-2 rounded-full font-semibold"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Missions</span>
-        <span class="flex items-center gap-2 bg-[#2046B3]/10 text-[#2046B3] px-4 py-2 rounded-full font-semibold"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Youth</span>
-        <span class="flex items-center gap-2 bg-[#7C3AED]/10 text-[#7C3AED] px-4 py-2 rounded-full font-semibold"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Worship</span>
-        <span class="flex items-center gap-2 bg-[#FDBA17]/10 text-[#FDBA17] px-4 py-2 rounded-full font-semibold"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Outreach</span>
+    <!-- OUR MINISTRIES SECTION (restyled) -->
+    <section class="max-w-3xl mx-auto py-12 px-4 fade-in bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40 rounded-3xl shadow-2xl mb-12">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-[#FDBA17] mb-2 flex items-center gap-2"><svg class="w-7 h-7 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Our Ministries</h2>
+      <p class="text-lg text-gray-700 mb-6">We serve our community through a variety of ministries, including discipleship, missions, youth and children's programs, worship, and outreach. There's a place for everyone to grow, serve, and belong.</p>
+      <div class="flex flex-wrap gap-4 justify-center mb-8">
+        <span class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#F3E8FF] text-[#7C3AED] font-semibold shadow hover:bg-[#7C3AED]/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Discipleship</span>
+        <span class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#FEF3C7] text-[#FDBA17] font-semibold shadow hover:bg-[#FDBA17]/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Missions</span>
+        <span class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#E0E7FF] text-[#2046B3] font-semibold shadow hover:bg-[#2046B3]/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Youth</span>
+        <span class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#F3E8FF] text-[#7C3AED] font-semibold shadow hover:bg-[#7C3AED]/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Worship</span>
+        <span class="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-[#FEF3C7] text-[#FDBA17] font-semibold shadow hover:bg-[#FDBA17]/10 transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Outreach</span>
       </div>
-      <a href="contact.html" class="inline-block px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Get Involved</a>
+      <div class="flex justify-center">
+        <a href="#contact" class="cta-btn inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-lg">Get Involved</a>
+      </div>
     </section>
 
     <!-- SECTION DIVIDER -->
@@ -268,9 +258,197 @@
       <p class="text-gray-700 mb-4">
         We invite you to visit us, worship with us, or reach out with any questions. You are always welcome at Hearts After God Ministry!
       </p>
-      <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-bold rounded-full shadow hover:bg-green-600 transition mb-4"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg> WhatsApp Us</a>
-      <div class="text-gray-600 text-sm mb-2">Meet us online or in person – we’re a global family!</div>
-      <a href="contact.html" class="inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Contact Us</a>
+      <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" class="cta-btn inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-bold rounded-full shadow hover:bg-green-600 transition mb-4"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg> WhatsApp Us</a>
+      <div class="text-gray-600 text-sm mb-2">Meet us online or in person – we're a global family!</div>
+      <a href="contact.html" class="cta-btn inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition">Contact Us</a>
+    </section>
+
+    <!-- MINISTRY FOUNDING STORY & DIVINE CALLING -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Founding Story -->
+      <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-8 flex items-start gap-6 mb-8">
+        <!-- Icon Accent -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
+            <!-- Heroic Heart/Flame Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3C12 3 7 8 7 12a5 5 0 0010 0c0-4-5-9-5-9z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 01-9-9c0-4.97 4.03-9 9-9s9 4.03 9 9a9 9 0 01-9 9z"/></svg>
+          </div>
+        </div>
+        <!-- Content -->
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-3">Our Founding Story & Divine Calling</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Hearts After God Ministry was birthed from a season of deep prayer and a clear divine mandate to raise a generation after God's heart. The Lord impressed upon our founders the urgency of soul-winning, discipleship, and equipping believers to walk in their God-given purpose. Through many confirmations and miraculous doors, the ministry began as a small fellowship and has grown into a global movement, impacting lives across nations.
+          </p>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+    </section>
+
+    <!-- LEADERSHIP SPIRITUAL JOURNEY (EXPANDED) -->
+    <section class="max-w-5xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Leadership Team -->
+      <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-8 flex items-start gap-6 mb-8">
+        <!-- Icon Accent -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
+            <!-- Leadership/Group Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 11-8 0 4 4 0 018 0zm6 4v2a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2a6 6 0 0112 0zM6 8a4 4 0 100-8 4 4 0 000 8z"/></svg>
+          </div>
+        </div>
+        <!-- Content -->
+        <div class="flex-1">
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-3 text-center md:text-left">Leadership Team: Our Spiritual Journey</h2>
+          <p class="text-gray-700 text-center md:text-left mb-0">Our leaders have each experienced a unique journey of faith, marked by encounters with God, seasons of growth, and a passion to serve. Their testimonies inspire and guide the ministry family.</p>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+      <!-- (Optionally, add more leader cards here if needed) -->
+    </section>
+
+    <!-- VISION FOR BIRTHING NEW MINISTRIES -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Vision -->
+      <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#FDBA17] p-8 flex items-start gap-6 mb-8">
+        <!-- Icon Accent -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="bg-gradient-to-br from-[#FDBA17] to-[#7C3AED] rounded-full p-3 shadow-lg">
+            <!-- Upward Arrow/Seedling Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7"/></svg>
+          </div>
+        </div>
+        <!-- Content -->
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#FDBA17] mb-3">Vision: Birthing New Ministries</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Hearts After God is not just a ministry, but a platform for birthing new ministries and callings. We believe God is raising up leaders, worshipers, teachers, and evangelists through this family—each equipped to launch new works and reach new communities for Christ. Our vision is to see many ministries, churches, and outreach teams birthed and sent out from this movement.
+          </p>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+    </section>
+
+    <!-- GOD'S MANIFESTATION IN DIFFERENT DIMENSIONS -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Manifestation -->
+      <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-8 flex items-start gap-6 mb-8">
+        <!-- Icon Accent -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
+            <!-- Sparkles Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M6.05 17.95l-1.414 1.414m0-13.828l1.414 1.414M17.95 17.95l1.414 1.414"/></svg>
+          </div>
+        </div>
+        <!-- Content -->
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-3">God's Manifestation Through This Platform</h2>
+          <p class="text-lg text-gray-700 leading-relaxed">
+            Through Hearts After God, we have witnessed God's hand in many dimensions—healing, deliverance, prophetic words, restoration of families, and supernatural provision. The ministry is a testimony to God's faithfulness and the power of the Holy Spirit at work in ordinary people.
+          </p>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+    </section>
+
+    <!-- IMPACT STATISTICS & SOUL-WINNING TESTIMONIES (EXPANDED) -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Ministry Impact & Testimonies -->
+      <div class="relative bg-white/80 rounded-2xl shadow-xl border border-[#E5E7EB] p-8 mb-8">
+        <!-- Section Heading with Icon -->
+        <div class="flex items-center gap-4 mb-6">
+          <div class="bg-gradient-to-br from-[#FDBA17] to-[#7C3AED] rounded-full p-3 shadow-lg flex-shrink-0">
+            <!-- Trophy Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m8-16v2a4 4 0 01-4 4H6a4 4 0 01-4-4V5m16 0V3a1 1 0 00-1-1H5a1 1 0 00-1 1v2m16 0a4 4 0 01-4 4H6a4 4 0 01-4-4"/></svg>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#2046B3]">Ministry Impact & Testimonies</h2>
+        </div>
+        <!-- Stat Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div class="bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow-lg border border-[#E5E7EB] p-6 flex flex-col items-center">
+            <span class="text-3xl font-extrabold text-[#7C3AED]">20+</span>
+            <span class="text-gray-500 text-sm mb-2">Souls Won</span>
+            <p class="text-gray-700 text-center">Lives transformed by the Gospel and discipleship.</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#FEF3C7]/60 to-[#F3E8FF]/60 rounded-xl shadow-lg border border-[#E5E7EB] p-6 flex flex-col items-center">
+            <span class="text-3xl font-extrabold text-[#FDBA17]">2</span>
+            <span class="text-gray-500 text-sm mb-2">Active Ministries</span>
+            <p class="text-gray-700 text-center">New ministries launched and thriving through the platform.</p>
+          </div>
+        </div>
+        <!-- Discipleship Testimonies -->
+        <div class="space-y-6 mb-4">
+          <div class="flex flex-col items-center md:flex-row md:items-start md:gap-6 bg-gradient-to-br from-white via-[#F3E8FF]/40 to-[#FEF3C7]/40 rounded-xl shadow p-6 border-l-4 border-[#FDBA17] relative">
+            <!-- Quote Icon -->
+            <div class="absolute -top-4 left-4 bg-gradient-to-br from-[#FDBA17] to-[#7C3AED] rounded-full p-2 shadow-lg">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17c0-2.21 1.79-4 4-4s4 1.79 4 4m-8 0c0-2.21 1.79-4 4-4s4 1.79 4 4"/></svg>
+            </div>
+            <img src="assets/images/testimonies/Sharon Cherotich.jpg" alt="Sharon Cherotich" class="w-20 h-20 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4 md:mb-0 z-10" />
+            <div class="text-gray-700 italic text-center md:text-left ml-0 md:ml-4">
+              From the Discipleship class my faith in God has been built through the word and prayer.<br>
+              I now have a good relationship with the Holy Spirit.<br>
+              God has given me freedom and victory from the battles I had and now my focus is God and my relationship with Him.<br>
+              <span class="block mt-2 font-bold text-[#2046B3]">— Sharon Cherotich</span>
+            </div>
+          </div>
+          <div class="flex flex-col items-center md:flex-row md:items-start md:gap-6 bg-gradient-to-br from-white via-[#F3E8FF]/40 to-[#FEF3C7]/40 rounded-xl shadow p-6 border-l-4 border-[#7C3AED] relative">
+            <!-- Quote Icon -->
+            <div class="absolute -top-4 left-4 bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-2 shadow-lg">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17c0-2.21 1.79-4 4-4s4 1.79 4 4m-8 0c0-2.21 1.79-4 4-4s4 1.79 4 4"/></svg>
+            </div>
+            <img src="assets/images/testimonies/Angel Mwende.jpg" alt="Angel Mwende" class="w-20 h-20 object-cover rounded-full border-4 border-[#7C3AED] shadow mb-4 md:mb-0 z-10" />
+            <div class="text-gray-700 italic text-center md:text-left ml-0 md:ml-4">
+              My name is Angel and I was part of the 14 days discipleship class. I thank God for giving me an opportunity to be a part of it, I really learnt a lot and for sure it was a life changing experience.<br>
+              <span class="block mt-2 font-bold text-[#7C3AED]">— Angel Mwende</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+    </section>
+
+    <!-- PARTNERSHIP WITH HOLY SPIRIT -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Holy Spirit Partnership -->
+      <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-8 flex items-start gap-6 mb-8">
+        <!-- Icon Accent -->
+        <div class="flex-shrink-0 mt-1">
+          <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
+            <!-- Dove Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 19s2-2 6-2 6 2 6 2M9 13c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0 0v6m0-6c1.657 0 3-1.343 3-3"/></svg>
+          </div>
+        </div>
+        <!-- Content -->
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-3">Our Partnership with the Holy Spirit</h2>
+          <p class="text-lg text-gray-700 leading-relaxed mb-0">
+            Everything we do is led by the Holy Spirit. We seek His guidance in prayer, worship, teaching, and outreach. Our desire is to remain sensitive to His leading and to empower every believer to walk in the Spirit daily.
+          </p>
+        </div>
+      </div>
+      <!-- End Modern Card Enhancement -->
+    </section>
+
+    <!-- CONTACT INFORMATION & MINISTRY LOCATIONS -->
+    <section class="max-w-4xl mx-auto py-12 px-4 fade-in">
+      <!-- Modern Card Enhancement: Contact & Locations -->
+      <div class="relative bg-white/80 rounded-2xl shadow-xl border border-[#E5E7EB] p-8 mb-8">
+        <!-- Section Heading with Icon -->
+        <div class="flex items-center gap-4 mb-6">
+          <div class="bg-gradient-to-br from-[#FDBA17] to-[#7C3AED] rounded-full p-3 shadow-lg flex-shrink-0">
+            <!-- Map Pin Icon -->
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21c-4.418 0-8-4.03-8-9a8 8 0 1116 0c0 4.97-3.582 9-8 9zm0-11a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          </div>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-[#FDBA17]">Contact & Locations</h2>
+        </div>
+        <p class="text-gray-700 mb-4">For inquiries, prayer requests, or to connect with our ministry, please use the details below:</p>
+        <ul class="mb-4 text-gray-700">
+          <li><span class="font-bold text-[#7C3AED]">Email:</span> <a href="mailto:info@heartsaftergod.org" class="underline hover:text-[#FDBA17]">info@heartsaftergod.org</a></li>
+          <li><span class="font-bold text-[#7C3AED]">WhatsApp:</span> <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" class="underline hover:text-[#FDBA17]">Join WhatsApp Group</a></li>
+          <li><span class="font-bold text-[#7C3AED]">Location:</span> Global Online Ministry (with local meetups in select countries)</li>
+        </ul>
+        <a href="contact.html" class="cta-btn inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition">Contact Us</a>
+      </div>
+      <!-- End Modern Card Enhancement -->
     </section>
 
   </main>
@@ -389,54 +567,14 @@
     </div>
   </footer>
 
-  <script>
-    // Navigation underline effect
-    const navLinks = document.getElementById('nav-links');
-    const navUnderline = document.getElementById('nav-underline');
-    const navLinksArray = Array.from(navLinks.children);
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-[#7C3AED] text-white p-3 rounded-full shadow-lg hover:bg-[#5B23B4] transition-all duration-300 opacity-0 invisible z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
 
-    navLinksArray.forEach(link => {
-      link.addEventListener('mouseenter', () => {
-        const linkRect = link.getBoundingClientRect();
-        navUnderline.style.width = `${linkRect.width}px`;
-        navUnderline.style.left = `${linkRect.left}px`;
-      });
-    });
-
-    // Mobile menu toggle
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileOverlay = document.getElementById('mobile-overlay');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinksMobile = document.querySelectorAll('.mobile-menu ul li a');
-
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('open');
-      mobileOverlay.classList.toggle('open');
-      mobileMenuToggle.setAttribute('aria-expanded', mobileMenu.classList.contains('open'));
-    });
-
-    mobileOverlay.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      mobileOverlay.classList.remove('open');
-      mobileMenuToggle.setAttribute('aria-expanded', 'false');
-    });
-
-    navLinksMobile.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        mobileOverlay.classList.remove('open');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    // Close mobile menu on window resize
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        mobileMenu.classList.remove('open');
-        mobileOverlay.classList.remove('open');
-        mobileMenuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  </script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/navigation.js"></script>
 </body>
 </html> 

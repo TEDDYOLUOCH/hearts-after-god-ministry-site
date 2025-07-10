@@ -42,16 +42,20 @@
   <div id="register-modal" class="modal-bg hidden">
     <div class="modal-content relative w-full max-w-md">
       <button onclick="document.getElementById('register-modal').classList.add('hidden')" class="absolute top-3 right-3 text-2xl text-[#7C3AED] hover:text-[#FDBA17]">&times;</button>
+      <div class="flex justify-center mb-4">
+        <img src="../assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+      </div>
       <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Register as a Disciple</h2>
       <form id="register-form" class="space-y-4">
         <input type="text" placeholder="Full Name" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
         <input type="email" placeholder="Email" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
         <input type="tel" placeholder="WhatsApp/Phone" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-        <input type="password" placeholder="Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-        <input type="password" placeholder="Confirm Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
+        <input id="register-password" type="password" placeholder="Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
+        <input id="register-confirm-password" type="password" placeholder="Confirm Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
+        <div id="password-feedback" class="text-left text-xs mt-2 mb-2"></div>
         <button type="submit" class="w-full px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition text-lg">Register</button>
+        <div id="register-message" class="mt-2 text-center text-sm font-semibold"></div>
       </form>
-      <div id="register-success" class="hidden text-green-600 font-semibold mt-4 text-center">Registration successful! Redirecting to your dashboard...</div>
     </div>
   </div>
 
@@ -59,6 +63,9 @@
   <div id="login-modal" class="modal-bg hidden">
     <div class="modal-content relative w-full max-w-md">
       <button onclick="document.getElementById('login-modal').classList.add('hidden')" class="absolute top-3 right-3 text-2xl text-[#FDBA17] hover:text-[#7C3AED]">&times;</button>
+      <div class="flex justify-center mb-4">
+        <img src="../assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+      </div>
       <h2 class="text-2xl font-bold text-[#FDBA17] mb-4">Admin Login</h2>
       <form id="login-form" class="space-y-4">
         <input type="email" placeholder="Admin Email" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#FDBA17] text-lg" />
@@ -71,15 +78,109 @@
 
   <!-- Modal Logic -->
   <script>
-    document.getElementById('register-form').onsubmit = function(e) {
-      e.preventDefault();
-      document.getElementById('register-success').classList.remove('hidden');
-      setTimeout(function() {
-        window.location.href = '../user-dashboard.html';
-      }, 1500);
-    };
+    function validatePasswordStrength(password) {
+      // At least 8 characters, one uppercase, one lowercase, one number, one special character
+      const minLength = 8;
+      const hasUpper = /[A-Z]/.test(password);
+      const hasLower = /[a-z]/.test(password);
+      const hasNumber = /[0-9]/.test(password);
+      const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      return {
+        minLength,
+        hasUpper,
+        hasLower,
+        hasNumber,
+        hasSpecial,
+        valid: password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial
+      };
+    }
+    // Real-time feedback for password strength
+    document.addEventListener('DOMContentLoaded', function() {
+      const passwordInput = document.getElementById('register-password');
+      const feedback = document.getElementById('password-feedback');
+      if (passwordInput && feedback) {
+        passwordInput.addEventListener('input', function() {
+          const val = passwordInput.value;
+          const res = validatePasswordStrength(val);
+          feedback.innerHTML = `
+            <div>Password must have:</div>
+            <ul class="ml-4">
+              <li style="color:${val.length >= res.minLength ? 'green' : 'red'}">• At least 8 characters</li>
+              <li style="color:${res.hasUpper ? 'green' : 'red'}">• An uppercase letter</li>
+              <li style="color:${res.hasLower ? 'green' : 'red'}">• A lowercase letter</li>
+              <li style="color:${res.hasNumber ? 'green' : 'red'}">• A number</li>
+              <li style="color:${res.hasSpecial ? 'green' : 'red'}">• A special character</li>
+            </ul>
+          `;
+        });
+      }
+      // Registration form logic
+      const regForm = document.getElementById('register-form');
+      if (regForm) {
+        regForm.onsubmit = function(e) {
+          e.preventDefault();
+          try {
+            const name = regForm.querySelector('input[type="text"]').value;
+            const email = regForm.querySelector('input[type="email"]').value;
+            const phone = regForm.querySelector('input[type="tel"]').value;
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('register-confirm-password').value;
+            const res = validatePasswordStrength(password);
+            const msg = document.getElementById('register-message');
+            msg.textContent = '';
+            msg.className = 'mt-2 text-center text-sm font-semibold';
+            if (password !== confirm) {
+              msg.textContent = 'Passwords do not match. Please make sure both passwords are identical.';
+              msg.classList.add('text-red-600');
+              return;
+            }
+            if (!res.valid) {
+              msg.textContent = 'Password does not meet all requirements.';
+              msg.classList.add('text-red-600');
+              return;
+            }
+            let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+            if (users.find(u => u.email === email)) {
+              msg.textContent = 'Email already registered.';
+              msg.classList.add('text-red-600');
+              return;
+            }
+            users.push({ name, email, phone, password });
+            localStorage.setItem('discipleship_users', JSON.stringify(users));
+            msg.textContent = 'Registration successful! Redirecting to your dashboard...';
+            msg.classList.remove('text-red-600');
+            msg.classList.add('text-green-600');
+            setTimeout(function() {
+              window.location.href = '../user-dashboard.html';
+            }, 1500);
+          } catch (err) {
+            console.error('Registration error:', err);
+            const msg = document.getElementById('register-message');
+            if (msg) {
+              msg.textContent = 'An unexpected error occurred. Please try again.';
+              msg.className = 'mt-2 text-center text-sm font-semibold text-red-600';
+            }
+          }
+        };
+      } else {
+        console.error('Register form not found!');
+      }
+    });
     document.getElementById('login-form').onsubmit = function(e) {
       e.preventDefault();
+      const inputs = this.querySelectorAll('input');
+      const email = inputs[0].value;
+      const password = inputs[1].value;
+      let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+      const user = users.find(u => u.email === email);
+      if (!user) {
+        alert('No account found with this email.');
+        return;
+      }
+      if (user.password !== password) {
+        alert('Incorrect password. Please try again.');
+        return;
+      }
       document.getElementById('login-success').classList.remove('hidden');
       setTimeout(function() {
         window.location.href = '../admin-dashboard.html';

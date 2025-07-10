@@ -157,7 +157,7 @@
       </div>
       <!-- CTA Button -->
       <div class="hidden md:flex gap-3 ml-6">
-        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-bold rounded-full shadow hover:bg-[#E0A615] transition">Connect With Us</a>
+        <a href="contact.html" class="hidden md:inline-block ml-6 px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow cta-btn hover:bg-[#5B23B4] transition">Connect With Us</a>
       </div>
       <!-- Mobile Hamburger -->
       <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded focus:outline-none focus:ring-2 focus:ring-[#FDBA17] transition-transform duration-200 hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
@@ -181,7 +181,7 @@
           <li><a href="contact.html" class="nav-link">Contact</a></li>
         </ul>
         <div class="mt-8">
-          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Connect With Us</a>
+          <a href="contact.html" class="block w-full text-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow cta-btn hover:bg-[#5B23B4] transition">Connect With Us</a>
         </div>
       </nav>
     </nav>
@@ -192,37 +192,45 @@
     <div class="relative z-10 text-center px-4 py-16 md:py-24">
       <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">Upcoming Events</h1>
       <p class="mt-4 text-lg md:text-xl text-white font-medium max-w-2xl mx-auto">Join us for worship, fellowship, and service. All are welcome!</p>
-      <span class="block mt-2 text-[#FDBA17] text-base md:text-lg font-semibold">“Let us consider how we may spur one another on toward love and good deeds.” – Hebrews 10:24</span>
+      <span class="block mt-2 text-[#FDBA17] text-base md:text-lg font-semibold">"Let us consider how we may spur one another on toward love and good deeds." – Hebrews 10:24</span>
     </div>
   </section>
 
   <main class="max-w-7xl mx-auto px-4 py-12">
     <!-- FILTER BAR (UI only) -->
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">
-      <div class="flex gap-4 items-center">
-        <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none w-64" aria-label="Search events"/>
-        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" aria-label="Filter by category">
-          <option>All Categories</option>
-          <option>Worship</option>
-          <option>Outreach</option>
-          <option>Discipleship</option>
-          <option>Youth</option>
-        </select>
-      </div>
-      <div class="text-sm text-gray-500">
-        <span>Showing upcoming events</span>
-        <br>
-        <span id="last-updated" class="text-xs">Last updated: <span id="current-time"></span></span>
+    <div class="max-w-4xl mx-auto -mt-16 mb-10">
+      <div class="relative bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div class="flex gap-4 items-center w-full md:w-auto">
+          <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg flex-shrink-0">
+            <!-- Magnifying Glass Icon -->
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none w-64" aria-label="Search events"/>
+          <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" aria-label="Filter by category">
+            <option>All Categories</option>
+            <option>Worship</option>
+            <option>Outreach</option>
+            <option>Discipleship</option>
+            <option>Youth</option>
+          </select>
+        </div>
+        <div class="text-sm text-gray-500 w-full md:w-auto text-center md:text-right">
+          <span>Showing upcoming events</span>
+          <br>
+          <span id="last-updated" class="text-xs">Last updated: <span id="current-time"></span></span>
+        </div>
       </div>
     </div>
-
     <div class="border-t-2 border-dashed border-[#FDBA17] mb-12"></div>
 
     <!-- FEATURED THIS MONTH SECTION -->
     <section id="featured-this-month" class="mb-16">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-1 h-8 bg-[#FDBA17] rounded-full"></div>
-        <h2 class="text-3xl font-bold text-[#7C3AED]">Featured This Month</h2>
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-gradient-to-br from-[#FDBA17] to-[#7C3AED] rounded-full p-3 shadow-lg flex-shrink-0">
+          <!-- Star Icon -->
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15 8.5 22 9.3 17 14.1 18.2 21 12 17.8 5.8 21 7 14.1 2 9.3 9 8.5 12 2"/></svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#FDBA17]">Featured This Month</h2>
         <span class="text-[#FDBA17] text-2xl">⭐</span>
       </div>
       <div id="featured-events" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
@@ -230,22 +238,58 @@
 
     <!-- UPCOMING EVENTS SECTION -->
     <section id="upcoming-events" class="mb-16">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-1 h-8 bg-[#7C3AED] rounded-full"></div>
-        <h2 class="text-3xl font-bold text-[#7C3AED]">Upcoming Events</h2>
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg flex-shrink-0">
+          <!-- Calendar Icon -->
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#FDBA17]">Upcoming Events</h2>
         <span class="text-[#7C3AED] text-2xl">📅</span>
       </div>
-      <div id="upcoming-events-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+      <div class="bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl shadow-xl p-6">
+        <div id="upcoming-events-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+      </div>
     </section>
 
     <!-- PAST EVENTS SECTION -->
     <section id="past-events" class="mb-16">
-      <div class="flex items-center gap-3 mb-8">
-        <div class="w-1 h-8 bg-gray-400 rounded-full"></div>
-        <h2 class="text-3xl font-bold text-gray-600">Past Events</h2>
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-gradient-to-br from-gray-400 to-[#FDBA17] rounded-full p-3 shadow-lg flex-shrink-0">
+          <!-- Archive/Book Icon -->
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16"/></svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-600 to-[#FDBA17]">Past Events</h2>
         <span class="text-gray-400 text-2xl">📚</span>
       </div>
-      <div id="past-events-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+      <div class="bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl shadow-xl p-6">
+        <div id="past-events-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+      </div>
+    </section>
+
+    <!-- CALENDAR VIEW SECTION (UI only, inserted by script) -->
+    <section id="calendar-view-section" class="mb-16">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg flex-shrink-0">
+          <!-- Calendar Month Icon -->
+          <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#FDBA17]">Calendar View</h2>
+        <span class="text-[#FDBA17] text-2xl">🗓️</span>
+      </div>
+      <div class="overflow-x-auto bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow-xl p-6">
+        <table class="min-w-full bg-white rounded-xl shadow">
+          <thead>
+            <tr>
+              <th class="p-3 text-left text-[#7C3AED] font-bold">Date</th>
+              <th class="p-3 text-left text-[#2046B3] font-bold">Event</th>
+              <th class="p-3 text-left text-[#FDBA17] font-bold">Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Calendar rows will be injected by script -->
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <!-- PAGINATION (UI only) -->
@@ -540,7 +584,7 @@
                     <span>${event.time || ''}</span>
                   </div>
                   <p class="text-gray-700 mb-4 line-clamp-3">${event.description || ''}</p>
-                  <button class="mt-auto inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" onclick="showEventModal(${events.indexOf(event)})">Details & Register</button>
+                  <button class="mt-auto inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg cta-btn hover:bg-[#5B23B4] hover:text-white transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" onclick="showEventModal(${events.indexOf(event)})">Details & Register</button>
                 </div>
               </div>
             `;
@@ -578,7 +622,7 @@
                     <span>${event.location || 'Online / TBA'}</span>
                   </div>
                   <p class="text-gray-700 mb-4 line-clamp-3">${event.description || ''}</p>
-                  <button class="mt-auto inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" onclick="showEventModal(${events.indexOf(event)})">Details & Register</button>
+                  <button class="mt-auto inline-block px-6 py-2 bg-[#7C3AED] text-white font-semibold rounded-lg cta-btn hover:bg-[#5B23B4] hover:text-white transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" onclick="showEventModal(${events.indexOf(event)})">Details & Register</button>
                 </div>
               </div>
             `;
@@ -657,20 +701,11 @@
           <div class="mb-4"><span class="font-semibold text-[#FDBA17]">RSVP by:</span> ${e.rsvp || 'N/A'}</div>
           <p class="text-gray-700 mb-4">${e.description || ''}</p>
           <div class="mb-4">
-            <a href="${e.flyer}" download target="_blank" class="inline-flex items-center gap-2 px-6 py-2 bg-[#FDBA17] text-[#2046B3] font-semibold rounded-lg shadow hover:bg-[#7C3AED] hover:text-white transition focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"/></svg>
-              Download Flyer
-            </a>
+            <a href="${e.flyer}" download target="_blank" class="inline-flex items-center gap-2 px-6 py-2 bg-[#F59E0B] text-[#1E40AF] font-semibold rounded-lg shadow cta-btn hover:bg-[#7C3AED] hover:text-white transition focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">Download Flyer</a>
           </div>
           <div class="flex flex-col sm:flex-row gap-3 mt-6">
-            <a href="${e.link}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7C3AED] text-white font-semibold rounded-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" target="_blank" rel="noopener">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-              Register via WhatsApp
-            </a>
-            <a href="contact.html?event=${encodeURIComponent(e.title)}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#FDBA17] text-[#2046B3] font-semibold rounded-lg hover:bg-[#7C3AED] hover:text-white transition focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              Contact Us
-            </a>
+            <a href="${e.link}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7C3AED] text-white font-semibold rounded-lg cta-btn hover:bg-[#5B23B4] hover:text-white transition focus:ring-2 focus:ring-[#FDBA17] focus:outline-none" target="_blank" rel="noopener">Register via WhatsApp</a>
+            <a href="contact.html?event=${encodeURIComponent(e.title)}" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#F59E0B] text-[#1E40AF] font-semibold rounded-lg cta-btn hover:bg-[#7C3AED] hover:text-white transition focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">Contact Us</a>
           </div>
         `;
         const modal = document.getElementById('event-modal');
@@ -694,6 +729,198 @@
         if(e.target === this) this.classList.add('hidden');
       });
     });
+  </script>
+  <script>
+// === Dynamic Event Loading and Features (Non-intrusive) ===
+(async function() {
+  // Fetch events.json
+  const res = await fetch('events.json');
+  let events = [];
+  try { events = await res.json(); } catch (e) { events = []; }
+  if (!Array.isArray(events)) return;
+
+  // Helper: parse date for sorting/filtering
+  function parseDate(dateStr, timeStr) {
+    let d = new Date(`${dateStr} ${timeStr || ''}`);
+    if (isNaN(d)) d = new Date(dateStr);
+    return isNaN(d) ? null : d;
+  }
+  function getEventEndDate(ev) {
+    // Try to parse end time from 'time' field (e.g., '9:00 AM - 5:00 PM')
+    const date = parseDate(ev.date);
+    if (!date) return null;
+    if (ev.time && ev.time.includes('-')) {
+      const endTime = ev.time.split('-')[1].trim();
+      const endDate = new Date(`${ev.date} ${endTime}`);
+      if (!isNaN(endDate)) return endDate;
+    }
+    // Default: end of day
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23,59,59,999);
+    return endOfDay;
+  }
+  function isHappeningNow(ev) {
+    const now = new Date();
+    const start = parseDate(ev.date, ev.time && ev.time.includes('-') ? ev.time.split('-')[0].trim() : ev.time);
+    const end = getEventEndDate(ev);
+    return start && end && now >= start && now <= end;
+  }
+  const now = new Date();
+
+  // Split events
+  const upcoming = events.filter(ev => getEventEndDate(ev) && getEventEndDate(ev) >= now);
+  const past = events.filter(ev => getEventEndDate(ev) && getEventEndDate(ev) < now);
+
+  // --- FEATURED LOGIC ---
+  function isTodayEvent(ev) {
+    const eventDate = parseDate(ev.date, ev.time);
+    return eventDate &&
+      eventDate.getDate() === now.getDate() &&
+      eventDate.getMonth() === now.getMonth() &&
+      eventDate.getFullYear() === now.getFullYear();
+  }
+  function isThisMonthEvent(ev) {
+    const eventDate = parseDate(ev.date, ev.time);
+    return eventDate &&
+      eventDate.getMonth() === now.getMonth() &&
+      eventDate.getFullYear() === now.getFullYear() &&
+      getEventEndDate(ev) >= now;
+  }
+  let featured = events.filter(isTodayEvent);
+  if (featured.length === 0) {
+    featured = events.filter(isThisMonthEvent);
+  }
+  if (featured.length === 0) {
+    featured = upcoming.slice(0, 1);
+  }
+
+  // Render helpers
+  function eventCard(ev, showDetailsBtn = true, withCountdown = false) {
+    const countdownId = withCountdown ? `countdown-${ev.id}` : '';
+    const happeningNow = isHappeningNow(ev);
+    return `<div class="bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] flex flex-col overflow-hidden">
+      <img src="${ev.image}" alt="${ev.title}" class="w-full h-48 object-cover" loading="lazy"/>
+      <div class="p-6 flex flex-col flex-1">
+        <div class="flex items-center gap-2 mb-2 text-sm text-[#7C3AED] font-semibold">
+          <span>${ev.date}</span> &bull; <span>${ev.time}</span>
+        </div>
+        <h3 class="text-xl font-bold text-[#2046B3] mb-1">${ev.title}</h3>
+        <div class="text-gray-600 mb-2">${ev.location}</div>
+        <p class="text-gray-700 mb-4 line-clamp-3">${ev.description}</p>
+        ${happeningNow ? `<div class='inline-block px-3 py-1 bg-[#FDBA17] text-[#2046B3] rounded-full font-bold text-xs mb-2 animate-pulse'>Happening Now</div>` : ''}
+        ${withCountdown ? `<div id="${countdownId}" class="font-bold text-[#FDBA17] mb-2"></div>` : ''}
+        <div class="flex gap-2 mt-auto">
+          ${ev.flyer ? `<a href="${ev.flyer}" target="_blank" class="px-3 py-1 bg-[#FDBA17] text-[#2046B3] rounded shadow hover:bg-[#7C3AED] hover:text-white text-sm font-bold">Flyer</a>` : ''}
+          ${ev.link ? `<a href="${ev.link}" target="_blank" class="px-3 py-1 bg-[#7C3AED] text-white rounded shadow hover:bg-[#FDBA17] hover:text-[#2046B3] text-sm font-bold">Register</a>` : ''}
+          ${showDetailsBtn ? `<button onclick="showEventDetails('${ev.id}')" class="px-3 py-1 bg-gray-200 text-[#7C3AED] rounded shadow hover:bg-[#7C3AED] hover:text-white text-sm font-bold">Details</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // Countdown logic
+  function startCountdown(ev) {
+    const countdownId = `countdown-${ev.id}`;
+    const el = document.getElementById(countdownId);
+    if (!el) return;
+    function update() {
+      const now = new Date();
+      const eventDate = parseDate(ev.date, ev.time);
+      if (!eventDate) { el.textContent = ''; return; }
+      const diff = eventDate - now;
+      if (diff <= 0) {
+        el.textContent = 'Happening Today!';
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      el.textContent = `${days}d ${hours}h ${mins}m ${secs}s left`;
+    }
+    update();
+    setInterval(update, 1000);
+  }
+
+  // Populate sections
+  const featuredDiv = document.getElementById('featured-events');
+  if (featuredDiv) featuredDiv.innerHTML = featured.map(ev => eventCard(ev, true, true)).join('');
+  const upcomingDiv = document.getElementById('upcoming-events-list');
+  if (upcomingDiv) upcomingDiv.innerHTML = upcoming.map(ev => eventCard(ev, true, true)).join('');
+  const pastDiv = document.getElementById('past-events-list');
+  if (pastDiv) pastDiv.innerHTML = past.map(ev => eventCard(ev, false)).join('');
+
+  // Start countdowns for all upcoming events
+  [...featured, ...upcoming].forEach(ev => startCountdown(ev));
+
+  // Calendar View (UI only)
+  const calendarSection = document.createElement('section');
+  calendarSection.className = 'mb-16';
+  calendarSection.innerHTML = `
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-1 h-8 bg-[#FDBA17] rounded-full"></div>
+      <h2 class="text-3xl font-bold text-[#7C3AED]">Calendar View</h2>
+      <span class="text-[#FDBA17] text-2xl">🗓️</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white rounded-2xl shadow-xl">
+        <thead><tr><th class="p-3 text-left text-[#7C3AED]">Date</th><th class="p-3 text-left text-[#2046B3]">Event</th><th class="p-3 text-left text-[#FDBA17]">Location</th></tr></thead>
+        <tbody>
+          ${events.map(ev => `<tr class="border-b last:border-0"><td class="p-3">${ev.date}</td><td class="p-3">${ev.title}</td><td class="p-3">${ev.location}</td></tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+  const main = document.querySelector('main');
+  if (main) main.insertBefore(calendarSection, document.getElementById('past-events'));
+
+  // Filtering by type/date (UI only)
+  // Add filter dropdowns above upcoming events
+  const filterBar = document.createElement('div');
+  filterBar.className = 'flex flex-wrap gap-4 mb-8 items-center';
+  filterBar.innerHTML = `
+    <select id="event-type-filter" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
+      <option value="">All Types</option>
+      ${[...new Set(events.map(ev => ev.category))].map(cat => `<option value="${cat}">${cat}</option>`).join('')}
+    </select>
+    <input id="event-date-filter" type="date" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" />
+  `;
+  if (upcomingDiv) upcomingDiv.parentNode.insertBefore(filterBar, upcomingDiv);
+  document.getElementById('event-type-filter').onchange = function() {
+    const val = this.value;
+    const filtered = val ? upcoming.filter(ev => ev.category === val) : upcoming;
+    upcomingDiv.innerHTML = filtered.map(ev => eventCard(ev)).join('');
+  };
+  document.getElementById('event-date-filter').onchange = function() {
+    const val = this.value;
+    const filtered = val ? upcoming.filter(ev => (parseDate(ev.date, ev.time) && parseDate(ev.date, ev.time).toISOString().slice(0,10) === val)) : upcoming;
+    upcomingDiv.innerHTML = filtered.map(ev => eventCard(ev)).join('');
+  };
+
+  // Event Details Modal (reuse existing modal)
+  window.showEventDetails = function(id) {
+    const ev = events.find(e => e.id === id);
+    if (!ev) return;
+    const modal = document.getElementById('event-modal');
+    const content = document.getElementById('modal-content');
+    if (!modal || !content) return;
+    content.innerHTML = `
+      <img src="${ev.image}" alt="${ev.title}" class="w-full h-48 object-cover rounded mb-4" loading="lazy"/>
+      <h3 class="text-2xl font-bold text-[#7C3AED] mb-2">${ev.title}</h3>
+      <div class="mb-2 text-[#FDBA17] font-semibold">${ev.date} &bull; ${ev.time}</div>
+      <div class="mb-2 text-gray-600">${ev.location}</div>
+      <p class="mb-4 text-gray-700">${ev.description}</p>
+      <div class="mb-2 text-sm text-gray-500">Speaker: ${ev.speaker||''}</div>
+      <div class="mb-2 text-sm text-gray-500">RSVP: ${ev.rsvp||''}</div>
+      ${ev.flyer ? `<a href="${ev.flyer}" target="_blank" class="inline-block px-4 py-2 bg-[#FDBA17] text-[#2046B3] rounded shadow hover:bg-[#7C3AED] hover:text-white text-sm font-bold mb-2">View Flyer</a>` : ''}
+      ${ev.link ? `<a href="${ev.link}" target="_blank" class="inline-block px-4 py-2 bg-[#7C3AED] text-white rounded shadow hover:bg-[#FDBA17] hover:text-[#2046B3] text-sm font-bold mb-2">Register</a>` : ''}
+    `;
+    modal.classList.remove('hidden');
+  };
+  document.getElementById('close-modal').onclick = function() {
+    document.getElementById('event-modal').classList.add('hidden');
+  };
+})();
   </script>
   <script src="assets/js/main.js"></script>
   <script>
@@ -726,4 +953,4 @@
     });
   </script>
 </body>
-</html> 
+</html>

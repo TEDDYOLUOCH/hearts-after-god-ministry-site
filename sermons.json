@@ -4,6 +4,7 @@
     "title": "Walking in Faith: A Journey of Trust",
     "speaker": "Minister Cyrilla Chikamai",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "audio": "assets/audio/sample-sermon.mp3",
     "thumbnail": "assets/images/hero/IMG-20250705-WA0023.jpg",
     "date": "2025-01-15",
     "duration": "45:32",
@@ -11,6 +12,7 @@
     "tags": ["faith", "trust", "spiritual growth", "discipleship"],
     "description": "Explore the transformative power of walking in faith. This message challenges us to trust God completely in every aspect of our lives, even when the path ahead seems uncertain.",
     "scripture": "Hebrews 11:1-6",
+    "notes": "Faith is the assurance of things hoped for. Trust God even when you can't see the way. Key points: 1) Faith over fear. 2) Trust in God's timing. 3) Walk by faith, not by sight.",
     "views": 1247,
     "featured": true
   },
