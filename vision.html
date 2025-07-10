@@ -191,9 +191,30 @@
     </div>
   </section>
 
+  <!-- TABLE OF CONTENTS -->
+  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <a href="#vision-mission" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Vision & Mission</a>
+        <a href="#core-values" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Core Values</a>
+        <a href="#ministry-focus" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Ministry Focus</a>
+        <a href="#global-reach" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Global Reach</a>
+        <a href="#discipleship" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Discipleship</a>
+        <a href="#soul-winning" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Soul Winning</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button id="back-to-top" class="fixed bottom-8 right-8 bg-[#7C3AED] text-white p-3 rounded-full shadow-lg hover:bg-[#5B23B4] transition-all duration-300 opacity-0 pointer-events-none z-50">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+  </button>
+
   <main class="relative bg-gradient-to-br from-gray-50 via-[#F3E8FF]/40 to-[#FEF3C7]/40 pt-0 py-8">
     <!-- MODERN VISION & MISSION SECTION (Acts 1:8 Foundation) -->
-    <section class="max-w-5xl mx-auto py-8 md:py-10 px-4 mt-0">
+    <section id="vision-mission" class="max-w-5xl mx-auto py-8 md:py-10 px-4 mt-0">
       <div class="grid gap-10 md:grid-cols-2">
         <!-- Vision Card -->
         <div class="relative bg-white rounded-2xl shadow-xl border-l-8 border-[#7C3AED] p-8 flex flex-col gap-4 mb-4">
@@ -249,7 +270,7 @@
     <div class="max-w-4xl mx-auto border-t-2 border-dashed border-[#FDBA17] my-16"></div>
 
     <!-- WHAT WE BELIEVE / DOCTRINE -->
-    <section class="max-w-3xl mx-auto py-8 px-4">
+    <section id="core-values" class="max-w-3xl mx-auto py-8 px-4">
       <!-- Modern Card Enhancement: What We Believe -->
       <div class="flex items-center gap-3 mb-4">
         <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
@@ -275,7 +296,7 @@
     <div class="max-w-4xl mx-auto border-t-2 border-dashed border-[#7C3AED] my-16"></div>
 
     <!-- GUIDING PRINCIPLES -->
-    <section class="max-w-6xl mx-auto py-12 px-4 grid md:grid-cols-2 gap-10 animate-fade-in bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl">
+    <section id="ministry-focus" class="max-w-6xl mx-auto py-12 px-4 grid md:grid-cols-2 gap-10 animate-fade-in bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-2xl">
       <h3 class="text-2xl font-bold text-[#FDBA17] mb-8 md:col-span-2">Guiding Principles</h3>
       <div class="bg-white rounded-2xl shadow-xl p-8 border-l-4 border-transparent group flex items-start gap-4 hover:shadow-2xl hover:scale-[1.03] transition-all duration-200">
         <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg group-hover:scale-110 transition-transform">
@@ -306,7 +327,7 @@
     <div class="max-w-4xl mx-auto border-t-2 border-dashed border-[#2046B3] my-16"></div>
 
     <!-- HOW WE WORSHIP / LIFESTYLE -->
-    <section class="max-w-4xl mx-auto py-12 px-4">
+    <section id="global-reach" class="max-w-4xl mx-auto py-12 px-4">
       <div class="flex items-center gap-3 mb-4">
         <div class="bg-gradient-to-br from-[#7C3AED] to-[#FDBA17] rounded-full p-3 shadow-lg">
           <!-- Worship/Sparkles Icon -->
@@ -445,6 +466,7 @@
     </div>
   </footer>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/navigation.js"></script>
   <script>
     // Animated underline logic
     const navLinks = document.querySelectorAll('#nav-links .nav-link');

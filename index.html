@@ -153,8 +153,23 @@
   </section>
   <!-- END HERO SECTION -->
 
+  <!-- TABLE OF CONTENTS -->
+  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex flex-wrap gap-2 justify-center">
+        <a href="#welcome" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Welcome</a>
+        <a href="#featured-sermons-discipleship" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Sermons & Discipleship</a>
+        <a href="#promo-14-day-discipleship" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">14-Day Classes</a>
+        <a href="#upcoming-revival-missions" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Events & Missions</a>
+        <a href="#weekly-schedule" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Weekly Schedule</a>
+        <a href="#ministries" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Our Ministries</a>
+        <a href="#blog-gallery" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Blog & Gallery</a>
+      </div>
+    </div>
+  </section>
+
   <!-- WELCOME & PURPOSE (moved below hero section) -->
-  <section class="py-12 bg-white">
+  <section id="welcome" class="py-12 bg-white">
     <div class="max-w-3xl mx-auto text-center">
       <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Welcome</h2>
       <p class="text-lg text-gray-700 mb-4">
@@ -256,7 +271,7 @@
   </section>
 
   <!-- VISION, MISSION, BELIEFS -->
-  <section class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60">
+  <section id="vision-mission-beliefs" class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60">
     <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4">
       <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#7C3AED]">
         <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Our Vision</h3>
@@ -274,7 +289,7 @@
   </section>
 
   <!-- QUICK LINKS / MINISTRIES / RESOURCES -->
-  <section class="py-12 bg-white">
+  <section id="quick-links" class="py-12 bg-white">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
       <!-- Events Button Card -->
       <a href="events.html" class="group relative bg-gradient-to-br from-[#F3E8FF] to-[#FEF3C7] rounded-2xl shadow-xl p-10 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl outline-none ring-2 ring-transparent focus:ring-[#7C3AED] active:scale-100">
@@ -304,7 +319,7 @@
   </section>
 
   <!-- Weekly Schedule Section -->
-  <section class="max-w-4xl mx-auto py-12 px-4 animate-fade-in delay-200 schedule-bg relative overflow-hidden">
+  <section id="weekly-schedule" class="max-w-4xl mx-auto py-12 px-4 animate-fade-in delay-200 schedule-bg relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none z-0">
       <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,120 1080,-40 1440,40 L1440,120 L0,120 Z" fill="#7C3AED" fill-opacity="0.04"/></svg>
     </div>
@@ -360,7 +375,7 @@
   </section>
 
   <!-- OUR MINISTRIES SECTION (modern grid style) -->
-  <section class="py-16 bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40">
+  <section id="ministries" class="py-16 bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40">
     <div class="max-w-4xl mx-auto text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-extrabold text-[#2046B3] mb-2 tracking-tight">Our Ministries</h2>
       <p class="text-lg text-gray-600">Discover how we serve and minister</p>
@@ -403,7 +418,7 @@
   </section>
 
   <!-- Latest Blog & Devotionals Section -->
-  <section class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-400 blog-bg relative overflow-hidden">
+  <section id="blog-gallery" class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-400 blog-bg relative overflow-hidden">
     <div class="absolute inset-0 bg-[#F3E8FF] opacity-10 pointer-events-none z-0"></div>
     <div class="bg-white rounded-2xl shadow-xl border-t-4 border-[#7C3AED] p-10 mb-16 relative z-10">
       <div class="flex flex-col items-center text-center mb-8">
@@ -493,6 +508,7 @@
   backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
   </script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/navigation.js"></script>
   <script>
     // Animated underline logic
     const navLinks = document.querySelectorAll('#nav-links .nav-link');
