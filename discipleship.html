@@ -790,13 +790,10 @@
       function openRegisterModal() {
         modal.classList.remove('hidden');
         modal.style.display = 'flex';
-        if (localStorage.getItem('modalLastState') === 'login') {
-          registerSection.classList.add('hidden');
-          loginSection.classList.remove('hidden');
-        } else {
-          registerSection.classList.remove('hidden');
-          loginSection.classList.add('hidden');
-        }
+        // Always show login section first
+        registerSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        localStorage.setItem('modalLastState', 'login');
       }
       function closeRegisterModal() {
         modal.classList.add('hidden');
