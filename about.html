@@ -23,60 +23,7 @@
   </style>
 </head>
 <body class="bg-white text-gray-900 font-sans">
-  <!-- NAVIGATION HEADER -->
-  <header class="sticky top-0 z-50 header-pattern backdrop-blur shadow-lg rounded-b-2xl">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 relative">
-      <!-- Logo -->
-      <a href="index.html" class="flex items-center gap-2 group">
-        <img src="assets/images/WhatsApp Image 2025-07-04 at 17.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full shadow-lg border-4 border-[#2046B3] transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl" />
-      </a>
-      <!-- Navigation Links -->
-      <div class="hidden md:flex gap-8 font-semibold text-white text-lg mx-auto relative" id="nav-links">
-        <ul class="flex gap-8">
-          <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
-          <li><a href="about.html" class="nav-link active" id="nav-about">About</a></li>
-          <li><a href="vision.html" class="nav-link" id="nav-vision">Vision</a></li>
-          <li><a href="events.html" class="nav-link" id="nav-events">Events</a></li>
-          <li><a href="sermons.html" class="nav-link" id="nav-sermons">Sermons</a></li>
-          <li><a href="blog.html" class="nav-link" id="nav-blog">Blog</a></li>
-          <li><a href="gallery.html" class="nav-link" id="nav-gallery">Gallery</a></li>
-          <li><a href="discipleship.html" class="nav-link" id="nav-discipleship">Discipleship</a></li>
-          <li><a href="missions.html" class="nav-link" id="nav-missions">Missions</a></li>
-          <li><a href="contact.html" class="nav-link" id="nav-contact">Contact</a></li>
-        </ul>
-        <span id="nav-underline" class="nav-underline" style="width: 0;"></span>
-      </div>
-      <!-- CTA Button -->
-      <div class="hidden md:flex gap-3 ml-6">
-        <a href="contact.html" class="cta-btn hidden md:inline-block ml-6 px-6 py-2 bg-[#F59E0B] text-[#1E40AF] font-bold rounded-full shadow hover:bg-[#E0A615] hover:text-[#1E40AF] transition">Connect With Us</a>
-      </div>
-      <!-- Mobile Hamburger -->
-      <button id="mobile-menu-toggle" class="md:hidden p-2 ml-2 rounded-full bg-purple-700 text-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B] transition-transform duration-200 hover:bg-purple-800 hover:text-white hover:scale-110" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-      <!-- Mobile Menu Overlay -->
-      <div id="mobile-overlay" class="mobile-overlay md:hidden"></div>
-      <!-- Mobile Slide-in Menu -->
-      <nav id="mobile-menu" class="mobile-menu md:hidden overflow-y-auto bg-purple-700">
-        <button class="close-btn" aria-label="Close menu">&times;</button>
-        <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link active">About</a></li>
-          <li><a href="vision.html" class="nav-link">Vision</a></li>
-          <li><a href="events.html" class="nav-link">Events</a></li>
-          <li><a href="sermons.html" class="nav-link">Sermons</a></li>
-          <li><a href="blog.html" class="nav-link">Blog</a></li>
-          <li><a href="gallery.html" class="nav-link">Gallery</a></li>
-          <li><a href="discipleship.html" class="nav-link">Discipleship</a></li>
-          <li><a href="missions.html" class="nav-link">Missions</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
-        </ul>
-        <div class="mt-8">
-          <a href="contact.html" class="cta-btn block w-full text-center px-6 py-3 bg-[#F59E0B] text-[#1E40AF] font-bold rounded-full shadow hover:bg-[#E0A615] hover:text-[#1E40AF] transition">Connect With Us</a>
-        </div>
-      </nav>
-    </nav>
-  </header>
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
 
   <!-- HERO SECTION -->
   <section class="relative min-h-[32vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0025.jpg');">
@@ -85,20 +32,6 @@
       <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">About Our Ministry</h1>
       <p class="mt-4 text-lg md:text-xl text-white font-medium max-w-2xl mx-auto">Discover our story, mission, and the hearts behind Hearts After God Ministry.</p>
       <span class="block mt-2 text-[#FDBA17] text-base md:text-lg font-semibold">"For where two or three gather in my name, there am I with them." – Matthew 18:20</span>
-    </div>
-  </section>
-
-  <!-- TABLE OF CONTENTS -->
-  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <div class="flex flex-wrap gap-2 justify-center">
-        <a href="#our-story" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Our Story</a>
-        <a href="#mission-vision" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Mission & Vision</a>
-        <a href="#leadership" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Leadership</a>
-        <a href="#timeline" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Timeline</a>
-        <a href="#values" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Values</a>
-        <a href="#get-involved" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Get Involved</a>
-      </div>
     </div>
   </section>
 
@@ -197,7 +130,7 @@
           <img src="assets/images/leadership/Cyrilla Chikamai.jpg" alt="Cyrilla Chikamai" class="w-32 h-32 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4"/>
           <h4 class="text-lg font-bold text-[#7C3AED]">Cyrilla Chikamai</h4>
           <span class="text-sm text-gray-500 mb-2">Minister</span>
-          <p class="text-gray-700 text-center mb-2">Pastor Cyrilla is passionate about discipleship and empowering believers to fulfill their God-given purpose. Her vision and leadership have inspired many to pursue a deeper relationship with Christ.</p>
+          <p class="text-gray-700 text-center mb-2">Minister Cyrilla is passionate about discipleship and empowering believers to fulfill their God-given purpose. Her vision and leadership have inspired many to pursue a deeper relationship with Christ.</p>
         </div>
         <!-- Leader 2 -->
         <div class="flex flex-col items-center bg-gradient-to-br from-[#FEF3C7]/60 to-[#F3E8FF]/60 rounded-2xl shadow-xl p-8 transition-transform duration-200 hover:scale-105 group border-t-4 border-[#7C3AED]">
@@ -442,7 +375,7 @@
         </div>
         <p class="text-gray-700 mb-4">For inquiries, prayer requests, or to connect with our ministry, please use the details below:</p>
         <ul class="mb-4 text-gray-700">
-          <li><span class="font-bold text-[#7C3AED]">Email:</span> <a href="mailto:info@heartsaftergod.org" class="underline hover:text-[#FDBA17]">info@heartsaftergod.org</a></li>
+          <li><span class="font-bold text-[#7C3AED]">Email:</span> <a href="mailto:heartsaftergodministries254@gmail.com" class="underline hover:text-[#FDBA17]">heartsaftergodministries254@gmail.com</a></li>
           <li><span class="font-bold text-[#7C3AED]">WhatsApp:</span> <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" class="underline hover:text-[#FDBA17]">Join WhatsApp Group</a></li>
           <li><span class="font-bold text-[#7C3AED]">Location:</span> Global Online Ministry (with local meetups in select countries)</li>
         </ul>

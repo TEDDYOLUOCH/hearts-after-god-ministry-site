@@ -133,40 +133,25 @@
     @keyframes slideInHero { from { opacity: 0; transform: translateY(32px);} to { opacity: 1; transform: none; } }
   </style>
 </head>
-<body class="bg-white text-gray-900 font-sans">
-  <div id="site-header"></div>
 
+<body class="bg-white text-gray-900 font-sans">
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
   <!-- HERO SECTION: Acts 1:8 Vision, Soul-Winning Call-to-Action, and Slideshow -->
-  <section class="relative min-h-[60vh] flex items-center justify-center bg-center bg-cover overflow-hidden" id="hero-slideshow">
+  <section class="relative min-h-[35vh] flex items-center justify-center bg-center bg-cover overflow-hidden" id="hero-slideshow">
     <div id="hero-slideshow-bg" class="absolute inset-0 w-full h-full transition-opacity duration-1000 bg-cover bg-center"></div>
     <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
-    <div class="relative z-10 text-center px-4 py-32 w-full flex flex-col items-center justify-center">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg animate-fade-in">Hearts After God Ministry</h1>
-      <p class="mt-4 text-xl md:text-2xl text-white font-medium animate-fade-in delay-100">
+    <div class="relative z-10 text-center px-4 py-16 w-full flex flex-col items-center justify-center">
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg animate-fade-in">Hearts After God Ministry</h1>
+      <p class="mt-2 text-lg md:text-xl text-white font-medium animate-fade-in delay-100">
         "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth."<br>
-        <span class="block mt-2 text-lg text-[#FDBA17]">Acts 1:8</span>
+        <span class="block mt-2 text-base text-[#FDBA17]">Acts 1:8</span>
       </p>
-      <a href="#discipleship" class="cta-btn mt-8 inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition animate-fade-in delay-200">Start Your Soul-Winning Journey</a>
+      <a href="#discipleship" class="cta-btn mt-6 inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition animate-fade-in delay-200">Start Your Soul-Winning Journey</a>
       <!-- Slideshow navigation dots -->
-      <div id="hero-slideshow-dots" class="flex gap-2 justify-center mt-8"></div>
+      <div id="hero-slideshow-dots" class="flex gap-2 justify-center mt-6"></div>
     </div>
   </section>
   <!-- END HERO SECTION -->
-
-  <!-- TABLE OF CONTENTS -->
-  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <div class="flex flex-wrap gap-2 justify-center">
-        <a href="#welcome" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Welcome</a>
-        <a href="#featured-sermons-discipleship" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Sermons & Discipleship</a>
-        <a href="#promo-14-day-discipleship" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">14-Day Classes</a>
-        <a href="#upcoming-revival-missions" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Events & Missions</a>
-        <a href="#weekly-schedule" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Weekly Schedule</a>
-        <a href="#ministries" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Our Ministries</a>
-        <a href="#blog-gallery" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Blog & Gallery</a>
-      </div>
-    </div>
-  </section>
 
   <!-- WELCOME & PURPOSE (moved below hero section) -->
   <section id="welcome" class="py-12 bg-white">
@@ -294,7 +279,7 @@
       <!-- Events Button Card -->
       <a href="events.html" class="group relative bg-gradient-to-br from-[#F3E8FF] to-[#FEF3C7] rounded-2xl shadow-xl p-10 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl outline-none ring-2 ring-transparent focus:ring-[#7C3AED] active:scale-100">
         <span class="flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg mb-4 group-hover:bg-[#7C3AED]/10 transition">
-          <svg class="w-8 h-8 text-[#7C3AED] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          <svg class="w-8 h-8 text-[#7C3AED] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v1.382a2 2 0 001.447 1.342L9 10m6 0v10a2 2 0 01-2 2H7a2 2 0 01-2-2V10m6 0l-6-3"/></svg>
         </span>
         <h4 class="font-bold text-xl text-[#7C3AED] mb-2 group-hover:text-[#FDBA17] transition">Events</h4>
         <p class="text-gray-600 text-center mb-2">See what's happening and join us for worship, study, and fellowship.</p>
@@ -333,7 +318,6 @@
             <svg class="w-7 h-7 text-[#7C3AED] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a3 3 0 016 0v6m-6 0a3 3 0 01-6 0V5a3 3 0 016 0v6zm6 0a3 3 0 006 0V5a3 3 0 00-6 0v6z"/></svg>
           </span>
           <span class="text-sm font-semibold text-white mb-1">Prayers & Fasting</span>
-          <span class="text-xs text-white font-bold mb-1">The Word</span>
           <span class="text-xs text-white/80">8–9pm</span>
         </div>
         <!-- Tuesday -->

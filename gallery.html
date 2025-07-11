@@ -34,29 +34,13 @@
   </style>
 </head>
 <body class="bg-white text-gray-900 font-sans">
-  <!-- Header Include -->
-  <div id="site-header"></div>
-
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
   <!-- HERO SECTION (Gallery) -->
   <section class="relative min-h-[32vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0027.jpg');">
     <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
     <div class="relative z-10 text-center px-4 py-16 md:py-24">
       <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Gallery</h1>
       <p class="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto">“Declare his glory among the nations, his marvelous deeds among all peoples.”<br><span class="block mt-2 text-lg text-[#FDBA17]">Psalm 96:3</span></p>
-    </div>
-  </section>
-
-  <!-- TABLE OF CONTENTS -->
-  <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4">
-      <div class="flex flex-wrap gap-2 justify-center">
-        <a href="#gallery-browse" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Browse Gallery</a>
-        <a href="#albums" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Albums</a>
-        <a href="#tags" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Tags</a>
-        <a href="#search" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Search</a>
-        <a href="#favorites" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Favorites</a>
-        <a href="#upload" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Upload</a>
-      </div>
     </div>
   </section>
 
@@ -368,10 +352,39 @@
     let currentIndex = 0;
 
     // Fetch gallery data
-  fetch('gallery.json')
-    .then(res => res.json())
-    .then(images => {
+    fetch('gallery.json')
+      .then(res => res.json())
+      .then(images => {
         allImages = images;
+        // Set the featured image
+        const featuredImg = document.getElementById('featured-img');
+        const featuredTitle = document.getElementById('featured-title');
+        const featuredCaption = document.getElementById('featured-caption');
+        const viewFeaturedBtn = document.getElementById('view-featured');
+        if (featuredImg) {
+          if (images.length > 0 && images[0].url) {
+            featuredImg.src = images[0].url;
+            featuredImg.alt = images[0].caption || 'Featured Gallery Image';
+            if (featuredTitle) featuredTitle.textContent = images[0].album || '';
+            if (featuredCaption) featuredCaption.textContent = images[0].caption || '';
+            if (viewFeaturedBtn) {
+              viewFeaturedBtn.onclick = function() {
+                // Scroll to the image in the gallery grid
+                const grid = document.getElementById('gallery-list');
+                if (grid) {
+                  const imgEl = Array.from(grid.querySelectorAll('img')).find(img => img.src.includes(images[0].url));
+                  if (imgEl) imgEl.scrollIntoView({behavior:'smooth',block:'center'});
+                }
+              };
+            }
+          } else {
+            featuredImg.src = 'assets/images/galleries/default.jpg'; // Add this fallback image to your project
+            featuredImg.alt = 'No featured image available';
+            if (featuredTitle) featuredTitle.textContent = '';
+            if (featuredCaption) featuredCaption.textContent = '';
+            if (viewFeaturedBtn) viewFeaturedBtn.onclick = null;
+          }
+        }
         renderSidebar(images);
         filterAndRender();
       });

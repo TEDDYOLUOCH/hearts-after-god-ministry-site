@@ -100,7 +100,7 @@
 </head>
 <body class="bg-white text-gray-900 antialiased">
   <!-- Discipleship Page Redesign -->
-  <div id="site-header"></div>
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
   <main class="min-h-screen bg-white">
     <!-- HERO SECTION -->
     <section class="relative min-h-[40vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0021.jpg');">
@@ -109,22 +109,6 @@
         <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Discipleship Training</h1>
         <p class="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto">Equipping believers to grow in faith and become effective disciples of Jesus Christ.</p>
         <span class="block mt-2 text-[#FDBA17] text-lg md:text-xl font-semibold">"Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit." – Matthew 28:19</span>
-      </div>
-    </section>
-
-    <!-- TABLE OF CONTENTS -->
-    <section class="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 py-4">
-        <div class="flex flex-wrap gap-2 justify-center">
-          <a href="#curriculum" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">14-Day Curriculum</a>
-          <a href="#registration" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Registration</a>
-          <a href="#progress-tracking" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Progress Tracking</a>
-          <a href="#resources" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Resources</a>
-          <a href="#mentor-matching" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Mentor Matching</a>
-          <a href="#online-modules" class="px-4 py-2 bg-[#1E40AF]/10 text-[#1E40AF] rounded-full text-sm font-semibold hover:bg-[#1E40AF] hover:text-white transition">Online Modules</a>
-          <a href="#graduation" class="px-4 py-2 bg-[#7C3AED]/10 text-[#7C3AED] rounded-full text-sm font-semibold hover:bg-[#7C3AED] hover:text-white transition">Graduation</a>
-          <a href="#pathways" class="px-4 py-2 bg-[#F59E0B]/10 text-[#F59E0B] rounded-full text-sm font-semibold hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Advanced Pathways</a>
-        </div>
       </div>
     </section>
 
@@ -332,7 +316,10 @@
       authModal.classList.remove('hidden');
       showLogin();
     }));
-    closeAuthBtn.addEventListener('click', () => authModal.classList.add('hidden'));
+    // Fix: Only add event listener if closeAuthBtn exists
+    if (closeAuthBtn) {
+      closeAuthBtn.addEventListener('click', () => authModal.classList.add('hidden'));
+    }
     showLoginBtn.addEventListener('click', showLogin);
     showRegisterBtn.addEventListener('click', showRegister);
 
@@ -357,25 +344,6 @@
       showLoginBtn.classList.remove('bg-white', 'text-blue-900', 'shadow-sm');
       showLoginBtn.classList.add('text-gray-600');
       authMessage.textContent = '';
-    }
-
-    // Simple localStorage user logic
-    function getUsers() {
-      return JSON.parse(localStorage.getItem('discipleship_users') || '[]');
-    }
-    function setUsers(users) {
-      localStorage.setItem('discipleship_users', JSON.stringify(users));
-    }
-    function setLoggedInUser(user) {
-      localStorage.setItem('discipleship_logged_in_user', JSON.stringify(user));
-    }
-    function getLoggedInUser() {
-      return JSON.parse(localStorage.getItem('discipleship_logged_in_user'));
-    }
-    function logout() {
-      localStorage.removeItem('discipleship_logged_in_user');
-      dashboard.classList.add('hidden');
-      document.body.classList.remove('overflow-hidden');
     }
 
     // Login handler
@@ -726,132 +694,274 @@
       moveUnderline(active);
     });
   </script>
-  <!-- Register Modal (copied from portal, now with login form) -->
+  <!-- Register Modal (Professional Redesign) -->
   <div id="register-modal" class="modal-bg hidden" style="display: none;">
-    <div class="modal-content relative w-full max-w-md">
-      <button id="register-modal-close" class="absolute top-3 right-3 text-2xl text-[#7C3AED] hover:text-[#FDBA17]">&times;</button>
-      <div id="register-section">
-        <div class="flex justify-center mb-4">
-          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+    <div class="modal-content relative w-full max-w-sm p-4 sm:p-6">
+      <button id="register-modal-close" class="absolute top-3 right-3 text-2xl text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Close registration modal">&times;</button>
+      <div id="login-section">
+        <div class="flex justify-center mb-2">
+          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-12 w-12 rounded-full border-4 border-[#FDBA17] shadow-lg" />
         </div>
-        <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Register as a Disciple</h2>
-        <form id="register-form" class="space-y-4">
-          <input type="text" placeholder="Full Name" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <input type="email" placeholder="Email" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <input type="tel" placeholder="WhatsApp/Phone" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <input type="password" placeholder="Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <input type="password" placeholder="Confirm Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <button type="submit" class="w-full px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-lg">Register</button>
+        <h2 class="text-xl font-bold text-[#7C3AED] mb-2 text-center">Sign In</h2>
+        <form id="login-form" class="space-y-3 text-left" autocomplete="off" novalidate>
+          <div>
+            <label for="login-email" class="block text-xs font-semibold text-[#7C3AED] mb-1">Email</label>
+            <input id="login-email" name="email" type="email" placeholder="Email" required class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Email" />
+          </div>
+          <div>
+            <label for="login-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Password</label>
+            <div class="relative">
+              <input id="login-password" name="password" type="password" placeholder="Password" required class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Password" />
+              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('login-password', this)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="w-full px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-base">Login</button>
+          <div id="login-message" class="mt-1 text-center text-xs font-semibold"></div>
         </form>
-        <div id="register-success" class="hidden text-green-600 font-semibold mt-4 text-center">Registration successful! You can now log in below.</div>
+        <div class="mt-4 text-center text-sm">
+          Don't have an account? <button id="show-register-link" class="text-[#7C3AED] font-bold hover:underline">Sign up here</button>
+        </div>
       </div>
-      <div id="login-section" class="hidden">
-        <div class="flex justify-center mb-4">
-          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-16 w-16 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+      <div id="register-section" class="hidden">
+        <div class="flex justify-center mb-2">
+          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-12 w-12 rounded-full border-4 border-[#FDBA17] shadow-lg" />
         </div>
-        <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Sign In</h2>
-        <form id="login-form" class="space-y-4">
-          <input type="email" placeholder="Email" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <input type="password" placeholder="Password" required class="w-full px-4 py-3 border rounded focus:ring-2 focus:ring-[#7C3AED] text-lg" />
-          <button type="submit" class="w-full px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-lg">Login</button>
+        <h2 class="text-xl font-bold text-[#7C3AED] mb-2 text-center">Register as a Disciple</h2>
+        <form id="register-form" class="space-y-2 text-left" autocomplete="off" novalidate>
+          <div>
+            <label for="register-name" class="block text-xs font-semibold text-[#7C3AED] mb-1">Full Name</label>
+            <input id="register-name" name="name" type="text" placeholder="Full Name" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Full Name" />
+          </div>
+          <div>
+            <label for="register-email" class="block text-xs font-semibold text-[#7C3AED] mb-1">Email</label>
+            <input id="register-email" name="email" type="email" placeholder="Email" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Email" />
+          </div>
+          <div>
+            <label for="register-phone" class="block text-xs font-semibold text-[#7C3AED] mb-1">WhatsApp/Phone</label>
+            <input id="register-phone" name="phone" type="tel" placeholder="WhatsApp/Phone" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="WhatsApp or Phone" />
+          </div>
+          <div>
+            <label for="register-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Password</label>
+            <div class="relative">
+              <input id="register-password" name="password" type="password" placeholder="Password" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Password" />
+              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('register-password', this)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+            <div id="password-feedback" class="text-xs mt-1 mb-1"></div>
+          </div>
+          <div>
+            <label for="register-confirm-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Confirm Password</label>
+            <div class="relative">
+              <input id="register-confirm-password" name="confirm" type="password" placeholder="Confirm Password" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Confirm Password" />
+              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('register-confirm-password', this)">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="w-full px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-base">Register</button>
+          <div id="register-message" class="mt-1 text-center text-xs font-semibold"></div>
         </form>
-        <div id="login-success" class="hidden text-green-600 font-semibold mt-4 text-center">Login successful! Redirecting to your dashboard...</div>
+        <div class="mt-4 text-center text-sm">
+          Already have an account? <button id="show-login-link" class="text-[#7C3AED] font-bold hover:underline">Sign in here</button>
+        </div>
       </div>
     </div>
   </div>
   <style>
     .modal-bg { position: fixed; inset: 0; background: rgba(44,44,44,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s; }
-    .modal-content { background: #fff; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 2rem 2.5rem; text-align: center; min-width: 260px; animation: popIn 0.2s; }
+    .modal-content { background: #fff; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 1.2rem 1.2rem; text-align: center; min-width: 260px; animation: popIn 0.2s; max-width: 340px; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   </style>
   <script>
-    function closeRegisterModal() {
-      console.log('Close modal triggered');
-      var modal = document.getElementById('register-modal');
-      modal.classList.add('hidden');
-      modal.style.display = 'none'; // Fallback: force hide
-      // Reset modal for next open
-      document.getElementById('register-section').classList.remove('hidden');
-      document.getElementById('login-section').classList.add('hidden');
-      document.getElementById('register-success').classList.add('hidden');
-      document.getElementById('login-success').classList.add('hidden');
-    }
-    // When opening the modal, also reset style.display
-    function openRegisterModal() {
-      var modal = document.getElementById('register-modal');
-      modal.classList.remove('hidden');
-      modal.style.display = 'flex';
-    }
     document.addEventListener('DOMContentLoaded', function() {
+      // Modal open/close logic
+      var modal = document.getElementById('register-modal');
       var closeBtn = document.getElementById('register-modal-close');
-      if (closeBtn) closeBtn.addEventListener('click', closeRegisterModal);
       var openBtns = document.querySelectorAll('[data-open-register-modal]');
+      var registerSection = document.getElementById('register-section');
+      var loginSection = document.getElementById('login-section');
+      var regForm = document.getElementById('register-form');
+      var loginForm = document.getElementById('login-form');
+
+      function openRegisterModal() {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+        if (localStorage.getItem('modalLastState') === 'login') {
+          registerSection.classList.add('hidden');
+          loginSection.classList.remove('hidden');
+        } else {
+          registerSection.classList.remove('hidden');
+          loginSection.classList.add('hidden');
+        }
+      }
+      function closeRegisterModal() {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+        document.getElementById('register-success')?.classList.add('hidden');
+        document.getElementById('login-success')?.classList.add('hidden');
+      }
+      if (closeBtn) closeBtn.addEventListener('click', closeRegisterModal);
       openBtns.forEach(function(btn) {
-        btn.addEventListener('click', openRegisterModal);
+        btn.addEventListener('click', function() {
+          localStorage.setItem('modalLastState', 'register');
+          openRegisterModal();
+        });
       });
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'register-modal-close') {
+          closeRegisterModal();
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeRegisterModal();
+        }
+      });
+
+      // Password strength feedback
+      const passwordInput = document.getElementById('register-password');
+      const feedback = document.getElementById('password-feedback');
+      function validatePasswordStrength(password) {
+        const minLength = 8;
+        const hasUpper = /[A-Z]/.test(password);
+        const hasLower = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        return {
+          minLength,
+          hasUpper,
+          hasLower,
+          hasNumber,
+          hasSpecial,
+          valid: password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial
+        };
+      }
+      if (passwordInput && feedback) {
+        passwordInput.addEventListener('input', function() {
+          const val = passwordInput.value;
+          const res = validatePasswordStrength(val);
+          feedback.innerHTML = `
+            <div>Password must have:</div>
+            <ul class='ml-4'>
+              <li style='color:${val.length >= res.minLength ? 'green' : 'red'}'>• At least 8 characters</li>
+              <li style='color:${res.hasUpper ? 'green' : 'red'}'>• An uppercase letter</li>
+              <li style='color:${res.hasLower ? 'green' : 'red'}'>• A lowercase letter</li>
+              <li style='color:${res.hasNumber ? 'green' : 'red'}'>• A number</li>
+              <li style='color:${res.hasSpecial ? 'green' : 'red'}'>• A special character</li>
+            </ul>
+          `;
+        });
+      }
+
+      // Registration form logic
+      if (regForm) {
+        regForm.onsubmit = function(e) {
+          e.preventDefault();
+          console.log('Register form submitted');
+          const name = document.getElementById('register-name').value;
+          const email = document.getElementById('register-email').value;
+          const phone = document.getElementById('register-phone').value;
+          const password = document.getElementById('register-password').value;
+          const confirm = document.getElementById('register-confirm-password').value;
+          const res = validatePasswordStrength(password);
+          const msg = document.getElementById('register-message');
+          msg.textContent = '';
+          msg.className = 'mt-1 text-center text-xs font-semibold';
+          if (password !== confirm) {
+            msg.textContent = 'Passwords do not match. Please make sure both passwords are identical.';
+            msg.classList.add('text-red-600');
+            return;
+          }
+          if (!res.valid) {
+            msg.textContent = 'Password does not meet all requirements.';
+            msg.classList.add('text-red-600');
+            return;
+          }
+          let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+          if (users.find(u => u.email === email)) {
+            msg.textContent = 'Email already registered.';
+            msg.classList.add('text-red-600');
+            return;
+          }
+          users.push({ name, email, phone, password });
+          localStorage.setItem('discipleship_users', JSON.stringify(users));
+          // Show login form and success message
+          registerSection.classList.add('hidden');
+          loginSection.classList.remove('hidden');
+          const loginMsg = document.getElementById('login-message');
+          if (loginMsg) {
+            loginMsg.textContent = 'Registration successful! Please sign in.';
+            loginMsg.className = 'mt-1 text-center text-xs font-semibold text-green-600';
+          }
+          // Set modal state to login for next open
+          localStorage.setItem('modalLastState', 'login');
+          regForm.reset();
+        };
+      }
+
+      // Login form logic
+      if (loginForm) {
+        loginForm.onsubmit = function(e) {
+          e.preventDefault();
+          const email = document.getElementById('login-email').value;
+          const password = document.getElementById('login-password').value;
+          let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
+          const user = users.find(u => u.email === email);
+          const msg = document.getElementById('login-message');
+          msg.textContent = '';
+          msg.className = 'mt-2 text-center text-sm font-semibold';
+          if (!user) {
+            msg.textContent = 'No account found with this email.';
+            msg.classList.add('text-red-600');
+            return;
+          }
+          if (user.password !== password) {
+            msg.textContent = 'Incorrect password. Please try again.';
+            msg.classList.add('text-red-600');
+            return;
+          }
+          msg.textContent = 'Login successful! Redirecting to your dashboard...';
+          msg.classList.remove('text-red-600');
+          msg.classList.add('text-green-600');
+          setTimeout(function() {
+            window.location.href = 'discipleship-user.html';
+          }, 1500);
+        };
+      }
+
+      var showRegisterLink = document.getElementById('show-register-link');
+      var showLoginLink = document.getElementById('show-login-link');
+      if (showRegisterLink) {
+        showRegisterLink.addEventListener('click', function() {
+          document.getElementById('login-section').classList.add('hidden');
+          document.getElementById('register-section').classList.remove('hidden');
+        });
+      }
+      if (showLoginLink) {
+        showLoginLink.addEventListener('click', function() {
+          document.getElementById('register-section').classList.add('hidden');
+          document.getElementById('login-section').classList.remove('hidden');
+        });
+      }
+      // Always show login first by default
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('register-section').classList.add('hidden');
     });
-    // Fallback: event delegation
-    document.addEventListener('click', function(e) {
-      if (e.target && e.target.id === 'register-modal-close') {
-        closeRegisterModal();
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.956 9.956 0 012.042-3.292m1.528-1.528A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.132 5.225M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>';
+      } else {
+        input.type = 'password';
+        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>';
       }
-    });
-    document.getElementById('register-form').onsubmit = function(e) {
-      e.preventDefault();
-      const name = document.getElementById('register-name').value;
-      const email = document.getElementById('register-email').value;
-      const password = document.getElementById('register-password').value;
-      const confirm = document.getElementById('register-confirm-password').value;
-      if (password !== confirm) {
-        document.getElementById('register-success').classList.add('hidden');
-        alert('Passwords do not match. Please make sure both passwords are identical.');
-        return;
-      }
-      if (password.length < 6) {
-        authMessage.textContent = 'Password must be at least 6 characters.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
-        return;
-      }
-      const users = getUsers();
-      if (users.find(u => u.email === email)) {
-        authMessage.textContent = 'Email already registered.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
-        return;
-      }
-      users.push({ name, email, password });
-      setUsers(users);
-      authMessage.textContent = 'Account created! You can now sign in.';
-      authMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
-      registerForm.reset();
-      setTimeout(showLogin, 1500);
-    };
-    document.getElementById('login-form').onsubmit = function(e) {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
-      // Check against registered users
-      const users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
-      const user = users.find(u => u.email === email);
-      if (!user) {
-        alert('No account found with this email.');
-        return;
-      }
-      if (user.password !== password) {
-        alert('Incorrect password. Please try again.');
-        return;
-      }
-      document.getElementById('login-success').classList.remove('hidden');
-      setTimeout(function() {
-        window.location.href = 'user-dashboard.html';
-      }, 1500);
-    };
-    // Close modal on Esc
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeRegisterModal();
-      }
-    });
+    }
   </script>
 </body>
 </html> 
