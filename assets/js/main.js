@@ -38,5 +38,13 @@
           }
         });
     }
+    const footerContainer = document.getElementById('site-footer');
+    if (footerContainer) {
+      fetch('footer.html')
+        .then(res => res.text())
+        .then(html => {
+          footerContainer.innerHTML = html;
+        });
+    }
   });
 })();

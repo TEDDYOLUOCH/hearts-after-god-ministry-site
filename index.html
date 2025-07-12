@@ -1,576 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hearts After God Ministry</title>
-  <meta name="description" content="Hearts After God Ministry - Soul-winning, discipleship, revival, and global outreach. Join our mission to reach the world for Christ.">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hearts After God Ministry - Revival, Discipleship & Global Outreach</title>
+  <meta name="description" content="Hearts After God Ministry - Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ through Spirit-filled worship, teaching, and community.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    /* Animated underline for nav */
-    .nav-underline {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      background: #E02424;
-      border-radius: 2px;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      z-index: 10;
-    }
-    .nav-link {
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.2s;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #FDBA17;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link:focus {
-      outline: 2px solid #FDBA17;
-      outline-offset: 2px;
-    }
-    /* Mobile menu overlay */
-    .mobile-overlay {
-      background: rgba(44, 44, 44, 0.5);
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      display: none;
-    }
-    .mobile-overlay.open {
-      display: block;
-      animation: fadeIn 0.2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    /* Slide-in mobile menu */
-    .mobile-menu {
-      position: fixed;
-      top: 0; right: 0;
-      width: 80vw; max-width: 320px;
-      height: 100vh;
-      background: #fff;
-      box-shadow: -2px 0 16px rgba(0,0,0,0.08);
-      z-index: 50;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-      display: flex; flex-direction: column;
-      padding: 2rem 1.5rem;
-    }
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
-    .mobile-menu .close-btn {
-      align-self: flex-end;
-      font-size: 2rem;
-      color: #7C3AED;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 2rem;
-    }
-    /* Search bar animation */
-    .search-bar {
-      transition: width 0.3s, opacity 0.3s;
-      width: 0;
-      opacity: 0;
-      overflow: hidden;
-    }
-    .search-bar.open {
-      width: 180px;
-      opacity: 1;
-    }
-    /* Custom SVG pattern for header */
-    .header-pattern {
-      background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
-      background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>');
-      background-repeat: repeat-x;
-      background-size: 600px 120px;
-      position: relative;
-    }
-    .header-pattern::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%);
-      border-radius: inherit;
-    }
-    .header-pattern > * {
-      position: relative;
-      z-index: 2;
-    }
-    /* Modal styles */
-    .modal-bg {
-      position: fixed; inset: 0; background: rgba(44,44,44,0.4); z-index: 100;
-      display: flex; align-items: center; justify-content: center;
-      animation: fadeIn 0.2s;
-    }
-    .modal-content {
-      background: #fff; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      padding: 2rem 2.5rem; text-align: center; min-width: 260px;
-      animation: popIn 0.2s;
-    }
-    @keyframes popIn {
-      from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; }
-    }
-    .glow-hero { box-shadow: 0 0 32px 0 #7C3AED44, 0 0 0 4px #FDBA1744; }
-    .glow-cta { box-shadow: 0 0 12px 0 #FDBA1744, 0 0 0 2px #7C3AED44; }
-    .animate-fade-in { animation: fadeInHero 1s both; }
-    .animate-slide-in { animation: slideInHero 1s both; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    .delay-400 { animation-delay: 0.4s; }
-    @keyframes fadeInHero { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideInHero { from { opacity: 0; transform: translateY(32px);} to { opacity: 1; transform: none; } }
+    body { font-family: 'Nunito', sans-serif; }
+    .scripture { font-family: 'Georgia', serif; }
+    .gradient-text { background: linear-gradient(135deg, #7C3AED, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-gradient { background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9)); }
+    .floating { animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    .fade-in { animation: fadeIn 1s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .counter { transition: all 0.3s ease; }
+    .testimonial-card { transition: all 0.3s ease; }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
   </style>
 </head>
+<body class="bg-white text-gray-900">
 
-<body class="bg-white text-gray-900 font-sans">
-  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
-  <!-- HERO SECTION: Acts 1:8 Vision, Soul-Winning Call-to-Action, and Slideshow -->
-  <section class="relative min-h-[35vh] flex items-center justify-center bg-center bg-cover overflow-hidden" id="hero-slideshow">
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-100">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-12 w-12 rounded-full border-2 border-[#7C3AED] object-cover shadow-lg"/>
+        <div>
+          <span class="text-xl font-extrabold text-[#7C3AED]">Hearts After God</span>
+          <div class="text-xs text-gray-500 font-medium">Ministry</div>
+        </div>
+      </div>
+      <ul class="hidden md:flex gap-8 font-semibold text-lg">
+        <li><a href="index.html" class="text-[#7C3AED] font-bold border-b-2 border-[#7C3AED] pb-1">Home</a></li>
+        <li><a href="about.html" class="hover:text-[#7C3AED] transition-colors">About</a></li>
+        <li><a href="ministries.html" class="hover:text-[#7C3AED] transition-colors">Ministries</a></li>
+        <li><a href="events.html" class="hover:text-[#7C3AED] transition-colors">Events</a></li>
+        <li><a href="sermons.html" class="hover:text-[#7C3AED] transition-colors">Sermons</a></li>
+        <li><a href="blog.html" class="hover:text-[#7C3AED] transition-colors">Blog</a></li>
+        <li><a href="contact.html" class="hover:text-[#7C3AED] transition-colors">Contact</a></li>
+      </ul>
+      <button id="mobile-menu-btn" class="md:hidden text-[#7C3AED] focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <ul class="flex flex-col gap-4 p-4 text-lg font-semibold">
+        <li><a href="index.html" class="text-[#7C3AED] font-bold">Home</a></li>
+        <li><a href="about.html" class="hover:text-[#7C3AED]">About</a></li>
+        <li><a href="ministries.html" class="hover:text-[#7C3AED]">Ministries</a></li>
+        <li><a href="events.html" class="hover:text-[#7C3AED]">Events</a></li>
+        <li><a href="sermons.html" class="hover:text-[#7C3AED]">Sermons</a></li>
+        <li><a href="blog.html" class="hover:text-[#7C3AED]">Blog</a></li>
+        <li><a href="contact.html" class="hover:text-[#7C3AED]">Contact</a></li>
+      </ul>
+    </div>
+    <script>
+      document.getElementById('mobile-menu-btn').onclick = function() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      };
+    </script>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     <div id="hero-slideshow-bg" class="absolute inset-0 w-full h-full transition-opacity duration-1000 bg-cover bg-center"></div>
-    <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
-    <div class="relative z-10 text-center px-4 py-16 w-full flex flex-col items-center justify-center">
-      <h1 class="text-3xl md:text-5xl font-extrabold text-white drop-shadow-lg animate-fade-in">Hearts After God Ministry</h1>
-      <p class="mt-2 text-lg md:text-xl text-white font-medium animate-fade-in delay-100">
-        "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth."<br>
-        <span class="block mt-2 text-base text-[#FDBA17]">Acts 1:8</span>
-      </p>
-      <a href="#discipleship" class="cta-btn mt-6 inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition animate-fade-in delay-200">Start Your Soul-Winning Journey</a>
+    <div class="absolute inset-0 hero-gradient"></div>
+    <div class="relative z-10 text-center px-4 py-20 w-full max-w-6xl mx-auto">
+      <div class="fade-in">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 text-white drop-shadow-2xl">
+          <span class="gradient-text">Revival</span> for All Nations
+        </h1>
+        <blockquote class="scripture text-xl md:text-2xl mb-8 text-white/90 italic">
+          "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth."
+        </blockquote>
+        <div class="text-[#F59E0B] font-bold text-lg mb-8">— Acts 1:8</div>
+        <p class="text-lg md:text-xl mb-12 text-white/90 max-w-3xl mx-auto">
+          Join our global mission of soul-winning, discipleship, and revival. Experience Spirit-filled worship, transformative teaching, and community that empowers your God-given destiny.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+          <a href="discipleship.html" class="group relative px-8 py-4 bg-[#7C3AED] text-white font-bold rounded-full shadow-xl hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-users mr-2"></i>Join Discipleship
+            <div class="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </a>
+          <a href="sermons.html" class="group px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#7C3AED] transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-play mr-2"></i>Watch Sermons
+          </a>
+        </div>
+      </div>
       <!-- Slideshow navigation dots -->
-      <div id="hero-slideshow-dots" class="flex gap-2 justify-center mt-6"></div>
+      <div id="hero-slideshow-dots" class="flex gap-3 justify-center mt-12"></div>
     </div>
   </section>
-  <!-- END HERO SECTION -->
 
-  <!-- WELCOME & PURPOSE (moved below hero section) -->
-  <section id="welcome" class="py-12 bg-white">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">Welcome</h2>
-      <p class="text-lg text-gray-700 mb-4">
-        We're glad you're here! At Hearts After God Ministry, we believe that salvation is God's greatest gift, received by grace through faith in Jesus Christ. Our purpose is to empower believers, build community, and share the love of Christ with all.
+  <!-- FEATURED STATISTICS -->
+  <section class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="counter fade-in">
+          <div class="text-4xl md:text-5xl font-extrabold text-[#7C3AED] mb-2" data-target="10">0</div>
+          <div class="text-gray-600 font-semibold">Years of Ministry</div>
+          <div class="text-sm text-gray-500 mt-1">Spreading the Gospel</div>
+        </div>
+        <div class="counter fade-in">
+          <div class="text-4xl md:text-5xl font-extrabold text-[#F59E0B] mb-2" data-target="6">0</div>
+          <div class="text-gray-600 font-semibold">Active Ministries</div>
+          <div class="text-sm text-gray-500 mt-1">Serving the Community</div>
+        </div>
+        <div class="counter fade-in">
+          <div class="text-4xl md:text-5xl font-extrabold text-[#1E40AF] mb-2" data-target="500">0</div>
+          <div class="text-gray-600 font-semibold">Disciples Trained</div>
+          <div class="text-sm text-gray-500 mt-1">Growing in Faith</div>
+        </div>
+        <div class="counter fade-in">
+          <div class="text-4xl md:text-5xl font-extrabold text-[#7C3AED] mb-2" data-target="1000">0</div>
+          <div class="text-gray-600 font-semibold">Souls Reached</div>
+          <div class="text-sm text-gray-500 mt-1">Global Impact</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINISTRIES HIGHLIGHT -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Our Ministries</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Discover the vibrant ministries that make Hearts After God a place of transformation and growth
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-graduation-cap text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Discipleship Training</h3>
+          <p class="text-gray-600 mb-6">Comprehensive 14-Day Discipleship Classes designed to root new believers and equip them for ministry. Experience one-on-one mentorship and structured spiritual growth.</p>
+          <ul class="space-y-2 text-gray-600 mb-6">
+            <li class="flex items-center"><i class="fas fa-check text-[#7C3AED] mr-2"></i>14-Day Intensive Program</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#7C3AED] mr-2"></i>One-on-One Mentorship</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#7C3AED] mr-2"></i>Spiritual Assessment</li>
+          </ul>
+          <a href="discipleship.html" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#F59E0B] to-[#1E40AF] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-music text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Spirit-Filled Worship</h3>
+          <p class="text-gray-600 mb-6">Experience powerful, Spirit-led worship that draws you closer to God. Our worship ministry creates an atmosphere for revival and spiritual breakthrough.</p>
+          <ul class="space-y-2 text-gray-600 mb-6">
+            <li class="flex items-center"><i class="fas fa-check text-[#F59E0B] mr-2"></i>Contemporary & Traditional</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#F59E0B] mr-2"></i>Spirit-Led Ministry</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#F59E0B] mr-2"></i>Revival Atmosphere</li>
+          </ul>
+          <a href="ministries.html" class="inline-flex items-center text-[#F59E0B] font-semibold hover:text-[#7C3AED] transition-colors">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+        <div class="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#1E40AF] to-[#7C3AED] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-globe text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Global Missions</h3>
+          <p class="text-gray-600 mb-6">"Glow for Christ" missions ministry reaching souls worldwide. Join our outreach programs and be part of God's global revival movement.</p>
+          <ul class="space-y-2 text-gray-600 mb-6">
+            <li class="flex items-center"><i class="fas fa-check text-[#1E40AF] mr-2"></i>International Outreach</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#1E40AF] mr-2"></i>Evangelism Training</li>
+            <li class="flex items-center"><i class="fas fa-check text-[#1E40AF] mr-2"></i>Mission Trips</li>
+          </ul>
+          <a href="ministries.html" class="inline-flex items-center text-[#1E40AF] font-semibold hover:text-[#F59E0B] transition-colors">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED SERMONS & EVENTS -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Featured Sermons -->
+        <div>
+          <h2 class="text-3xl font-bold text-[#7C3AED] mb-8">Featured Sermons</h2>
+          <div class="space-y-6">
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+              <div class="flex items-start gap-4">
+                <img src="assets/images/blog/blog1.jpg" alt="Walking in Faith" class="w-20 h-20 object-cover rounded-lg shadow"/>
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-[#1E40AF] mb-2">Walking in Faith</h3>
+                  <p class="text-gray-600 mb-2">Minister Cyrilla • July 2025</p>
+                  <p class="text-gray-700 mb-3">Discover how to trust God in every season of life and walk confidently in your faith journey.</p>
+                  <a href="sermon-detail.html" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">
+                    <i class="fas fa-play mr-2"></i>Watch Sermon
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300">
+              <div class="flex items-start gap-4">
+                <img src="assets/images/blog/blog2.jpg" alt="Power of Prayer" class="w-20 h-20 object-cover rounded-lg shadow"/>
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-[#1E40AF] mb-2">The Power of Prayer</h3>
+                  <p class="text-gray-600 mb-2">Minister Cyrilla • June 2025</p>
+                  <p class="text-gray-700 mb-3">Learn how prayer transforms lives and communities, unlocking God's power in your daily walk.</p>
+                  <a href="sermon-detail.html" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">
+                    <i class="fas fa-play mr-2"></i>Watch Sermon
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Upcoming Events -->
+        <div>
+          <h2 class="text-3xl font-bold text-[#F59E0B] mb-8">Upcoming Events</h2>
+          <div class="space-y-6">
+            <div class="bg-gradient-to-r from-[#F59E0B]/10 to-[#7C3AED]/10 rounded-xl p-6 border-l-4 border-[#F59E0B]">
+              <div class="flex items-start gap-4">
+                <img src="assets/images/events/revival-youth-conference-flyer.jpg" alt="Revival Youth Conference" class="w-20 h-20 object-cover rounded-lg shadow"/>
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-[#1E40AF] mb-2">Revival Youth Conference</h3>
+                  <p class="text-gray-600 mb-2"><i class="fas fa-calendar mr-2"></i>July 20, 2025 • 10:00 AM</p>
+                  <p class="text-gray-700 mb-3">Join youth from across the region for worship, teaching, and fellowship in this powerful revival gathering.</p>
+                  <a href="events.html" class="inline-flex items-center text-[#F59E0B] font-semibold hover:text-[#7C3AED] transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i>Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl p-6 border-l-4 border-[#7C3AED]">
+              <div class="flex items-start gap-4">
+                <img src="assets/images/events/discipleship-training-flyer.jpg" alt="Discipleship Training" class="w-20 h-20 object-cover rounded-lg shadow"/>
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-[#1E40AF] mb-2">Discipleship Training</h3>
+                  <p class="text-gray-600 mb-2"><i class="fas fa-calendar mr-2"></i>August 3, 2025 • 2:00 PM</p>
+                  <p class="text-gray-700 mb-3">Deepen your walk with Christ through our intensive discipleship program designed for spiritual growth.</p>
+                  <a href="events.html" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">
+                    <i class="fas fa-info-circle mr-2"></i>Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS CAROUSEL -->
+  <section class="py-20 bg-gradient-to-br from-[#1E40AF]/95 to-[#7C3AED]/90 text-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Transformed Lives</h2>
+        <p class="text-xl text-white/90 max-w-3xl mx-auto">
+          Hear from those whose lives have been changed through our ministry
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="testimonial-card bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          <div class="flex items-center mb-6">
+            <img src="assets/images/testimonies/Sharon Cherotich.jpg" alt="Sharon Cherotich" class="w-16 h-16 rounded-full object-cover border-2 border-[#F59E0B]"/>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">Sharon Cherotich</h3>
+              <p class="text-white/80">Discipleship Graduate</p>
+            </div>
+          </div>
+          <blockquote class="text-lg italic mb-4">
+            "Since joining Hearts After God, my life has been completely transformed. The discipleship program and fellowship have drawn me closer to Christ than I ever imagined possible."
+          </blockquote>
+          <div class="flex text-[#F59E0B]">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="testimonial-card bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          <div class="flex items-center mb-6">
+            <img src="assets/images/testimonies/Angel Mwende.jpg" alt="Angel Mwende" class="w-16 h-16 rounded-full object-cover border-2 border-[#F59E0B]"/>
+            <div class="ml-4">
+              <h3 class="text-xl font-bold">Angel Mwende</h3>
+              <p class="text-white/80">Youth Ministry Member</p>
+            </div>
+          </div>
+          <blockquote class="text-lg italic mb-4">
+            "The worship and teaching here are truly Spirit-filled. I've found a family in this ministry and discovered my purpose in serving God and others."
+          </blockquote>
+          <div class="flex text-[#F59E0B]">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-6">Ready to Begin Your Journey?</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Join our community of believers and experience the transformative power of God's love through discipleship, worship, and fellowship.
       </p>
-      <a href="#about" class="cta-btn inline-block px-6 py-2 bg-[#7C3AED] text-white rounded-lg font-semibold hover:bg-[#5B23B4] transition">Learn More About Us</a>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+        <a href="discipleship.html" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-users mr-2"></i>Start Discipleship
+        </a>
+        <a href="contact.html" class="group px-8 py-4 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-envelope mr-2"></i>Contact Us
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- FEATURED SERMONS & DISCIPLESHIP PREVIEW -->
-  <section class="py-12 bg-white" id="featured-sermons-discipleship">
+  <!-- FOOTER -->
+  <footer class="bg-[#1E40AF] text-white py-12">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-6 text-center">Featured Sermons & Discipleship</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow p-6 flex flex-col items-center">
-          <h3 class="text-lg font-bold text-[#2046B3] mb-2">Latest Sermon</h3>
-          <p class="text-gray-700 mb-4 text-center">Listen to our most recent message and be inspired to live out your faith.</p>
-          <a href="sermons.html" class="cta-btn px-6 py-2 bg-[#7C3AED] text-white rounded-lg font-semibold hover:bg-[#5B23B4] transition">Watch Sermons</a>
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-12 w-12 rounded-full border-2 border-[#F59E0B] object-cover"/>
+          <div>
+            <span class="font-bold text-lg">Hearts After God</span>
+            <div class="text-sm text-white/80">Ministry</div>
+          </div>
         </div>
-        <div class="bg-gradient-to-br from-[#FEF3C7]/60 to-[#F3E8FF]/60 rounded-xl shadow p-6 flex flex-col items-center">
-          <h3 class="text-lg font-bold text-[#FDBA17] mb-2">Discipleship Pathways</h3>
-          <p class="text-gray-700 mb-4 text-center">Explore our discipleship programs and grow in your walk with Christ.</p>
-          <a href="discipleship.html" class="cta-btn px-6 py-2 bg-[#F59E0B] text-[#1E40AF] rounded-lg font-semibold hover:bg-[#7C3AED] hover:text-white transition">Start Discipleship</a>
+        <div>
+          <h3 class="font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="about.html" class="hover:text-[#F59E0B] transition-colors">About Us</a></li>
+            <li><a href="ministries.html" class="hover:text-[#F59E0B] transition-colors">Ministries</a></li>
+            <li><a href="events.html" class="hover:text-[#F59E0B] transition-colors">Events</a></li>
+            <li><a href="sermons.html" class="hover:text-[#F59E0B] transition-colors">Sermons</a></li>
+          </ul>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 14-DAY DISCIPLESHIP CLASSES PROMO -->
-  <section class="py-12 bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40" id="promo-14-day-discipleship">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-4">14-Day Discipleship Classes</h2>
-      <p class="text-lg text-gray-700 mb-4">Join our intensive 14-day discipleship journey and experience spiritual growth, community, and transformation. Open to all ages and backgrounds!</p>
-      <a href="assets/docs/14 DAYS DISCIPLESHIP CLASSES.pptx" class="cta-btn inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#5B23B4] hover:text-white transition">Download Class Outline</a>
-    </div>
-  </section>
-
-  <!-- UPCOMING REVIVAL EVENTS & MISSIONS HIGHLIGHT -->
-  <section class="py-12 bg-white" id="upcoming-revival-missions">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-2xl font-bold text-[#2046B3] mb-6 text-center">Upcoming Revival Events & Missions</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-gradient-to-br from-[#7C3AED]/10 to-[#FDBA17]/10 rounded-xl shadow p-6 flex flex-col items-center">
-          <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Revival Conference</h3>
-          <p class="text-gray-700 mb-4 text-center">Experience powerful worship, teaching, and the move of God at our next revival conference.</p>
-          <a href="events.html" class="cta-btn px-6 py-2 bg-[#7C3AED] text-white rounded-lg font-semibold hover:bg-[#5B23B4] transition">See Events</a>
+        <div>
+          <h3 class="font-bold mb-4">Contact Info</h3>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-[#F59E0B]"></i>Nairobi, Kenya</li>
+            <li class="flex items-center"><i class="fas fa-phone mr-2 text-[#F59E0B]"></i>+254 725 907 040</li>
+            <li class="flex items-center"><i class="fas fa-envelope mr-2 text-[#F59E0B]"></i>heartsaftergodministries254@gmail.com</li>
+          </ul>
         </div>
-        <div class="bg-gradient-to-br from-[#FDBA17]/10 to-[#2046B3]/10 rounded-xl shadow p-6 flex flex-col items-center">
-          <h3 class="text-lg font-bold text-[#FDBA17] mb-2">Missions & Outreach</h3>
-          <p class="text-gray-700 mb-4 text-center">Join our missions teams as we reach communities with the love and message of Jesus.</p>
-          <a href="missions.html" class="cta-btn px-6 py-2 bg-[#FDBA17] text-[#2046B3] rounded-lg font-semibold hover:bg-[#7C3AED] hover:text-white transition">Get Involved</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS SECTION -->
-  <section class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60" id="testimonials">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-6">Transformed Lives</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <blockquote class="bg-white rounded-xl shadow p-6 text-gray-700 italic border-l-4 border-[#FDBA17]">
-          "I found purpose and family through the discipleship program. My life has never been the same!"
-          <span class="block mt-2 text-[#7C3AED] font-semibold">– Discipleship Graduate</span>
-        </blockquote>
-        <blockquote class="bg-white rounded-xl shadow p-6 text-gray-700 italic border-l-4 border-[#2046B3]">
-          "The revival conference ignited my passion for soul-winning and serving others."
-          <span class="block mt-2 text-[#2046B3] font-semibold">– Ministry Member</span>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER SIGNUP SECTION -->
-  <section class="py-12 bg-white" id="newsletter-signup">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-2xl font-bold text-[#FDBA17] mb-4">Stay Connected</h2>
-      <p class="text-gray-700 mb-4">Sign up for our newsletter to receive updates on global outreach, events, and discipleship resources.</p>
-      <form class="flex flex-col sm:flex-row gap-4 justify-center">
-        <input type="email" placeholder="Your Email Address" required class="px-4 py-3 border rounded focus:ring-2 focus:ring-[#FDBA17] text-lg flex-1" />
-        <button type="submit" class="cta-btn px-8 py-3 bg-[#F59E0B] text-[#1E40AF] font-bold rounded-lg shadow hover:bg-[#7C3AED] hover:text-white transition">Subscribe</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- SOCIAL MEDIA INTEGRATION SECTION -->
-  <section class="py-8 bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40" id="social-media">
-    <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-xl font-bold text-[#2046B3] mb-4">Connect With Us Worldwide</h2>
-      <div class="flex justify-center gap-6 text-3xl">
-        <a href="https://facebook.com/HeartsAfterGodMinistry" target="_blank" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="https://twitter.com/HeartsAfterGod" target="_blank" class="text-[#2046B3] hover:text-[#FDBA17]" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="https://instagram.com/HeartsAfterGodMinistry" target="_blank" class="text-[#FDBA17] hover:text-[#7C3AED]" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.youtube.com/@HeartsAfterGodMinistry" target="_blank" class="text-[#7C3AED] hover:text-[#FDBA17]" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" class="text-green-600 hover:text-[#FDBA17]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      </div>
-      <p class="mt-4 text-gray-600 text-sm">Join our global family and fellowship with believers around the world!</p>
-    </div>
-  </section>
-
-  <!-- VISION, MISSION, BELIEFS -->
-  <section id="vision-mission-beliefs" class="py-12 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-4">
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#7C3AED]">
-        <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Our Vision</h3>
-        <p class="text-gray-700">To raise a generation after God's heart, impacting families, communities, and nations for Christ.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#FDBA17]">
-        <h3 class="text-xl font-bold text-[#FDBA17] mb-2">Our Mission</h3>
-        <p class="text-gray-700">To disciple, equip, and send believers to fulfill the Great Commission through worship, teaching, and acts of love.</p>
-      </div>
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center border-t-4 border-[#2046B3]">
-        <h3 class="text-xl font-bold text-[#2046B3] mb-2">What We Believe</h3>
-        <p class="text-gray-700">We believe in the authority of Scripture, the power of prayer, and the transforming grace of Jesus Christ.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUICK LINKS / MINISTRIES / RESOURCES -->
-  <section id="quick-links" class="py-12 bg-white">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-      <!-- Events Button Card -->
-      <a href="events.html" class="group relative bg-gradient-to-br from-[#F3E8FF] to-[#FEF3C7] rounded-2xl shadow-xl p-10 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl outline-none ring-2 ring-transparent focus:ring-[#7C3AED] active:scale-100">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg mb-4 group-hover:bg-[#7C3AED]/10 transition">
-          <svg class="w-8 h-8 text-[#7C3AED] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v1.382a2 2 0 001.447 1.342L9 10m6 0v10a2 2 0 01-2 2H7a2 2 0 01-2-2V10m6 0l-6-3"/></svg>
-        </span>
-        <h4 class="font-bold text-xl text-[#7C3AED] mb-2 group-hover:text-[#FDBA17] transition">Events</h4>
-        <p class="text-gray-600 text-center mb-2">See what's happening and join us for worship, study, and fellowship.</p>
-      </a>
-      <!-- Sermons Button Card -->
-      <a href="sermons.html" class="group relative bg-gradient-to-br from-[#E0E7FF] to-[#FEF3C7] rounded-2xl shadow-xl p-10 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl outline-none ring-2 ring-transparent focus:ring-[#2046B3] active:scale-100">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg mb-4 group-hover:bg-[#2046B3]/10 transition">
-          <svg class="w-8 h-8 text-[#2046B3] group-hover:text-[#7C3AED] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A2 2 0 0021 6.382V5a2 2 0 00-2-2H5a2 2 0 00-2 2v1.382a2 2 0 001.447 1.342L9 10m6 0v10a2 2 0 01-2 2H7a2 2 0 01-2-2V10m6 0l-6-3"/></svg>
-        </span>
-        <h4 class="font-bold text-xl text-[#2046B3] mb-2 group-hover:text-[#7C3AED] transition">Sermons</h4>
-        <p class="text-gray-600 text-center mb-2">Listen to recent messages and be encouraged in your faith.</p>
-      </a>
-      <!-- Missions Button Card -->
-      <a href="missions.html" class="group relative bg-gradient-to-br from-[#FEF3C7] to-[#F3E8FF] rounded-2xl shadow-xl p-10 flex flex-col items-center transition-all duration-300 hover:scale-105 hover:shadow-2xl focus:scale-105 focus:shadow-2xl outline-none ring-2 ring-transparent focus:ring-[#FDBA17] active:scale-100">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-white shadow-lg mb-4 group-hover:bg-[#FDBA17]/10 transition">
-          <svg class="w-8 h-8 text-[#FDBA17] group-hover:text-[#2046B3] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 0C7.582 4 4 7.582 4 12c0 4.418 3.582 8 8 8s8-3.582 8-8c0-4.418-3.582-8-8-8z"/></svg>
-        </span>
-        <h4 class="font-bold text-xl text-[#FDBA17] mb-2 group-hover:text-[#2046B3] transition">Missions</h4>
-        <p class="text-gray-600 text-center mb-2">Learn how we serve our community and the world through missions.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- Weekly Schedule Section -->
-  <section id="weekly-schedule" class="max-w-4xl mx-auto py-12 px-4 animate-fade-in delay-200 schedule-bg relative overflow-hidden">
-    <div class="absolute inset-0 pointer-events-none z-0">
-      <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,40 C360,120 1080,-40 1440,40 L1440,120 L0,120 Z" fill="#7C3AED" fill-opacity="0.04"/></svg>
-    </div>
-    <div class="bg-gradient-to-br from-[#7C3AED]/20 via-[#FDBA17]/10 to-[#7C3AED]/10 rounded-2xl shadow-lg p-8 relative z-10 animate-section">
-      <h2 class="text-2xl font-bold text-[#7C3AED] mb-6 text-center animate-heading">Weekly Schedule <span class='text-[#FDBA17] text-lg'>(8–9pm)</span></h2>
-      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
-        <!-- Monday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#7C3AED]/80 to-[#FDBA17]/80 rounded-xl shadow-lg border-2 border-[#7C3AED] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#7C3AED]/30 transition group animate-card">
-          <span class="text-xs font-bold text-white mb-1">Mon</span>
-          <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <svg class="w-7 h-7 text-[#7C3AED] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11V5a3 3 0 016 0v6m-6 0a3 3 0 01-6 0V5a3 3 0 016 0v6zm6 0a3 3 0 006 0V5a3 3 0 00-6 0v6z"/></svg>
-          </span>
-          <span class="text-sm font-semibold text-white mb-1">Prayers & Fasting</span>
-          <span class="text-xs text-white/80">8–9pm</span>
-        </div>
-        <!-- Tuesday -->
-        <div class="flex flex-col items-center bg-gray-100 rounded-xl shadow p-4 opacity-60">
-          <span class="text-xs font-bold text-gray-400 mb-1">Tue</span>
-        </div>
-        <!-- Wednesday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#FDBA17]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#FDBA17] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#FDBA17]/30 transition group animate-card">
-          <span class="text-xs font-bold text-white mb-1">Wed</span>
-          <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <svg class="w-7 h-7 text-[#FDBA17] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0C9.613 5 7.5 7.134 7.5 9.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5C16.5 7.134 14.387 5 12 5z"/></svg>
-          </span>
-          <span class="text-sm font-semibold text-white mb-1">Tongues Session</span>
-          <span class="text-xs text-white/80">8–9pm</span>
-        </div>
-        <!-- Thursday -->
-        <div class="flex flex-col items-center bg-gray-100 rounded-xl shadow p-4 opacity-60">
-          <span class="text-xs font-bold text-gray-400 mb-1">Thu</span>
-        </div>
-        <!-- Friday -->
-        <div class="flex flex-col items-center bg-gradient-to-br from-[#2046B3]/80 to-[#7C3AED]/80 rounded-xl shadow-lg border-2 border-[#2046B3] p-4 hover:scale-105 hover:shadow-2xl hover:ring-4 hover:ring-[#2046B3]/30 transition group animate-card">
-          <span class="text-xs font-bold text-white mb-1">Fri</span>
-          <span class="mb-2 flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-lg">
-            <svg class="w-7 h-7 text-[#2046B3] animate-icon-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v20"/></svg>
-          </span>
-          <span class="text-sm font-semibold text-white mb-1">Bible Study</span>
-          <span class="text-xs text-white/80">8–9pm</span>
-        </div>
-        <!-- Saturday -->
-        <div class="flex flex-col items-center bg-gray-100 rounded-xl shadow p-4 opacity-60">
-          <span class="text-xs font-bold text-gray-400 mb-1">Sat</span>
-        </div>
-        <!-- Sunday -->
-        <div class="flex flex-col items-center bg-gray-100 rounded-xl shadow p-4 opacity-60">
-          <span class="text-xs font-bold text-gray-400 mb-1">Sun</span>
+        <div>
+          <h3 class="font-bold mb-4">Connect With Us</h3>
+          <div class="flex gap-4">
+            <a href="https://facebook.com/" aria-label="Facebook" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://youtube.com/" aria-label="YouTube" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
         </div>
       </div>
+      <div class="border-t border-white/20 pt-8 text-center">
+        <p class="text-sm text-white/80">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- OUR MINISTRIES SECTION (modern grid style) -->
-  <section id="ministries" class="py-16 bg-gradient-to-br from-[#F3E8FF]/40 to-[#FEF3C7]/40">
-    <div class="max-w-4xl mx-auto text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-[#2046B3] mb-2 tracking-tight">Our Ministries</h2>
-      <p class="text-lg text-gray-600">Discover how we serve and minister</p>
-    </div>
-    <!-- Ministries Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 max-w-5xl mx-auto">
-      <!-- Glow for Christ Ministry Card -->
-      <div class="bg-white rounded-3xl shadow-2xl border-t-4 border-[#7C3AED] p-8 flex flex-col items-center transition-all duration-300 hover:shadow-3xl group">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#F3E8FF] mb-6 shadow-lg group-hover:bg-[#7C3AED]/10 transition">
-          <svg class="w-8 h-8 text-[#7C3AED] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 0C9.613 5 7.5 7.134 7.5 9.5c0 2.485 2.015 4.5 4.5 4.5s4.5-2.015 4.5-4.5C16.5 7.134 14.387 5 12 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 17v2m-6-6h12"/></svg>
-        </span>
-        <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Glow for Christ Ministry</h3>
-        <p class="text-gray-700 mb-4 text-center">Igniting hearts to shine the light of Christ in every sphere of life through worship, outreach, and discipleship.</p>
-      </div>
-      <!-- Revived Hearts Ministry Card -->
-      <div class="bg-white rounded-3xl shadow-2xl border-t-4 border-[#FDBA17] p-8 flex flex-col items-center transition-all duration-300 hover:shadow-3xl group">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#FEF3C7] mb-6 shadow-lg group-hover:bg-[#FDBA17]/10 transition">
-          <svg class="w-8 h-8 text-[#FDBA17] group-hover:text-[#7C3AED] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21C12 21 7 16.5 7 12.5C7 9.46243 9.46243 7 12.5 7C13.8807 7 15.1174 7.63214 16 8.67157C16.8826 7.63214 18.1193 7 19.5 7C22.5376 7 25 9.46243 25 12.5C25 16.5 20 21 20 21H12Z"/></svg>
-        </span>
-        <h3 class="text-xl font-bold text-[#FDBA17] mb-2">Revived Hearts Ministry</h3>
-        <p class="text-gray-700 mb-4 text-center">Fostering spiritual renewal and deeper intimacy with God through prayer, revival meetings, and teaching.</p>
-      </div>
-      <!-- Youth Mentorship Card -->
-      <div class="bg-white rounded-3xl shadow-2xl border-t-4 border-[#2046B3] p-8 flex flex-col items-center transition-all duration-300 hover:shadow-3xl group">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#E0E7FF] mb-6 shadow-lg group-hover:bg-[#2046B3]/10 transition">
-          <svg class="w-8 h-8 text-[#2046B3] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 3.13a4 4 0 010 7.75M8 3.13a4 4 0 000 7.75M12 17v-1a4 4 0 00-3-3.87"/></svg>
-        </span>
-        <h3 class="text-xl font-bold text-[#2046B3] mb-2">Youth Mentorship</h3>
-        <p class="text-gray-700 mb-4 text-center">Empowering the next generation through mentorship, leadership training, and Christ-centered community.</p>
-      </div>
-      <!-- Singles Prayer Marathon Card -->
-      <div class="bg-white rounded-3xl shadow-2xl border-t-4 border-[#7C3AED] p-8 flex flex-col items-center transition-all duration-300 hover:shadow-3xl group">
-        <span class="flex items-center justify-center w-16 h-16 rounded-full bg-[#F3E8FF] mb-6 shadow-lg group-hover:bg-[#FDBA17]/10 transition">
-          <svg class="w-8 h-8 text-[#7C3AED] group-hover:text-[#FDBA17] transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#7C3AED" stroke-width="2" fill="none"/><path stroke="#7C3AED" stroke-width="2" d="M12 8v4l3 3"/><path stroke="#FDBA17" stroke-width="2" d="M8 16c1.333-2 6.667-2 8 0"/></svg>
-        </span>
-        <h3 class="text-xl font-bold text-[#7C3AED] mb-2">Singles Prayer Marathon</h3>
-        <p class="text-gray-700 mb-4 text-center">A special prayer and fellowship initiative for singles to seek God, grow in faith, and build godly relationships.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Latest Blog & Devotionals Section -->
-  <section id="blog-gallery" class="max-w-7xl mx-auto py-16 px-4 animate-fade-in delay-400 blog-bg relative overflow-hidden">
-    <div class="absolute inset-0 bg-[#F3E8FF] opacity-10 pointer-events-none z-0"></div>
-    <div class="bg-white rounded-2xl shadow-xl border-t-4 border-[#7C3AED] p-10 mb-16 relative z-10">
-      <div class="flex flex-col items-center text-center mb-8">
-        <div class="bg-[#7C3AED] rounded-full p-4 w-16 h-16 flex items-center justify-center mb-4 shadow-lg">
-          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 2h8v4H8z"/></svg>
-        </div>
-        <h2 class="text-4xl md:text-5xl font-extrabold text-[#7C3AED] mb-2 animate-heading">Latest Blog & Devotionals</h2>
-        <p class="text-xl text-gray-700 mb-4">Grow in faith with our daily devotionals</p>
-      </div>
-      <div id="home-blog-list" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-      <div class="flex justify-center mt-8">
-        <a href="blog.html" class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-xl shadow-lg hover:bg-[#5B23B4] hover:scale-105 hover:shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7C3AED]">See All Blog Posts<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery Highlights Section (mosaic background) -->
-  <section class="max-w-6xl mx-auto py-16 px-4 gallery-bg relative overflow-hidden">
-    <div class="absolute inset-0 pointer-events-none z-0">
-      <svg class="w-full h-full" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1440" height="120" fill="#FDBA17" fill-opacity="0.03"/><rect x="100" y="20" width="200" height="80" rx="40" fill="#7C3AED" fill-opacity="0.04"/><rect x="400" y="40" width="120" height="40" rx="20" fill="#2046B3" fill-opacity="0.04"/></svg>
-    </div>
-    <div class="bg-white rounded-2xl shadow-xl border-t-4 border-[#FDBA17] p-10 mb-8 relative z-10">
-      <div class="flex flex-col items-center text-center mb-8">
-        <div class="bg-[#FDBA17] rounded-full p-4 w-16 h-16 flex items-center justify-center mb-4 shadow-lg">
-          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        </div>
-        <h2 class="text-4xl md:text-5xl font-extrabold text-[#FDBA17] mb-2 animate-heading">Gallery Highlights</h2>
-        <p class="text-xl text-gray-700 mb-4">A glimpse into our ministry moments</p>
-      </div>
-      <div id="home-gallery-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"></div>
-      <div class="text-center mt-8">
-        <a href="gallery.html" class="cta-btn inline-block px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-xl shadow-lg hover:bg-[#5B23B4] hover:scale-105 hover:shadow-2xl transition-all duration-300">View Full Gallery</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Floating Back to Top Button -->
-  <button id="backToTop" class="fixed bottom-8 right-8 z-50 bg-[#7C3AED] text-white p-4 rounded-full shadow-lg hover:bg-[#FDBA17] hover:text-[#2046B3] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/40" aria-label="Back to top" style="display:none;">
-    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-  </button>
-
-  <!-- Section/Card Animation & CTA Ripple Scripts -->
+  <!-- HERO SLIDESHOW SCRIPT -->
   <script>
-  // Intersection Observer for section/card animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.animate-section, .animate-card, .animate-heading').forEach(el => observer.observe(el));
-  // Icon bounce/pulse
-  const iconBounce = `@keyframes icon-bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}`;
-  const iconPulse = `@keyframes icon-pulse {0%,100%{opacity:1;}50%{opacity:0.7;}}`;
-  const styleSheet = document.createElement('style');
-  styleSheet.innerText = `
-  .animate-icon-bounce { animation: icon-bounce 2s infinite; }
-  .animate-icon-pulse { animation: icon-pulse 1.5s infinite; }
-  .animate-section, .animate-card, .animate-heading { opacity:0; transform:translateY(32px); transition:all 0.8s cubic-bezier(.4,0,.2,1); }
-  .in-view { opacity:1 !important; transform:none !important; }
-  `;
-  document.head.appendChild(styleSheet);
-  // CTA ripple/glow
-  function ripple(e) {
-    const btn = e.currentTarget;
-    const circle = document.createElement('span');
-    circle.className = 'ripple';
-    circle.style.left = `${e.offsetX}px`;
-    circle.style.top = `${e.offsetY}px`;
-    btn.appendChild(circle);
-    setTimeout(() => circle.remove(), 600);
-  }
-  document.querySelectorAll('.cta-btn').forEach(btn => {
-    btn.addEventListener('click', ripple);
-  });
-  const rippleStyle = document.createElement('style');
-  rippleStyle.innerText = `.ripple{position:absolute;width:48px;height:48px;background:rgba(124,58,237,0.18);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;animation:ripple-anim 0.6s;z-index:10;}@keyframes ripple-anim{from{opacity:1;transform:scale(0);}to{opacity:0;transform:scale(2);}}.cta-btn{position:relative;overflow:hidden;}`;
-  document.head.appendChild(rippleStyle);
-  // Back to Top button
-  const backToTop = document.getElementById('backToTop');
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 400) backToTop.style.display = 'block';
-    else backToTop.style.display = 'none';
-  });
-  backToTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-  </script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/navigation.js"></script>
-  <script>
-    // Animated underline logic
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-    const navUnderline = document.getElementById('nav-underline');
-    function moveUnderline(el) {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
-      navUnderline.style.width = rect.width + 'px';
-      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
-    }
-    navLinks.forEach(link => {
-      link.addEventListener('mouseenter', e => moveUnderline(e.target));
-      link.addEventListener('focus', e => moveUnderline(e.target));
-      link.addEventListener('mouseleave', () => {
-        const active = document.querySelector('#nav-links .nav-link.active');
-        moveUnderline(active);
-      });
-    });
-    // On page load, set underline to active
-    window.addEventListener('DOMContentLoaded', () => {
-      const active = document.querySelector('#nav-links .nav-link.active');
-      moveUnderline(active);
-    });
-    // Accessibility: close mobile menu with Esc
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeMobileMenu && closeMobileMenu();
-    });
-    // HERO SLIDESHOW LOGIC
-(function() {
-  const images = [
-    'assets/images/hero/IMG-20250705-WA0019.jpg',
-    'assets/images/hero/IMG-20250705-WA0020.jpg',
-    'assets/images/hero/IMG-20250705-WA0021.jpg',
-    'assets/images/hero/IMG-20250705-WA0022.jpg',
-    'assets/images/hero/IMG-20250705-WA0023.jpg',
-    'assets/images/hero/IMG-20250705-WA0024.jpg',
-    'assets/images/hero/IMG-20250705-WA0025.jpg',
-    'assets/images/hero/IMG-20250705-WA0026.jpg',
-    'assets/images/hero/IMG-20250705-WA0027.jpg'
-  ];
-  let idx = 0;
-  const bgDiv = document.getElementById('hero-slideshow-bg');
-  const dotsDiv = document.getElementById('hero-slideshow-dots');
-  // Preload images
-  images.forEach(src => { const img = new Image(); img.src = src; });
-  function setBg(i) {
-    bgDiv.style.backgroundImage = `url('${images[i]}')`;
-    bgDiv.style.opacity = 1;
-  }
-  function updateDots() {
-    dotsDiv.innerHTML = images.map((_, i) => `<button aria-label="Go to slide ${i+1}" class="w-3 h-3 rounded-full mx-1 focus:outline-none ${i===idx?'bg-[#FDBA17]':'bg-white/60'}" style="transition:background 0.3s;"></button>`).join('');
-    Array.from(dotsDiv.children).forEach((btn, i) => {
-      btn.onclick = () => { idx = i; showSlide(); resetInterval(); };
-    });
-  }
-  function showSlide() {
-    bgDiv.style.opacity = 0;
-    setTimeout(() => {
-      setBg(idx);
+    // Hero slideshow
+    const images = [
+      'assets/images/hero/IMG-20250705-WA0019.jpg',
+      'assets/images/hero/IMG-20250705-WA0020.jpg',
+      'assets/images/hero/IMG-20250705-WA0021.jpg',
+      'assets/images/hero/IMG-20250705-WA0022.jpg'
+    ];
+    let idx = 0;
+    const bgDiv = document.getElementById('hero-slideshow-bg');
+    const dotsDiv = document.getElementById('hero-slideshow-dots');
+    
+    function setBg(i) {
+      bgDiv.style.backgroundImage = `url('${images[i]}')`;
       bgDiv.style.opacity = 1;
-      updateDots();
-    }, 400);
-  }
-  function nextSlide() { idx = (idx + 1) % images.length; showSlide(); }
-  let interval = setInterval(nextSlide, 5000);
-  function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, 5000); }
-  setBg(idx); updateDots();
-  bgDiv.style.transition = 'opacity 0.8s';
-  // Keyboard navigation
-  document.addEventListener('keydown', e => {
-    if(document.activeElement.tagName === 'INPUT') return;
-    if(e.key === 'ArrowRight') { nextSlide(); resetInterval(); }
-    if(e.key === 'ArrowLeft') { idx = (idx-1+images.length)%images.length; showSlide(); resetInterval(); }
-  });
-})();
+    }
+    
+    function updateDots() {
+      dotsDiv.innerHTML = images.map((_, i) => 
+        `<button aria-label="Go to slide ${i+1}" class="w-3 h-3 rounded-full mx-1 focus:outline-none ${i===idx?'bg-[#F59E0B]':'bg-white/60'}" style="transition:background 0.3s;"></button>`
+      ).join('');
+      Array.from(dotsDiv.children).forEach((btn, i) => {
+        btn.onclick = () => { idx = i; showSlide(); resetInterval(); };
+      });
+    }
+    
+    function showSlide() {
+      bgDiv.style.opacity = 0;
+      setTimeout(() => {
+        setBg(idx);
+        bgDiv.style.opacity = 1;
+        updateDots();
+      }, 400);
+    }
+    
+    function nextSlide() { idx = (idx + 1) % images.length; showSlide(); }
+    let interval = setInterval(nextSlide, 5000);
+    function resetInterval() { clearInterval(interval); interval = setInterval(nextSlide, 5000); }
+    
+    setBg(idx); updateDots();
+    bgDiv.style.transition = 'opacity 0.8s';
+    
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    const observerOptions = { threshold: 0.5 };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target.querySelector('[data-target]');
+          const target = parseInt(counter.getAttribute('data-target'));
+          const increment = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            if (current < target) {
+              current += increment;
+              counter.textContent = Math.ceil(current) + (target === 10 ? '+' : target === 500 ? '+' : target === 1000 ? '+' : '');
+              setTimeout(updateCounter, 20);
+            } else {
+              counter.textContent = target + (target === 10 ? '+' : target === 500 ? '+' : target === 1000 ? '+' : '');
+            }
+          };
+          updateCounter();
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    counters.forEach(counter => counterObserver.observe(counter));
   </script>
-  <!-- Modern Footer -->
-  <div id="site-footer"></div>
+
 </body>
 </html> 
