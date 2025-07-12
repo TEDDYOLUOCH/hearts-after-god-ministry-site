@@ -7,6 +7,7 @@
   <meta name="description" content="Sermon details - Hearts After God Ministry">
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     .nav-underline { position: absolute; left: 0; bottom: 0; height: 3px; background: #E02424; border-radius: 2px; transition: all 0.3s cubic-bezier(.4,0,.2,1); z-index: 10; }
     .nav-link { position: relative; padding-bottom: 4px; transition: color 0.2s; text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18); }
@@ -38,7 +39,15 @@
       <div class="hidden md:flex gap-8 font-semibold text-white text-lg mx-auto relative" id="nav-links">
         <ul class="flex gap-8">
           <li><a href="index.html" class="nav-link" id="nav-home">Home</a></li>
-          <li><a href="about.html" class="nav-link" id="nav-about">About</a></li>
+          <li class="relative group">
+            <button class="nav-link flex items-center gap-2 focus:outline-none" id="nav-about">
+              About <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
+            </button>
+            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
+              <li><a href="team.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
+              <li><a href="discipleship.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
+            </ul>
+          </li>
           <li><a href="vision.html" class="nav-link" id="nav-vision">Vision</a></li>
           <li><a href="events.html" class="nav-link" id="nav-events">Events</a></li>
           <li><a href="sermons.html" class="nav-link active" id="nav-sermons">Sermons</a></li>
@@ -61,7 +70,15 @@
         <button class="close-btn" aria-label="Close menu">&times;</button>
         <ul class="flex flex-col gap-6 text-white text-xl font-semibold mt-6">
           <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li class="relative">
+            <button onclick="document.getElementById('mobile-about-dropdown').classList.toggle('hidden')" class="nav-link flex items-center justify-between w-full">
+              About <i class="fas fa-chevron-down ml-2 align-middle"></i>
+            </button>
+            <div id="mobile-about-dropdown" class="hidden ml-8 space-y-1 mt-2">
+              <a href="team.html" class="block text-white/80 hover:text-[#FDBA17] transition-colors">Team (Leaders)</a>
+              <a href="discipleship.html" class="block text-white/80 hover:text-[#FDBA17] transition-colors">Discipleship</a>
+            </div>
+          </li>
           <li><a href="vision.html" class="nav-link">Vision</a></li>
           <li><a href="events.html" class="nav-link">Events</a></li>
           <li><a href="sermons.html" class="nav-link active">Sermons</a></li>

@@ -7,46 +7,120 @@
   <meta name="description" content="Contact Hearts After God Ministry for prayer, discipleship, or partnership. We're here to connect with you.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body { font-family: 'Nunito', sans-serif; }
     .scripture { font-family: 'Georgia', serif; }
+    .gradient-text { background: linear-gradient(135deg, #7C3AED, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .contact-card { transition: all 0.3s ease; }
+    .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .form-input:focus { box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+    .cta-btn { background: #7C3AED; color: white; font-weight: bold; border-radius: 8px; transition: all 0.3s ease; }
+    .cta-btn:hover { background: #F59E0B; color: #1E40AF; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
   </style>
 </head>
 <body class="bg-white text-gray-900">
 
   <!-- HEADER / NAVIGATION -->
-  <header class="sticky top-0 z-50 bg-white shadow">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-2">
-        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-10 w-10 rounded-full border-2 border-[#7C3AED] object-cover"/>
-        <span class="text-xl font-extrabold text-[#7C3AED]">Hearts After God</span>
+  <header class="sticky top-0 z-50 bg-white/98 backdrop-blur-md shadow-xl border-b border-gray-200/50">
+    <nav class="max-w-7xl mx-auto px-6 py-5">
+      <div class="flex items-center justify-between">
+        <!-- Logo & Brand -->
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-14 w-14 rounded-full border-3 border-[#7C3AED] object-cover shadow-xl ring-4 ring-[#7C3AED]/10"/>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-2xl font-black text-[#7C3AED] tracking-tight">Hearts After God</span>
+            <div class="text-sm text-gray-600 font-semibold tracking-wide uppercase">Ministry</div>
+          </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <ul class="hidden lg:flex items-center gap-1">
+          <li>
+            <a href="index.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Home</a>
+          </li>
+          <li class="relative group">
+            <button class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300 flex items-center gap-2 focus:outline-none">
+              <span>About</span>
+              <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
+            </button>
+            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
+              <li><a href="team.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
+              <li><a href="discipleship.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="ministries.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Ministries</a>
+          </li>
+          <li>
+            <a href="events.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Events</a>
+          </li>
+          <li>
+            <a href="sermons.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Sermons</a>
+          </li>
+          <li>
+            <a href="blog.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Blog</a>
+          </li>
+          <li>
+            <a href="contact.html" class="px-6 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20 hover:from-[#7C3AED]/20 hover:to-[#F59E0B]/20 transition-all duration-300">Contact</a>
+          </li>
+        </ul>
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="discipleship.html" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            <i class="fas fa-users mr-2"></i>Join Us
+          </a>
       </div>
-      <ul class="hidden md:flex gap-6 font-semibold text-lg">
-        <li><a href="index.html" class="hover:text-[#7C3AED]">Home</a></li>
-        <li><a href="about.html" class="hover:text-[#7C3AED]">About</a></li>
-        <li><a href="ministries.html" class="hover:text-[#7C3AED]">Ministries</a></li>
-        <li><a href="events.html" class="hover:text-[#7C3AED]">Events</a></li>
-        <li><a href="sermons.html" class="hover:text-[#7C3AED]">Sermons</a></li>
-        <li><a href="blog.html" class="hover:text-[#7C3AED]">Blog</a></li>
-        <li><a href="contact.html" class="text-[#7C3AED] font-bold">Contact</a></li>
-      </ul>
-      <button id="mobile-menu-btn" class="md:hidden text-[#7C3AED] focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+        <!-- Mobile Menu Button and Mobile Menu (same as homepage) -->
+        <button id="mobile-menu-btn" class="lg:hidden relative p-3 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-xl transition-colors duration-300 focus:outline-none">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="lg:hidden hidden mt-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50">
+        <div class="p-6 space-y-4">
+          <a href="index.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-home mr-3"></i>Home
+          </a>
+          <li class="relative group">
+            <button class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300 flex items-center gap-2 focus:outline-none">
+              <span>About</span>
+              <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
       </button>
+            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
+              <li><a href="team.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
+              <li><a href="discipleship.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
+        </ul>
+          </li>
+          <a href="ministries.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-church mr-3"></i>Ministries
+          </a>
+          <a href="events.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
+            <i class="fas fa-calendar mr-3"></i>Events
+          </a>
+          <a href="sermons.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-microphone mr-3"></i>Sermons
+          </a>
+          <a href="blog.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
+            <i class="fas fa-blog mr-3"></i>Blog
+          </a>
+          <a href="contact.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20">
+            <i class="fas fa-envelope mr-3"></i>Contact
+          </a>
+          <div class="pt-4 border-t border-gray-200">
+            <a href="discipleship.html" class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <i class="fas fa-users mr-2"></i>Join Us
+            </a>
+          </div>
+        </div>
+      </div>
     </nav>
-    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
-      <ul class="flex flex-col gap-4 p-4 text-lg font-semibold">
-        <li><a href="index.html" class="hover:text-[#7C3AED]">Home</a></li>
-        <li><a href="about.html" class="hover:text-[#7C3AED]">About</a></li>
-        <li><a href="ministries.html" class="hover:text-[#7C3AED]">Ministries</a></li>
-        <li><a href="events.html" class="hover:text-[#7C3AED]">Events</a></li>
-        <li><a href="sermons.html" class="hover:text-[#7C3AED]">Sermons</a></li>
-        <li><a href="blog.html" class="hover:text-[#7C3AED]">Blog</a></li>
-        <li><a href="contact.html" class="text-[#7C3AED] font-bold">Contact</a></li>
-      </ul>
-    </div>
+
     <script>
       document.getElementById('mobile-menu-btn').onclick = function() {
         document.getElementById('mobile-menu').classList.toggle('hidden');
@@ -54,102 +128,417 @@
     </script>
   </header>
 
-  <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] text-white py-20 flex flex-col items-center justify-center text-center">
-    <img src="assets/images/hero/IMG-20250705-WA0025.jpg" alt="Contact Hearts After God Ministry" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" />
-    <div class="relative z-10 max-w-2xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow">Contact Us</h1>
-      <p class="text-lg md:text-2xl mb-6">We'd love to connect with you for prayer, discipleship, or partnership.</p>
+    <!-- HERO SECTION -->
+  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 w-full h-full">
+      <img src="assets/images/hero/IMG-20250705-WA0024.jpg" alt="Contact Hearts After God Ministry" class="w-full h-full object-cover"/>
     </div>
-  </section>
+    <div class="absolute inset-0 bg-[#7C3AED]/90"></div>
+    <div class="relative z-10 text-center px-4 py-12 w-full max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-2xl">Get In Touch</h1>
+      <blockquote class="scripture text-base md:text-xl mb-2 text-white font-semibold">
+        "Come to me, all you who are weary and burdened, and I will give you rest."
+      </blockquote>
+      <div class="text-[#F59E0B] font-bold text-base mb-6">Matthew 11:28</div>
+      <p class="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
+        We're here to connect, support, and journey with you. Reach out for prayer, discipleship, or partnership opportunities.
+      </p>
+      </div>
+    </section>
 
-  <!-- CONTACT FORM & INFO -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-start">
-      <form action="https://formspree.io/f/your-form-id" method="POST" class="bg-gray-50 rounded-xl shadow p-8 flex flex-col gap-4">
-        <h2 class="text-2xl font-bold text-[#7C3AED] mb-2">Send a Message</h2>
-        <label class="text-left font-semibold">Name
-          <input type="text" name="name" required class="mt-1 w-full px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-[#7C3AED]"/>
-        </label>
-        <label class="text-left font-semibold">Email
-          <input type="email" name="email" required class="mt-1 w-full px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-[#7C3AED]"/>
-        </label>
-        <label class="text-left font-semibold">Message
-          <textarea name="message" rows="4" required class="mt-1 w-full px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-[#7C3AED]"></textarea>
-        </label>
-        <button type="submit" class="cta-btn px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Send Message</button>
-      </form>
-      <div class="flex flex-col gap-6 justify-center items-center text-center">
-        <div>
-          <h3 class="text-xl font-bold text-[#1E40AF] mb-2">Ministry Contacts</h3>
-          <p class="mb-1">Nairobi, Kenya (Global Online Ministry)</p>
-          <p class="mb-1 font-semibold">+254 725 907 040</p>
-          <p class="mb-1 font-semibold">heartsaftergodministries254@gmail.com</p>
+  <!-- CONTACT INFORMATION CARDS -->
+  <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Connect With Us</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Multiple ways to reach our ministry team for prayer, support, or partnership
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 mb-16">
+        <div class="contact-card bg-white rounded-2xl shadow-xl p-8 border-l-4 border-[#7C3AED]">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-phone text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Phone & WhatsApp</h3>
+          <p class="text-gray-600 mb-6">Direct communication for urgent prayer requests and ministry inquiries.</p>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <i class="fas fa-phone text-[#7C3AED] mr-3"></i>
+              <span class="font-semibold">+254 725 907 040</span>
         </div>
-        <div>
-          <h3 class="text-xl font-bold text-[#F59E0B] mb-2">Connect Online</h3>
-          <div class="flex gap-4 justify-center">
-            <a href="https://facebook.com/" aria-label="Facebook" class="hover:text-[#7C3AED]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 5.006 3.676 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.324 21.128 22 17.006 22 12"/></svg></a>
-            <a href="https://youtube.com/" aria-label="YouTube" class="hover:text-[#7C3AED]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.4.1-1.2.1-1.9.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.7.8 1.7.8 2.1.9C7.8 19 12 19 12 19s4.2 0 7.1-.1c.4-.1 1.2-.1 1.9-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 15.3V8.7l6.4 3.3-6.4 3.3z"/></svg></a>
-            <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="hover:text-[#7C3AED]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 20V8.99l8 6.99 8-6.99V20H4z"/></svg></a>
+            <div class="flex items-center">
+              <i class="fab fa-whatsapp text-[#7C3AED] mr-3"></i>
+              <span class="font-semibold">WhatsApp Available</span>
+              </div>
+            <div class="text-sm text-gray-500 mt-2">
+              <i class="fas fa-clock mr-2"></i>Available 24/7 for prayer
+            </div>
+          </div>
+              </div>
+        <div class="contact-card bg-white rounded-2xl shadow-xl p-8 border-l-4 border-[#F59E0B]">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#F59E0B] to-[#1E40AF] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-envelope text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Email Communication</h3>
+          <p class="text-gray-600 mb-6">Send detailed messages, prayer requests, or partnership inquiries.</p>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <i class="fas fa-envelope text-[#F59E0B] mr-3"></i>
+              <span class="font-semibold">heartsaftergodministries254@gmail.com</span>
+              </div>
+            <div class="text-sm text-gray-500 mt-2">
+              <i class="fas fa-clock mr-2"></i>Response within 24 hours
+            </div>
+          </div>
+              </div>
+        <div class="contact-card bg-white rounded-2xl shadow-xl p-8 border-l-4 border-[#1E40AF]">
+          <div class="w-16 h-16 bg-gradient-to-br from-[#1E40AF] to-[#7C3AED] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Location & Ministry</h3>
+          <p class="text-gray-600 mb-6">Based in Nairobi, Kenya with global online ministry reach.</p>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <i class="fas fa-map-marker-alt text-[#1E40AF] mr-3"></i>
+              <span class="font-semibold">Nairobi, Kenya</span>
+              </div>
+            <div class="text-sm text-gray-500 mt-2">
+              <i class="fas fa-globe mr-2"></i>Global Online Ministry
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- CONTACT FORM SECTION -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Contact Form -->
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <h2 class="text-3xl font-bold text-[#7C3AED] mb-6">Send Us a Message</h2>
+          <p class="text-gray-600 mb-8">We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.</p>
+          
+          <form action="https://formspree.io/f/your-form-id" method="POST" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
+                <input type="text" name="firstName" required class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors"/>
+          </div>
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
+                <input type="text" name="lastName" required class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors"/>
+      </div>
+    </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+              <input type="email" name="email" required class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors"/>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+              <input type="tel" name="phone" class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors"/>
+        </div>
+        
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Inquiry Type *</label>
+              <select name="inquiryType" required class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors">
+                <option value="">Select an option</option>
+                <option value="prayer">Prayer Request</option>
+                <option value="discipleship">Discipleship Information</option>
+                <option value="partnership">Partnership Opportunity</option>
+                <option value="general">General Inquiry</option>
+                <option value="support">Ministry Support</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Message *</label>
+              <textarea name="message" rows="5" required placeholder="Tell us how we can help you..." class="form-input w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors resize-none"></textarea>
+            </div>
+            
+            <button type="submit" class="cta-btn w-full px-8 py-4 text-lg font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+              <i class="fas fa-paper-plane mr-2"></i>Send Message
+            </button>
+        </form>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="space-y-8">
+          <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <h3 class="text-2xl font-bold text-[#1E40AF] mb-6">Ministry Information</h3>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-[#7C3AED]/10 rounded-full flex items-center justify-center">
+                  <i class="fas fa-church text-[#7C3AED] text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-1">Hearts After God Ministry</h4>
+                  <p class="text-gray-600">Revival ministry focused on soul-winning, discipleship, and global outreach</p>
+            </div>
+          </div>
+          
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-[#F59E0B]/10 rounded-full flex items-center justify-center">
+                  <i class="fas fa-clock text-[#F59E0B] text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-1">Response Time</h4>
+                  <p class="text-gray-600">We typically respond within 24 hours for all inquiries</p>
+            </div>
+          </div>
+          
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 bg-[#1E40AF]/10 rounded-full flex items-center justify-center">
+                  <i class="fas fa-globe text-[#1E40AF] text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900 mb-1">Global Ministry</h4>
+                  <p class="text-gray-600">Serving communities worldwide through online platforms and local outreach</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Media Links -->
+          <div class="bg-gradient-to-br from-[#7C3AED]/5 to-[#F59E0B]/5 rounded-2xl p-8 border border-[#7C3AED]/20">
+            <h3 class="text-2xl font-bold text-[#1E40AF] mb-6">Connect Online</h3>
+            <p class="text-gray-600 mb-6">Follow us on social media for daily inspiration, ministry updates, and live events.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <a href="https://facebook.com/" class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
+                <i class="fab fa-facebook text-[#7C3AED] text-2xl group-hover:scale-110 transition-transform"></i>
+                <div>
+                  <div class="font-semibold text-gray-900">Facebook</div>
+                  <div class="text-sm text-gray-500">Daily updates</div>
+                </div>
+              </a>
+              <a href="https://youtube.com/" class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
+                <i class="fab fa-youtube text-[#F59E0B] text-2xl group-hover:scale-110 transition-transform"></i>
+                <div>
+                  <div class="font-semibold text-gray-900">YouTube</div>
+                  <div class="text-sm text-gray-500">Sermons & events</div>
+                </div>
+              </a>
+              <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
+                <i class="fab fa-whatsapp text-[#1E40AF] text-2xl group-hover:scale-110 transition-transform"></i>
+                <div>
+                  <div class="font-semibold text-gray-900">WhatsApp</div>
+                  <div class="text-sm text-gray-500">Direct chat</div>
+                </div>
+              </a>
+              <a href="mailto:heartsaftergodministries254@gmail.com" class="flex items-center gap-3 p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 group">
+                <i class="fas fa-envelope text-[#7C3AED] text-2xl group-hover:scale-110 transition-transform"></i>
+                <div>
+                  <div class="font-semibold text-gray-900">Email</div>
+                  <div class="text-sm text-gray-500">Direct contact</div>
+              </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+    </section>
 
-  <!-- IMPACT & VALUES -->
-  <section class="py-12 bg-gray-50">
-    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div>
-        <div class="text-3xl font-extrabold text-[#1E40AF]">10+</div>
-        <div class="text-gray-600">Years of Ministry</div>
-      </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#F59E0B]">6</div>
-        <div class="text-gray-600">Active Ministries</div>
-      </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#7C3AED]">500+</div>
-        <div class="text-gray-600">Disciples Trained</div>
-      </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#F59E0B]">1000+</div>
-        <div class="text-gray-600">Souls Reached</div>
-      </div>
-    </div>
-    <div class="max-w-3xl mx-auto mt-12 text-center">
-      <h3 class="text-2xl font-bold text-[#7C3AED] mb-4">Our Contact Values</h3>
-      <ul class="space-y-2 text-lg">
-        <li>✓ Christ-centered connection</li>
-        <li>✓ Spirit-led support</li>
-        <li>✓ Prayer and encouragement</li>
-        <li>✓ Empowerment for your journey</li>
-      </ul>
-    </div>
-  </section>
+
 
   <!-- CALL TO ACTION -->
-  <section class="py-12 bg-gradient-to-br from-[#F59E0B]/90 to-[#7C3AED]/80 text-white text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4">Need Prayer or Support?</h2>
-    <p class="mb-6 text-lg">Reach out to us for prayer, discipleship, or to partner with our ministry.</p>
-    <a href="mailto:heartsaftergodministries254@gmail.com" class="cta-btn px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Email Us</a>
-  </section>
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-6">Ready to Connect?</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Whether you need prayer, want to join our discipleship program, or are interested in partnership, we're here to help you grow in your faith journey.
+      </p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+        <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <i class="fab fa-whatsapp mr-2"></i>WhatsApp Us
+        </a>
+        <a href="mailto:heartsaftergodministries254@gmail.com" class="group px-8 py-4 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-envelope mr-2"></i>Send Email
+        </a>
+      </div>
+      </div>
+    </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#1E40AF] text-white py-8 mt-8">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="flex items-center gap-2">
-        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-8 w-8 rounded-full border-2 border-[#F59E0B] object-cover"/>
-        <span class="font-bold text-lg">Hearts After God Ministry</span>
-      </div>
-      <div class="text-sm">
-        &copy; 2025 Hearts After God Ministry. All rights reserved.
-      </div>
-      <div class="flex gap-4">
-        <a href="https://facebook.com/" aria-label="Facebook" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 5.006 3.676 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.324 21.128 22 17.006 22 12"/></svg></a>
-        <a href="https://youtube.com/" aria-label="YouTube" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.4.1-1.2.1-1.9.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.7.8 1.7.8 2.1.9C7.8 19 12 19 12 19s4.2 0 7.1-.1c.4-.1 1.2-.1 1.9-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 15.3V8.7l6.4 3.3-6.4 3.3z"/></svg></a>
-        <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 20V8.99l8 6.99 8-6.99V20H4z"/></svg></a>
+  <footer class="bg-gradient-to-br from-[#1E40AF] via-[#1E40AF]/95 to-[#7C3AED] text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(245, 158, 11, 0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.3) 0%, transparent 50%);"></div>
+        </div>
+        
+    <div class="relative z-10">
+      <!-- Main Footer Content -->
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-12">
+          <!-- Brand Section -->
+          <div class="lg:col-span-1">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="relative">
+                <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-16 w-16 rounded-full border-3 border-[#F59E0B] object-cover shadow-xl ring-4 ring-[#F59E0B]/20"/>
+                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
+              </div>
+              <div>
+                <h3 class="text-2xl font-black text-white tracking-tight">Hearts After God</h3>
+                <p class="text-[#F59E0B] font-semibold tracking-wide uppercase text-sm">Ministry</p>
+              </div>
+            </div>
+            <p class="text-white/80 mb-6 leading-relaxed">
+              Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ.
+            </p>
+            <div class="flex gap-4">
+              <a href="https://facebook.com/" aria-label="Facebook" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fab fa-facebook-f text-lg"></i>
+              </a>
+              <a href="https://youtube.com/" aria-label="YouTube" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fab fa-youtube text-lg"></i>
+              </a>
+              <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fas fa-envelope text-lg"></i>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-link mr-3 text-[#F59E0B]"></i>Quick Links
+            </h4>
+            <ul class="space-y-4">
+              <li>
+                <a href="about.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>About Us
+                </a>
+              </li>
+              <li>
+                <a href="ministries.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Ministries
+                </a>
+              </li>
+              <li>
+                <a href="events.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Events
+                </a>
+              </li>
+              <li>
+                <a href="sermons.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Sermons
+                </a>
+              </li>
+              <li>
+                <a href="blog.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Blog
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Contact
+                </a>
+              </li>
+            </ul>
+        </div>
+        
+          <!-- Contact Information -->
+          <div>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-address-book mr-3 text-[#F59E0B]"></i>Contact Info
+            </h4>
+            <ul class="space-y-4">
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-map-marker-alt text-white"></i>
+            </div>
+                <div>
+                  <p class="font-semibold text-white">Location</p>
+                  <p class="text-white/80 text-sm">Nairobi, Kenya</p>
+            </div>
+              </li>
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-phone text-white"></i>
+          </div>
+                <div>
+                  <p class="font-semibold text-white">Phone</p>
+                  <p class="text-white/80 text-sm">+254 725 907 040</p>
+          </div>
+              </li>
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-envelope text-white"></i>
+          </div>
+                <div>
+                  <p class="font-semibold text-white">Email</p>
+                  <p class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</p>
+          </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Ministry Services -->
+          <div>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-church mr-3 text-[#F59E0B]"></i>Our Services
+            </h4>
+            <ul class="space-y-4">
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-pray mr-3 text-[#F59E0B]"></i>Prayer Support
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-users mr-3 text-[#F59E0B]"></i>Discipleship Training
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-hands-helping mr-3 text-[#F59E0B]"></i>Community Outreach
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-music mr-3 text-[#F59E0B]"></i>Worship Services
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-graduation-cap mr-3 text-[#F59E0B]"></i>Bible Study
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-globe mr-3 text-[#F59E0B]"></i>Global Missions
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Newsletter Section -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
+          <div class="text-center">
+            <h4 class="text-2xl font-bold text-white mb-2">Stay Connected</h4>
+            <p class="text-white/80 mb-6 max-w-2xl mx-auto">
+              Subscribe to our newsletter for updates on events, sermons, and ministry opportunities.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-2 focus:ring-[#F59E0B] focus:outline-none text-gray-900 font-medium">
+              <button class="px-8 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 text-white font-bold rounded-xl hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <i class="fas fa-paper-plane mr-2"></i>Subscribe
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      <!-- Bottom Footer -->
+      <div class="border-t border-white/20">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+              <p class="text-white/80 text-sm">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
+              <span class="text-white/40">|</span>
+              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Privacy Policy</a>
+              <span class="text-white/40">|</span>
+              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Terms of Service</a>
+            </div>
+            <div class="flex items-center gap-2 text-white/60 text-sm">
+              <i class="fas fa-heart text-[#F59E0B]"></i>
+              <span>Made with love for God's Kingdom</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </footer>

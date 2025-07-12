@@ -1,964 +1,595 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Discipleship Portal | Hearts After God Ministry</title>
-  <meta name="description" content="Advanced discipleship portal with quizzes, community features, and detailed progress tracking.">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Discipleship Training & Growth | Hearts After God Ministry</title>
+  <meta name="description" content="Grow in faith and purpose through our discipleship program. Join a Christ-centered community, mentorship, and spiritual growth journey.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <style>
-    /* Animated underline for nav */
-    .nav-underline {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 3px;
-      background: #E02424;
-      border-radius: 2px;
-      transition: all 0.3s cubic-bezier(.4,0,.2,1);
-      z-index: 10;
-    }
-    .nav-link {
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.2s;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #FDBA17;
-      text-shadow: 0 1px 6px rgba(32, 70, 179, 0.18);
-    }
-    .nav-link:focus {
-      outline: 2px solid #FDBA17;
-      outline-offset: 2px;
-    }
-    /* Mobile menu overlay */
-    .mobile-overlay {
-      background: rgba(44, 44, 44, 0.5);
-      position: fixed;
-      inset: 0;
-      z-index: 40;
-      display: none;
-    }
-    .mobile-overlay.open {
-      display: block;
-      animation: fadeIn 0.2s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    /* Slide-in mobile menu */
-    .mobile-menu {
-      position: fixed;
-      top: 0; right: 0;
-      width: 80vw; max-width: 320px;
-      height: 100vh;
-      background: #fff;
-      box-shadow: -2px 0 16px rgba(0,0,0,0.08);
-      z-index: 50;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-      display: flex; flex-direction: column;
-      padding: 2rem 1.5rem;
-    }
-    .mobile-menu.open {
-      transform: translateX(0);
-    }
-    .mobile-menu .close-btn {
-      align-self: flex-end;
-      font-size: 2rem;
-      color: #7C3AED;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-bottom: 2rem;
-    }
-    /* Custom SVG pattern for header */
-    .header-pattern {
-      background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
-      background-image: url('data:image/svg+xml;utf8,<svg width="600" height="120" viewBox="0 0 600 120" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.75" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.65" offset="100%"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="%237C3AED" stop-opacity="0.55" offset="0%"/><stop stop-color="%23FDBA17" stop-opacity="0.45" offset="100%"/></linearGradient></defs><path d="M0 80 C100 0 500 160 600 80 V120 H0Z" fill="url(%23g1)"/><path d="M0 100 C100 40 500 180 600 100 V120 H0Z" fill="url(%23g2)"/></svg>');
-      background-repeat: repeat-x;
-      background-size: 600px 120px;
-      position: relative;
-    }
-    .header-pattern::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(to bottom, rgba(124,58,237,0.92) 0%, rgba(253,186,23,0.85) 100%);
-      border-radius: inherit;
-    }
-    .header-pattern > * {
-      position: relative;
-      z-index: 2;
-    }
+    body { font-family: 'Nunito', sans-serif; }
+    .scripture { font-family: 'Georgia', serif; }
+    .gradient-text { background: linear-gradient(135deg, #7C3AED, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-gradient { background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9)); }
+    .fade-in { animation: fadeIn 1s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   </style>
+  <script>
+    // TODO: Replace with your Firebase project config
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+      // ...other config values
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
-<body class="bg-white text-gray-900 antialiased">
-  <!-- Discipleship Page Redesign -->
-  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
-  <main class="min-h-screen bg-white">
-    <!-- HERO SECTION -->
-    <section class="relative min-h-[40vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0021.jpg');">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
-      <div class="relative z-10 text-center px-4 py-16 md:py-24">
-        <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Discipleship Training</h1>
-        <p class="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto">Equipping believers to grow in faith and become effective disciples of Jesus Christ.</p>
-        <span class="block mt-2 text-[#FDBA17] text-lg md:text-xl font-semibold">"Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit." – Matthew 28:19</span>
-      </div>
-    </section>
+<body class="bg-white text-gray-900">
 
-    <!-- Decorative SVG Pattern Background -->
-    <div aria-hidden="true" class="fixed inset-0 pointer-events-none z-0">
-      <svg class="absolute top-0 left-0 w-full h-40 opacity-10" viewBox="0 0 1440 320"><path fill="#7C3AED" fill-opacity="0.4" d="M0,160L60,170.7C120,181,240,203,360,197.3C480,192,600,160,720,133.3C840,107,960,85,1080,101.3C1200,117,1320,171,1380,197.3L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>
-    </div>
-    
-    <!-- What is Discipleship? -->
-    <section id="about-discipleship" class="relative max-w-3xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow-xl mt-16 mb-16 border-t-4 border-[#7C3AED] opacity-0 animate-fade-in">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#7C3AED]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 12V4m0 0L3 9m9-5l9 5"/></svg>
+  <!-- HEADER / NAVIGATION (copied from homepage for consistency) -->
+  <header class="sticky top-0 z-50 bg-white/98 backdrop-blur-md shadow-xl border-b border-gray-200/50">
+    <nav class="max-w-7xl mx-auto px-6 py-5">
+      <div class="flex items-center justify-between">
+        <!-- Logo & Brand -->
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-14 w-14 rounded-full border-3 border-[#7C3AED] object-cover shadow-xl ring-4 ring-[#7C3AED]/10"/>
+            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-2xl font-black text-[#7C3AED] tracking-tight">Hearts After God</span>
+            <div class="text-sm text-gray-600 font-semibold tracking-wide uppercase">Ministry</div>
+          </div>
         </div>
-      </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">What is Discipleship?</h2>
-      <p class="text-lg text-gray-700 mb-10">Discipleship is a journey of following Jesus, growing in faith, and living out God's purpose in community. We believe in biblical teaching, personal growth, and supporting one another as we become more like Christ.</p>
-      <div class="flex flex-col md:flex-row gap-6 justify-center">
-        <div class="flex-1 bg-white rounded-xl shadow p-6 border-t-4 border-[#7C3AED] transition-transform hover:-translate-y-1">
-          <h3 class="font-bold text-[#7C3AED] mb-2 flex items-center justify-center gap-2"><svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Biblical Foundation</h3>
-          <p class="text-gray-600">Rooted in God's Word and the teachings of Jesus.</p>
-        </div>
-        <div class="flex-1 bg-white rounded-xl shadow p-6 border-t-4 border-[#FDBA17] transition-transform hover:-translate-y-1">
-          <h3 class="font-bold text-[#FDBA17] mb-2 flex items-center justify-center gap-2"><svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>Personal Growth</h3>
-          <p class="text-gray-600">Developing character, faith, and spiritual disciplines.</p>
-      </div>
-        <div class="flex-1 bg-white rounded-xl shadow p-6 border-t-4 border-[#2046B3] transition-transform hover:-translate-y-1">
-          <h3 class="font-bold text-[#2046B3] mb-2 flex items-center justify-center gap-2"><svg class="w-5 h-5 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h8"/></svg>Community Support</h3>
-          <p class="text-gray-600">Walking together, encouraging, and praying for one another.</p>
-        </div>
-      </div>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#7C3AED] via-[#FDBA17] to-[#2046B3] rounded-full shadow-lg"></div>
-      <!-- SVG Wave Divider -->
-      <svg class="absolute left-0 right-0 -bottom-16 w-full h-12" viewBox="0 0 1440 80" fill="none"><path fill="#F3E8FF" fill-opacity="0.7" d="M0,32L60,37.3C120,43,240,53,360,53.3C480,53,600,43,720,37.3C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path></svg>
-  </section>
-
-    <!-- Program Outline -->
-    <section class="relative max-w-5xl mx-auto py-20 px-4 bg-white rounded-xl shadow-xl mb-16 border-t-4 border-[#FDBA17] opacity-0 animate-fade-in delay-100">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#FDBA17]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4V6a4 4 0 00-8 0v4m8 0a4 4 0 01-8 0"/></svg>
-        </div>
-      </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-8 text-center tracking-tight">Our Discipleship Program</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-xl shadow p-6 flex flex-col items-center border-b-4 border-[#7C3AED] transition-transform hover:-translate-y-1">
-          <svg class="w-10 h-10 text-[#7C3AED] mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 12V4m0 0L3 9m9-5l9 5"/></svg>
-          <h3 class="font-bold text-[#7C3AED] mb-2">Teaching Outlines</h3>
-          <p class="text-gray-600 text-center">Explore doctrine, lifestyle, and spiritual disciplines through structured lessons and group discussions.</p>
-        </div>
-        <div class="bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-xl shadow p-6 flex flex-col items-center border-b-4 border-[#FDBA17] transition-transform hover:-translate-y-1">
-          <svg class="w-10 h-10 text-[#FDBA17] mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4V6a4 4 0 00-8 0v4m8 0a4 4 0 01-8 0"/></svg>
-          <h3 class="font-bold text-[#FDBA17] mb-2">Mentorship</h3>
-          <p class="text-gray-600 text-center">Receive guidance and encouragement from mentors and small group leaders.</p>
-        </div>
-        <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-xl shadow p-6 flex flex-col items-center border-b-4 border-[#2046B3] transition-transform hover:-translate-y-1">
-          <svg class="w-10 h-10 text-[#2046B3] mb-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8a9 9 0 100-18 9 9 0 000 18z"/></svg>
-          <h3 class="font-bold text-[#2046B3] mb-2">Fellowship</h3>
-          <p class="text-gray-600 text-center">Connect through events, group studies, and service opportunities.</p>
-        </div>
-      </div>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full shadow-lg"></div>
-      <!-- SVG Wave Divider -->
-      <svg class="absolute left-0 right-0 -bottom-16 w-full h-12" viewBox="0 0 1440 80" fill="none"><path fill="#FEF3C7" fill-opacity="0.7" d="M0,32L60,37.3C120,43,240,53,360,53.3C480,53,600,43,720,37.3C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path></svg>
-  </section>
-
-    <!-- How to Get Involved -->
-    <section class="relative max-w-3xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow-xl mb-16 border-t-4 border-[#2046B3] opacity-0 animate-fade-in delay-200">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#2046B3]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 17l4 4 4-4m-4-5v9"/></svg>
-        </div>
-      </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">How to Get Involved</h2>
-      <ol class="list-decimal list-inside text-lg text-gray-700 mb-10 space-y-2 text-left md:text-center mx-auto max-w-md">
-        <li>Sign up for a discipleship class</li>
-        <li>Meet your mentor</li>
-        <li>Join a small group</li>
-        <li>Grow together in faith</li>
-      </ol>
-      <button type="button" data-open-register-modal class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7C3AED]/40" aria-label="Join Discipleship"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Join Discipleship</button>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#2046B3] via-[#FDBA17] to-[#7C3AED] rounded-full shadow-lg"></div>
-      <!-- SVG Wave Divider -->
-      <svg class="absolute left-0 right-0 -bottom-16 w-full h-12" viewBox="0 0 1440 80" fill="none"><path fill="#F3E8FF" fill-opacity="0.7" d="M0,32L60,37.3C120,43,240,53,360,53.3C480,53,600,43,720,37.3C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path></svg>
-    </section>
-
-    <!-- Resources -->
-    <section class="relative max-w-4xl mx-auto py-16 px-4 bg-white rounded-xl shadow-xl mb-16 border-t-4 border-[#7C3AED] opacity-0 animate-fade-in delay-300">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#7C3AED]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-        </div>
-      </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Resources</h2>
-      <div class="flex flex-col md:flex-row gap-6 justify-center mb-4">
-        <div class="flex-1 bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-xl shadow p-6 border-l-4 border-[#7C3AED] transition-transform hover:-translate-y-1">
-          <h3 class="font-bold text-[#7C3AED] mb-2 flex items-center gap-2"><svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Downloadable Materials</h3>
-          <ul class="text-gray-600 list-disc list-inside mb-4">
-            <li><a href="assets/docs/14 DAYS DISCIPLESHIP CLASSES.pptx" class="text-[#2046B3] underline hover:text-[#FDBA17]">14 Days Discipleship Classes (PPTX)</a></li>
-            <li><a href="assets/docs/recommended-reading-list.pdf" class="text-[#FDBA17] underline hover:text-[#2046B3]" download>Recommended Reading List (PDF)</a></li>
-          </ul>
-          <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" rel="noopener" class="cta-btn inline-flex items-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow hover:bg-green-600 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-400/40" aria-label="Join General Ministry WhatsApp">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-            General Ministry WhatsApp
+        <!-- Desktop Navigation -->
+        <ul class="hidden lg:flex items-center gap-1">
+          <li>
+            <a href="index.html" class="relative px-6 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20 hover:from-[#7C3AED]/20 hover:to-[#F59E0B]/20 transition-all duration-300">
+              <span class="relative z-10">Home</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-xl opacity-0 hover:opacity-10 transition-opacity duration-300"></div>
+            </a>
+          </li>
+          <li class="relative group">
+            <button class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300 flex items-center gap-2 focus:outline-none">
+              <span>About</span>
+              <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
+            </button>
+            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
+              <li><a href="team.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
+              <li><a href="discipleship.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="ministries.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Ministries</a>
+          </li>
+          <li>
+            <a href="events.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Events</a>
+          </li>
+          <li>
+            <a href="sermons.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Sermons</a>
+          </li>
+          <li>
+            <a href="blog.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Blog</a>
+          </li>
+          <li>
+            <a href="contact.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Contact</a>
+          </li>
+        </ul>
+        <!-- CTA Button -->
+        <div class="hidden lg:flex items-center gap-4">
+          <a href="discipleship.html" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            <i class="fas fa-users mr-2"></i>Join Us
           </a>
         </div>
-        <div class="flex-1 bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-xl shadow p-6 border-l-4 border-[#FDBA17] transition-transform hover:-translate-y-1">
-          <h3 class="font-bold text-[#FDBA17] mb-2 flex items-center gap-2"><svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/></svg>Sermons & Articles</h3>
-          <ul class="text-gray-600 list-disc list-inside mb-4">
-            <li><a href="sermons.html" class="text-[#2046B3] underline hover:text-[#FDBA17]">Sermon Archive</a></li>
-            <li><a href="#" class="text-[#2046B3] underline hover:text-[#FDBA17]">Topical Articles</a></li>
-          </ul>
-        </div>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="lg:hidden relative p-3 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-xl transition-colors duration-300 focus:outline-none">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
       </div>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#7C3AED] via-[#FDBA17] to-[#2046B3] rounded-full shadow-lg"></div>
-      <!-- SVG Wave Divider -->
-      <svg class="absolute left-0 right-0 -bottom-16 w-full h-12" viewBox="0 0 1440 80" fill="none"><path fill="#FEF3C7" fill-opacity="0.7" d="M0,32L60,37.3C120,43,240,53,360,53.3C480,53,600,43,720,37.3C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path></svg>
-  </section>
-
-    <!-- Testimonies -->
-    <section class="relative max-w-3xl mx-auto py-16 px-4 mb-16 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-xl shadow-xl border-t-4 border-[#FDBA17] opacity-0 animate-fade-in delay-400">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#FDBA17]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>
-    </div>
-      </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Testimonies</h2>
-      <div class="space-y-6 mb-4">
-        <div class="flex flex-col items-center md:flex-row md:items-start md:gap-6 bg-white rounded-xl shadow p-6 border-l-4 border-[#FDBA17]">
-          <img src="assets/images/testimonies/Sharon Cherotich.jpg" alt="Sharon Cherotich" class="w-20 h-20 object-cover rounded-full border-4 border-[#FDBA17] shadow mb-4 md:mb-0" />
-          <div class="text-gray-700 italic text-center md:text-left">
-            From the Discipleship class my faith in God has been built through the word and prayer.<br>
-            I now have a good relationship with the Holy Spirit.<br>
-            God has given me freedom and victory from the battles I had and now my focus is God and my relationship with Him.<br>
-            <span class="block mt-2 font-bold text-[#2046B3]">— Sharon Cherotich</span>
-        </div>
-        </div>
-        <div class="flex flex-col items-center md:flex-row md:items-start md:gap-6 bg-white rounded-xl shadow p-6 border-l-4 border-[#7C3AED]">
-          <img src="assets/images/testimonies/Angel Mwende.jpg" alt="Angel Mwende" class="w-20 h-20 object-cover rounded-full border-4 border-[#7C3AED] shadow mb-4 md:mb-0" />
-          <div class="text-gray-700 italic text-center md:text-left">
-            My name is Angel and I was part of the 14 days discipleship class. I thank God for giving me an opportunity to be a part of it, I really learnt a lot and for sure it was a life changing experience.<br>
-            <span class="block mt-2 font-bold text-[#7C3AED]">— Angel Mwende</span>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="lg:hidden hidden mt-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50">
+        <div class="p-6 space-y-4">
+          <a href="index.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20">
+            <i class="fas fa-home mr-3"></i>Home
+          </a>
+          <!-- About Dropdown (Mobile) -->
+          <div class="space-y-1">
+            <button onclick="document.getElementById('mobile-about-dropdown').classList.toggle('hidden')" class="flex items-center w-full px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+              <i class="fas fa-info-circle mr-3"></i>About <i class="fas fa-chevron-down ml-2 align-middle"></i>
+            </button>
+            <div id="mobile-about-dropdown" class="hidden ml-8 space-y-1">
+              <a href="team.html" class="block px-4 py-2 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a>
+              <a href="discipleship.html" class="block px-4 py-2 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a>
+            </div>
+          </div>
+          <a href="ministries.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-church mr-3"></i>Ministries
+          </a>
+          <a href="events.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
+            <i class="fas fa-calendar mr-3"></i>Events
+          </a>
+          <a href="sermons.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-microphone mr-3"></i>Sermons
+          </a>
+          <a href="blog.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
+            <i class="fas fa-blog mr-3"></i>Blog
+          </a>
+          <a href="contact.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
+            <i class="fas fa-envelope mr-3"></i>Contact
+          </a>
+          <div class="pt-4 border-t border-gray-200">
+            <a href="discipleship.html" class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              <i class="fas fa-users mr-2"></i>Join Us
+            </a>
           </div>
         </div>
       </div>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#FDBA17] via-[#7C3AED] to-[#2046B3] rounded-full shadow-lg"></div>
-      <!-- SVG Wave Divider -->
-      <svg class="absolute left-0 right-0 -bottom-16 w-full h-12" viewBox="0 0 1440 80" fill="none"><path fill="#F3E8FF" fill-opacity="0.7" d="M0,32L60,37.3C120,43,240,53,360,53.3C480,53,600,43,720,37.3C840,32,960,32,1080,37.3C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z"></path></svg>
-    </section>
+    </nav>
+    <script>
+      document.getElementById('mobile-menu-btn').onclick = function() {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      };
+    </script>
+  </header>
 
-    <!-- Contact / Questions -->
-    <section id="contact-discipleship" class="relative max-w-2xl mx-auto py-16 px-4 text-center bg-white rounded-xl shadow-xl mb-24 border-t-4 border-[#7C3AED] opacity-0 animate-fade-in delay-500">
-      <div class="flex justify-center mb-4">
-        <div class="bg-[#7C3AED]/10 rounded-full p-3">
-          <svg class="w-8 h-8 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0zm-4 4v4m0 0H8m4 0h4"/></svg>
-        </div>
+  <!-- HERO SECTION -->
+  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/images/hero/IMG-20250705-WA0021.jpg');"></div>
+    <div class="absolute inset-0 bg-[#7C3AED]/90"></div>
+    <div class="relative z-10 text-center px-4 py-12 w-full max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-2xl">Discipleship Training & Growth</h1>
+      <blockquote class="scripture text-base md:text-xl mb-2 text-white font-semibold">
+        "Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."
+      </blockquote>
+      <div class="text-[#F59E0B] font-bold text-base mb-6">Matthew 28:19</div>
+      <div class="flex justify-center mb-6">
+        <button id="open-auth" class="px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all text-base">
+          <i class="fas fa-users mr-2"></i>Join Discipleship
+        </button>
       </div>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">Contact / Questions</h2>
-      <p class="text-gray-700 mb-4">Have questions or want to join? Reach out to our discipleship team below:</p>
-      <form class="space-y-4 mb-6">
-        <input type="text" name="name" placeholder="Your Name" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required aria-label="Your Name" />
-        <input type="email" name="email" placeholder="Your Email" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required aria-label="Your Email" />
-        <textarea name="message" placeholder="Your Message" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" rows="4" required aria-label="Your Message"></textarea>
-        <button type="submit" class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7C3AED]/40" aria-label="Send Message"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>Send Message</button>
+    </div>
+  </section>
+
+  <!-- AUTH MODAL -->
+  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-fade-in">
+      <button id="close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-[#7C3AED] text-2xl focus:outline-none">&times;</button>
+      <div class="flex justify-center mb-6">
+        <img src="assets/images/logo.jpg" alt="Logo" class="h-12 w-12 rounded-full border-2 border-[#7C3AED] shadow"/>
+      </div>
+      <div class="flex justify-center gap-4 mb-8">
+        <button id="show-login" class="px-4 py-2 font-bold rounded-lg transition-all bg-[#7C3AED] text-white shadow">Login</button>
+        <button id="show-register" class="px-4 py-2 font-bold rounded-lg transition-all text-[#7C3AED] bg-white border border-[#7C3AED] shadow">Register</button>
+      </div>
+      <div id="auth-message" class="mb-4 text-center text-sm font-semibold"></div>
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-4">
+        <button type="button" class="auth-modal-google w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 rounded shadow-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition mb-2">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">Continue with Google
+        </button>
+        <input id="login-email" type="email" placeholder="Email" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <input id="login-password" type="password" placeholder="Password" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <button type="submit" class="w-full px-4 py-2 bg-[#7C3AED] text-white font-bold rounded shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Login</button>
       </form>
-      <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" target="_blank" rel="noopener" class="cta-btn inline-flex items-center gap-2 px-8 py-3 bg-green-500 text-white font-bold rounded-full shadow-lg hover:bg-green-600 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-400/40" aria-label="Join Discipleship WhatsApp">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-        Join Discipleship WhatsApp
-      </a>
-      <div class="absolute left-1/2 -bottom-8 -translate-x-1/2 w-24 h-2 bg-gradient-to-r from-[#7C3AED] via-[#FDBA17] to-[#2046B3] rounded-full shadow-lg"></div>
-    </section>
+      <!-- Register Form -->
+      <form id="register-form" class="space-y-4 hidden">
+        <button type="button" class="auth-modal-google w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 rounded shadow-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition mb-2">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">Continue with Google
+        </button>
+        <input id="register-name" type="text" placeholder="Name" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <input id="register-email" type="email" placeholder="Email" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <input id="register-password" type="password" placeholder="Password" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <input id="register-confirm-password" type="password" placeholder="Confirm Password" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        <button type="submit" class="w-full px-4 py-2 bg-[#7C3AED] text-white font-bold rounded shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Register</button>
+      </form>
+    </div>
+  </div>
 
-    <style>
-      @keyframes fade-in { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
-      .animate-fade-in { animation: fade-in 1s cubic-bezier(.4,0,.2,1) both; }
-      .delay-100 { animation-delay: .1s; }
-      .delay-200 { animation-delay: .2s; }
-      .delay-300 { animation-delay: .3s; }
-      .delay-400 { animation-delay: .4s; }
-      .delay-500 { animation-delay: .5s; }
-    </style>
-
-  </main>
-  <div id="site-footer"></div>
-
-  <script src="assets/js/main.js"></script>
   <script>
     // Modal logic
     const authModal = document.getElementById('auth-modal');
-    const openAuthBtns = [document.getElementById('open-auth'), document.getElementById('hero-auth')];
+    const openAuthBtn = document.getElementById('open-auth');
     const closeAuthBtn = document.getElementById('close-auth');
     const showLoginBtn = document.getElementById('show-login');
     const showRegisterBtn = document.getElementById('show-register');
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
-    const authTitle = document.getElementById('auth-title');
-    const authDesc = document.getElementById('auth-desc');
     const authMessage = document.getElementById('auth-message');
-    const dashboard = document.getElementById('dashboard');
-    const dashboardUser = document.getElementById('dashboard-user');
-    const progressBar = document.getElementById('progress-bar');
-    const progressLabel = document.getElementById('progress-label');
 
-    openAuthBtns.forEach(btn => btn && btn.addEventListener('click', () => {
-      authModal.classList.remove('hidden');
-      showLogin();
-    }));
-    // Fix: Only add event listener if closeAuthBtn exists
-    if (closeAuthBtn) {
-      closeAuthBtn.addEventListener('click', () => authModal.classList.add('hidden'));
-    }
-    showLoginBtn.addEventListener('click', showLogin);
-    showRegisterBtn.addEventListener('click', showRegister);
+    openAuthBtn.onclick = () => { authModal.classList.remove('hidden'); showLogin(); };
+    closeAuthBtn.onclick = () => { authModal.classList.add('hidden'); };
+    showLoginBtn.onclick = showLogin;
+    showRegisterBtn.onclick = showRegister;
 
     function showLogin() {
       loginForm.classList.remove('hidden');
       registerForm.classList.add('hidden');
-      authTitle.textContent = 'Sign In';
-      authDesc.textContent = 'Access your discipleship journey';
-      showLoginBtn.classList.add('bg-white', 'text-blue-900', 'shadow-sm');
-      showLoginBtn.classList.remove('text-gray-600');
-      showRegisterBtn.classList.remove('bg-white', 'text-blue-900', 'shadow-sm');
-      showRegisterBtn.classList.add('text-gray-600');
+      showLoginBtn.classList.add('bg-[#7C3AED]', 'text-white');
+      showLoginBtn.classList.remove('bg-white', 'text-[#7C3AED]');
+      showRegisterBtn.classList.remove('bg-[#7C3AED]', 'text-white');
+      showRegisterBtn.classList.add('bg-white', 'text-[#7C3AED]');
       authMessage.textContent = '';
     }
     function showRegister() {
       loginForm.classList.add('hidden');
       registerForm.classList.remove('hidden');
-      authTitle.textContent = 'Register';
-      authDesc.textContent = 'Create your account to start your discipleship journey';
-      showRegisterBtn.classList.add('bg-white', 'text-blue-900', 'shadow-sm');
-      showRegisterBtn.classList.remove('text-gray-600');
-      showLoginBtn.classList.remove('bg-white', 'text-blue-900', 'shadow-sm');
-      showLoginBtn.classList.add('text-gray-600');
+      showRegisterBtn.classList.add('bg-[#7C3AED]', 'text-white');
+      showRegisterBtn.classList.remove('bg-white', 'text-[#7C3AED]');
+      showLoginBtn.classList.remove('bg-[#7C3AED]', 'text-white');
+      showLoginBtn.classList.add('bg-white', 'text-[#7C3AED]');
       authMessage.textContent = '';
     }
 
-    // Login handler
-    loginForm.addEventListener('submit', function(e) {
+    // Simple validation (demo only)
+    loginForm.onsubmit = function(e) {
       e.preventDefault();
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
-      // Demo admin
-      if (email === 'admin@ministry.com' && password === 'admin123') {
-        setLoggedInUser({ name: 'Administrator', email, role: 'admin' });
-        window.location.href = 'discipleship-admin.html';
+      if (!email || !password) {
+        authMessage.textContent = 'Please enter email and password.';
+        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
         return;
       }
-      // Demo user
-      if (email === 'user@email.com' && password === 'user123') {
-        setLoggedInUser({ name: 'John Doe', email, role: 'user' });
-        window.location.href = 'discipleship-user.html';
-        return;
-      }
-      // Registered users
-      const users = getUsers();
-      const user = users.find(u => u.email === email && u.password === password);
-      if (user) {
-        setLoggedInUser({ name: user.name, email: user.email, role: 'user' });
-        window.location.href = 'discipleship-user.html';
-      } else {
-        authMessage.textContent = 'Invalid email or password.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
-      }
-    });
-    // Register handler
-    registerForm.addEventListener('submit', function(e) {
+      authMessage.textContent = 'Login successful! (Demo only)';
+      authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
+      setTimeout(() => { authModal.classList.add('hidden'); }, 1200);
+    };
+    registerForm.onsubmit = function(e) {
       e.preventDefault();
       const name = document.getElementById('register-name').value;
       const email = document.getElementById('register-email').value;
       const password = document.getElementById('register-password').value;
       const confirm = document.getElementById('register-confirm-password').value;
+      if (!name || !email || !password || !confirm) {
+        authMessage.textContent = 'Please fill in all fields.';
+        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
+        return;
+      }
       if (password !== confirm) {
         authMessage.textContent = 'Passwords do not match.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
+        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
         return;
       }
       if (password.length < 6) {
         authMessage.textContent = 'Password must be at least 6 characters.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
+        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
         return;
       }
-      const users = getUsers();
-      if (users.find(u => u.email === email)) {
-        authMessage.textContent = 'Email already registered.';
-        authMessage.className = 'mt-4 text-center text-sm font-semibold text-red-600';
-        return;
+      authMessage.textContent = 'Registration successful! (Demo only)';
+      authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
+      setTimeout(() => { showLogin(); }, 1200);
+    };
+
+    // Google Sign-In logic
+    const googleBtns = document.querySelectorAll('.auth-modal-google');
+    googleBtns.forEach(btn => {
+      btn.onclick = function() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+          .then(result => {
+            authMessage.textContent = 'Google sign-in successful!';
+            authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
+            setTimeout(() => { authModal.classList.add('hidden'); }, 1200);
+          })
+          .catch(error => {
+            authMessage.textContent = error.message;
+            authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
+          });
       }
-      users.push({ name, email, password });
-      setUsers(users);
-      authMessage.textContent = 'Account created! You can now sign in.';
-      authMessage.className = 'mt-4 text-center text-sm font-semibold text-green-600';
-      registerForm.reset();
-      setTimeout(showLogin, 1500);
-    });
-    // Show dashboard after login
-    function showDashboard(name) {
-      authModal.classList.add('hidden');
-      dashboard.classList.remove('hidden');
-      dashboardUser.textContent = name;
-      document.body.classList.remove('overflow-hidden');
-      // Optionally update progress bar, etc.
-    }
-    // Auto-login if already logged in
-    window.addEventListener('DOMContentLoaded', () => {
-      const user = getLoggedInUser();
-      if (user) showDashboard(user.name);
-    });
-
-    (function() {
-      // Assume current admin is stored in localStorage as {id, name}
-      function getCurrentAdmin() {
-        return JSON.parse(localStorage.getItem('current_admin') || '{"id":"admin_1","name":"Super Admin"}');
-      }
-
-      // Enhanced log with moderator attribution
-      function addModerationLog({ userId, action, until, reason }) {
-        const logs = JSON.parse(localStorage.getItem('moderation_logs') || '[]');
-        const admin = getCurrentAdmin();
-        logs.push({
-          id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-          userId,
-          action,
-          until,
-          reason,
-          moderatorId: admin.id,
-          moderatorName: admin.name,
-          timestamp: Date.now()
-        });
-        localStorage.setItem('moderation_logs', JSON.stringify(logs));
-      }
-      window.addModerationLog = addModerationLog;
-
-      // Render logs with search/filter/export
-      window.renderModerationLogsTable = function() {
-        let logs = window.loadModerationLogs ? window.loadModerationLogs() : [];
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const tableBody = document.getElementById('moderation-logs-table-body');
-        if (!tableBody) return;
-
-        // Filtering
-        const search = (document.getElementById('log-search-input') || {}).value || '';
-        const actionFilter = (document.getElementById('log-action-filter') || {}).value || '';
-        logs = logs.filter(log => {
-          const user = users.find(u => u.id === log.userId);
-          const userName = user ? user.name : log.userId;
-          const moderatorName = log.moderatorName || '';
-          return (
-            (!actionFilter || log.action === actionFilter) &&
-            (
-              userName.toLowerCase().includes(search.toLowerCase()) ||
-              (log.reason && log.reason.toLowerCase().includes(search.toLowerCase())) ||
-              moderatorName.toLowerCase().includes(search.toLowerCase())
-            )
-          );
-        });
-
-        tableBody.innerHTML = '';
-        logs.slice().reverse().forEach(log => {
-          const user = users.find(u => u.id === log.userId);
-          tableBody.innerHTML += `
-            <tr>
-              <td class="px-4 py-2">${user ? user.name : log.userId}</td>
-              <td class="px-4 py-2">${log.action}</td>
-              <td class="px-4 py-2">${log.reason || '-'}</td>
-              <td class="px-4 py-2">${log.until ? (log.until === null ? 'Permanent' : new Date(log.until).toLocaleString()) : '-'}</td>
-              <td class="px-4 py-2">${new Date(log.timestamp).toLocaleString()}</td>
-              <td class="px-4 py-2">${log.moderatorName || '-'}</td>
-            </tr>
-          `;
-        });
-      };
-
-      // Export logs as CSV
-      function exportLogsAsCSV() {
-        const logs = window.loadModerationLogs ? window.loadModerationLogs() : [];
-        if (!logs.length) return alert('No logs to export!');
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-        const header = ['User', 'Action', 'Reason', 'Until', 'Timestamp', 'Moderator'];
-        const rows = logs.map(log => {
-          const user = users.find(u => u.id === log.userId);
-          return [
-            `"${user ? user.name : log.userId}"`,
-            `"${log.action}"`,
-            `"${log.reason || ''}"`,
-            `"${log.until ? (log.until === null ? 'Permanent' : new Date(log.until).toLocaleString()) : '-'}"`,
-            `"${new Date(log.timestamp).toLocaleString()}"`,
-            `"${log.moderatorName || '-'}"`
-          ].join(',');
-        });
-        const csv = [header.join(','), ...rows].join('\n');
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'moderation_logs.csv';
-        link.click();
-      }
-
-      // Event listeners for search/filter/export
-      document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('log-search-input');
-        const actionFilter = document.getElementById('log-action-filter');
-        const exportBtn = document.getElementById('export-logs-btn');
-        if (searchInput) searchInput.addEventListener('input', window.renderModerationLogsTable);
-        if (actionFilter) actionFilter.addEventListener('change', window.renderModerationLogsTable);
-        if (exportBtn) exportBtn.addEventListener('click', exportLogsAsCSV);
-        window.renderModerationLogsTable && window.renderModerationLogsTable();
-      });
-    })();
-
-    // =====================
-    // User Moderation Logic
-    // =====================
-    (function() {
-      // Sample users for demonstration
-      function initializeUsers() {
-        if (!localStorage.getItem('users')) {
-          const users = [
-            { id: 'user_1', name: 'John Doe', status: 'active', banInfo: null, muteInfo: null },
-            { id: 'user_2', name: 'Jane Smith', status: 'active', banInfo: null, muteInfo: null }
-          ];
-          localStorage.setItem('users', JSON.stringify(users));
-        }
-      }
-
-      function loadUsers() {
-        return JSON.parse(localStorage.getItem('users') || '[]');
-      }
-
-      function saveUsers(users) {
-        localStorage.setItem('users', JSON.stringify(users));
-      }
-
-      // Render user moderation table
-      window.renderUserModerationTable = function() {
-        const users = loadUsers();
-        const tableBody = document.getElementById('user-moderation-table-body');
-        if (!tableBody) return;
-        tableBody.innerHTML = '';
-        users.forEach(user => {
-          let banMuteInfo = '';
-          if (user.banInfo && user.banInfo.active) {
-            banMuteInfo += `<span class="text-red-600">Banned</span> until ${user.banInfo.until ? new Date(user.banInfo.until).toLocaleString() : 'Permanent'}<br>`;
-          }
-          if (user.muteInfo && user.muteInfo.active) {
-            banMuteInfo += `<span class="text-yellow-600">Muted</span> until ${user.muteInfo.until ? new Date(user.muteInfo.until).toLocaleString() : 'Permanent'}`;
-          }
-          tableBody.innerHTML += `
-            <tr>
-              <td class="px-4 py-2">${user.name}</td>
-              <td class="px-4 py-2">${user.status}</td>
-              <td class="px-4 py-2">${banMuteInfo || '-'}</td>
-              <td class="px-4 py-2">
-                <button class="btn-moderate-user bg-[#7C3AED] text-white px-2 py-1 rounded text-xs" data-id="${user.id}">
-                  Moderate
-                </button>
-              </td>
-            </tr>
-          `;
-        });
-      };
-
-      // Open user moderation modal
-      window.openUserModerationModal = function(userId) {
-        const users = loadUsers();
-        const user = users.find(u => u.id === userId);
-        if (!user) return;
-        document.getElementById('user-moderation-modal-title').innerText = `Moderate ${user.name}`;
-        document.getElementById('user-moderation-modal-body').innerHTML = `
-          <div><strong>Status:</strong> ${user.status}</div>
-          <div><strong>Ban:</strong> ${user.banInfo && user.banInfo.active ? 'Active' : 'None'}</div>
-          <div><strong>Mute:</strong> ${user.muteInfo && user.muteInfo.active ? 'Active' : 'None'}</div>
-        `;
-        document.getElementById('user-moderation-form').dataset.userid = userId;
-        document.getElementById('user-moderation-modal').classList.remove('hidden');
-      };
-
-      // Close modal
-      document.getElementById('user-moderation-modal-cancel').onclick = function() {
-        document.getElementById('user-moderation-modal').classList.add('hidden');
-      };
-
-      // Show/hide duration select based on action
-      document.getElementById('moderation-action-select').onchange = function() {
-        const group = document.getElementById('moderation-duration-group');
-        if (this.value === 'ban' || this.value === 'mute') {
-          group.style.display = '';
-        } else {
-          group.style.display = 'none';
-        }
-      };
-
-      // Handle moderation form submit
-      document.getElementById('user-moderation-form').onsubmit = function(e) {
-        e.preventDefault();
-        const userId = this.dataset.userid;
-        const action = document.getElementById('moderation-action-select').value;
-        const duration = parseInt(document.getElementById('moderation-duration-select').value, 10);
-        const reason = document.getElementById('moderation-reason-input').value;
-        let users = loadUsers();
-        const user = users.find(u => u.id === userId);
-        const now = Date.now();
-        let until = duration === 0 ? null : now + duration * 1000;
-        if (action === 'ban') {
-          user.banInfo = { active: true, until, reason, timestamp: now };
-          user.status = 'banned';
-          addModerationLog({ userId, action: 'ban', until, reason });
-        } else if (action === 'mute') {
-          user.muteInfo = { active: true, until, reason, timestamp: now };
-          addModerationLog({ userId, action: 'mute', until, reason });
-        } else if (action === 'unban') {
-          user.banInfo = { active: false, until: null, reason: '', timestamp: now };
-          user.status = 'active';
-          addModerationLog({ userId, action: 'unban', until: null, reason });
-        } else if (action === 'unmute') {
-          user.muteInfo = { active: false, until: null, reason: '', timestamp: now };
-          addModerationLog({ userId, action: 'unmute', until: null, reason });
-        }
-        saveUsers(users);
-        renderUserModerationTable();
-        document.getElementById('user-moderation-modal').classList.add('hidden');
-      };
-
-      // Event delegation for moderate buttons
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('btn-moderate-user')) {
-          openUserModerationModal(e.target.dataset.id);
-        }
-      });
-
-      // Periodic check for expired bans/mutes
-      setInterval(() => {
-        let users = loadUsers();
-        let changed = false;
-        const now = Date.now();
-        users.forEach(user => {
-          if (user.banInfo && user.banInfo.active && user.banInfo.until && now > user.banInfo.until) {
-            user.banInfo.active = false;
-            user.status = 'active';
-            changed = true;
-          }
-          if (user.muteInfo && user.muteInfo.active && user.muteInfo.until && now > user.muteInfo.until) {
-            user.muteInfo.active = false;
-            changed = true;
-          }
-        });
-        if (changed) {
-          saveUsers(users);
-          renderUserModerationTable();
-        }
-      }, 60000); // Check every minute
-
-      // Initialize and render on DOMContentLoaded
-      document.addEventListener('DOMContentLoaded', function() {
-        initializeUsers();
-        renderUserModerationTable();
-      });
-    })();
-    // =====================
-    // End User Moderation Logic
-    // =====================
-
-    // Animated underline logic
-    const navLinks = document.querySelectorAll('#nav-links .nav-link');
-    const navUnderline = document.getElementById('nav-underline');
-    function moveUnderline(el) {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const parentRect = el.parentElement.parentElement.getBoundingClientRect();
-      navUnderline.style.width = rect.width + 'px';
-      navUnderline.style.left = (rect.left - parentRect.left) + 'px';
-    }
-    navLinks.forEach(link => {
-      link.addEventListener('mouseenter', e => moveUnderline(e.target));
-      link.addEventListener('focus', e => moveUnderline(e.target));
-      link.addEventListener('mouseleave', () => {
-        const active = document.querySelector('#nav-links .nav-link.active');
-        moveUnderline(active);
-      });
-    });
-    window.addEventListener('DOMContentLoaded', () => {
-      const active = document.querySelector('#nav-links .nav-link.active');
-      moveUnderline(active);
     });
   </script>
-  <!-- Register Modal (Professional Redesign) -->
-  <div id="register-modal" class="modal-bg hidden" style="display: none;">
-    <div class="modal-content relative w-full max-w-sm p-4 sm:p-6">
-      <button id="register-modal-close" class="absolute top-3 right-3 text-2xl text-[#7C3AED] hover:text-[#FDBA17]" aria-label="Close registration modal">&times;</button>
-      <div id="login-section">
-        <div class="flex justify-center mb-2">
-          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-12 w-12 rounded-full border-4 border-[#FDBA17] shadow-lg" />
+
+  <!-- WHAT IS DISCIPLESHIP SECTION -->
+  <section class="relative max-w-5xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-3xl shadow-xl mt-16 mb-16 border-t-4 border-[#7C3AED]">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">What is Discipleship?</h2>
+    <p class="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">Discipleship is a journey of following Jesus, growing in faith, and living out God's purpose in community. We believe in biblical teaching, personal growth, and supporting one another as we become more like Christ.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Biblical Foundation -->
+      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#7C3AED] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#7C3AED]/10 mb-4">
+          <i class="fas fa-book-bible text-3xl text-[#7C3AED]"></i>
         </div>
-        <h2 class="text-xl font-bold text-[#7C3AED] mb-2 text-center">Sign In</h2>
-        <form id="login-form" class="space-y-3 text-left" autocomplete="off" novalidate>
-          <div>
-            <label for="login-email" class="block text-xs font-semibold text-[#7C3AED] mb-1">Email</label>
-            <input id="login-email" name="email" type="email" placeholder="Email" required class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Email" />
+        <h3 class="font-bold text-[#7C3AED] mb-2">Biblical Foundation</h3>
+        <p class="text-gray-600">Rooted in God's Word and the teachings of Jesus.</p>
+      </div>
+      <!-- Personal Growth -->
+      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#F59E0B] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#F59E0B]/10 mb-4">
+          <i class="fas fa-seedling text-3xl text-[#F59E0B]"></i>
+        </div>
+        <h3 class="font-bold text-[#F59E0B] mb-2">Personal Growth</h3>
+        <p class="text-gray-600">Developing character, faith, and spiritual disciplines.</p>
+      </div>
+      <!-- Community Support -->
+      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#1E40AF] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#1E40AF]/10 mb-4">
+          <i class="fas fa-people-group text-3xl text-[#1E40AF]"></i>
+        </div>
+        <h3 class="font-bold text-[#1E40AF] mb-2">Community Support</h3>
+        <p class="text-gray-600">Walking together, encouraging, and praying for one another.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM OUTLINE SECTION -->
+  <section class="relative max-w-6xl mx-auto py-20 px-4 bg-white rounded-3xl shadow-xl mb-16 border-t-4 border-[#F59E0B]">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Our Discipleship Journey</h2>
+    <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl mx-auto">Our discipleship program is a step-by-step journey designed to help you grow in faith, build strong relationships, and live out your calling as a disciple of Jesus.</p>
+    <div class="grid md:grid-cols-4 gap-8">
+      <!-- Teaching Outlines -->
+      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-book-open text-4xl text-[#7C3AED] mb-4"></i>
+        <h3 class="font-bold text-[#7C3AED] mb-2">Teaching Outlines</h3>
+        <p class="text-gray-600 text-center">Explore doctrine, lifestyle, and spiritual disciplines through structured lessons and group discussions.</p>
+      </div>
+      <!-- Mentorship -->
+      <div class="bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#F59E0B] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-user-friends text-4xl text-[#F59E0B] mb-4"></i>
+        <h3 class="font-bold text-[#F59E0B] mb-2">Mentorship</h3>
+        <p class="text-gray-600 text-center">Receive guidance and encouragement from mentors and small group leaders.</p>
+      </div>
+      <!-- Fellowship -->
+      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#1E40AF] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-people-arrows text-4xl text-[#1E40AF] mb-4"></i>
+        <h3 class="font-bold text-[#1E40AF] mb-2">Fellowship</h3>
+        <p class="text-gray-600 text-center">Connect through events, group studies, and service opportunities.</p>
+      </div>
+      <!-- Graduation -->
+      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#F59E0B]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-graduation-cap text-4xl text-[#7C3AED] mb-4"></i>
+        <h3 class="font-bold text-[#7C3AED] mb-2">Graduation</h3>
+        <p class="text-gray-600 text-center">Celebrate your growth and commitment as a disciple of Christ.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO GET INVOLVED SECTION -->
+  <section class="relative max-w-3xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-3xl shadow-xl mb-16 border-t-4 border-[#1E40AF]">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">How to Get Involved</h2>
+    <p class="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">Ready to take your next step? Here’s how you can join our discipleship journey and grow in faith with us.</p>
+    <ol class="list-decimal list-inside text-lg text-gray-700 mb-10 space-y-2 text-left md:text-center mx-auto max-w-md">
+      <li>Sign up for a discipleship class</li>
+      <li>Meet your mentor</li>
+      <li>Join a small group</li>
+      <li>Grow together in faith</li>
+    </ol>
+    <div class="flex justify-center">
+      <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+        <i class="fab fa-whatsapp mr-2"></i>Start Your Journey
+      </a>
+    </div>
+  </section>
+
+  <!-- RESOURCES SECTION -->
+  <section class="relative max-w-5xl mx-auto py-16 px-4 bg-white rounded-3xl shadow-xl mb-16 border-t-4 border-[#7C3AED]">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Resources</h2>
+    <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl mx-auto">Explore our discipleship resources to help you grow in faith and deepen your walk with Christ.</p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Downloadable Materials -->
+      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-file-download text-4xl text-[#7C3AED] mb-4"></i>
+        <h3 class="font-bold text-[#7C3AED] mb-2">Downloadable Materials</h3>
+        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
+          <li><a href="assets/docs/14 DAYS DISCIPLESHIP CLASSES.pptx" class="text-[#1E40AF] underline hover:text-[#F59E0B]">14 Days Discipleship Classes (PPTX)</a></li>
+          <li><a href="assets/docs/discipleship-training-flyer.pdf" class="text-[#F59E0B] underline hover:text-[#1E40AF]">Discipleship Training Flyer (PDF)</a></li>
+        </ul>
+        <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow hover:bg-green-600 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-400/40">
+          <i class="fab fa-whatsapp"></i>General WhatsApp
+        </a>
+      </div>
+      <!-- Sermon Archive -->
+      <div class="bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#F59E0B] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-microphone text-4xl text-[#F59E0B] mb-4"></i>
+        <h3 class="font-bold text-[#F59E0B] mb-2">Sermon Archive</h3>
+        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
+          <li><a href="sermons.html" class="text-[#1E40AF] underline hover:text-[#F59E0B]">Sermons</a></li>
+        </ul>
+        <a href="blog.html" class="inline-flex items-center gap-2 px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7C3AED]/40">
+          <i class="fas fa-blog"></i>Read Blog
+        </a>
+      </div>
+      <!-- Topical Articles -->
+      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#1E40AF] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+        <i class="fas fa-book-open text-4xl text-[#1E40AF] mb-4"></i>
+        <h3 class="font-bold text-[#1E40AF] mb-2">Topical Articles</h3>
+        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
+          <li><a href="blog.html" class="text-[#7C3AED] underline hover:text-[#F59E0B]">Discipleship Articles</a></li>
+        </ul>
+        <a href="contact.html" class="inline-flex items-center gap-2 px-6 py-2 bg-[#1E40AF] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1E40AF]/40">
+          <i class="fas fa-envelope"></i>Contact Team
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gradient-to-br from-[#1E40AF] via-[#1E40AF]/95 to-[#7C3AED] text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(245, 158, 11, 0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.3) 0%, transparent 50%);"></div>
+    </div>
+    
+    <div class="relative z-10">
+      <!-- Main Footer Content -->
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-12">
+          <!-- Brand Section -->
+          <div class="lg:col-span-1">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="relative">
+                <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-16 w-16 rounded-full border-3 border-[#F59E0B] object-cover shadow-xl ring-4 ring-[#F59E0B]/20"/>
+                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
+              </div>
+              <div>
+                <h3 class="text-2xl font-black text-white tracking-tight">Hearts After God</h3>
+                <p class="text-[#F59E0B] font-semibold tracking-wide uppercase text-sm">Ministry</p>
+              </div>
+            </div>
+            <p class="text-white/80 mb-6 leading-relaxed">
+              Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ.
+            </p>
+            <div class="flex gap-4">
+              <a href="https://facebook.com/" aria-label="Facebook" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fab fa-facebook-f text-lg"></i>
+              </a>
+              <a href="https://youtube.com/" aria-label="YouTube" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fab fa-youtube text-lg"></i>
+              </a>
+              <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
+                <i class="fas fa-envelope text-lg"></i>
+              </a>
+            </div>
           </div>
+
+          <!-- Quick Links -->
           <div>
-            <label for="login-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Password</label>
-            <div class="relative">
-              <input id="login-password" name="password" type="password" placeholder="Password" required class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Password" />
-              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('login-password', this)">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-link mr-3 text-[#F59E0B]"></i>Quick Links
+            </h4>
+            <ul class="space-y-4">
+              <li>
+                <a href="about.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>About Us
+                </a>
+              </li>
+              <li>
+                <a href="ministries.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Ministries
+                </a>
+              </li>
+              <li>
+                <a href="events.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Events
+                </a>
+              </li>
+              <li>
+                <a href="sermons.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Sermons
+                </a>
+              </li>
+              <li>
+                <a href="blog.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Blog
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Information -->
+          <div>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-address-book mr-3 text-[#F59E0B]"></i>Contact Info
+            </h4>
+            <ul class="space-y-4">
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-map-marker-alt text-white"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-white">Location</p>
+                  <p class="text-white/80 text-sm">Nairobi, Kenya</p>
+                </div>
+              </li>
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-phone text-white"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-white">Phone</p>
+                  <p class="text-white/80 text-sm">+254 725 907 040</p>
+                </div>
+              </li>
+              <li class="group flex items-start">
+                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                  <i class="fas fa-envelope text-white"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-white">Email</p>
+                  <p class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Ministry Services -->
+          <div>
+            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
+              <i class="fas fa-church mr-3 text-[#F59E0B]"></i>Our Services
+            </h4>
+            <ul class="space-y-4">
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-pray mr-3 text-[#F59E0B]"></i>Prayer Support
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-users mr-3 text-[#F59E0B]"></i>Discipleship Training
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-hands-helping mr-3 text-[#F59E0B]"></i>Community Outreach
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-music mr-3 text-[#F59E0B]"></i>Worship Services
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-graduation-cap mr-3 text-[#F59E0B]"></i>Bible Study
+              </li>
+              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
+                <i class="fas fa-globe mr-3 text-[#F59E0B]"></i>Global Missions
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
+          <div class="text-center">
+            <h4 class="text-2xl font-bold text-white mb-2">Stay Connected</h4>
+            <p class="text-white/80 mb-6 max-w-2xl mx-auto">
+              Subscribe to our newsletter for updates on events, sermons, and ministry opportunities.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-2 focus:ring-[#F59E0B] focus:outline-none text-gray-900 font-medium">
+              <button class="px-8 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 text-white font-bold rounded-xl hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <i class="fas fa-paper-plane mr-2"></i>Subscribe
               </button>
             </div>
           </div>
-          <button type="submit" class="w-full px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-base">Login</button>
-          <div id="login-message" class="mt-1 text-center text-xs font-semibold"></div>
-        </form>
-        <div class="mt-4 text-center text-sm">
-          Don't have an account? <button id="show-register-link" class="text-[#7C3AED] font-bold hover:underline">Sign up here</button>
         </div>
       </div>
-      <div id="register-section" class="hidden">
-        <div class="flex justify-center mb-2">
-          <img src="assets/images/WhatsApp%20Image%202025-07-04%20at%2017.27.34_37ced412.jpg" alt="Hearts After God Ministry Logo" class="h-12 w-12 rounded-full border-4 border-[#FDBA17] shadow-lg" />
-        </div>
-        <h2 class="text-xl font-bold text-[#7C3AED] mb-2 text-center">Register as a Disciple</h2>
-        <form id="register-form" class="space-y-2 text-left" autocomplete="off" novalidate>
-          <div>
-            <label for="register-name" class="block text-xs font-semibold text-[#7C3AED] mb-1">Full Name</label>
-            <input id="register-name" name="name" type="text" placeholder="Full Name" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Full Name" />
-          </div>
-          <div>
-            <label for="register-email" class="block text-xs font-semibold text-[#7C3AED] mb-1">Email</label>
-            <input id="register-email" name="email" type="email" placeholder="Email" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="Email" />
-          </div>
-          <div>
-            <label for="register-phone" class="block text-xs font-semibold text-[#7C3AED] mb-1">WhatsApp/Phone</label>
-            <input id="register-phone" name="phone" type="tel" placeholder="WhatsApp/Phone" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base" aria-label="WhatsApp or Phone" />
-          </div>
-          <div>
-            <label for="register-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Password</label>
-            <div class="relative">
-              <input id="register-password" name="password" type="password" placeholder="Password" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Password" />
-              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('register-password', this)">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </button>
+
+      <!-- Bottom Footer -->
+      <div class="border-t border-white/20">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+              <p class="text-white/80 text-sm">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
+              <span class="text-white/40">|</span>
+              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Privacy Policy</a>
+              <span class="text-white/40">|</span>
+              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Terms of Service</a>
             </div>
-            <div id="password-feedback" class="text-xs mt-1 mb-1"></div>
-          </div>
-          <div>
-            <label for="register-confirm-password" class="block text-xs font-semibold text-[#7C3AED] mb-1">Confirm Password</label>
-            <div class="relative">
-              <input id="register-confirm-password" name="confirm" type="password" placeholder="Confirm Password" required class="w-full px-2 py-1.5 border rounded focus:ring-2 focus:ring-[#7C3AED] text-base pr-10" aria-label="Confirm Password" />
-              <button type="button" tabindex="-1" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none" aria-label="Show or hide password" onclick="togglePasswordVisibility('register-confirm-password', this)">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </button>
+            <div class="flex items-center gap-2 text-white/60 text-sm">
+              <i class="fas fa-heart text-[#F59E0B]"></i>
+              <span>Made with love for God's Kingdom</span>
             </div>
           </div>
-          <button type="submit" class="w-full px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] hover:text-white transition text-base">Register</button>
-          <div id="register-message" class="mt-1 text-center text-xs font-semibold"></div>
-        </form>
-        <div class="mt-4 text-center text-sm">
-          Already have an account? <button id="show-login-link" class="text-[#7C3AED] font-bold hover:underline">Sign in here</button>
         </div>
       </div>
     </div>
-  </div>
-  <style>
-    .modal-bg { position: fixed; inset: 0; background: rgba(44,44,44,0.4); z-index: 100; display: flex; align-items: center; justify-content: center; animation: fadeIn 0.2s; }
-    .modal-content { background: #fff; border-radius: 1rem; box-shadow: 0 8px 32px rgba(0,0,0,0.18); padding: 1.2rem 1.2rem; text-align: center; min-width: 260px; animation: popIn 0.2s; max-width: 340px; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  </style>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Modal open/close logic
-      var modal = document.getElementById('register-modal');
-      var closeBtn = document.getElementById('register-modal-close');
-      var openBtns = document.querySelectorAll('[data-open-register-modal]');
-      var registerSection = document.getElementById('register-section');
-      var loginSection = document.getElementById('login-section');
-      var regForm = document.getElementById('register-form');
-      var loginForm = document.getElementById('login-form');
+  </footer>
 
-      function openRegisterModal() {
-        modal.classList.remove('hidden');
-        modal.style.display = 'flex';
-        // Always show login section first
-        registerSection.classList.add('hidden');
-        loginSection.classList.remove('hidden');
-        localStorage.setItem('modalLastState', 'login');
-      }
-      function closeRegisterModal() {
-        modal.classList.add('hidden');
-        modal.style.display = 'none';
-        document.getElementById('register-success')?.classList.add('hidden');
-        document.getElementById('login-success')?.classList.add('hidden');
-      }
-      if (closeBtn) closeBtn.addEventListener('click', closeRegisterModal);
-      openBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          localStorage.setItem('modalLastState', 'register');
-          openRegisterModal();
-        });
-      });
-      document.addEventListener('click', function(e) {
-        if (e.target && e.target.id === 'register-modal-close') {
-          closeRegisterModal();
-        }
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          closeRegisterModal();
-        }
-      });
-
-      // Password strength feedback
-      const passwordInput = document.getElementById('register-password');
-      const feedback = document.getElementById('password-feedback');
-      function validatePasswordStrength(password) {
-        const minLength = 8;
-        const hasUpper = /[A-Z]/.test(password);
-        const hasLower = /[a-z]/.test(password);
-        const hasNumber = /[0-9]/.test(password);
-        const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-        return {
-          minLength,
-          hasUpper,
-          hasLower,
-          hasNumber,
-          hasSpecial,
-          valid: password.length >= minLength && hasUpper && hasLower && hasNumber && hasSpecial
-        };
-      }
-      if (passwordInput && feedback) {
-        passwordInput.addEventListener('input', function() {
-          const val = passwordInput.value;
-          const res = validatePasswordStrength(val);
-          feedback.innerHTML = `
-            <div>Password must have:</div>
-            <ul class='ml-4'>
-              <li style='color:${val.length >= res.minLength ? 'green' : 'red'}'>• At least 8 characters</li>
-              <li style='color:${res.hasUpper ? 'green' : 'red'}'>• An uppercase letter</li>
-              <li style='color:${res.hasLower ? 'green' : 'red'}'>• A lowercase letter</li>
-              <li style='color:${res.hasNumber ? 'green' : 'red'}'>• A number</li>
-              <li style='color:${res.hasSpecial ? 'green' : 'red'}'>• A special character</li>
-            </ul>
-          `;
-        });
-      }
-
-      // Registration form logic
-      if (regForm) {
-        regForm.onsubmit = function(e) {
-          e.preventDefault();
-          console.log('Register form submitted');
-          const name = document.getElementById('register-name').value;
-          const email = document.getElementById('register-email').value;
-          const phone = document.getElementById('register-phone').value;
-          const password = document.getElementById('register-password').value;
-          const confirm = document.getElementById('register-confirm-password').value;
-          const res = validatePasswordStrength(password);
-          const msg = document.getElementById('register-message');
-          msg.textContent = '';
-          msg.className = 'mt-1 text-center text-xs font-semibold';
-          if (password !== confirm) {
-            msg.textContent = 'Passwords do not match. Please make sure both passwords are identical.';
-            msg.classList.add('text-red-600');
-            return;
-          }
-          if (!res.valid) {
-            msg.textContent = 'Password does not meet all requirements.';
-            msg.classList.add('text-red-600');
-            return;
-          }
-          let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
-          if (users.find(u => u.email === email)) {
-            msg.textContent = 'Email already registered.';
-            msg.classList.add('text-red-600');
-            return;
-          }
-          users.push({ name, email, phone, password });
-          localStorage.setItem('discipleship_users', JSON.stringify(users));
-          // Show login form and success message
-          registerSection.classList.add('hidden');
-          loginSection.classList.remove('hidden');
-          const loginMsg = document.getElementById('login-message');
-          if (loginMsg) {
-            loginMsg.textContent = 'Registration successful! Please sign in.';
-            loginMsg.className = 'mt-1 text-center text-xs font-semibold text-green-600';
-          }
-          // Set modal state to login for next open
-          localStorage.setItem('modalLastState', 'login');
-          regForm.reset();
-        };
-      }
-
-      // Login form logic
-      if (loginForm) {
-        loginForm.onsubmit = function(e) {
-          e.preventDefault();
-          const email = document.getElementById('login-email').value;
-          const password = document.getElementById('login-password').value;
-          let users = JSON.parse(localStorage.getItem('discipleship_users') || '[]');
-          const user = users.find(u => u.email === email);
-          const msg = document.getElementById('login-message');
-          msg.textContent = '';
-          msg.className = 'mt-2 text-center text-sm font-semibold';
-          if (!user) {
-            msg.textContent = 'No account found with this email.';
-            msg.classList.add('text-red-600');
-            return;
-          }
-          if (user.password !== password) {
-            msg.textContent = 'Incorrect password. Please try again.';
-            msg.classList.add('text-red-600');
-            return;
-          }
-          msg.textContent = 'Login successful! Redirecting to your dashboard...';
-          msg.classList.remove('text-red-600');
-          msg.classList.add('text-green-600');
-          setTimeout(function() {
-            window.location.href = 'discipleship-user.html';
-          }, 1500);
-        };
-      }
-
-      var showRegisterLink = document.getElementById('show-register-link');
-      var showLoginLink = document.getElementById('show-login-link');
-      if (showRegisterLink) {
-        showRegisterLink.addEventListener('click', function() {
-          document.getElementById('login-section').classList.add('hidden');
-          document.getElementById('register-section').classList.remove('hidden');
-        });
-      }
-      if (showLoginLink) {
-        showLoginLink.addEventListener('click', function() {
-          document.getElementById('register-section').classList.add('hidden');
-          document.getElementById('login-section').classList.remove('hidden');
-        });
-      }
-      // Always show login first by default
-      document.getElementById('login-section').classList.remove('hidden');
-      document.getElementById('register-section').classList.add('hidden');
-    });
-    function togglePasswordVisibility(inputId, btn) {
-      const input = document.getElementById(inputId);
-      if (!input) return;
-      if (input.type === 'password') {
-        input.type = 'text';
-        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.956 9.956 0 012.042-3.292m1.528-1.528A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.132 5.225M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 3l18 18"/>';
-      } else {
-        input.type = 'password';
-        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>';
-      }
-    }
-  </script>
 </body>
 </html> 
