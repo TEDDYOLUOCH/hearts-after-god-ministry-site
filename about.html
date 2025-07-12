@@ -4,31 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About | Hearts After God Ministry</title>
-  <meta name="description" content="Learn about the vision, leadership, and calling of Hearts After God Ministry.">
+  <meta name="description" content="Learn about the vision, leadership, and calling of Hearts After God Ministry - a Christ-centered revival ministry called to reach the world, disciple believers, and birth new ministries for God's glory.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body { font-family: 'Nunito', sans-serif; }
     .scripture { font-family: 'Georgia', serif; }
+    .gradient-text { background: linear-gradient(135deg, #7C3AED, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-gradient { background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9)); }
+    .fade-in { animation: fadeIn 1s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .timeline-item { position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -20px; top: 0; width: 2px; height: 100%; background: linear-gradient(to bottom, #7C3AED, #F59E0B); }
+    .value-card { transition: all 0.3s ease; }
+    .value-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .leader-card { transition: all 0.3s ease; }
+    .leader-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body class="bg-white text-gray-900">
 
   <!-- HEADER / NAVIGATION -->
-  <header class="sticky top-0 z-50 bg-white shadow">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-      <div class="flex items-center gap-2">
-        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-10 w-10 rounded-full border-2 border-[#7C3AED] object-cover"/>
-        <span class="text-xl font-extrabold text-[#7C3AED]">Hearts After God</span>
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-gray-100">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-12 w-12 rounded-full border-2 border-[#7C3AED] object-cover shadow-lg"/>
+        <div>
+          <span class="text-xl font-extrabold text-[#7C3AED]">Hearts After God</span>
+          <div class="text-xs text-gray-500 font-medium">Ministry</div>
+        </div>
       </div>
-      <ul class="hidden md:flex gap-6 font-semibold text-lg">
-        <li><a href="index.html" class="hover:text-[#7C3AED]">Home</a></li>
-        <li><a href="about.html" class="text-[#7C3AED] font-bold">About</a></li>
-        <li><a href="ministries.html" class="hover:text-[#7C3AED]">Ministries</a></li>
-        <li><a href="events.html" class="hover:text-[#7C3AED]">Events</a></li>
-        <li><a href="sermons.html" class="hover:text-[#7C3AED]">Sermons</a></li>
-        <li><a href="blog.html" class="hover:text-[#7C3AED]">Blog</a></li>
-        <li><a href="contact.html" class="hover:text-[#7C3AED]">Contact</a></li>
+      <ul class="hidden md:flex gap-8 font-semibold text-lg">
+        <li><a href="index.html" class="hover:text-[#7C3AED] transition-colors">Home</a></li>
+        <li><a href="about.html" class="text-[#7C3AED] font-bold border-b-2 border-[#7C3AED] pb-1">About</a></li>
+        <li><a href="ministries.html" class="hover:text-[#7C3AED] transition-colors">Ministries</a></li>
+        <li><a href="events.html" class="hover:text-[#7C3AED] transition-colors">Events</a></li>
+        <li><a href="sermons.html" class="hover:text-[#7C3AED] transition-colors">Sermons</a></li>
+        <li><a href="blog.html" class="hover:text-[#7C3AED] transition-colors">Blog</a></li>
+        <li><a href="contact.html" class="hover:text-[#7C3AED] transition-colors">Contact</a></li>
       </ul>
       <button id="mobile-menu-btn" class="md:hidden text-[#7C3AED] focus:outline-none">
         <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -55,108 +69,451 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] text-white py-20 flex flex-col items-center justify-center text-center">
-    <img src="assets/images/hero/IMG-20250705-WA0020.jpg" alt="About Hearts After God Ministry" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none" />
-    <div class="relative z-10 max-w-2xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow">About Hearts After God Ministry</h1>
-      <p class="text-lg md:text-2xl mb-6">A Christ-centered revival ministry called to reach the world, disciple believers, and birth new ministries for God's glory.</p>
+  <section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 w-full h-full">
+      <img src="assets/images/hero/IMG-20250705-WA0020.jpg" alt="About Hearts After God Ministry" class="w-full h-full object-cover"/>
+    </div>
+    <div class="absolute inset-0 hero-gradient"></div>
+    <div class="relative z-10 text-center px-4 py-20 w-full max-w-6xl mx-auto">
+      <div class="fade-in">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 text-white drop-shadow-2xl">
+          About <span class="gradient-text">Hearts After God</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-white/90 max-w-4xl mx-auto">
+          A Christ-centered revival ministry called to reach the world, disciple believers, and birth new ministries for God's glory.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+          <a href="#our-story" class="group px-8 py-4 bg-[#7C3AED] text-white font-bold rounded-full shadow-xl hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-book-open mr-2"></i>Our Story
+          </a>
+          <a href="#leadership" class="group px-8 py-4 bg-transparent text-white font-bold rounded-full border-2 border-white hover:bg-white hover:text-[#7C3AED] transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-users mr-2"></i>Meet Our Team
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- MINISTRY VISION & CALLING -->
-  <section class="py-12 bg-white">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-2xl md:text-3xl font-bold text-[#7C3AED] mb-4">Our Vision & Calling</h2>
-      <blockquote class="scripture italic text-xl text-[#1E40AF] border-l-4 border-[#F59E0B] pl-4 mb-2">"But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth."</blockquote>
-      <div class="text-[#F59E0B] font-semibold mb-6">— Acts 1:8</div>
-      <p class="mb-4 text-lg">Hearts After God Ministry exists to facilitate soul-winning, discipleship, and revival globally. We are passionate about empowering believers, unlocking destinies, and birthing new ministries as God leads.</p>
-      <p class="text-lg">Our mission is to provide a platform for learning, unlearning, and relearning, supporting believers in their walk with the Holy Spirit and equipping them for global impact.</p>
+  <!-- OUR STORY SECTION -->
+  <section id="our-story" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Our Story</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          From humble beginnings to a global ministry reaching souls across nations
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+        <div class="fade-in">
+          <h3 class="text-3xl font-bold text-[#7C3AED] mb-6">The Vision & Calling</h3>
+          <blockquote class="scripture italic text-xl text-[#1E40AF] border-l-4 border-[#F59E0B] pl-6 mb-6">
+            "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth."
+          </blockquote>
+          <div class="text-[#F59E0B] font-semibold mb-6">— Acts 1:8</div>
+          <p class="text-lg text-gray-700 mb-4">
+            Hearts After God Ministry was birthed from a divine vision to facilitate soul-winning, discipleship, and revival globally. Our founder, Minister Cyrilla Chikamai, received a clear calling to create a platform where believers could learn, unlearn, and relearn in their walk with the Holy Spirit.
+          </p>
+          <p class="text-lg text-gray-700">
+            We are passionate about empowering believers, unlocking destinies, and birthing new ministries as God leads. Our mission extends beyond traditional church boundaries to reach souls worldwide through innovative discipleship programs and Spirit-filled ministry.
+          </p>
+        </div>
+        <div class="fade-in">
+          <img src="assets/images/hero/IMG-20250705-WA0021.jpg" alt="Ministry Vision" class="rounded-2xl shadow-2xl"/>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="fade-in">
+        <h3 class="text-3xl font-bold text-[#1E40AF] mb-8 text-center">Our Journey</h3>
+        <div class="max-w-4xl mx-auto">
+          <div class="space-y-8">
+            <div class="timeline-item pl-8">
+              <div class="bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl p-6 border-l-4 border-[#7C3AED]">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-[#7C3AED] rounded-full flex items-center justify-center text-white font-bold">2015</div>
+                  <h4 class="text-xl font-bold text-[#1E40AF]">Ministry Foundation</h4>
+                </div>
+                <p class="text-gray-700">Hearts After God Ministry was officially established with a vision for global revival and discipleship. The ministry began with small gatherings focused on Spirit-filled worship and teaching.</p>
+              </div>
+            </div>
+            <div class="timeline-item pl-8">
+              <div class="bg-gradient-to-r from-[#F59E0B]/10 to-[#1E40AF]/10 rounded-xl p-6 border-l-4 border-[#F59E0B]">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-[#F59E0B] rounded-full flex items-center justify-center text-white font-bold">2018</div>
+                  <h4 class="text-xl font-bold text-[#1E40AF]">Discipleship Program Launch</h4>
+                </div>
+                <p class="text-gray-700">Launched our comprehensive 14-Day Discipleship Training Program, designed to root new believers and equip them for ministry. This marked a significant milestone in our mission to disciple believers.</p>
+              </div>
+            </div>
+            <div class="timeline-item pl-8">
+              <div class="bg-gradient-to-r from-[#1E40AF]/10 to-[#7C3AED]/10 rounded-xl p-6 border-l-4 border-[#1E40AF]">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-[#1E40AF] rounded-full flex items-center justify-center text-white font-bold">2020</div>
+                  <h4 class="text-xl font-bold text-[#1E40AF]">Global Missions Expansion</h4>
+                </div>
+                <p class="text-gray-700">Expanded our "Glow for Christ" missions ministry, reaching souls across multiple nations. The ministry began to see significant growth in international outreach and evangelism.</p>
+              </div>
+            </div>
+            <div class="timeline-item pl-8">
+              <div class="bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl p-6 border-l-4 border-[#7C3AED]">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-[#7C3AED] rounded-full flex items-center justify-center text-white font-bold">2023</div>
+                  <h4 class="text-xl font-bold text-[#1E40AF]">Digital Ministry Platform</h4>
+                </div>
+                <p class="text-gray-700">Launched comprehensive digital ministry platforms, including online discipleship programs, virtual worship services, and global outreach initiatives, reaching thousands worldwide.</p>
+              </div>
+            </div>
+            <div class="timeline-item pl-8">
+              <div class="bg-gradient-to-r from-[#F59E0B]/10 to-[#1E40AF]/10 rounded-xl p-6 border-l-4 border-[#F59E0B]">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-12 h-12 bg-[#F59E0B] rounded-full flex items-center justify-center text-white font-bold">2025</div>
+                  <h4 class="text-xl font-bold text-[#1E40AF]">Revival & Growth</h4>
+                </div>
+                <p class="text-gray-700">Celebrating 10+ years of ministry with over 500 disciples trained, 1000+ souls reached, and 6 active ministries serving communities worldwide. Continuing our mission for global revival.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- LEADERSHIP TEAM -->
-  <section class="py-16 bg-gray-50">
+  <section id="leadership" class="py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-[#1E40AF] mb-8 text-center">Leadership Team</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <img src="assets/images/leadership/Cyrilla Chikamai.jpg" alt="Minister Cyrilla Chikamai" class="w-24 h-24 object-cover rounded-full border-4 border-[#7C3AED] mb-4"/>
-          <h3 class="text-xl font-bold mb-1">Minister Cyrilla Chikamai</h3>
-          <p class="text-[#F59E0B] font-semibold mb-2">Lead Minister & Founder</p>
-          <p class="text-gray-700 text-center">Visionary leader, passionate about revival, discipleship, and birthing new ministries for Christ.</p>
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Our Leadership Team</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Meet the dedicated leaders who guide our ministry with wisdom, passion, and unwavering commitment to God's vision
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Cyrilla Chikamai.jpg" alt="Minister Cyrilla Chikamai" class="w-32 h-32 object-cover rounded-full border-4 border-[#7C3AED] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#7C3AED] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Founder
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Minister Cyrilla Chikamai</h3>
+          <p class="text-[#F59E0B] font-semibold mb-4">Lead Minister & Visionary</p>
+          <p class="text-gray-700 mb-4">
+            A passionate minister with over 10 years of experience in revival ministry, discipleship, and global outreach. Minister Cyrilla is the driving force behind our ministry's vision and mission.
+          </p>
+          <div class="flex justify-center gap-4 text-[#7C3AED]">
+            <i class="fas fa-cross text-xl"></i>
+            <i class="fas fa-users text-xl"></i>
+            <i class="fas fa-globe text-xl"></i>
+          </div>
         </div>
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <img src="assets/images/leadership/Bonnie Onduso.jpg" alt="Bonnie Onduso" class="w-24 h-24 object-cover rounded-full border-4 border-[#F59E0B] mb-4"/>
-          <h3 class="text-xl font-bold mb-1">Bonnie Onduso</h3>
-          <p class="text-[#7C3AED] font-semibold mb-2">Technical Lead</p>
-          <p class="text-gray-700 text-center">Software engineer and ministry partner, supporting digital outreach and discipleship.</p>
+
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Bonnie Onduso.jpg" alt="Bonnie Onduso" class="w-32 h-32 object-cover rounded-full border-4 border-[#F59E0B] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#F59E0B] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Technical Lead
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Bonnie Onduso</h3>
+          <p class="text-[#7C3AED] font-semibold mb-4">Software Engineer & Ministry Partner</p>
+          <p class="text-gray-700 mb-4">
+            A skilled software engineer who supports our digital ministry platforms and outreach initiatives. Bonnie ensures our ministry leverages technology effectively for global impact.
+          </p>
+          <div class="flex justify-center gap-4 text-[#F59E0B]">
+            <i class="fas fa-code text-xl"></i>
+            <i class="fas fa-laptop text-xl"></i>
+            <i class="fas fa-network-wired text-xl"></i>
+          </div>
         </div>
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <img src="assets/images/leadership/Humphrey Mulanda.jpg" alt="Humphrey Mulanda" class="w-24 h-24 object-cover rounded-full border-4 border-[#1E40AF] mb-4"/>
-          <h3 class="text-xl font-bold mb-1">Humphrey Mulanda</h3>
-          <p class="text-[#F59E0B] font-semibold mb-2">Missions Coordinator</p>
-          <p class="text-gray-700 text-center">Coordinating missions, outreach, and "Glow for Christ" ministry activities.</p>
+
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Humphrey Mulanda.jpg" alt="Humphrey Mulanda" class="w-32 h-32 object-cover rounded-full border-4 border-[#1E40AF] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#1E40AF] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Missions Coordinator
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Humphrey Mulanda</h3>
+          <p class="text-[#F59E0B] font-semibold mb-4">Missions & Outreach Director</p>
+          <p class="text-gray-700 mb-4">
+            Coordinates our "Glow for Christ" missions ministry, organizing international outreach programs, evangelism training, and mission trips to reach souls worldwide.
+          </p>
+          <div class="flex justify-center gap-4 text-[#1E40AF]">
+            <i class="fas fa-plane text-xl"></i>
+            <i class="fas fa-map-marker-alt text-xl"></i>
+            <i class="fas fa-hands-helping text-xl"></i>
+          </div>
+        </div>
+
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Joyce Kakii.jpg" alt="Joyce Kakii" class="w-32 h-32 object-cover rounded-full border-4 border-[#7C3AED] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#7C3AED] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Worship Leader
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Joyce Kakii</h3>
+          <p class="text-[#F59E0B] font-semibold mb-4">Worship & Music Ministry</p>
+          <p class="text-gray-700 mb-4">
+            Leads our Spirit-filled worship ministry, creating an atmosphere for revival and spiritual breakthrough through powerful, Spirit-led worship experiences.
+          </p>
+          <div class="flex justify-center gap-4 text-[#7C3AED]">
+            <i class="fas fa-music text-xl"></i>
+            <i class="fas fa-pray text-xl"></i>
+            <i class="fas fa-heart text-xl"></i>
+          </div>
+        </div>
+
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Palm Naomi.jpg" alt="Palm Naomi" class="w-32 h-32 object-cover rounded-full border-4 border-[#F59E0B] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#F59E0B] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Youth Coordinator
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Palm Naomi</h3>
+          <p class="text-[#7C3AED] font-semibold mb-4">Youth & Young Adults Ministry</p>
+          <p class="text-gray-700 mb-4">
+            Coordinates our vibrant youth ministry, organizing events, discipleship programs, and activities that engage young people in their faith journey.
+          </p>
+          <div class="flex justify-center gap-4 text-[#F59E0B]">
+            <i class="fas fa-child text-xl"></i>
+            <i class="fas fa-graduation-cap text-xl"></i>
+            <i class="fas fa-star text-xl"></i>
+          </div>
+        </div>
+
+        <div class="leader-card bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div class="relative mb-6">
+            <img src="assets/images/leadership/Cyrilla Chikamai.jpg" alt="Ministry Team" class="w-32 h-32 object-cover rounded-full border-4 border-[#1E40AF] shadow-lg mx-auto"/>
+            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-[#1E40AF] text-white px-4 py-1 rounded-full text-sm font-bold">
+              Ministry Team
+            </div>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-2">Dedicated Volunteers</h3>
+          <p class="text-[#F59E0B] font-semibold mb-4">Ministry Support Team</p>
+          <p class="text-gray-700 mb-4">
+            Our committed team of volunteers who serve faithfully in various ministry areas, supporting our mission through prayer, service, and dedication.
+          </p>
+          <div class="flex justify-center gap-4 text-[#1E40AF]">
+            <i class="fas fa-hands text-xl"></i>
+            <i class="fas fa-praying-hands text-xl"></i>
+            <i class="fas fa-users text-xl"></i>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- IMPACT & VALUES -->
-  <section class="py-12 bg-white">
-    <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-      <div>
-        <div class="text-3xl font-extrabold text-[#1E40AF]">10+</div>
-        <div class="text-gray-600">Years of Ministry</div>
+  <!-- CORE VALUES -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Our Core Values</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          The foundational principles that guide everything we do in ministry
+        </p>
       </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#F59E0B]">6</div>
-        <div class="text-gray-600">Active Ministries</div>
-      </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#7C3AED]">500+</div>
-        <div class="text-gray-600">Disciples Trained</div>
-      </div>
-      <div>
-        <div class="text-3xl font-extrabold text-[#F59E0B]">1000+</div>
-        <div class="text-gray-600">Souls Reached</div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="value-card bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-2xl p-8 border border-[#7C3AED]/20">
+          <div class="w-16 h-16 bg-[#7C3AED] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-cross text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Christ-Centered Living</h3>
+          <p class="text-gray-700">
+            Everything we do is centered on Jesus Christ. We prioritize His teachings, follow His example, and seek to glorify Him in all aspects of our ministry and personal lives.
+          </p>
+        </div>
+
+        <div class="value-card bg-gradient-to-br from-[#F59E0B]/10 to-[#1E40AF]/10 rounded-2xl p-8 border border-[#F59E0B]/20">
+          <div class="w-16 h-16 bg-[#F59E0B] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-fire text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Spirit-Led Revival</h3>
+          <p class="text-gray-700">
+            We are committed to Spirit-filled ministry that brings revival and transformation. Our worship, teaching, and outreach are guided by the Holy Spirit's leading.
+          </p>
+        </div>
+
+        <div class="value-card bg-gradient-to-br from-[#1E40AF]/10 to-[#7C3AED]/10 rounded-2xl p-8 border border-[#1E40AF]/20">
+          <div class="w-16 h-16 bg-[#1E40AF] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-graduation-cap text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Discipleship & Mentorship</h3>
+          <p class="text-gray-700">
+            We believe in the power of discipleship and mentorship to transform lives. Our structured programs help believers grow in faith and prepare for ministry.
+          </p>
+        </div>
+
+        <div class="value-card bg-gradient-to-br from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-2xl p-8 border border-[#7C3AED]/20">
+          <div class="w-16 h-16 bg-[#7C3AED] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-globe text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Global Missions</h3>
+          <p class="text-gray-700">
+            Our heart is for global outreach and missions. We actively engage in evangelism, support international ministries, and participate in God's work worldwide.
+          </p>
+        </div>
+
+        <div class="value-card bg-gradient-to-br from-[#F59E0B]/10 to-[#1E40AF]/10 rounded-2xl p-8 border border-[#F59E0B]/20">
+          <div class="w-16 h-16 bg-[#F59E0B] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-hands-helping text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Community & Fellowship</h3>
+          <p class="text-gray-700">
+            We foster authentic community and fellowship where believers can grow together, support one another, and experience the love of Christ in practical ways.
+          </p>
+        </div>
+
+        <div class="value-card bg-gradient-to-br from-[#1E40AF]/10 to-[#7C3AED]/10 rounded-2xl p-8 border border-[#1E40AF]/20">
+          <div class="w-16 h-16 bg-[#1E40AF] rounded-full flex items-center justify-center mb-6">
+            <i class="fas fa-seedling text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-[#1E40AF] mb-4">Ministry Multiplication</h3>
+          <p class="text-gray-700">
+            We believe in birthing and supporting new ministries. Our goal is to equip and empower believers to start their own ministries and expand God's kingdom.
+          </p>
+        </div>
       </div>
     </div>
-    <div class="max-w-3xl mx-auto mt-12 text-center">
-      <h3 class="text-2xl font-bold text-[#7C3AED] mb-4">Our Core Values</h3>
-      <ul class="space-y-2 text-lg">
-        <li>✓ Christ-centered living and teaching</li>
-        <li>✓ Spirit-led revival and empowerment</li>
-        <li>✓ Discipleship and mentorship</li>
-        <li>✓ Global missions and outreach</li>
-        <li>✓ Community, fellowship, and support</li>
-      </ul>
+  </section>
+
+  <!-- IMPACT STATISTICS -->
+  <section class="py-20 bg-gradient-to-br from-[#1E40AF]/95 to-[#7C3AED]/90 text-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Impact</h2>
+        <p class="text-xl text-white/90 max-w-3xl mx-auto">
+          Celebrating the lives transformed and communities impacted through our ministry
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="fade-in">
+          <div class="text-5xl md:text-6xl font-extrabold text-[#F59E0B] mb-2" data-target="10">0</div>
+          <div class="text-white/90 font-semibold text-lg">Years of Ministry</div>
+          <div class="text-white/70 text-sm mt-1">Faithful Service</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-5xl md:text-6xl font-extrabold text-[#F59E0B] mb-2" data-target="6">0</div>
+          <div class="text-white/90 font-semibold text-lg">Active Ministries</div>
+          <div class="text-white/70 text-sm mt-1">Serving Communities</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-5xl md:text-6xl font-extrabold text-[#F59E0B] mb-2" data-target="500">0</div>
+          <div class="text-white/90 font-semibold text-lg">Disciples Trained</div>
+          <div class="text-white/70 text-sm mt-1">Growing in Faith</div>
+        </div>
+        <div class="fade-in">
+          <div class="text-5xl md:text-6xl font-extrabold text-[#F59E0B] mb-2" data-target="1000">0</div>
+          <div class="text-white/90 font-semibold text-lg">Souls Reached</div>
+          <div class="text-white/70 text-sm mt-1">Global Impact</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- CALL TO ACTION -->
-  <section class="py-12 bg-gradient-to-br from-[#F59E0B]/90 to-[#7C3AED]/80 text-white text-center">
-    <h2 class="text-2xl md:text-3xl font-bold mb-4">Ready to Join the Mission?</h2>
-    <p class="mb-6 text-lg">Be part of our vision for global revival and discipleship. Connect, serve, and grow with us.</p>
-    <a href="contact.html" class="cta-btn px-8 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition">Contact Us</a>
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto text-center px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-6">Join Our Mission</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Be part of our vision for global revival and discipleship. Connect with us, serve with us, and grow with us as we reach the world for Christ.
+      </p>
+      <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+        <a href="discipleship.html" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-users mr-2"></i>Start Discipleship
+        </a>
+        <a href="contact.html" class="group px-8 py-4 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-envelope mr-2"></i>Contact Us
+        </a>
+      </div>
+    </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#1E40AF] text-white py-8 mt-8">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div class="flex items-center gap-2">
-        <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-8 w-8 rounded-full border-2 border-[#F59E0B] object-cover"/>
-        <span class="font-bold text-lg">Hearts After God Ministry</span>
+  <footer class="bg-[#1E40AF] text-white py-12">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div class="flex items-center gap-3">
+          <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-12 w-12 rounded-full border-2 border-[#F59E0B] object-cover"/>
+          <div>
+            <span class="font-bold text-lg">Hearts After God</span>
+            <div class="text-sm text-white/80">Ministry</div>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="about.html" class="hover:text-[#F59E0B] transition-colors">About Us</a></li>
+            <li><a href="ministries.html" class="hover:text-[#F59E0B] transition-colors">Ministries</a></li>
+            <li><a href="events.html" class="hover:text-[#F59E0B] transition-colors">Events</a></li>
+            <li><a href="sermons.html" class="hover:text-[#F59E0B] transition-colors">Sermons</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-4">Contact Info</h3>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-[#F59E0B]"></i>Nairobi, Kenya</li>
+            <li class="flex items-center"><i class="fas fa-phone mr-2 text-[#F59E0B]"></i>+254 725 907 040</li>
+            <li class="flex items-center"><i class="fas fa-envelope mr-2 text-[#F59E0B]"></i>heartsaftergodministries254@gmail.com</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-4">Connect With Us</h3>
+          <div class="flex gap-4">
+            <a href="https://facebook.com/" aria-label="Facebook" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://youtube.com/" aria-label="YouTube" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="w-10 h-10 bg-[#F59E0B] rounded-full flex items-center justify-center hover:bg-white hover:text-[#1E40AF] transition-colors">
+              <i class="fas fa-envelope"></i>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="text-sm">
-        &copy; 2025 Hearts After God Ministry. All rights reserved.
-      </div>
-      <div class="flex gap-4">
-        <a href="https://facebook.com/" aria-label="Facebook" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.522-4.478-10-10-10S2 6.478 2 12c0 5.006 3.676 9.128 8.438 9.877v-6.987h-2.54v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33v6.987C18.324 21.128 22 17.006 22 12"/></svg></a>
-        <a href="https://youtube.com/" aria-label="YouTube" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.4.1-1.2.1-1.9.9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.6c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.7.8 1.7.8 2.1.9C7.8 19 12 19 12 19s4.2 0 7.1-.1c.4-.1 1.2-.1 1.9-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.6c0-1.6-.2-3.2-.2-3.2zM9.8 15.3V8.7l6.4 3.3-6.4 3.3z"/></svg></a>
-        <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="hover:text-[#F59E0B]"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 20V8.99l8 6.99 8-6.99V20H4z"/></svg></a>
+      <div class="border-t border-white/20 pt-8 text-center">
+        <p class="text-sm text-white/80">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
       </div>
     </div>
   </footer>
+
+  <!-- COUNTER ANIMATION SCRIPT -->
+  <script>
+    // Counter animation
+    const counters = document.querySelectorAll('[data-target]');
+    const observerOptions = { threshold: 0.5 };
+    
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          const target = parseInt(counter.getAttribute('data-target'));
+          const increment = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            if (current < target) {
+              current += increment;
+              counter.textContent = Math.ceil(current) + (target === 10 ? '+' : target === 500 ? '+' : target === 1000 ? '+' : '');
+              setTimeout(updateCounter, 20);
+            } else {
+              counter.textContent = target + (target === 10 ? '+' : target === 500 ? '+' : target === 1000 ? '+' : '');
+            }
+          };
+          updateCounter();
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+    
+    counters.forEach(counter => counterObserver.observe(counter));
+  </script>
 
 </body>
 </html> 
