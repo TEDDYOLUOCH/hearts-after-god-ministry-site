@@ -108,3 +108,9 @@ nav .nav-link:hover, nav .nav-link:focus {
   text-decoration: underline !important;
   font-weight: bold;
 } 
+
+header.scrolled {
+  box-shadow: 0 8px 32px 0 rgba(124,58,237,0.25), 0 1.5px 0 0 #F59E0B !important;
+  border-bottom: 3px solid #F59E0B !important;
+  transform: scale(1.01);
+} 
