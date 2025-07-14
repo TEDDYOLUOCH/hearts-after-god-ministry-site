@@ -1,0 +1,64 @@
+<!-- Login Modal (Reusable) -->
+<div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden">
+  <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-0 flex flex-col md:flex-row overflow-hidden animate-fade-in">
+    <!-- Branding/Visual Side -->
+    <div class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-[#7C3AED]/90 to-[#F59E0B]/80 p-8 w-1/2">
+      <img src="assets/images/logo.jpg" alt="Logo" class="h-16 w-16 rounded-full border-4 border-[#F59E0B] shadow mb-6"/>
+      <h2 class="text-2xl font-extrabold text-white mb-2 text-center">Welcome!</h2>
+      <p class="text-white/90 text-center font-semibold">Join our discipleship journey and grow in faith with a Christ-centered community.</p>
+    </div>
+    <!-- Form Side -->
+    <div class="flex-1 p-8 relative">
+      <button id="close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-[#7C3AED] text-2xl focus:outline-none">&times;</button>
+      <div class="flex justify-center gap-4 mb-8">
+        <button id="show-login" class="px-4 py-2 font-bold rounded-lg transition-all bg-[#7C3AED] text-white shadow">Login</button>
+        <button id="show-register" class="px-4 py-2 font-bold rounded-lg transition-all text-[#7C3AED] bg-white border border-[#7C3AED] shadow">Register</button>
+      </div>
+      <div id="auth-message" class="mb-4 text-center text-sm font-semibold"></div>
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-4">
+        <button type="button" class="auth-modal-google w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 rounded shadow-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition mb-2">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">Continue with Google
+        </button>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input id="login-email" type="email" placeholder="Email" class="w-full pl-10 pr-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        </div>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input id="login-password" type="password" placeholder="Password" class="w-full pl-10 pr-10 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+          <button type="button" id="toggle-login-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <div class="flex justify-between items-center">
+          <a href="#" class="text-xs text-[#7C3AED] hover:underline">Forgot password?</a>
+        </div>
+        <button type="submit" class="w-full px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all">Login</button>
+      </form>
+      <!-- Register Form (hidden by default) -->
+      <form id="register-form" class="space-y-4 hidden">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <input id="register-email" type="email" placeholder="Email" class="w-full pl-10 pr-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+        </div>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input id="register-password" type="password" placeholder="Password" class="w-full pl-10 pr-10 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
+          <button type="button" id="toggle-register-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <button type="submit" class="w-full px-6 py-3 bg-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:bg-[#7C3AED] hover:text-white transition-all">Register</button>
+      </form>
+    </div>
+  </div>
+</div> 
