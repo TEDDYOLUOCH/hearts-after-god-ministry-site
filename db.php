@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$db   = 'your_database_name';
-$user = 'your_db_user';
-$pass = 'your_db_password';
+$db   = 'hearts_after_god_db';
+$user = 'root';
+$pass = '';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
