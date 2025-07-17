@@ -29,7 +29,7 @@
       <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
         Join our 14-day discipleship journey for new believers and those returning to faith. Experience spiritual growth, mentorship, and community.
       </p>
-      <a href="#discipleship-main" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#7C3AED] hover:bg-[#6D28D9] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+      <a href="#discipleship-main" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#F59E0B] hover:bg-[#E0A615] focus:outline-none focus:ring-4 focus:ring-[#F59E0B]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
         Get Started
       </a>
     </div>
@@ -45,7 +45,7 @@
         <!-- Avatar/Icon -->
         <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center mb-4 shadow-lg">
           <i class="fas fa-user-shield text-white text-3xl"></i>
-        </div>
+      </div>
         <!-- Toggle Tabs -->
         <div class="flex w-full mb-8 rounded-full bg-gray-100 border border-gray-200 overflow-hidden">
           <button id="tab-login" type="button" class="flex-1 py-3 text-center font-bold font-montserrat text-gray-700 transition-all duration-200 focus:outline-none" style="border-radius: 9999px 0 0 9999px;">Login</button>
@@ -81,7 +81,7 @@
             </select>
             <label for="reg-type" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">I am a...</label>
           </div>
-          <button type="submit" id="submit-btn" class="w-full px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:from-[#6D28D9] hover:to-[#F59E0B] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Login</button>
+          <button type="submit" id="submit-btn" class="w-full px-6 py-3 bg-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:bg-[#E0A615] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Login</button>
         </form>
         <div id="register-success" class="hidden mt-6 text-green-600 font-semibold text-center font-opensans">Thank you for registering! Welcome to the journey 🎉</div>
         <div id="login-success" class="hidden mt-6 text-green-600 font-semibold text-center font-opensans">Login successful! Redirecting...</div>
@@ -101,12 +101,12 @@
                 <input id="forgot-email" name="forgot-email" type="email" required class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="Email address" />
                 <label for="forgot-email" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">Email address</label>
               </div>
-              <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:from-[#6D28D9] hover:to-[#F59E0B] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Send Reset Link</button>
+              <button type="submit" class="w-full px-6 py-3 bg-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:bg-[#E0A615] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Send Reset Link</button>
             </form>
             <div id="forgot-confirm" class="hidden mt-4 text-[#7C3AED] font-semibold text-center bg-[#F3E8FF] border border-[#7C3AED]/30 rounded-lg px-4 py-3 shadow">If this email exists, password reset instructions have been sent.</div>
-          </div>
-        </div>
       </div>
+    </div>
+  </div>
     </section>
   </main>
   <!-- FOOTER -->
@@ -171,7 +171,7 @@
           regSuccess.classList.add('hidden');
           setTab(false); // Switch back to login mode
         }, 2500);
-      } else {
+        } else {
         loginSuccess.classList.remove('hidden');
         setTimeout(() => {
           unifiedForm.reset();
@@ -222,5 +222,6 @@
     loadInclude('site-header', 'header.html');
     loadInclude('site-footer', 'footer.html');
   </script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html> 

@@ -7,8 +7,10 @@
       Hearts After God Ministry
     </a>
     <!-- Hamburger (Mobile) -->
-    <button id="nav-toggle" class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-yellow-300 p-2" aria-label="Toggle navigation" aria-expanded="false">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <button id="mobile-menu-toggle" class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-yellow-300 p-2 relative z-50" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="block w-7 h-1 bg-white mb-1.5 rounded transition-transform duration-300" id="bar1"></span>
+      <span class="block w-7 h-1 bg-white mb-1.5 rounded transition-transform duration-300" id="bar2"></span>
+      <span class="block w-7 h-1 bg-white rounded transition-transform duration-300" id="bar3"></span>
     </button>
     <!-- Desktop Navigation -->
     <ul id="nav-menu" class="hidden md:flex space-x-6 items-center text-base font-medium" style="font-family: 'Open Sans', Arial, sans-serif;">
@@ -24,9 +26,11 @@
       <li><a href="team.html" class="nav-link px-2 py-1 transition-colors text-white hover:bg-yellow-100 hover:text-red-700 hover:rounded hover:px-2">Team</a></li>
     </ul>
   </nav>
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="md:hidden hidden bg-gradient-to-r from-[#B91C1C] via-[#7C3AED] to-[#1E40AF] border-t border-red-700">
-    <ul class="flex flex-col py-2 px-4 space-y-2 text-base font-medium" style="font-family: 'Open Sans', Arial, sans-serif;">
+  <!-- Mobile Menu & Overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/60 z-40 hidden transition-opacity duration-300"></div>
+  <div id="mobile-menu" class="md:hidden fixed top-0 right-0 h-full w-4/5 max-w-xs bg-gradient-to-br from-[#B91C1C] via-[#7C3AED] to-[#1E40AF] shadow-2xl border-l-4 border-[#F59E0B] z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <button class="close-btn absolute top-4 right-4 text-white text-3xl focus:outline-none" aria-label="Close menu">&times;</button>
+    <ul class="flex flex-col py-16 px-6 space-y-2 text-base font-medium" style="font-family: 'Open Sans', Arial, sans-serif;">
       <li><a href="index.html" class="nav-link block px-2 py-2 rounded text-white hover:bg-yellow-100 hover:text-red-700">Home</a></li>
       <li><a href="about.html" class="nav-link block px-2 py-2 rounded text-white hover:bg-yellow-100 hover:text-red-700">About</a></li>
       <li><a href="events.html" class="nav-link block px-2 py-2 rounded text-white hover:bg-yellow-100 hover:text-red-700">Events</a></li>
@@ -40,13 +44,67 @@
     </ul>
   </div>
   <script>
-    // Mobile menu toggle
-    const navToggle = document.getElementById('nav-toggle');
+    // Enhanced Hamburger & Mobile Menu
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
-    navToggle.addEventListener('click', function() {
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', !expanded);
-      mobileMenu.classList.toggle('hidden');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const closeBtn = document.querySelector('.close-btn');
+    let lastFocusedElement = null;
+
+    function openMobileMenu() {
+      lastFocusedElement = document.activeElement;
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      mobileOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
+      // Animate hamburger to X
+      document.getElementById('bar1').style.transform = 'rotate(45deg) translateY(10px)';
+      document.getElementById('bar2').style.opacity = '0';
+      document.getElementById('bar3').style.transform = 'rotate(-45deg) translateY(-10px)';
+      // Trap focus
+      setTimeout(() => {
+        const focusable = mobileMenu.querySelectorAll('a,button');
+        if (focusable.length) focusable[0].focus();
+      }, 200);
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      mobileOverlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      // Animate X to hamburger
+      document.getElementById('bar1').style.transform = '';
+      document.getElementById('bar2').style.opacity = '1';
+      document.getElementById('bar3').style.transform = '';
+      // Restore focus
+      if (lastFocusedElement) lastFocusedElement.focus();
+    }
+    mobileMenuToggle.addEventListener('click', openMobileMenu);
+    closeBtn.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    document.addEventListener('keydown', function(e) {
+      if (mobileOverlay.classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeMobileMenu();
+      // Trap focus
+      if (e.key === 'Tab') {
+        const focusable = mobileMenu.querySelectorAll('a,button');
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     });
     // Active link highlighting
     function setActiveLinks() {
@@ -58,10 +116,12 @@
         const isHome = (href === 'index.html' && (path === 'index.html' || path === ''));
         if (href === path || isHome) {
           link.setAttribute('aria-current', 'page');
-          link.classList.add('bg-yellow-100', 'text-red-700', 'rounded', 'px-2', 'font-semibold');
+          link.classList.add('bg-[#FFF7CC]', 'text-[#DC2626]', 'font-bold', 'rounded', 'px-4', 'py-2', 'shadow-sm');
+          link.classList.remove('text-white', 'underline', 'text-[#7C3AED]', 'bg-yellow-100', 'text-red-700', 'font-semibold');
         } else {
           link.removeAttribute('aria-current');
-          link.classList.remove('bg-yellow-100', 'text-red-700', 'rounded', 'px-2', 'font-semibold');
+          link.classList.remove('bg-[#FFF7CC]', 'text-[#DC2626]', 'font-bold', 'rounded', 'px-4', 'py-2', 'shadow-sm');
+          link.classList.add('text-white');
         }
       });
     }
