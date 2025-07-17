@@ -7,6 +7,8 @@
   <meta name="description" content="Read devotionals, testimonies, and blog posts from Hearts After God Ministry.">
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts: Montserrat & Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body { background: #fff; color: #2046B3; }
     .header-pattern {
@@ -53,11 +55,26 @@
       </div>
     </nav>
   </header>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
+    <img src="assets/images/hero/IMG-20250705-WA0022.jpg" alt="Blog Detail" class="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/60 to-blue-900/70"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 w-full max-w-2xl mx-auto">
+      <h1 class="font-bold text-white mb-4" style="font-family: 'Montserrat', Arial, sans-serif; font-size: 40px; line-height: 1.1;">
+        <span class="block md:text-6xl text-4xl" style="font-size: 60px;">Blog Article</span>
+      </h1>
+      <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Dive deeper into our latest articles, devotionals, and ministry updates.
+      </p>
+      <a href="#main-article" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#e63946] hover:bg-[#b71c2b] focus:outline-none focus:ring-4 focus:ring-[#e63946]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+        Read Article
+      </a>
+    </div>
+  </section>
+  <!-- End Hero Section -->
   <main class="max-w-5xl mx-auto py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-4 gap-10">
     <!-- Main Blog Content -->
     <section class="lg:col-span-3">
-      <!-- Hero Banner -->
-      <div id="blog-hero"></div>
       <!-- Floating Share Bar -->
       <div id="share-bar" class="sticky top-24 z-20 flex gap-3 mb-6"></div>
       <!-- Blog Content -->

@@ -3,693 +3,224 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Discipleship Training & Growth | Hearts After God Ministry</title>
-  <meta name="description" content="Grow in faith and purpose through our discipleship program. Join a Christ-centered community, mentorship, and spiritual growth journey.">
+  <title>Discipleship Program | Hearts After God Ministry</title>
+  <meta name="description" content="Register or login for the 14-day discipleship program." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Nunito', sans-serif; }
-    .scripture { font-family: 'Georgia', serif; }
-    .gradient-text { background: linear-gradient(135deg, #7C3AED, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-gradient { background: linear-gradient(135deg, rgba(124, 58, 237, 0.95), rgba(245, 158, 11, 0.9)); }
-    .fade-in { animation: fadeIn 1s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    body { font-family: 'Open Sans', Arial, sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', Arial, sans-serif; }
+    .font-opensans { font-family: 'Open Sans', Arial, sans-serif; }
   </style>
-  <script>
-    // TODO: Replace with your Firebase project config
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      appId: "YOUR_APP_ID"
-      // ...other config values
-    };
-    firebase.initializeApp(firebaseConfig);
-  </script>
 </head>
-<body class="bg-white text-gray-900">
-
-  <!-- HEADER / NAVIGATION (copied from homepage for consistency) -->
-  <header class="sticky top-0 z-50 bg-white/98 backdrop-blur-md shadow-xl border-b border-gray-200/50">
-    <nav class="max-w-7xl mx-auto px-6 py-5">
-      <div class="flex items-center justify-between">
-        <!-- Logo & Brand -->
-        <div class="flex items-center gap-4">
-          <div class="relative">
-            <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-14 w-14 rounded-full border-3 border-[#7C3AED] object-cover shadow-xl ring-4 ring-[#7C3AED]/10"/>
-            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-2xl font-black text-[#7C3AED] tracking-tight">Hearts After God</span>
-            <div class="text-sm text-gray-600 font-semibold tracking-wide uppercase">Ministry</div>
-          </div>
-        </div>
-        <!-- Desktop Navigation -->
-        <ul class="hidden lg:flex items-center gap-1">
-          <li>
-            <a href="index.html" class="relative px-6 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20 hover:from-[#7C3AED]/20 hover:to-[#F59E0B]/20 transition-all duration-300">
-              <span class="relative z-10">Home</span>
-              <div class="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-xl opacity-0 hover:opacity-10 transition-opacity duration-300"></div>
-            </a>
-          </li>
-          <li class="relative group">
-            <button class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300 flex items-center gap-2 focus:outline-none">
-              <span>About</span>
-              <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
-            </button>
-            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
-              <li><a href="team.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
-              <li><a href="discipleship.html" class="block px-6 py-3 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="ministries.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Ministries</a>
-          </li>
-          <li>
-            <a href="events.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Events</a>
-          </li>
-          <li>
-            <a href="sermons.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Sermons</a>
-          </li>
-          <li>
-            <a href="blog.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-all duration-300">Blog</a>
-          </li>
-          <li>
-            <a href="contact.html" class="px-6 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-all duration-300">Contact</a>
-          </li>
-        </ul>
-        <!-- CTA Button -->
-        <div class="hidden lg:flex items-center gap-4">
-          <a href="discipleship.html" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            <i class="fas fa-users mr-2"></i>Join Us
-          </a>
-        </div>
-        <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="lg:hidden relative p-3 text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-xl transition-colors duration-300 focus:outline-none">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="lg:hidden hidden mt-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50">
-        <div class="p-6 space-y-4">
-          <a href="index.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20">
-            <i class="fas fa-home mr-3"></i>Home
-          </a>
-          <!-- About Dropdown (Mobile) -->
-          <div class="space-y-1">
-            <button onclick="document.getElementById('mobile-about-dropdown').classList.toggle('hidden')" class="flex items-center w-full px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
-              <i class="fas fa-info-circle mr-3"></i>About <i class="fas fa-chevron-down ml-2 align-middle"></i>
-            </button>
-            <div id="mobile-about-dropdown" class="hidden ml-8 space-y-1">
-              <a href="team.html" class="block px-4 py-2 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a>
-              <a href="discipleship.html" class="block px-4 py-2 text-gray-700 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a>
-            </div>
-          </div>
-          <a href="ministries.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
-            <i class="fas fa-church mr-3"></i>Ministries
-          </a>
-          <a href="events.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
-            <i class="fas fa-calendar mr-3"></i>Events
-          </a>
-          <a href="sermons.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
-            <i class="fas fa-microphone mr-3"></i>Sermons
-          </a>
-          <a href="blog.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#F59E0B]/5 rounded-xl transition-colors">
-            <i class="fas fa-blog mr-3"></i>Blog
-          </a>
-          <a href="contact.html" class="flex items-center px-4 py-3 text-gray-700 font-semibold hover:text-[#7C3AED] hover:bg-[#7C3AED]/5 rounded-xl transition-colors">
-            <i class="fas fa-envelope mr-3"></i>Contact
-          </a>
-          <div class="pt-4 border-t border-gray-200">
-            <a href="discipleship.html" class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-              <i class="fas fa-users mr-2"></i>Join Us
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <script>
-      document.getElementById('mobile-menu-btn').onclick = function() {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-      };
-    </script>
-  </header>
-
+<body class="bg-white text-gray-900 font-nunito">
+  <!-- HEADER / NAVIGATION -->
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
   <!-- HERO SECTION -->
-  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/images/hero/IMG-20250705-WA0021.jpg');"></div>
-    <div class="absolute inset-0 bg-[#7C3AED]/90"></div>
-    <div class="relative z-10 text-center px-4 py-12 w-full max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-2xl">Discipleship Training & Growth</h1>
-      <blockquote class="scripture text-base md:text-xl mb-2 text-white font-semibold">
-        "Go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."
-      </blockquote>
-      <div class="text-[#F59E0B] font-bold text-base mb-6">Matthew 28:19</div>
-      <div class="flex justify-center mb-6">
-        <button id="open-auth" class="px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-lg shadow-lg hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all text-base">
-          <i class="fas fa-users mr-2"></i>Join Discipleship
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- AUTH MODAL -->
-  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm hidden">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-0 flex flex-col md:flex-row overflow-hidden animate-fade-in">
-      <!-- Branding/Visual Side -->
-      <div class="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-[#7C3AED]/90 to-[#F59E0B]/80 p-8 w-1/2">
-        <img src="assets/images/logo.jpg" alt="Logo" class="h-16 w-16 rounded-full border-4 border-[#F59E0B] shadow mb-6"/>
-        <h2 class="text-2xl font-extrabold text-white mb-2 text-center">Welcome!</h2>
-        <p class="text-white/90 text-center font-semibold">Join our discipleship journey and grow in faith with a Christ-centered community.</p>
-      </div>
-      <!-- Form Side -->
-      <div class="flex-1 p-8 relative">
-        <button id="close-auth" class="absolute top-4 right-4 text-gray-400 hover:text-[#7C3AED] text-2xl focus:outline-none">&times;</button>
-        <div class="flex justify-center gap-4 mb-8">
-          <button id="show-login" class="px-4 py-2 font-bold rounded-lg transition-all bg-[#7C3AED] text-white shadow">Login</button>
-          <button id="show-register" class="px-4 py-2 font-bold rounded-lg transition-all text-[#7C3AED] bg-white border border-[#7C3AED] shadow">Register</button>
-        </div>
-        <div id="auth-message" class="mb-4 text-center text-sm font-semibold"></div>
-        <!-- Login Form -->
-        <form id="login-form" class="space-y-4">
-          <button type="button" class="auth-modal-google w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 rounded shadow-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition mb-2">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">Continue with Google
-          </button>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-envelope"></i>
-            </span>
-            <input id="login-email" type="email" placeholder="Email" class="w-full pl-10 pr-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-          </div>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-lock"></i>
-            </span>
-            <input id="login-password" type="password" placeholder="Password" class="w-full pl-10 pr-10 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-            <button type="button" id="toggle-login-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <div class="flex justify-between items-center">
-            <a href="#" class="text-xs text-[#7C3AED] hover:underline">Forgot password?</a>
-          </div>
-          <button type="submit" id="login-submit" class="w-full px-4 py-2 bg-[#7C3AED] text-white font-bold rounded shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition flex items-center justify-center gap-2">
-            <span>Login</span>
-            <span id="login-spinner" class="hidden animate-spin"><i class="fas fa-spinner"></i></span>
-          </button>
-        </form>
-        <!-- Register Form -->
-        <form id="register-form" class="space-y-4 hidden">
-          <button type="button" class="auth-modal-google w-full flex items-center justify-center gap-3 px-4 py-2 border border-gray-300 rounded shadow-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition mb-2">
-            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" class="w-5 h-5">Continue with Google
-          </button>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-user"></i>
-            </span>
-            <input id="register-name" type="text" placeholder="Name" class="w-full pl-10 pr-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-          </div>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-envelope"></i>
-            </span>
-            <input id="register-email" type="email" placeholder="Email" class="w-full pl-10 pr-4 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-          </div>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-lock"></i>
-            </span>
-            <input id="register-password" type="password" placeholder="Password" class="w-full pl-10 pr-10 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-            <button type="button" id="toggle-register-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-[#7C3AED]">
-              <i class="fas fa-lock"></i>
-            </span>
-            <input id="register-confirm-password" type="password" placeholder="Confirm Password" class="w-full pl-10 pr-10 py-2 border rounded focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" required />
-            <button type="button" id="toggle-register-confirm" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#7C3AED] focus:outline-none">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <button type="submit" id="register-submit" class="w-full px-4 py-2 bg-[#F59E0B] text-[#7C3AED] font-bold rounded shadow hover:bg-[#7C3AED] hover:text-white transition flex items-center justify-center gap-2">
-            <span>Register</span>
-            <span id="register-spinner" class="hidden animate-spin"><i class="fas fa-spinner"></i></span>
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Modal logic
-    const authModal = document.getElementById('auth-modal');
-    const openAuthBtn = document.getElementById('open-auth');
-    const closeAuthBtn = document.getElementById('close-auth');
-    const showLoginBtn = document.getElementById('show-login');
-    const showRegisterBtn = document.getElementById('show-register');
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const authMessage = document.getElementById('auth-message');
-
-    openAuthBtn.onclick = () => { authModal.classList.remove('hidden'); showLogin(); };
-    closeAuthBtn.onclick = () => { authModal.classList.add('hidden'); };
-    showLoginBtn.onclick = showLogin;
-    showRegisterBtn.onclick = showRegister;
-
-    function showLogin() {
-      loginForm.classList.remove('hidden');
-      registerForm.classList.add('hidden');
-      showLoginBtn.classList.add('bg-[#7C3AED]', 'text-white');
-      showLoginBtn.classList.remove('bg-white', 'text-[#7C3AED]');
-      showRegisterBtn.classList.remove('bg-[#7C3AED]', 'text-white');
-      showRegisterBtn.classList.add('bg-white', 'text-[#7C3AED]');
-      authMessage.textContent = '';
-    }
-    function showRegister() {
-      loginForm.classList.add('hidden');
-      registerForm.classList.remove('hidden');
-      showRegisterBtn.classList.add('bg-[#7C3AED]', 'text-white');
-      showRegisterBtn.classList.remove('bg-white', 'text-[#7C3AED]');
-      showLoginBtn.classList.remove('bg-[#7C3AED]', 'text-white');
-      showLoginBtn.classList.add('bg-white', 'text-[#7C3AED]');
-      authMessage.textContent = '';
-    }
-
-    // Simple validation (demo only)
-    // Password show/hide toggles
-    const toggleLoginPassword = document.getElementById('toggle-login-password');
-    const loginPassword = document.getElementById('login-password');
-    toggleLoginPassword.onclick = function() {
-      loginPassword.type = loginPassword.type === 'password' ? 'text' : 'password';
-      this.innerHTML = loginPassword.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    };
-    const toggleRegisterPassword = document.getElementById('toggle-register-password');
-    const registerPassword = document.getElementById('register-password');
-    toggleRegisterPassword.onclick = function() {
-      registerPassword.type = registerPassword.type === 'password' ? 'text' : 'password';
-      this.innerHTML = registerPassword.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    };
-    const toggleRegisterConfirm = document.getElementById('toggle-register-confirm');
-    const registerConfirm = document.getElementById('register-confirm-password');
-    toggleRegisterConfirm.onclick = function() {
-      registerConfirm.type = registerConfirm.type === 'password' ? 'text' : 'password';
-      this.innerHTML = registerConfirm.type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-    };
-    // Loading spinner on submit
-    const loginSubmit = document.getElementById('login-submit');
-    const loginSpinner = document.getElementById('login-spinner');
-    loginForm.onsubmit = function(e) {
-      e.preventDefault();
-      loginSpinner.classList.remove('hidden');
-      loginSubmit.setAttribute('disabled', 'disabled');
-      const email = document.getElementById('login-email').value;
-      const password = document.getElementById('login-password').value;
-      if (!email || !password) {
-        authMessage.textContent = 'Please enter email and password.';
-        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
-        loginSpinner.classList.add('hidden');
-        loginSubmit.removeAttribute('disabled');
-        return;
-      }
-      // Simulate user object for demo (replace with real auth in production)
-      const user = { email: email, name: email.split('@')[0] };
-      localStorage.setItem('discipleship_logged_in_user', JSON.stringify(user));
-      authMessage.textContent = 'Login successful!';
-      authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
-      setTimeout(() => {
-        const trimmedEmail = email.trim().toLowerCase();
-        if (trimmedEmail === 'admin@heartsaftergod.org') {
-          window.location.href = '/hearts-after-god-ministry-site/discipleship-admin.html';
-        } else {
-          window.location.href = '/hearts-after-god-ministry-site/discipleship-user.html';
-        }
-      }, 1200);
-    };
-    registerForm.onsubmit = function(e) {
-      e.preventDefault();
-      const registerSpinner = document.getElementById('register-spinner');
-      const registerSubmit = document.getElementById('register-submit');
-      registerSpinner.classList.remove('hidden');
-      registerSubmit.setAttribute('disabled', 'disabled');
-      const name = document.getElementById('register-name').value;
-      const email = document.getElementById('register-email').value;
-      const password = document.getElementById('register-password').value;
-      const confirm = document.getElementById('register-confirm-password').value;
-      if (!name || !email || !password || !confirm) {
-        authMessage.textContent = 'Please fill in all fields.';
-        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
-        registerSpinner.classList.add('hidden');
-        registerSubmit.removeAttribute('disabled');
-        return;
-      }
-      if (password !== confirm) {
-        authMessage.textContent = 'Passwords do not match.';
-        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
-        registerSpinner.classList.add('hidden');
-        registerSubmit.removeAttribute('disabled');
-        return;
-      }
-      if (password.length < 6) {
-        authMessage.textContent = 'Password must be at least 6 characters.';
-        authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
-        registerSpinner.classList.add('hidden');
-        registerSubmit.removeAttribute('disabled');
-        return;
-      }
-      authMessage.textContent = 'Registration successful! (Demo only)';
-      authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
-      setTimeout(() => { showLogin(); }, 1200);
-    };
-
-    // Google Sign-In logic
-    const googleBtns = document.querySelectorAll('.auth-modal-google');
-    googleBtns.forEach(btn => {
-      btn.onclick = function() {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider)
-          .then(result => {
-            authMessage.textContent = 'Google sign-in successful!';
-            authMessage.className = 'mb-4 text-center text-sm font-semibold text-green-600';
-            setTimeout(() => { authModal.classList.add('hidden'); }, 1200);
-          })
-          .catch(error => {
-            authMessage.textContent = error.message;
-            authMessage.className = 'mb-4 text-center text-sm font-semibold text-red-600';
-          });
-      }
-    });
-  </script>
-
-  <!-- WHAT IS DISCIPLESHIP SECTION -->
-  <section class="relative max-w-5xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-3xl shadow-xl mt-16 mb-16 border-t-4 border-[#7C3AED]">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">What is Discipleship?</h2>
-    <p class="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">Discipleship is a journey of following Jesus, growing in faith, and living out God's purpose in community. We believe in biblical teaching, personal growth, and supporting one another as we become more like Christ.</p>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Biblical Foundation -->
-      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#7C3AED] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#7C3AED]/10 mb-4">
-          <i class="fas fa-book-bible text-3xl text-[#7C3AED]"></i>
-        </div>
-        <h3 class="font-bold text-[#7C3AED] mb-2">Biblical Foundation</h3>
-        <p class="text-gray-600">Rooted in God's Word and the teachings of Jesus.</p>
-      </div>
-      <!-- Personal Growth -->
-      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#F59E0B] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#F59E0B]/10 mb-4">
-          <i class="fas fa-seedling text-3xl text-[#F59E0B]"></i>
-        </div>
-        <h3 class="font-bold text-[#F59E0B] mb-2">Personal Growth</h3>
-        <p class="text-gray-600">Developing character, faith, and spiritual disciplines.</p>
-      </div>
-      <!-- Community Support -->
-      <div class="bg-white rounded-2xl shadow-lg border-t-4 border-[#1E40AF] p-8 flex flex-col items-center hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <div class="w-16 h-16 flex items-center justify-center rounded-full bg-[#1E40AF]/10 mb-4">
-          <i class="fas fa-people-group text-3xl text-[#1E40AF]"></i>
-        </div>
-        <h3 class="font-bold text-[#1E40AF] mb-2">Community Support</h3>
-        <p class="text-gray-600">Walking together, encouraging, and praying for one another.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROGRAM OUTLINE SECTION -->
-  <section class="relative max-w-6xl mx-auto py-20 px-4 bg-white rounded-3xl shadow-xl mb-16 border-t-4 border-[#F59E0B]">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Our Discipleship Journey</h2>
-    <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl mx-auto">Our discipleship program is a step-by-step journey designed to help you grow in faith, build strong relationships, and live out your calling as a disciple of Jesus.</p>
-    <div class="grid md:grid-cols-4 gap-8">
-      <!-- Teaching Outlines -->
-      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-book-open text-4xl text-[#7C3AED] mb-4"></i>
-        <h3 class="font-bold text-[#7C3AED] mb-2">Teaching Outlines</h3>
-        <p class="text-gray-600 text-center">Explore doctrine, lifestyle, and spiritual disciplines through structured lessons and group discussions.</p>
-      </div>
-      <!-- Mentorship -->
-      <div class="bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#F59E0B] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-user-friends text-4xl text-[#F59E0B] mb-4"></i>
-        <h3 class="font-bold text-[#F59E0B] mb-2">Mentorship</h3>
-        <p class="text-gray-600 text-center">Receive guidance and encouragement from mentors and small group leaders.</p>
-      </div>
-      <!-- Fellowship -->
-      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#1E40AF] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-people-arrows text-4xl text-[#1E40AF] mb-4"></i>
-        <h3 class="font-bold text-[#1E40AF] mb-2">Fellowship</h3>
-        <p class="text-gray-600 text-center">Connect through events, group studies, and service opportunities.</p>
-      </div>
-      <!-- Graduation -->
-      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#F59E0B]/80 rounded-2xl shadow p-6 flex flex-col items-center border-b-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-graduation-cap text-4xl text-[#7C3AED] mb-4"></i>
-        <h3 class="font-bold text-[#7C3AED] mb-2">Graduation</h3>
-        <p class="text-gray-600 text-center">Celebrate your growth and commitment as a disciple of Christ.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW TO GET INVOLVED SECTION -->
-  <section class="relative max-w-3xl mx-auto py-16 px-4 text-center bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-3xl shadow-xl mb-16 border-t-4 border-[#1E40AF]">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 tracking-tight">How to Get Involved</h2>
-    <p class="text-lg text-gray-700 mb-10 max-w-2xl mx-auto">Ready to take your next step? Here’s how you can join our discipleship journey and grow in faith with us.</p>
-    <ol class="list-decimal list-inside text-lg text-gray-700 mb-10 space-y-2 text-left md:text-center mx-auto max-w-md">
-      <li>Sign up for a discipleship class</li>
-      <li>Meet your mentor</li>
-      <li>Join a small group</li>
-      <li>Grow together in faith</li>
-    </ol>
-    <div class="flex justify-center">
-      <a href="https://chat.whatsapp.com/Cyjm2DDg5Gi08QHDW6Uw5p?mode=r_t" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-        <i class="fab fa-whatsapp mr-2"></i>Start Your Journey
+  <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
+    <img src="assets/images/hero/IMG-20250705-WA0024.jpg" alt="Discipleship Journey" class="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/60 to-blue-900/70"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 w-full max-w-2xl mx-auto">
+      <h1 class="font-bold text-white mb-4" style="font-family: 'Montserrat', Arial, sans-serif; font-size: 40px; line-height: 1.1;">
+        <span class="block md:text-6xl text-4xl" style="font-size: 60px;">Discipleship Program</span>
+      </h1>
+      <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Join our 14-day discipleship journey for new believers and those returning to faith. Experience spiritual growth, mentorship, and community.
+      </p>
+      <a href="#discipleship-main" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#7C3AED] hover:bg-[#6D28D9] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+        Get Started
       </a>
     </div>
   </section>
-
-  <!-- RESOURCES SECTION -->
-  <section class="relative max-w-5xl mx-auto py-16 px-4 bg-white rounded-3xl shadow-xl mb-16 border-t-4 border-[#7C3AED]">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-[#7C3AED] mb-4 text-center tracking-tight">Resources</h2>
-    <p class="text-lg text-gray-700 mb-10 text-center max-w-2xl mx-auto">Explore our discipleship resources to help you grow in faith and deepen your walk with Christ.</p>
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Downloadable Materials -->
-      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#7C3AED] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-file-download text-4xl text-[#7C3AED] mb-4"></i>
-        <h3 class="font-bold text-[#7C3AED] mb-2">Downloadable Materials</h3>
-        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
-          <li><a href="assets/docs/14 DAYS DISCIPLESHIP CLASSES.pptx" class="text-[#1E40AF] underline hover:text-[#F59E0B]">14 Days Discipleship Classes (PPTX)</a></li>
-          <li><a href="assets/docs/discipleship-training-flyer.pdf" class="text-[#F59E0B] underline hover:text-[#1E40AF]">Discipleship Training Flyer (PDF)</a></li>
-        </ul>
-        <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-2 bg-green-500 text-white font-bold rounded-full shadow hover:bg-green-600 transition focus:outline-none focus-visible:ring-4 focus-visible:ring-green-400/40">
-          <i class="fab fa-whatsapp"></i>General WhatsApp
-        </a>
-      </div>
-      <!-- Sermon Archive -->
-      <div class="bg-gradient-to-br from-[#FEF3C7]/80 to-[#F3E8FF]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#F59E0B] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-microphone text-4xl text-[#F59E0B] mb-4"></i>
-        <h3 class="font-bold text-[#F59E0B] mb-2">Sermon Archive</h3>
-        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
-          <li><a href="sermons.html" class="text-[#1E40AF] underline hover:text-[#F59E0B]">Sermons</a></li>
-        </ul>
-        <a href="blog.html" class="inline-flex items-center gap-2 px-6 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7C3AED]/40">
-          <i class="fas fa-blog"></i>Read Blog
-        </a>
-      </div>
-      <!-- Topical Articles -->
-      <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow p-6 flex flex-col items-center border-l-4 border-[#1E40AF] hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-        <i class="fas fa-book-open text-4xl text-[#1E40AF] mb-4"></i>
-        <h3 class="font-bold text-[#1E40AF] mb-2">Topical Articles</h3>
-        <ul class="text-gray-600 list-disc list-inside mb-4 text-left">
-          <li><a href="blog.html" class="text-[#7C3AED] underline hover:text-[#F59E0B]">Discipleship Articles</a></li>
-        </ul>
-        <a href="contact.html" class="inline-flex items-center gap-2 px-6 py-2 bg-[#1E40AF] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] transition focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1E40AF]/40">
-          <i class="fas fa-envelope"></i>Contact Team
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-gradient-to-br from-[#1E40AF] via-[#1E40AF]/95 to-[#7C3AED] text-white relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(245, 158, 11, 0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(124, 58, 237, 0.3) 0%, transparent 50%);"></div>
-    </div>
-    
-    <div class="relative z-10">
-      <!-- Main Footer Content -->
-      <div class="max-w-7xl mx-auto px-6 py-16">
-        <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-12 mb-12">
-          <!-- Brand Section -->
-          <div class="lg:col-span-1">
-            <div class="flex items-center gap-4 mb-6">
+  <!-- End Hero Section -->
+  <!-- MAIN CONTENT -->
+  <main id="discipleship-main" class="min-h-screen flex flex-col justify-center py-12 px-4">
+    <!-- Unified Login/Register Form -->
+    <section class="max-w-lg mx-auto w-full px-4 pb-16">
+      <div class="relative bg-gradient-to-br from-[#F3E8FF] via-[#F8FAFC] to-[#F59E0B]/10 shadow-2xl border-2 border-[#7C3AED] rounded-2xl px-8 py-12 flex flex-col items-center overflow-hidden">
+        <!-- Brand Logo -->
+        <img src="assets/images/logo.jpg" alt="Hearts After God Ministry Logo" class="h-12 w-12 rounded-full border-4 border-white object-cover shadow-lg mb-2" />
+        <!-- Avatar/Icon -->
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center mb-4 shadow-lg">
+          <i class="fas fa-user-shield text-white text-3xl"></i>
+        </div>
+        <!-- Toggle Tabs -->
+        <div class="flex w-full mb-8 rounded-full bg-gray-100 border border-gray-200 overflow-hidden">
+          <button id="tab-login" type="button" class="flex-1 py-3 text-center font-bold font-montserrat text-gray-700 transition-all duration-200 focus:outline-none" style="border-radius: 9999px 0 0 9999px;">Login</button>
+          <button id="tab-register" type="button" class="flex-1 py-3 text-center font-bold font-montserrat text-gray-700 transition-all duration-200 focus:outline-none" style="border-radius: 0 9999px 9999px 0;">Register</button>
+        </div>
+        <h2 class="text-2xl font-bold font-montserrat text-gray-900 mb-2 text-center" id="form-title">Login to Access Your Dashboard</h2>
+        <form id="unified-form" class="space-y-6 font-opensans w-full">
+          <div id="name-field" class="relative hidden">
+            <input id="reg-name" name="reg-name" type="text" class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="Full Name" />
+            <label for="reg-name" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">Full Name</label>
+          </div>
+          <div class="relative">
+            <input id="login-email" name="login-email" type="text" required class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="Email or Username" />
+            <label for="login-email" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">Email or Username</label>
+          </div>
+          <div id="whatsapp-field" class="relative hidden">
+            <input id="reg-whatsapp" name="reg-whatsapp" type="tel" class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="WhatsApp Number" />
+            <label for="reg-whatsapp" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">WhatsApp Number</label>
+          </div>
+          <div class="relative">
+            <input id="login-password" name="login-password" type="password" required class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="Password" />
+            <label for="login-password" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">Password</label>
+          </div>
+          <!-- Forgot Password Link (login mode only) -->
+          <div id="forgot-password-wrap" class="w-full text-right mb-2">
+            <button id="forgot-password" type="button" class="text-sm text-[#7C3AED] font-semibold hover:underline focus:outline-none transition-all duration-150">Forgot Password?</button>
+          </div>
+          <div id="believer-type-field" class="relative hidden">
+            <select id="reg-type" name="reg-type" class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200">
+              <option value="" disabled selected hidden></option>
+              <option value="new">New Believer</option>
+              <option value="returning">Returning to Faith</option>
+            </select>
+            <label for="reg-type" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">I am a...</label>
+          </div>
+          <button type="submit" id="submit-btn" class="w-full px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:from-[#6D28D9] hover:to-[#F59E0B] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Login</button>
+        </form>
+        <div id="register-success" class="hidden mt-6 text-green-600 font-semibold text-center font-opensans">Thank you for registering! Welcome to the journey 🎉</div>
+        <div id="login-success" class="hidden mt-6 text-green-600 font-semibold text-center font-opensans">Login successful! Redirecting...</div>
+        <!-- Forgot Password Modal -->
+        <div id="forgot-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 hidden">
+          <div class="bg-white rounded-2xl shadow-2xl border-2 border-[#7C3AED] max-w-sm w-full p-8 relative animate-fadeIn">
+            <button id="close-forgot" class="absolute top-3 right-3 text-gray-400 hover:text-[#7C3AED] text-2xl font-bold focus:outline-none" aria-label="Close modal">&times;</button>
+            <div class="flex flex-col items-center mb-4">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-[#7C3AED] to-[#F59E0B] flex items-center justify-center shadow-lg mb-2">
+                <i class="fas fa-unlock-alt text-white text-2xl"></i>
+              </div>
+              <h3 class="text-xl font-bold font-montserrat text-gray-900 mb-2">Reset Password</h3>
+              <p class="text-gray-600 text-sm text-center mb-2 font-opensans">Enter your email and we'll send you password reset instructions.</p>
+            </div>
+            <form id="forgot-form" class="space-y-4">
               <div class="relative">
-                <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-16 w-16 rounded-full border-3 border-[#F59E0B] object-cover shadow-xl ring-4 ring-[#F59E0B]/20"/>
-                <div class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
+                <input id="forgot-email" name="forgot-email" type="email" required class="peer w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-[#7C3AED] focus:border-[#7C3AED] focus:outline-none transition-all duration-200 placeholder-transparent" placeholder="Email address" />
+                <label for="forgot-email" class="absolute left-4 top-3 text-gray-500 text-sm font-semibold bg-white px-1 transition-all duration-200 pointer-events-none peer-placeholder-shown:top-3 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-sm peer-focus:-top-3 peer-focus:text-xs peer-focus:text-[#7C3AED] peer-focus:bg-white">Email address</label>
               </div>
-              <div>
-                <h3 class="text-2xl font-black text-white tracking-tight">Hearts After God</h3>
-                <p class="text-[#F59E0B] font-semibold tracking-wide uppercase text-sm">Ministry</p>
-              </div>
-            </div>
-            <p class="text-white/80 mb-6 leading-relaxed">
-              Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ.
-            </p>
-            <div class="flex gap-4">
-              <a href="https://facebook.com/" aria-label="Facebook" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
-                <i class="fab fa-facebook-f text-lg"></i>
-              </a>
-              <a href="https://youtube.com/" aria-label="YouTube" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
-                <i class="fab fa-youtube text-lg"></i>
-              </a>
-              <a href="mailto:heartsaftergodministries254@gmail.com" aria-label="Email" class="group w-12 h-12 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-110 transition-all duration-300 shadow-lg">
-                <i class="fas fa-envelope text-lg"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Quick Links -->
-          <div>
-            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
-              <i class="fas fa-link mr-3 text-[#F59E0B]"></i>Quick Links
-            </h4>
-            <ul class="space-y-4">
-              <li>
-                <a href="about.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>About Us
-                </a>
-              </li>
-              <li>
-                <a href="ministries.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Ministries
-                </a>
-              </li>
-              <li>
-                <a href="events.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Events
-                </a>
-              </li>
-              <li>
-                <a href="sermons.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Sermons
-                </a>
-              </li>
-              <li>
-                <a href="blog.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Blog
-                </a>
-              </li>
-              <li>
-                <a href="contact.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
-                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Contact Information -->
-          <div>
-            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
-              <i class="fas fa-address-book mr-3 text-[#F59E0B]"></i>Contact Info
-            </h4>
-            <ul class="space-y-4">
-              <li class="group flex items-start">
-                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                  <i class="fas fa-map-marker-alt text-white"></i>
-                </div>
-                <div>
-                  <p class="font-semibold text-white">Location</p>
-                  <p class="text-white/80 text-sm">Nairobi, Kenya</p>
-                </div>
-              </li>
-              <li class="group flex items-start">
-                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                  <i class="fas fa-phone text-white"></i>
-                </div>
-                <div>
-                  <p class="font-semibold text-white">Phone</p>
-                  <p class="text-white/80 text-sm">+254 725 907 040</p>
-                </div>
-              </li>
-              <li class="group flex items-start">
-                <div class="w-10 h-10 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
-                  <i class="fas fa-envelope text-white"></i>
-                </div>
-                <div>
-                  <p class="font-semibold text-white">Email</p>
-                  <p class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Ministry Services -->
-          <div>
-            <h4 class="text-xl font-bold mb-6 text-white flex items-center">
-              <i class="fas fa-church mr-3 text-[#F59E0B]"></i>Our Services
-            </h4>
-            <ul class="space-y-4">
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-pray mr-3 text-[#F59E0B]"></i>Prayer Support
-              </li>
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-users mr-3 text-[#F59E0B]"></i>Discipleship Training
-              </li>
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-hands-helping mr-3 text-[#F59E0B]"></i>Community Outreach
-              </li>
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-music mr-3 text-[#F59E0B]"></i>Worship Services
-              </li>
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-graduation-cap mr-3 text-[#F59E0B]"></i>Bible Study
-              </li>
-              <li class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300">
-                <i class="fas fa-globe mr-3 text-[#F59E0B]"></i>Global Missions
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Newsletter Section -->
-        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
-          <div class="text-center">
-            <h4 class="text-2xl font-bold text-white mb-2">Stay Connected</h4>
-            <p class="text-white/80 mb-6 max-w-2xl mx-auto">
-              Subscribe to our newsletter for updates on events, sermons, and ministry opportunities.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-xl border-0 focus:ring-2 focus:ring-[#F59E0B] focus:outline-none text-gray-900 font-medium">
-              <button class="px-8 py-3 bg-gradient-to-r from-[#F59E0B] to-[#F59E0B]/80 text-white font-bold rounded-xl hover:from-white hover:to-white hover:text-[#1E40AF] transform hover:scale-105 transition-all duration-300 shadow-lg">
-                <i class="fas fa-paper-plane mr-2"></i>Subscribe
-              </button>
-            </div>
+              <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-lg shadow-lg hover:from-[#6D28D9] hover:to-[#F59E0B] transition-all duration-200 text-lg font-montserrat scale-100 hover:scale-105 active:scale-95">Send Reset Link</button>
+            </form>
+            <div id="forgot-confirm" class="hidden mt-4 text-[#7C3AED] font-semibold text-center bg-[#F3E8FF] border border-[#7C3AED]/30 rounded-lg px-4 py-3 shadow">If this email exists, password reset instructions have been sent.</div>
           </div>
         </div>
       </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <div id="site-footer"></div>
+  <script>
+    // Toggle between login and register modes
+    const formTitle = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    const nameField = document.getElementById('name-field');
+    const whatsappField = document.getElementById('whatsapp-field');
+    const believerTypeField = document.getElementById('believer-type-field');
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const forgotPasswordWrap = document.getElementById('forgot-password-wrap');
+    const forgotPasswordBtn = document.getElementById('forgot-password');
+    const forgotModal = document.getElementById('forgot-modal');
+    const closeForgot = document.getElementById('close-forgot');
+    const forgotForm = document.getElementById('forgot-form');
+    const forgotConfirm = document.getElementById('forgot-confirm');
+    const forgotEmail = document.getElementById('forgot-email');
+    let isRegister = false;
 
-      <!-- Bottom Footer -->
-      <div class="border-t border-white/20">
-        <div class="max-w-7xl mx-auto px-6 py-8">
-          <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-4">
-              <p class="text-white/80 text-sm">&copy; 2025 Hearts After God Ministry. All rights reserved.</p>
-              <span class="text-white/40">|</span>
-              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Privacy Policy</a>
-              <span class="text-white/40">|</span>
-              <a href="#" class="text-white/80 hover:text-[#F59E0B] text-sm transition-colors">Terms of Service</a>
-            </div>
-            <div class="flex items-center gap-2 text-white/60 text-sm">
-              <i class="fas fa-heart text-[#F59E0B]"></i>
-              <span>Made with love for God's Kingdom</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+    function setTab(activeRegister) {
+      isRegister = activeRegister;
+      if (isRegister) {
+        formTitle.textContent = 'Register for the Discipleship Program';
+        submitBtn.textContent = 'Register';
+        nameField.classList.remove('hidden');
+        whatsappField.classList.remove('hidden');
+        believerTypeField.classList.remove('hidden');
+        tabRegister.classList.add('bg-[#7C3AED]', 'text-white', 'shadow');
+        tabLogin.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow');
+        forgotPasswordWrap.classList.add('hidden');
+      } else {
+        formTitle.textContent = 'Login to Access Your Dashboard';
+        submitBtn.textContent = 'Login';
+        nameField.classList.add('hidden');
+        whatsappField.classList.add('hidden');
+        believerTypeField.classList.add('hidden');
+        tabLogin.classList.add('bg-[#7C3AED]', 'text-white', 'shadow');
+        tabRegister.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow');
+        forgotPasswordWrap.classList.remove('hidden');
+      }
+    }
+    tabLogin.addEventListener('click', () => setTab(false));
+    tabRegister.addEventListener('click', () => setTab(true));
+    // Set initial tab
+    setTab(false);
 
+    // Handle form submission
+    const unifiedForm = document.getElementById('unified-form');
+    const regSuccess = document.getElementById('register-success');
+    const loginSuccess = document.getElementById('login-success');
+    unifiedForm.onsubmit = function(e) {
+      e.preventDefault();
+      unifiedForm.classList.add('opacity-50', 'pointer-events-none');
+      if (isRegister) {
+        regSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          unifiedForm.reset();
+          unifiedForm.classList.remove('opacity-50', 'pointer-events-none');
+          regSuccess.classList.add('hidden');
+          setTab(false); // Switch back to login mode
+        }, 2500);
+      } else {
+        loginSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          unifiedForm.reset();
+          unifiedForm.classList.remove('opacity-50', 'pointer-events-none');
+          loginSuccess.classList.add('hidden');
+        }, 2000);
+      }
+    };
+    // Forgot Password modal logic
+    forgotPasswordBtn.addEventListener('click', function() {
+      forgotModal.classList.remove('hidden');
+      forgotConfirm.classList.add('hidden');
+      forgotForm.classList.remove('hidden');
+      forgotEmail.value = '';
+      forgotEmail.focus();
+    });
+    closeForgot.addEventListener('click', function() {
+      forgotModal.classList.add('hidden');
+    });
+    forgotModal.addEventListener('click', function(e) {
+      if (e.target === forgotModal) {
+        forgotModal.classList.add('hidden');
+      }
+    });
+    forgotForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      forgotForm.classList.add('opacity-50', 'pointer-events-none');
+      setTimeout(() => {
+        forgotForm.classList.remove('opacity-50', 'pointer-events-none');
+        forgotForm.classList.add('hidden');
+        forgotConfirm.classList.remove('hidden');
+      }, 1200);
+      setTimeout(() => {
+        forgotModal.classList.add('hidden');
+        forgotConfirm.classList.add('hidden');
+        forgotForm.classList.remove('hidden');
+      }, 4000);
+    });
+    // Load header and footer dynamically
+    function loadInclude(id, file) {
+      const el = document.getElementById(id);
+      if (el) {
+        fetch(file)
+          .then(res => res.text())
+          .then(html => { el.innerHTML = html; });
+      }
+    }
+    loadInclude('site-header', 'header.html');
+    loadInclude('site-footer', 'footer.html');
+  </script>
 </body>
 </html> 

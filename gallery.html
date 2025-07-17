@@ -6,6 +6,8 @@
   <title>Gallery | Hearts After God Ministry</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Google Fonts: Montserrat & Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     .header-pattern {
       background: linear-gradient(90deg, #F3E8FF 0%, #FEF3C7 100%);
@@ -35,202 +37,58 @@
 </head>
 <body class="bg-white text-gray-900 font-sans">
   <div id="site-header" class="sticky top-0 z-50 w-full"></div>
-  <!-- HERO SECTION (Gallery) -->
-  <section class="relative min-h-[32vh] flex items-center justify-center bg-center bg-cover" style="background-image: url('assets/images/hero/IMG-20250705-WA0027.jpg');">
-    <div class="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/80 to-[#2046B3]/80"></div>
-    <div class="relative z-10 text-center px-4 py-16 md:py-24">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">Gallery</h1>
-      <p class="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl mx-auto">“Declare his glory among the nations, his marvelous deeds among all peoples.”<br><span class="block mt-2 text-lg text-[#FDBA17]">Psalm 96:3</span></p>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
+    <img src="assets/images/hero/IMG-20250705-WA0025.jpg" alt="Gallery" class="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/60 to-blue-900/70"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 w-full max-w-2xl mx-auto">
+      <h1 class="font-bold text-white mb-4" style="font-family: 'Montserrat', Arial, sans-serif; font-size: 40px; line-height: 1.1;">
+        <span class="block md:text-6xl text-4xl" style="font-size: 60px;">Gallery</span>
+      </h1>
+      <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Explore moments from our ministry events, outreaches, and fellowships in our photo gallery.
+      </p>
+      <a href="gallery.html#gallery-photos" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#e63946] hover:bg-[#b71c2b] focus:outline-none focus:ring-4 focus:ring-[#e63946]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+        View Photos
+      </a>
     </div>
   </section>
+  <!-- End Hero Section -->
 
-  <!-- FEATURED SECTION & GALLERY STATS -->
-  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-8 mb-8">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <!-- Featured Album/Photo -->
-      <div id="featured-album" class="flex-1 bg-gradient-to-br from-[#7C3AED]/90 to-[#FDBA17]/80 rounded-2xl shadow-xl p-6 flex flex-col md:flex-row items-center gap-6">
-        <img id="featured-img" src="" alt="Featured" class="w-32 h-32 object-cover rounded-xl shadow-lg border-4 border-[#FDBA17]" />
-        <div>
-          <h2 class="text-2xl font-bold text-white mb-2">Featured Album</h2>
-          <div id="featured-title" class="text-lg font-semibold text-[#FDBA17] mb-1"></div>
-          <div id="featured-caption" class="text-white/90 mb-2"></div>
-          <button id="view-featured" class="cta-btn px-4 py-2 bg-[#2046B3] text-white font-bold rounded-full shadow hover:bg-[#FDBA17] hover:text-[#2046B3] transition">View Album</button>
-        </div>
+  <!-- FEATURED SECTION -->
+  <section class="max-w-4xl mx-auto px-4 md:px-8 mt-10 mb-12">
+    <div class="flex flex-col md:flex-row items-center bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-8 gap-8 border border-[#7C3AED]/10 relative overflow-hidden">
+      <!-- Glassmorphism background accent -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#F3E8FF]/60 to-[#FEF3C7]/60 rounded-3xl pointer-events-none"></div>
+      <!-- Featured Image -->
+      <div class="flex-shrink-0 z-10 flex items-center justify-center">
+        <img id="featured-img" src="" alt="Featured" class="w-32 h-32 md:w-40 md:h-40 object-cover rounded-full border-4 border-[#FDBA17] shadow-lg bg-white" />
       </div>
-      <!-- Gallery Stats -->
-      <div class="flex-1 flex flex-col items-center justify-center bg-white/80 rounded-2xl shadow p-6">
-        <h3 class="text-lg font-bold text-[#7C3AED] mb-2">Gallery Stats</h3>
-        <div class="flex flex-wrap gap-6 justify-center">
-          <div class="flex flex-col items-center"><span id="stat-images" class="text-2xl font-extrabold text-[#FDBA17]"></span><span class="text-xs text-gray-600">Images</span></div>
-          <div class="flex flex-col items-center"><span id="stat-albums" class="text-2xl font-extrabold text-[#7C3AED]"></span><span class="text-xs text-gray-600">Albums</span></div>
-          <div class="flex flex-col items-center"><span id="stat-tags" class="text-2xl font-extrabold text-[#2046B3]"></span><span class="text-xs text-gray-600">Tags</span></div>
-        </div>
-        <div class="mt-4 text-xs text-gray-500">Most Popular Tags: <span id="stat-top-tags"></span></div>
+      <!-- Vertical Divider for desktop -->
+      <div class="hidden md:block h-32 w-px bg-gradient-to-b from-[#7C3AED]/20 to-[#FDBA17]/20 mx-4"></div>
+      <!-- Info -->
+      <div class="flex-1 z-10 flex flex-col gap-2">
+        <h2 class="text-2xl md:text-3xl font-bold text-[#7C3AED] font-montserrat mb-1 flex items-center gap-2">
+          <i class="fas fa-star text-[#FDBA17]"></i> Featured Album
+        </h2>
+        <div id="featured-title" class="text-lg font-semibold text-[#FDBA17] font-montserrat mb-1"></div>
+        <div id="featured-caption" class="text-gray-700/90 mb-2 font-opensans"></div>
+        <button id="view-featured" class="cta-btn px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] transition-all text-base font-montserrat w-full md:w-auto mt-2 md:mt-4 flex items-center justify-center gap-2"><i class="fas fa-images"></i>View Album</button>
       </div>
     </div>
   </section>
 
   <main class="max-w-7xl mx-auto px-4 py-12">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <!-- SIDEBAR: Albums, Tags, Search -->
-      <aside class="gallery-sidebar mb-8 lg:mb-0 lg:sticky lg:top-28 flex-shrink-0 w-full lg:w-72 bg-white/80 rounded-2xl shadow p-4 relative" id="sidebar">
-        <!-- Mobile Sidebar Toggle -->
-        <button id="sidebar-toggle" class="md:hidden absolute top-2 right-2 z-20 p-2 rounded-full bg-[#7C3AED] text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FDBA17]" aria-label="Toggle Filters">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-        <div id="sidebar-content">
-          <div class="mb-8 flex items-center gap-2">
-            <svg class="w-6 h-6 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-            <h2 class="text-2xl font-bold text-[#7C3AED]">Browse Gallery</h2>
-          </div>
-          <div class="mb-8">
-            <input id="gallery-search" type="text" placeholder="Search photos..." class="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-[#7C3AED] focus:outline-none transition" />
-          </div>
-          <div class="mb-8">
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-5 h-5 text-[#7C3AED]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
-              <h3 class="text-lg font-bold text-[#7C3AED]">Albums</h3>
-            </div>
-            <div id="gallery-albums" class="flex flex-wrap gap-2"></div>
-          </div>
-          <div class="mb-8">
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16"/></svg>
-              <h3 class="text-lg font-bold text-[#FDBA17]">Tags</h3>
-            </div>
-            <div id="gallery-tags" class="flex flex-wrap gap-2"></div>
-          </div>
-          <div class="mb-8">
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-5 h-5 text-[#2046B3]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
-              <h3 class="text-lg font-bold text-[#2046B3]">Year</h3>
-            </div>
-            <div id="gallery-years" class="flex flex-wrap gap-2"></div>
-          </div>
-          <div class="mb-8">
-            <div class="flex items-center gap-2 mb-2">
-              <svg class="w-5 h-5 text-[#FDBA17]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.175 0l-3.388 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.388-2.46c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z"/></svg>
-              <span class="text-lg font-bold text-[#FDBA17]">Favorites</span>
-            </div>
-            <button id="gallery-fav-toggle" class="cta-btn w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FDBA17]/20 text-[#2046B3] font-bold hover:bg-[#FDBA17]/40 transition"><svg class="w-5 h-5 text-[#FDBA17]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.175 0l-3.388 2.46c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118l-3.388-2.46c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.967z"/></svg>Show Favorites</button>
-          </div>
-          <!-- Download Album Button (shown only if album selected) -->
-          <div id="download-album-section" class="mb-8 hidden">
-            <button id="download-album-btn" class="cta-btn w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-[#2046B3] text-white font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg>Download Album</button>
-          </div>
-          <!-- Gallery Analytics -->
-          <div class="mb-8">
-            <h3 class="text-lg font-bold text-[#7C3AED] mb-2 flex items-center gap-2"><svg class="w-5 h-5 text-[#FDBA17]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 17a2.5 2.5 0 002.5-2.5V7.5A2.5 2.5 0 0011 5h-1a2.5 2.5 0 00-2.5 2.5v7A2.5 2.5 0 0010 17h1z"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 17a2.5 2.5 0 002.5-2.5V10.5A2.5 2.5 0 0017 8h-1a2.5 2.5 0 00-2.5 2.5v4A2.5 2.5 0 0016 17h1z"/></svg>Gallery Analytics</h3>
-            <div class="text-sm text-gray-700 mb-2">Most Viewed: <span id="stat-most-viewed">—</span></div>
-            <div class="text-sm text-gray-700 mb-2">Most Favorited: <span id="stat-most-favorited">—</span></div>
-            <div class="text-sm text-gray-700">Largest Album: <span id="stat-largest-album">—</span></div>
-          </div>
-          <!-- ADVANCED FILTERS -->
-          <div class="mb-6">
-            <button class="w-full text-left font-bold text-[#7C3AED] mb-3 flex items-center justify-between hover:text-[#FDBA17] transition-colors" onclick="toggleFilterSection('advanced-filters')">
-              <span class="flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
-                </svg>
-                Advanced Filters
-              </span>
-              <svg class="w-5 h-5 transform transition-transform" id="advanced-filters-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </button>
-            <div id="advanced-filters" class="space-y-4 hidden bg-gray-50 rounded-lg p-4 border border-gray-200">
-              <!-- Date Range Filter -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                  Date Range
-                </label>
-                <div class="grid grid-cols-2 gap-2">
-                  <input type="date" id="filter-date-from" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" placeholder="From" />
-                  <input type="date" id="filter-date-to" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#7C3AED] focus:outline-none" placeholder="To" />
-                </div>
-              </div>
-              
-              <!-- File Size Filter -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#FDBA17]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3"/>
-                  </svg>
-                  File Size
-                </label>
-                <select id="filter-size" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
-                  <option value="">Any Size</option>
-                  <option value="small">Small (< 1MB)</option>
-                  <option value="medium">Medium (1-5MB)</option>
-                  <option value="large">Large (> 5MB)</option>
-                </select>
-              </div>
-              
-              <!-- Upload Date Filter -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#2046B3]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  Upload Date
-                </label>
-                <select id="filter-upload-date" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
-                  <option value="">Any Time</option>
-                  <option value="today">Today</option>
-                  <option value="week">This Week</option>
-                  <option value="month">This Month</option>
-                  <option value="year">This Year</option>
-                </select>
-              </div>
-              
-              <!-- View Count Filter -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-[#7C3AED]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                  </svg>
-                  View Count
-                </label>
-                <select id="filter-views" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#7C3AED] focus:outline-none">
-                  <option value="">Any Views</option>
-                  <option value="popular">Popular (100+ views)</option>
-                  <option value="trending">Trending (50+ views)</option>
-                  <option value="new">New (< 10 views)</option>
-                </select>
-              </div>
-              
-              <!-- Quick Filter Buttons -->
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Quick Filters</label>
-                <div class="grid grid-cols-2 gap-2">
-                  <button id="filter-recent" class="cta-btn px-3 py-2 text-xs bg-[#7C3AED]/10 text-[#7C3AED] rounded-lg hover:bg-[#7C3AED]/20 transition font-semibold">Recent</button>
-                  <button id="filter-popular" class="cta-btn px-3 py-2 text-xs bg-[#FDBA17]/10 text-[#FDBA17] rounded-lg hover:bg-[#FDBA17]/20 transition font-semibold">Popular</button>
-                  <button id="filter-favorites" class="cta-btn px-3 py-2 text-xs bg-[#2046B3]/10 text-[#2046B3] rounded-lg hover:bg-[#2046B3]/20 transition font-semibold">Favorites</button>
-                  <button id="filter-large" class="cta-btn px-3 py-2 text-xs bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-semibold">Large Files</button>
-                </div>
-              </div>
-              
-              <!-- Clear Filters Button -->
-              <button id="clear-filters" class="cta-btn w-full px-4 py-2 bg-red-100 text-red-700 font-semibold rounded-lg hover:bg-red-200 transition text-sm flex items-center justify-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-                Clear All Filters
-              </button>
-            </div>
-          </div>
-        </div>
-      </aside>
-      <!-- GALLERY GRID -->
-      <section class="flex-1">
-        <div id="gallery-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8"></div>
-      </section>
-    </div>
-    <div id="gallery-empty" class="hidden text-center text-gray-400 text-xl py-16">No images found.</div>
+    <!-- Sidebar removed as per user request -->
+    <!-- GALLERY GRID -->
+    <section>
+      <div id="gallery-photos"></div>
+      <div id="gallery-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+        <!-- Each photo card will be styled with glassmorphism, hover scale, shadow, overlay, and a favorite button -->
+      </div>
+    </section>
+  </main>
+  <div id="gallery-empty" class="hidden text-center text-gray-400 text-xl py-16">No images found.</div>
     <!-- Back to Top Button -->
     <button id="back-to-top" class="hidden fixed bottom-8 right-8 bg-[#7C3AED] text-white p-3 rounded-full shadow-lg hover:bg-[#5B23B4] transition-all duration-300 opacity-0 invisible z-50">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -240,42 +98,30 @@
   </main>
 
   <!-- IMAGE MODAL -->
-  <div id="gallery-modal" class="modal-bg hidden">
-    <div class="modal-content relative max-w-2xl w-full">
-      <button id="close-modal" class="absolute top-2 right-2 text-gray-400 hover:text-[#7C3AED] text-2xl font-bold">&times;</button>
-      <img id="modal-img" src="" alt="Gallery Image" class="w-full max-w-md max-h-[70vh] object-contain rounded-xl mb-4 mx-auto transition-opacity duration-300 opacity-0" />
-      <div id="modal-caption" class="text-lg text-[#2046B3] font-semibold mb-2"></div>
+  <div id="gallery-modal" class="modal-bg hidden bg-black/70 dark:bg-black/90 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+    <div class="modal-content relative max-w-md w-full rounded-2xl shadow-2xl border border-[#7C3AED]/30 bg-white/95 dark:bg-gray-900/95 animate-fadeIn p-4 sm:p-6 flex flex-col items-center scale-95 opacity-0 transition-all duration-300">
+      <button id="close-modal" class="absolute top-3 right-3 bg-white/80 dark:bg-gray-800/80 hover:bg-[#F3E8FF] dark:hover:bg-[#7C3AED]/30 text-[#7C3AED] dark:text-[#FDBA17] border border-[#7C3AED]/20 rounded-full w-10 h-10 flex items-center justify-center text-2xl font-bold shadow transition-all focus:outline-none focus:ring-2 focus:ring-[#7C3AED] z-20" aria-label="Close modal">&times;</button>
+      <img id="modal-img" src="" alt="Gallery Image" class="w-full max-w-xs max-h-[50vh] object-contain rounded-xl mb-4 mx-auto transition-opacity duration-300 opacity-0 shadow-lg bg-gray-100 dark:bg-gray-800" onload="this.classList.add('opacity-100')" onerror="this.src='assets/images/galleries/default.jpg';this.classList.add('opacity-100')" />
+      <div id="modal-caption" class="text-base sm:text-lg text-[#2046B3] dark:text-[#FDBA17] font-semibold mb-2 font-montserrat text-center"></div>
       <div class="flex flex-wrap gap-2 justify-center mb-2">
-        <span id="modal-album" class="px-3 py-1 rounded bg-[#7C3AED] text-white text-xs font-semibold"></span>
-        <span id="modal-year" class="px-3 py-1 rounded bg-[#FDBA17] text-[#2046B3] text-xs font-semibold"></span>
+        <span id="modal-album" class="px-3 py-1 rounded bg-[#7C3AED]/90 dark:bg-[#FDBA17]/90 text-white dark:text-[#2046B3] text-xs font-semibold"></span>
+        <span id="modal-year" class="px-3 py-1 rounded bg-[#FDBA17]/90 dark:bg-[#7C3AED]/90 text-[#2046B3] dark:text-white text-xs font-semibold"></span>
         <span id="modal-tags" class="flex gap-1"></span>
       </div>
-      <div class="flex justify-between items-center mt-2 mb-4">
-        <button id="modal-prev" class="cta-btn px-3 py-1 rounded bg-[#7C3AED] text-white font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Prev</button>
-        <div class="flex gap-2">
-          <a id="modal-download" href="#" download class="cta-btn px-3 py-1 rounded bg-[#2046B3] text-white font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] transition" title="Download"><svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/></svg></a>
-          <button id="modal-share" class="cta-btn px-3 py-1 rounded bg-[#FDBA17] text-[#2046B3] font-bold hover:bg-[#7C3AED] hover:text-white transition" title="Share"><svg class="w-5 h-5 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 12v.01M12 4v.01M20 12v.01M12 20v.01M8.59 8.59l.01.01M15.41 8.59l.01.01M8.59 15.41l.01.01M15.41 15.41l.01.01"/></svg></button>
-        </div>
-        <button id="modal-next" class="cta-btn px-3 py-1 rounded bg-[#7C3AED] text-white font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] transition">Next</button>
+      <div class="flex flex-wrap justify-center gap-2 mb-4">
+        <a id="modal-download" href="#" download class="cta-btn px-4 py-2 rounded bg-[#2046B3] dark:bg-[#FDBA17] text-white dark:text-[#2046B3] font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] dark:hover:bg-[#7C3AED] dark:hover:text-white transition flex items-center gap-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" title="Download"><i class="fas fa-download"></i>Download</a>
+        <button id="modal-copy-caption" class="cta-btn px-4 py-2 rounded bg-[#7C3AED] dark:bg-[#FDBA17] text-white dark:text-[#2046B3] font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] dark:hover:bg-[#7C3AED] dark:hover:text-white transition flex items-center gap-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" title="Copy Caption"><i class="fas fa-quote-right"></i>Copy Caption</button>
+        <button id="modal-copy-link" class="cta-btn px-4 py-2 rounded bg-[#FDBA17] dark:bg-[#7C3AED] text-[#2046B3] dark:text-white font-bold hover:bg-[#7C3AED] hover:text-white dark:hover:bg-[#FDBA17] dark:hover:text-[#2046B3] transition flex items-center gap-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" title="Copy Image Link"><i class="fas fa-link"></i>Copy Link</button>
+        <button id="modal-share" class="cta-btn px-4 py-2 rounded bg-[#7C3AED] dark:bg-[#2046B3] text-white dark:text-[#FDBA17] font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] dark:hover:bg-[#7C3AED] dark:hover:text-white transition flex items-center gap-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" title="Share"><i class="fas fa-share-alt"></i>Share</button>
+      </div>
+      <div id="modal-confirm" class="hidden text-center text-[#7C3AED] dark:text-[#FDBA17] font-semibold bg-[#F3E8FF] dark:bg-[#1E40AF]/40 border border-[#7C3AED]/30 rounded-lg px-4 py-3 shadow mb-2"></div>
+      <div class="flex justify-between items-center w-full mt-2 mb-2">
+        <button id="modal-prev" class="cta-btn px-3 py-1 rounded bg-[#7C3AED] dark:bg-[#FDBA17] text-white dark:text-[#2046B3] font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] dark:hover:bg-[#7C3AED] dark:hover:text-white transition text-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED]"><i class="fas fa-chevron-left"></i> Prev</button>
+        <div class="flex gap-2"></div>
+        <button id="modal-next" class="cta-btn px-3 py-1 rounded bg-[#7C3AED] dark:bg-[#FDBA17] text-white dark:text-[#2046B3] font-bold hover:bg-[#FDBA17] hover:text-[#2046B3] dark:hover:bg-[#7C3AED] dark:hover:text-white transition text-lg focus:outline-none focus:ring-2 focus:ring-[#7C3AED]">Next <i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </div>
-
-  <!-- SOCIAL MEDIA PHOTOS SECTION -->
-  <section class="max-w-7xl mx-auto px-4 md:px-8 mt-16 mb-12">
-    <div class="bg-gradient-to-br from-[#F3E8FF]/80 to-[#FEF3C7]/80 rounded-2xl shadow-xl p-8 flex flex-col gap-8 items-center">
-      <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#FDBA17] mb-2 text-center">Social Media Photos</h2>
-      <p class="text-lg text-gray-700 text-center mb-4">See more ministry moments and event highlights on our social media pages!</p>
-      <!-- Instagram Feed Embed (SnapWidget as example) -->
-      <div class="w-full flex justify-center">
-        <iframe src="https://snapwidget.com/embed/1051232" class="w-full max-w-2xl h-[400px] rounded-xl border-2 border-[#FDBA17] shadow" allowtransparency="true" frameborder="0" scrolling="no" title="Instagram Feed"></iframe>
-      </div>
-      <div class="flex flex-wrap gap-6 justify-center mt-4">
-        <a href="https://www.instagram.com/heartsaftergodministry/" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full shadow hover:from-purple-600 hover:to-pink-600 transition text-lg"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.36-30.36C293.19,120,256,118.13,224,118.13s-69.19,1.87-94.35,13.17a54,54,0,0,0-30.36,30.36C120,162.81,118.13,200,118.13,232s1.87,69.19,13.17,94.35a54,54,0,0,0,30.36,30.36C162.81,392,200,393.87,232,393.87s69.19-1.87,94.35-13.17a54,54,0,0,0,30.36-30.36C392,349.19,393.87,312,393.87,280S392,162.81,348.71,161.66ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53ZM398.8,80.13A54.13,54.13,0,0,0,368.13,49.46C349.19,32,312,30.13,280,30.13s-69.19,1.87-94.35,13.17A54.13,54.13,0,0,0,49.46,80.13C32,99.07,30.13,136.26,30.13,168.26s1.87,69.19,13.17,94.35A54.13,54.13,0,0,0,80.13,398.8C99.07,416.24,136.26,418.13,168.26,418.13s69.19-1.87,94.35-13.17a54.13,54.13,0,0,0,30.36-30.36C416.24,349.19,418.13,312,418.13,280S416.24,162.81,398.8,80.13ZM224,338.66A82.66,82.66,0,1,1,306.66,256,82.75,82.75,0,0,1,224,338.66Zm85.4-148.13a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,190.53Z"/></svg>Instagram</a>
-        <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" class="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-full shadow hover:bg-blue-700 transition text-lg"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</a>
-      </div>
-    </div>
-  </section>
 
   <!-- REAL-TIME ACTIVITY FEED -->
   <section class="max-w-7xl mx-auto px-4 md:px-8 mt-16 mb-12">
@@ -345,10 +191,7 @@
     // --- Gallery Logic ---
     let allImages = [];
     let filteredImages = [];
-    let activeAlbum = '';
-    let activeTag = '';
-    let activeYear = '';
-    let searchTerm = '';
+    let albumImages = [];
     let currentIndex = 0;
 
     // Fetch gallery data
@@ -369,12 +212,12 @@
             if (featuredCaption) featuredCaption.textContent = images[0].caption || '';
             if (viewFeaturedBtn) {
               viewFeaturedBtn.onclick = function() {
-                // Scroll to the image in the gallery grid
-                const grid = document.getElementById('gallery-list');
-                if (grid) {
-                  const imgEl = Array.from(grid.querySelectorAll('img')).find(img => img.src.includes(images[0].url));
-                  if (imgEl) imgEl.scrollIntoView({behavior:'smooth',block:'center'});
-                }
+                // Filter images by album of the featured image
+                const featuredAlbum = images[0].album;
+                albumImages = images.filter(img => img.album === featuredAlbum);
+                // Find index of featured image in albumImages
+                const featuredIndex = albumImages.findIndex(img => img.url === images[0].url);
+                openAlbumModal(featuredIndex);
               };
             }
           } else {
@@ -385,54 +228,8 @@
             if (viewFeaturedBtn) viewFeaturedBtn.onclick = null;
           }
         }
-        renderSidebar(images);
-        filterAndRender();
+        renderGallery(images);
       });
-
-    // Render sidebar (albums, tags, years)
-    function renderSidebar(images) {
-      // Albums
-      const albums = [...new Set(images.map(img => img.album).filter(Boolean))];
-      const albumContainer = document.getElementById('gallery-albums');
-      albumContainer.innerHTML = `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#7C3AED] font-semibold hover:bg-[#7C3AED] hover:text-white transition ${activeAlbum===''?'gallery-album-active':''}" data-album="">All</button>` +
-        albums.map(album => `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#7C3AED] font-semibold hover:bg-[#7C3AED] hover:text-white transition ${activeAlbum===album?'gallery-album-active':''}" data-album="${album}">${album}</button>`).join('');
-      albumContainer.querySelectorAll('button').forEach(btn => {
-        btn.onclick = () => { activeAlbum = btn.getAttribute('data-album'); filterAndRender(); };
-      });
-      // Tags
-      const tags = [...new Set(images.flatMap(img => img.tags||[]))];
-      const tagContainer = document.getElementById('gallery-tags');
-      tagContainer.innerHTML = `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#FDBA17] font-semibold hover:bg-[#FDBA17] hover:text-[#2046B3] transition ${activeTag===''?'gallery-tag-active':''}" data-tag="">All</button>` +
-        tags.map(tag => `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#FDBA17] font-semibold hover:bg-[#FDBA17] hover:text-[#2046B3] transition ${activeTag===tag?'gallery-tag-active':''}" data-tag="${tag}">${tag}</button>`).join('');
-      tagContainer.querySelectorAll('button').forEach(btn => {
-        btn.onclick = () => { activeTag = btn.getAttribute('data-tag'); filterAndRender(); };
-      });
-      // Years
-      const years = [...new Set(images.map(img => img.year).filter(Boolean))].sort((a,b)=>b-a);
-      const yearContainer = document.getElementById('gallery-years');
-      yearContainer.innerHTML = `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#2046B3] font-semibold hover:bg-[#2046B3] hover:text-white transition ${activeYear===''?'bg-[#2046B3] text-white':''}" data-year="">All</button>` +
-        years.map(year => `<button class="cta-btn px-3 py-1 rounded bg-gray-100 text-[#2046B3] font-semibold hover:bg-[#2046B3] hover:text-white transition ${activeYear==year?'bg-[#2046B3] text-white':''}" data-year="${year}">${year}</button>`).join('');
-      yearContainer.querySelectorAll('button').forEach(btn => {
-        btn.onclick = () => { activeYear = btn.getAttribute('data-year'); filterAndRender(); };
-      });
-      // Search
-      document.getElementById('gallery-search').oninput = function(e) {
-        searchTerm = e.target.value.trim().toLowerCase();
-        filterAndRender();
-      };
-    }
-
-    // Filter and render gallery
-    function filterAndRender() {
-      filteredImages = allImages.filter(img => {
-        const matchesAlbum = !activeAlbum || img.album === activeAlbum;
-        const matchesTag = !activeTag || (img.tags && img.tags.includes(activeTag));
-        const matchesYear = !activeYear || String(img.year) === String(activeYear);
-        const matchesSearch = !searchTerm || (img.caption && img.caption.toLowerCase().includes(searchTerm)) || (img.album && img.album.toLowerCase().includes(searchTerm)) || (img.tags && img.tags.join(' ').toLowerCase().includes(searchTerm));
-        return matchesAlbum && matchesTag && matchesYear && matchesSearch;
-      });
-      renderGallery(filteredImages);
-    }
 
     // Render gallery grid
     function renderGallery(images) {
@@ -456,8 +253,18 @@
       });
     }
 
-    // Modal logic with slideshow
+    // Modal logic for album
+    function openAlbumModal(index) {
+      if (!albumImages.length) return;
+      filteredImages = albumImages;
+      currentIndex = index;
+      showModalImage();
+      document.getElementById('gallery-modal').classList.remove('hidden');
+    }
+
+    // Modal logic with slideshow (default: all images)
     function openModal(index) {
+      filteredImages = allImages;
       currentIndex = index;
       showModalImage();
       document.getElementById('gallery-modal').classList.remove('hidden');
@@ -469,7 +276,7 @@
       document.getElementById('modal-caption').textContent = img.caption || '';
       document.getElementById('modal-album').textContent = img.album || '';
       document.getElementById('modal-year').textContent = img.year || '';
-      document.getElementById('modal-tags').innerHTML = ''; // Clear previous tags
+      document.getElementById('modal-tags').innerHTML = '';
       if (img.tags && img.tags.length > 0) {
         img.tags.forEach(tag => {
           const tagSpan = document.createElement('span');
@@ -523,5 +330,128 @@
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     };
   </script>
+  <script>
+      // Modal open/close animation and focus trap
+      const galleryModal = document.getElementById('gallery-modal');
+      const modalContent = galleryModal.querySelector('.modal-content');
+      let lastFocusedElement = null;
+      function openModalAnimation() {
+        modalContent.classList.remove('opacity-0', 'scale-95');
+        modalContent.classList.add('opacity-100', 'scale-100');
+        // Focus trap
+        lastFocusedElement = document.activeElement;
+        setTimeout(() => {
+          const focusable = modalContent.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          if (focusable.length) focusable[0].focus();
+        }, 100);
+      }
+      function closeModalAnimation() {
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        modalContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => { galleryModal.classList.add('hidden'); }, 200);
+        if (lastFocusedElement) lastFocusedElement.focus();
+      }
+      // Patch openModal and openAlbumModal to call openModalAnimation
+      const origOpenModal = window.openModal;
+      window.openModal = function(index) {
+        origOpenModal(index);
+        galleryModal.classList.remove('hidden');
+        openModalAnimation();
+      };
+      const origOpenAlbumModal = window.openAlbumModal;
+      window.openAlbumModal = function(index) {
+        origOpenAlbumModal(index);
+        galleryModal.classList.remove('hidden');
+        openModalAnimation();
+      };
+      // Patch close button
+      document.getElementById('close-modal').onclick = closeModalAnimation;
+      // Trap focus inside modal
+      galleryModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+          const focusable = modalContent.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+          } else {
+            if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+          }
+        }
+      });
+      // Close on overlay click
+      galleryModal.addEventListener('click', function(e) {
+        if (e.target === galleryModal) closeModalAnimation();
+      });
+      // Dark mode support (Tailwind's dark: classes handle most, but force dark if system prefers)
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+    <script>
+      // Modal action buttons functionality
+      function showModalConfirm(msg) {
+        const confirmBox = document.getElementById('modal-confirm');
+        confirmBox.textContent = msg;
+        confirmBox.classList.remove('hidden');
+        setTimeout(() => confirmBox.classList.add('hidden'), 1800);
+      }
+      // Download
+      document.getElementById('modal-download').onclick = function(e) {
+        e.preventDefault();
+        const img = filteredImages[currentIndex];
+        if (img && img.url) {
+          // Set href and download attributes
+          this.setAttribute('href', img.url);
+          this.setAttribute('download', img.caption ? img.caption.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.jpg' : 'gallery-image.jpg');
+          // Create a temporary link to force download
+          const link = document.createElement('a');
+          link.href = img.url;
+          link.download = this.getAttribute('download');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showModalConfirm('Image download started');
+        }
+      };
+      // Copy Caption
+      document.getElementById('modal-copy-caption').onclick = function() {
+        const img = filteredImages[currentIndex];
+        if (img && img.caption) {
+          navigator.clipboard.writeText(img.caption).then(() => {
+            showModalConfirm('Caption copied!');
+          });
+        }
+      };
+      // Copy Link
+      document.getElementById('modal-copy-link').onclick = function() {
+        const img = filteredImages[currentIndex];
+        if (img && img.url) {
+          navigator.clipboard.writeText(window.location.origin + '/' + img.url.replace(/^\//, '')).then(() => {
+            showModalConfirm('Image link copied!');
+          });
+        }
+      };
+      // Share
+      document.getElementById('modal-share').onclick = function() {
+        const img = filteredImages[currentIndex];
+        if (img && img.url) {
+          const shareData = {
+            title: img.caption || 'Gallery Image',
+            text: img.caption || '',
+            url: window.location.origin + '/' + img.url.replace(/^\//, '')
+          };
+          if (navigator.share) {
+            navigator.share(shareData).then(() => {
+              showModalConfirm('Shared!');
+            }).catch(() => {});
+          } else {
+            navigator.clipboard.writeText(shareData.url).then(() => {
+              showModalConfirm('Link copied for sharing!');
+            });
+          }
+        }
+      };
+    </script>
 </body>
 </html> 

@@ -6,49 +6,32 @@
   <title>Youth & Children | Hearts After God Ministry</title>
   <meta name="description" content="Discover the Youth & Children ministry at Hearts After God Ministry. Programs, events, and discipleship for the next generation."/>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Montserrat & Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-white text-gray-900">
   <!-- HEADER / NAVIGATION -->
-  <header class="sticky top-0 z-50 shadow-xl border-b border-gray-200/50" style="background: linear-gradient(90deg, #7C3AED 0%, #F59E0B 100%);">
-    <nav class="max-w-7xl mx-auto px-6 py-5">
-      <div class="flex items-center gap-4">
-        <img src="assets/images/logo.jpg" alt="Logo" class="h-12 w-12 rounded-full border-3 border-[#7C3AED] object-cover shadow-xl ring-4 ring-[#7C3AED]/10"/>
-        <span class="text-2xl font-black text-[#7C3AED] tracking-tight">Hearts After God</span>
-      </div>
-      <ul class="hidden lg:flex items-center gap-6">
-        <li><a href="index.html" class="text-gray-700 font-semibold hover:text-[#7C3AED]">Home</a></li>
-        <li><a href="about.html" class="text-gray-700 font-semibold hover:text-[#7C3AED]">About</a></li>
-        <li><a href="ministries.html" class="text-[#7C3AED] font-bold">Ministries</a></li>
-        <li><a href="contact.html" class="text-gray-700 font-semibold hover:text-[#7C3AED]">Contact</a></li>
-      </ul>
-    </nav>
-    <script>
-      // This script is needed for the sticky header to work correctly.
-      // It ensures the header remains fixed at the top of the viewport.
-      window.addEventListener('scroll', function() {
-        const header = document.querySelector('.sticky');
-        if (window.scrollY > 0) {
-          header.classList.add('shadow-lg');
-          header.classList.add('border-gray-300');
-        } else {
-          header.classList.remove('shadow-lg');
-          header.classList.remove('border-gray-300');
-        }
-      });
-    </script>
-  </header>
-  <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 w-full h-full">
-      <img src="assets/images/hero/IMG-20250705-WA0021.jpg" alt="Youth Ministry" class="w-full h-full object-cover"/>
-    </div>
-    <div class="absolute inset-0 bg-[#1E40AF]/80"></div>
-    <div class="relative z-10 text-center px-4 py-12 w-full max-w-3xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-2xl">Youth & Children</h1>
-      <p class="text-lg md:text-xl mb-4 text-white/90">Empowering the next generation to grow in Christ, serve their community, and discover their God-given purpose.</p>
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
+  <script src="assets/js/main.js"></script>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
+    <img src="assets/images/hero/IMG-20250705-WA0027.jpg" alt="Youth Ministry" class="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/60 to-blue-900/70"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 w-full max-w-2xl mx-auto">
+      <h1 class="font-bold text-white mb-4" style="font-family: 'Montserrat', Arial, sans-serif; font-size: 40px; line-height: 1.1;">
+        <span class="block md:text-6xl text-4xl" style="font-size: 60px;">Youth Ministry</span>
+      </h1>
+      <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Empowering the next generation to live boldly for Christ. Join our vibrant youth community!
+      </p>
+      <a href="youth.html#youth-programs" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#e63946] hover:bg-[#b71c2b] focus:outline-none focus:ring-4 focus:ring-[#e63946]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+        Get Involved
+      </a>
     </div>
   </section>
+  <!-- End Hero Section -->
   <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <h2 class="text-3xl font-bold text-[#1E40AF] mb-6">About the Youth & Children Ministry</h2>

@@ -8,6 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700,900&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts: Montserrat & Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Nunito', sans-serif; }
     .scripture { font-family: 'Georgia', serif; }
@@ -16,220 +18,123 @@
 <body class="bg-white text-gray-900">
 
   <!-- HEADER / NAVIGATION -->
-  <header class="sticky top-0 z-50 shadow-xl border-b border-gray-200/50" style="background: linear-gradient(90deg, #7C3AED 0%, #F59E0B 100%);">
-    <nav class="max-w-7xl mx-auto px-6 py-5">
-      <div class="flex items-center justify-between">
-        <!-- Logo & Brand -->
-        <div class="flex items-center gap-4">
-          <div class="relative">
-            <img src="assets/images/logo.jpg" alt="Hearts After God Logo" class="h-14 w-14 rounded-full border-3 border-[#7C3AED] object-cover shadow-xl ring-4 ring-[#7C3AED]/10"/>
-            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#F59E0B] rounded-full border-2 border-white shadow-sm"></div>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-2xl font-black text-white tracking-tight">Hearts After God</span>
-            <div class="text-sm text-[#F59E0B] font-semibold tracking-wide uppercase">Ministry</div>
-          </div>
-        </div>
-
-        <!-- Desktop Navigation -->
-        <ul class="hidden lg:flex items-center gap-1">
-          <li class="relative group">
-            <button class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-all duration-300 flex items-center gap-2 focus:outline-none">
-              <span>About</span>
-              <i class="fas fa-chevron-down text-xs ml-2 align-middle"></i>
-            </button>
-            <ul class="absolute left-0 mt-2 w-56 bg-white shadow-xl rounded-xl py-2 opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
-              <li><a href="team.html" class="block px-6 py-3 text-[#7C3AED] hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a></li>
-              <li><a href="discipleship.html" class="block px-6 py-3 text-[#7C3AED] hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="index.html" class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-all duration-300">Home</a>
-          </li>
-          <li>
-            <a href="ministries.html" class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-all duration-300">Ministries</a>
-          </li>
-          <li>
-            <a href="events.html" class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#F59E0B]/10 rounded-xl transition-all duration-300">Events</a>
-          </li>
-          <li>
-            <a href="sermons.html" class="relative px-6 py-3 text-white font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20 hover:from-[#7C3AED]/20 hover:to-[#F59E0B]/20 transition-all duration-300 ring-2 ring-[#F59E0B] ring-offset-2">
-              <span class="relative z-10">Sermons</span>
-              <div class="absolute inset-0 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-xl opacity-10"></div>
-            </a>
-          </li>
-          <li>
-            <a href="blog.html" class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#F59E0B]/10 rounded-xl transition-all duration-300">Blog</a>
-          </li>
-          <li>
-            <a href="contact.html" class="px-6 py-3 text-white font-semibold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-all duration-300">Contact</a>
-          </li>
-        </ul>
-        <div class="hidden lg:flex items-center gap-4">
-          <a href="discipleship.html" class="px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            <i class="fas fa-users mr-2"></i>Join Us
-          </a>
-      </div>
-        <!-- Mobile Menu Button and Mobile Menu (same as homepage) -->
-        <button id="mobile-menu-btn" class="lg:hidden relative p-3 text-white hover:bg-[#7C3AED]/10 rounded-xl transition-colors duration-300 focus:outline-none">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobile-menu" class="lg:hidden hidden mt-4 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50">
-        <div class="p-6 space-y-4">
-          <a href="index.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border border-[#7C3AED]/20">
-            <i class="fas fa-home mr-3"></i>Home
-          </a>
-          <!-- About Dropdown (Mobile) -->
-          <div class="space-y-1">
-            <button onclick="document.getElementById('mobile-about-dropdown').classList.toggle('hidden')" class="flex items-center w-full px-4 py-3 text-[#7C3AED] font-bold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-colors">
-              <i class="fas fa-info-circle mr-3"></i>About <i class="fas fa-chevron-down ml-2 align-middle"></i>
-            </button>
-            <div id="mobile-about-dropdown" class="hidden ml-8 space-y-1">
-              <a href="team.html" class="block px-4 py-2 text-[#7C3AED] hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Team (Leaders)</a>
-              <a href="discipleship.html" class="block px-4 py-2 text-[#7C3AED] hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] rounded-xl">Discipleship</a>
-            </div>
-          </div>
-          <a href="ministries.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-colors">
-            <i class="fas fa-church mr-3"></i>Ministries
-          </a>
-          <a href="events.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold hover:text-[#F59E0B] hover:bg-[#F59E0B]/10 rounded-xl transition-colors">
-            <i class="fas fa-calendar mr-3"></i>Events
-          </a>
-          <a href="sermons.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10 rounded-xl border-2 border-[#F59E0B] ring-2 ring-[#F59E0B]">
-            <i class="fas fa-microphone mr-3"></i>Sermons
-          </a>
-          <a href="blog.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold hover:text-[#F59E0B] hover:bg-[#F59E0B]/10 rounded-xl transition-colors">
-            <i class="fas fa-blog mr-3"></i>Blog
-          </a>
-          <a href="contact.html" class="flex items-center px-4 py-3 text-[#7C3AED] font-bold hover:text-[#F59E0B] hover:bg-[#7C3AED]/10 rounded-xl transition-colors">
-            <i class="fas fa-envelope mr-3"></i>Contact
-          </a>
-          <div class="pt-4 border-t border-gray-200">
-            <a href="discipleship.html" class="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-              <i class="fas fa-users mr-2"></i>Join Us
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <script>
-      document.getElementById('mobile-menu-btn').onclick = function() {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-      };
-    </script>
-  </header>
+  <div id="site-header" class="sticky top-0 z-50 w-full"></div>
 
   <!-- HERO SECTION -->
-  <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 w-full h-full">
-      <img src="assets/images/hero/IMG-20250705-WA0022.jpg" alt="Sermons at Hearts After God" class="w-full h-full object-cover"/>
+  <section class="relative min-h-[40vh] md:min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-purple-900 via-blue-900 to-black overflow-hidden">
+    <img src="assets/images/hero/IMG-20250705-WA0024.jpg" alt="Sermons" class="absolute inset-0 w-full h-full object-cover opacity-60" loading="lazy" />
+    <div class="absolute inset-0 bg-gradient-to-br from-black/70 via-purple-900/60 to-blue-900/70"></div>
+    <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16 w-full max-w-2xl mx-auto">
+      <h1 class="font-bold text-white mb-4" style="font-family: 'Montserrat', Arial, sans-serif; font-size: 40px; line-height: 1.1;">
+        <span class="block md:text-6xl text-4xl" style="font-size: 60px;">Sermons & Teachings</span>
+      </h1>
+      <p class="text-white mb-8 md:text-xl text-base font-normal" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Be inspired by powerful messages from our ministry leaders. Watch, listen, or read to grow in your faith journey.
+      </p>
+      <a href="#sermon-list" class="cta-btn inline-block px-8 py-4 rounded-full font-bold text-white text-lg shadow-lg transition bg-[#7C3AED] hover:bg-[#5B23B4] focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+        Explore Sermons
+      </a>
     </div>
-    <div class="absolute inset-0 bg-[#7C3AED]/90"></div>
-    <div class="relative z-10 text-center px-4 py-12 w-full max-w-4xl mx-auto">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow-2xl">Sermons & Teachings</h1>
-      <blockquote class="scripture text-base md:text-xl mb-2 text-white font-semibold">
-        "So faith comes from hearing, and hearing through the word of Christ."
-      </blockquote>
-      <div class="text-[#F59E0B] font-bold text-base mb-6">Romans 10:17</div>
-      <p class="text-lg md:text-xl mb-4 text-white/90 max-w-3xl mx-auto">Spirit-filled messages to equip and encourage your faith journey.</p>
-        </div>
   </section>
 
   <!-- FEATURED SERMON -->
   <section class="py-16 bg-white">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="flex flex-col md:flex-row items-center gap-10">
-        <img src="assets/images/blog/blog1.jpg" alt="Featured Sermon" class="w-full md:w-1/2 rounded-2xl shadow-2xl mb-8 md:mb-0"/>
-        <div class="flex-1">
-          <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-4 py-1 rounded-full mb-4"><i class="fas fa-star mr-1"></i> Featured Sermon</span>
-          <h2 class="text-3xl font-bold text-[#7C3AED] mb-4">Walking in Faith</h2>
-          <div class="flex items-center gap-4 mb-2 text-[#1E40AF] font-semibold">
-            <i class="fas fa-user"></i> Minister Cyrilla
-            <i class="fas fa-calendar-alt"></i> July 2025
-          </div>
-          <p class="text-gray-700 mb-4">Discover how to trust God in every season of life and walk confidently in your faith journey. This message will inspire and equip you to live by faith, not by sight.</p>
-          <a href="#sermon-list" class="inline-flex items-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all text-base"><i class="fas fa-play mr-2"></i>Watch Now</a>
-        </div>
-      </div>
-    </div>
-    </section>
-
-  <!-- SERMON FILTER BAR (VISUAL) -->
-  <section class="py-4 bg-gradient-to-r from-[#7C3AED]/10 to-[#F59E0B]/10">
-    <div class="max-w-6xl mx-auto px-4 flex flex-wrap gap-4 justify-center">
-      <button class="px-5 py-2 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#F59E0B] hover:text-[#1E40AF] transition-all">All</button>
-      <button class="px-5 py-2 bg-white text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all">Faith</button>
-      <button class="px-5 py-2 bg-white text-[#F59E0B] font-bold rounded-full border-2 border-[#F59E0B] hover:bg-[#F59E0B] hover:text-white transition-all">Prayer</button>
-      <button class="px-5 py-2 bg-white text-[#1E40AF] font-bold rounded-full border-2 border-[#1E40AF] hover:bg-[#1E40AF] hover:text-white transition-all">Revival</button>
-      <button class="px-5 py-2 bg-white text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all">Destiny</button>
-          </div>
-        </section>
-
-  <!-- SERMONS GRID -->
-  <section id="sermon-list" class="py-20 bg-gradient-to-br from-gray-50 to-white">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-[#1E40AF] mb-4">Recent Sermons</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Be inspired and equipped by Spirit-filled messages from our ministry</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-10">
-        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all duration-300">
-          <span class="inline-block bg-[#7C3AED] text-white text-xs font-bold px-4 py-1 rounded-full mb-2"><i class="fas fa-bolt mr-1"></i> New</span>
-          <img src="assets/images/blog/blog2.jpg" alt="Sermon: Power of Prayer" class="w-24 h-24 object-cover rounded-lg shadow mb-4"/>
-          <h3 class="text-xl font-bold mb-2">The Power of Prayer</h3>
-          <p class="text-gray-700 mb-2">Minister Cyrilla • June 2025</p>
-          <a href="#" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">Watch <i class="fas fa-play ml-2"></i></a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all duration-300">
-          <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-4 py-1 rounded-full mb-2"><i class="fas fa-fire mr-1"></i> Popular</span>
-          <img src="assets/images/blog/blog3.jpg" alt="Sermon: Revival Fire" class="w-24 h-24 object-cover rounded-lg shadow mb-4"/>
-          <h3 class="text-xl font-bold mb-2">Revival Fire</h3>
-          <p class="text-gray-700 mb-2">Minister Cyrilla • May 2025</p>
-          <a href="#" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">Watch <i class="fas fa-play ml-2"></i></a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all duration-300">
-          <span class="inline-block bg-[#1E40AF] text-white text-xs font-bold px-4 py-1 rounded-full mb-2"><i class="fas fa-cross mr-1"></i> Faith</span>
-          <img src="assets/images/blog/blog4.jpg" alt="Sermon: Destiny Unlocked" class="w-24 h-24 object-cover rounded-lg shadow mb-4"/>
-          <h3 class="text-xl font-bold mb-2">Destiny Unlocked</h3>
-          <p class="text-gray-700 mb-2">Minister Cyrilla • April 2025</p>
-          <a href="#" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">Watch <i class="fas fa-play ml-2"></i></a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all duration-300">
-          <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-4 py-1 rounded-full mb-2"><i class="fas fa-seedling mr-1"></i> Growth</span>
-          <img src="assets/images/blog/blog5.jpg" alt="Sermon: Spirit-Led Life" class="w-24 h-24 object-cover rounded-lg shadow mb-4"/>
-          <h3 class="text-xl font-bold mb-2">Spirit-Led Life</h3>
-          <p class="text-gray-700 mb-2">Minister Cyrilla • March 2025</p>
-          <a href="#" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">Watch <i class="fas fa-play ml-2"></i></a>
-        </div>
-        <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center hover:shadow-2xl transition-all duration-300">
-          <span class="inline-block bg-[#7C3AED] text-white text-xs font-bold px-4 py-1 rounded-full mb-2"><i class="fas fa-bolt mr-1"></i> New</span>
-          <img src="assets/images/blog/blog1.jpg" alt="Sermon: Walking in Faith" class="w-24 h-24 object-cover rounded-lg shadow mb-4"/>
-          <h3 class="text-xl font-bold mb-2">Walking in Faith</h3>
-          <p class="text-gray-700 mb-2">Minister Cyrilla • July 2025</p>
-          <a href="#" class="inline-flex items-center text-[#7C3AED] font-semibold hover:text-[#F59E0B] transition-colors">Watch <i class="fas fa-play ml-2"></i></a>
+      <div class="bg-gradient-to-br from-[#7C3AED]/5 to-[#F59E0B]/5 rounded-2xl p-8 border border-[#7C3AED]/10">
+        <div class="flex flex-col lg:flex-row items-center gap-10">
+          <div class="lg:w-1/2">
+            <img src="assets/images/blog/blog1.jpg" alt="Featured Sermon" class="w-full rounded-2xl shadow-2xl"/>
+          </div>
+          <div class="lg:w-1/2">
+            <span class="inline-block bg-[#F59E0B] text-white text-xs font-bold px-4 py-2 rounded-full mb-4">
+              <i class="fas fa-star mr-2"></i> Featured Sermon
+            </span>
+            <h2 class="text-3xl font-bold text-[#7C3AED] mb-4" style="font-family: 'Montserrat', Arial, sans-serif;">
+              The Power of Consistent Prayer
+            </h2>
+            <div class="flex items-center gap-4 mb-4 text-[#1E40AF] font-semibold">
+              <i class="fas fa-user"></i> Minister Cyrilla Chikamai
+              <i class="fas fa-calendar-alt"></i> July 7, 2025
+            </div>
+            <p class="text-gray-700 mb-6 text-lg" style="font-family: 'Open Sans', Arial, sans-serif;">
+              Discover the transformative power of consistent prayer in your daily walk with God. This message will inspire and equip you to develop a deeper prayer life that moves mountains.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="https://youtube.com/@heartsaftergodministries" target="_blank" class="inline-flex items-center px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#5B23B4] transition-all text-base">
+                <i class="fab fa-youtube mr-2"></i>Watch on YouTube
+              </a>
+              <a href="#sermon-list" class="inline-flex items-center px-6 py-3 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all text-base">
+                <i class="fas fa-list mr-2"></i>View All Sermons
+              </a>
+            </div>
           </div>
         </div>
+      </div>
     </div>
   </section>
 
+  <!-- SERMON FILTER BAR -->
+  <section class="py-8 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex flex-wrap gap-4 justify-center">
+        <button class="px-6 py-3 bg-[#7C3AED] text-white font-bold rounded-full shadow hover:bg-[#5B23B4] transition-all" data-category="All">
+          <i class="fas fa-list mr-2"></i>All Sermons
+        </button>
+        <button class="px-6 py-3 bg-white text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all" data-category="Prayer">
+          <i class="fas fa-pray mr-2"></i>Prayer
+        </button>
+        <button class="px-6 py-3 bg-white text-[#F59E0B] font-bold rounded-full border-2 border-[#F59E0B] hover:bg-[#F59E0B] hover:text-white transition-all" data-category="Faith">
+          <i class="fas fa-cross mr-2"></i>Faith
+        </button>
+        <button class="px-6 py-3 bg-white text-[#1E40AF] font-bold rounded-full border-2 border-[#1E40AF] hover:bg-[#1E40AF] hover:text-white transition-all" data-category="Revival">
+          <i class="fas fa-fire mr-2"></i>Revival
+        </button>
+        <button class="px-6 py-3 bg-white text-[#DC2626] font-bold rounded-full border-2 border-[#DC2626] hover:bg-[#DC2626] hover:text-white transition-all" data-category="Growth">
+          <i class="fas fa-seedling mr-2"></i>Growth
+        </button>
+      </div>
+    </div>
+  </section>
 
+  <!-- SERMONS GRID -->
+  <section id="sermon-list" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-4" style="font-family: 'Montserrat', Arial, sans-serif;">
+          Recent Sermons
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto" style="font-family: 'Open Sans', Arial, sans-serif;">
+          Be inspired and equipped by Spirit-filled messages from our ministry leaders
+        </p>
+      </div>
+      
+      <div id="sermons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Sermon cards will be rendered here by JS -->
+      </div>
+
+      <!-- Load More Button -->
+      <div class="text-center mt-12">
+        <button id="load-more-sermons" class="px-8 py-4 bg-[#7C3AED] text-white font-bold rounded-full shadow-lg hover:bg-[#5B23B4] transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#7C3AED]/50" style="font-family: 'Montserrat', Arial, sans-serif;">
+          <i class="fas fa-plus mr-2"></i>Load More Sermons
+        </button>
+      </div>
+    </div>
+  </section>
 
   <!-- CALL TO ACTION -->
-  <section class="py-20 bg-white">
+  <section class="py-16 bg-gradient-to-br from-[#7C3AED]/5 to-[#F59E0B]/5">
     <div class="max-w-4xl mx-auto text-center px-4">
-      <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-6">Want More Teaching?</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Subscribe to our YouTube channel or contact us for sermon resources and notes.</p>
-      <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-        <a href="contact.html" class="group px-8 py-4 bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] text-white font-bold rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+      <h2 class="text-4xl md:text-5xl font-bold text-[#7C3AED] mb-6" style="font-family: 'Montserrat', Arial, sans-serif;">
+        Want More Teaching?
+      </h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto" style="font-family: 'Open Sans', Arial, sans-serif;">
+        Subscribe to our YouTube channel or contact us for sermon resources and notes.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <a href="contact.html" class="group px-8 py-4 bg-[#7C3AED] text-white font-bold rounded-full shadow-xl hover:bg-[#5B23B4] transition-all duration-300 transform hover:scale-105" style="font-family: 'Montserrat', Arial, sans-serif;">
           <i class="fas fa-envelope mr-2"></i>Contact Us
         </a>
-        <a href="https://youtube.com/" target="_blank" class="group px-8 py-4 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all duration-300 transform hover:scale-105">
+        <a href="https://youtube.com/@heartsaftergodministries" target="_blank" class="group px-8 py-4 bg-transparent text-[#7C3AED] font-bold rounded-full border-2 border-[#7C3AED] hover:bg-[#7C3AED] hover:text-white transition-all duration-300 transform hover:scale-105" style="font-family: 'Montserrat', Arial, sans-serif;">
           <i class="fab fa-youtube mr-2"></i>Watch on YouTube
         </a>
       </div>
@@ -304,6 +209,11 @@
               <li>
                 <a href="blog.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
                   <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Blog
+                </a>
+              </li>
+              <li>
+                <a href="team.html" class="group flex items-center text-white/80 hover:text-[#F59E0B] transition-all duration-300 hover:translate-x-2">
+                  <i class="fas fa-chevron-right mr-3 text-[#F59E0B] group-hover:mr-4 transition-all duration-300"></i>Team
                 </a>
               </li>
               <li>
@@ -416,5 +326,6 @@
     </div>
   </footer>
 
+  <script src="assets/js/main.js"></script>
 </body>
 </html> 
