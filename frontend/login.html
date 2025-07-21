@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <form id="login-form" class="bg-white p-8 rounded shadow max-w-md w-full space-y-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+    <input id="email" name="email" type="email" placeholder="Email" class="w-full border p-2 rounded" required>
+    <input id="password" name="password" type="password" placeholder="Password" class="w-full border p-2 rounded" required>
+    <button type="submit" class="w-full bg-purple-700 text-white py-2 rounded font-bold">Login</button>
+    <div id="login-message" class="text-center mt-2"></div>
+  </form>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('login-message');
+      if (!email || !password) {
+        msg.textContent = 'All fields are required.';
+        msg.className = 'text-red-600 text-center mt-2';
+        return;
+      }
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('password', password);
+      fetch('../backend/login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.redirect) {
+          window.location.href = data.redirect;
+        } else {
+          msg.textContent = data.message || 'Login failed.';
+          msg.className = 'text-red-600 text-center mt-2';
+        }
+      })
+      .catch(err => {
+        msg.textContent = 'Login failed.';
+        msg.className = 'text-red-600 text-center mt-2';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <!-- Login prompt at the top of the registration form -->
+  <div class="mb-6 text-center">
+    <p class="text-gray-700">
+      Already have an account?
+      <a href="login.html" class="text-purple-700 font-bold underline hover:text-purple-900">Login</a>
+    </p>
+    <p class="mt-2 text-gray-600">
+      If you don’t have an account, then <span class="font-semibold text-purple-700">Register</span> or <span class="font-semibold text-purple-700">Signup</span> below.
+    </p>
+  </div>
+  <form id="register-form" class="bg-white p-8 rounded shadow max-w-md w-full space-y-4">
+    <h2 class="text-2xl font-bold mb-4 text-center">Register</h2>
+    <input id="name" name="name" type="text" placeholder="Full Name" class="w-full border p-2 rounded" required>
+    <input id="email" name="email" type="email" placeholder="Email" class="w-full border p-2 rounded" required>
+    <input id="password" name="password" type="password" placeholder="Password" class="w-full border p-2 rounded" required>
+    <select id="role" name="role" class="w-full border p-2 rounded" required>
+      <option value="admin">Admin</option>
+      <option value="media_team">Media Team</option>
+      <option value="ministry_leader">Ministry Leader</option>
+      <option value="event_coordinator">Event Coordinator</option>
+      <option value="discipleship_leader">Discipleship Leader</option>
+      <option value="registered_member">Registered Member</option>
+    </select>
+    <button type="submit" class="w-full bg-purple-700 text-white py-2 rounded font-bold">Register</button>
+    <div id="register-message" class="text-center mt-2"></div>
+  </form>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const role = document.getElementById('role').value;
+      const msg = document.getElementById('register-message');
+      if (!name || !email || !password || !role) {
+        msg.textContent = 'All fields are required.';
+        msg.className = 'text-red-600 text-center mt-2';
+        return;
+      }
+      const data = { name, email, password, role };
+      console.log(data); // Debug: see what is being sent
+      fetch('../backend/register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(res => {
+        msg.textContent = res.message;
+        msg.className = res.success ? 'text-green-600 text-center mt-2' : 'text-red-600 text-center mt-2';
+        if (res.success) {
+          document.getElementById('register-form').reset();
+          setTimeout(() => {
+            window.location.href = 'login.html'; // Redirect to login page after registration
+          }, 1500);
+        }
+      })
+      .catch(err => {
+        msg.textContent = 'Registration failed.';
+        msg.className = 'text-red-600 text-center mt-2';
+      });
+    });
+  </script>
+</body>
+</html> 
