@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: /hearts-after-god-ministry-site/frontend/login.html');
+    header('Location: /hearts-after-god-ministry-site/backend/admin/login.php');
     exit;
 }
 ?>
@@ -23,12 +23,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
       </div>
       <nav class="flex-1 space-y-2">
         <a href="/hearts-after-god-ministry-site/dashboard/admin-dashboard.php" class="block py-2 px-4 rounded bg-purple-700 font-semibold">Dashboard Home</a>
-        <a href="/hearts-after-god-ministry-site/backend/admin/leaders.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Ministry Leaders</a>
-        <a href="/hearts-after-god-ministry-site/backend/admin/programmes.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Programmes</a>
-        <a href="/hearts-after-god-ministry-site/backend/admin/events.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Events</a>
-        <a href="/hearts-after-god-ministry-site/backend/admin/signups.php" class="block py-2 px-4 rounded hover:bg-purple-700">View Discipleship Signups</a>
+        <a href="/hearts-after-god-ministry-site/backend/users/leaders.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Ministry Leaders</a>
+        <a href="/hearts-after-god-ministry-site/backend/users/programmes.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Programmes</a>
+        <a href="/hearts-after-god-ministry-site/backend/users/Manage_Users.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Users</a>
+        
+        <a href="/hearts-after-god-ministry-site/backend/users/events.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Events</a>
+        <a href="/hearts-after-god-ministry-site/backend/users/signups.php" class="block py-2 px-4 rounded hover:bg-purple-700">View Discipleship Signups</a>
       </nav>
-      <a href="/hearts-after-god-ministry-site/backend/admin/logout.php" class="block mt-auto py-2 px-4 rounded bg-red-600 text-white text-center font-bold hover:bg-red-700">Logout</a>
+      <a href="/hearts-after-god-ministry-site/backend/users/logout.php" class="block mt-auto py-2 px-4 rounded bg-red-600 text-white text-center font-bold hover:bg-red-700">Logout</a>
     </aside>
     <!-- Main Content -->
     <main class="flex-1 p-8">
@@ -45,8 +47,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
           </div>
         </div>
         <div class="mt-4 md:mt-0 flex space-x-2">
-          <a href="/hearts-after-god-ministry-site/backend/admin/leaders.php" class="px-4 py-2 bg-purple-700 text-white rounded font-semibold hover:bg-purple-800">+ Add Leader</a>
-          <a href="/hearts-after-god-ministry-site/backend/admin/events.php" class="px-4 py-2 bg-yellow-500 text-white rounded font-semibold hover:bg-yellow-600">+ Add Event</a>
+          <a href="/hearts-after-god-ministry-site/backend/users/leaders.php" class="px-4 py-2 bg-purple-700 text-white rounded font-semibold hover:bg-purple-800">+ Add Leader</a>
+          <a href="/hearts-after-god-ministry-site/backend/users/events.php" class="px-4 py-2 bg-yellow-500 text-white rounded font-semibold hover:bg-yellow-600">+ Add Event</a>
         </div>
       </div>
       <!-- Stats Cards -->

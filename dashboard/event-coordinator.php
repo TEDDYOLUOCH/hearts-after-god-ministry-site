@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'event_coordinato
         <a href="#" class="block py-2 px-4 rounded hover:bg-yellow-600">Assign Team Members</a>
         <a href="#" class="block py-2 px-4 rounded hover:bg-yellow-600">View Registrations</a>
       </nav>
-      <a href="/hearts-after-god-ministry-site/backend/admin/logout.php" class="block mt-auto py-2 px-4 rounded bg-red-600 text-white text-center font-bold hover:bg-red-700">Logout</a>
+      <a href="/hearts-after-god-ministry-site/backend/users/logout.php" class="block mt-auto py-2 px-4 rounded bg-red-600 text-white text-center font-bold hover:bg-red-700">Logout</a>
     </aside>
     <!-- Main Content -->
     <main class="flex-1 p-8">
