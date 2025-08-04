@@ -1,102 +1,229 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: /hearts-after-god-ministry-site/backend/admin/login.php');
+require_once __DIR__ . '/includes/standard_layout.php';
+
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+        http_response_code(401);
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => 'Unauthorized']);
+    } else {
+        header('Location: /hearts-after-god-ministry-site/backend/users/login.php');
+    }
     exit;
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-  <div class="flex min-h-screen">
-    <!-- Sidebar -->
-    <aside class="w-64 bg-gradient-to-b from-purple-800 to-purple-600 text-white flex flex-col p-6 space-y-6">
-      <div class="flex items-center space-x-3 mb-8">
-        <span class="inline-block bg-white rounded-full p-2"><svg class="w-8 h-8 text-purple-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 0c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"/></svg></span>
-        <span class="text-2xl font-bold">Admin Panel</span>
-      </div>
-      <nav class="flex-1 space-y-2">
-        <a href="/hearts-after-god-ministry-site/dashboard/admin-dashboard.php" class="block py-2 px-4 rounded bg-purple-700 font-semibold">Dashboard Home</a>
-        <a href="/hearts-after-god-ministry-site/backend/users/leaders.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Ministry Leaders</a>
-        <a href="/hearts-after-god-ministry-site/backend/users/programmes.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Programmes</a>
-        <a href="/hearts-after-god-ministry-site/backend/users/Manage_Users.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Users</a>
+
+// Include database configuration
+require_once __DIR__ . '/../config/db.php';
+
+// Create database connection
+try {
+    $db = getDbConnection();
+    // Test the connection
+    $db->query('SELECT 1');
+} catch (PDOException $e) {
+    error_log('Database connection failed: ' . $e->getMessage());
+    error_log('Connection details: ' . 
+              'host=' . ($_ENV['DB_HOST'] ?? 'not set') . 
+              ', dbname=' . ($_ENV['DB_NAME'] ?? 'not set'));
+    
+    if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+        http_response_code(500);
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => false, 
+            'message' => 'Database connection failed',
+            'error' => 'Check server logs for details'
+        ]);
+    } else {
+        die('<div class="p-6">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                <strong>Database Error:</strong> Could not connect to the database. Please check your configuration.
+                ' . (ENVIRONMENT === 'development' ? '<br><small>' . htmlspecialchars($e->getMessage()) . '</small>' : '') . '
+            </div>
+        </div>');
+    }
+    exit;
+}
+
+// Function to get dashboard data
+function getDashboardData($db, $isAdmin) {
+    $data = [
+        'stats' => [
+            'total_posts' => 0,
+            'total_users' => 0,
+            'total_events' => 0,
+            'total_sermons' => 0
+        ],
+        'recent_posts' => [],
+        'recent_users' => [],
+        'errors' => []
+    ];
+    
+    try {
+        // Get total blog posts
+        try {
+            $stmt = $db->query("SELECT COUNT(*) as count FROM blog_posts");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data['stats']['total_posts'] = (int)($result['count'] ?? 0);
+        } catch (Exception $e) {
+            error_log('Error counting blog posts: ' . $e->getMessage());
+            $data['errors'][] = 'Could not load blog post count';
+        }
         
-        <a href="/hearts-after-god-ministry-site/backend/users/events.php" class="block py-2 px-4 rounded hover:bg-purple-700">Manage Events</a>
-        <a href="/hearts-after-god-ministry-site/backend/users/signups.php" class="block py-2 px-4 rounded hover:bg-purple-700">View Discipleship Signups</a>
-      </nav>
-      <a href="/hearts-after-god-ministry-site/backend/users/logout.php" class="block mt-auto py-2 px-4 rounded bg-red-600 text-white text-center font-bold hover:bg-red-700">Logout</a>
-    </aside>
-    <!-- Main Content -->
-    <main class="flex-1 p-8">
-      <!-- User Info -->
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-        <div class="flex items-center space-x-4">
-          <div class="w-16 h-16 rounded-full bg-purple-200 flex items-center justify-center text-3xl font-bold text-purple-700">
-            <?php echo strtoupper(substr($_SESSION['user_name'], 0, 2)); ?>
-          </div>
-          <div>
-            <div class="text-xl font-bold text-gray-800"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
-            <div class="text-sm text-gray-500">Role: Admin</div>
-            <div class="text-xs text-gray-400">Email: <?php echo htmlspecialchars($_SESSION['user_email']); ?></div>
-          </div>
+        // Get total users (only if admin)
+        if ($isAdmin) {
+            try {
+                $stmt = $db->query("SELECT COUNT(*) as count FROM users");
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $data['stats']['total_users'] = (int)($result['count'] ?? 0);
+            } catch (Exception $e) {
+                error_log('Error counting users: ' . $e->getMessage());
+                $data['errors'][] = 'Could not load user count';
+            }
+        }
+        
+        // Get total events
+        try {
+            $stmt = $db->query("SELECT COUNT(*) as count FROM events");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data['stats']['total_events'] = (int)($result['count'] ?? 0);
+        } catch (Exception $e) {
+            error_log('Error counting events: ' . $e->getMessage());
+            $data['errors'][] = 'Could not load events count';
+        }
+        
+        // Get total sermons
+        try {
+            $stmt = $db->query("SELECT COUNT(*) as count FROM sermons");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data['stats']['total_sermons'] = (int)($result['count'] ?? 0);
+        } catch (Exception $e) {
+            error_log('Error counting sermons: ' . $e->getMessage());
+            $data['errors'][] = 'Could not load sermons count';
+        }
+        
+        // Get recent blog posts
+        try {
+            $stmt = $db->query("SELECT id, title, status, created_at, updated_at, excerpt FROM blog_posts ORDER BY created_at DESC LIMIT 5");
+            $data['recent_posts'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log('Error loading recent posts: ' . $e->getMessage());
+            $data['errors'][] = 'Could not load recent posts';
+        }
+        
+        // Get recent users (only if admin)
+        if ($isAdmin) {
+            try {
+                $stmt = $db->query("
+                    SELECT id, username, email, role, created_at, last_login 
+                    FROM users 
+                    ORDER BY created_at DESC 
+                    LIMIT 5
+                ");
+                $data['recent_users'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } catch (Exception $e) {
+                error_log('Error loading recent users: ' . $e->getMessage());
+                $data['recent_users'] = [];
+                $data['errors'][] = 'Could not load recent users';
+            }
+        } else {
+            $data['recent_users'] = [];
+        }
+        
+        return $data;
+        
+    } catch (Exception $e) {
+        error_log('Unexpected error in getDashboardData: ' . $e->getMessage());
+        $data['errors'][] = 'An unexpected error occurred while loading dashboard data';
+        return $data;
+    }
+}
+
+// Check if this is an AJAX request
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+    header('Content-Type: application/json');
+    
+    try {
+        $isAdmin = ($_SESSION['user_role'] ?? '') === 'admin';
+        $data = getDashboardData($db, $isAdmin);
+        
+        if ($data === null) {
+            throw new Exception('Failed to load dashboard data');
+        }
+        
+        // For AJAX requests, return JSON data
+        echo json_encode([
+            'success' => true,
+            'data' => $data,
+            'html' => getDashboardHtml($data, $isAdmin)
+        ]);
+        
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode([
+            'success' => false,
+            'message' => $e->getMessage(),
+            'html' => '<div class="p-6"><div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4">Error: ' . htmlspecialchars($e->getMessage()) . '</div></div>'
+        ]);
+    }
+    exit;
+}
+
+// For regular page load, render the full dashboard
+$isAdmin = ($_SESSION['user_role'] ?? '') === 'admin';
+$dashboardData = getDashboardData($db, $isAdmin);
+
+// Function to generate dashboard HTML
+function getDashboardHtml($dashboardData, $isAdmin) {
+    if ($dashboardData === null) {
+        return '<div class="p-6"><div class="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 p-4">Error: Could not load dashboard data</div></div>';
+    }
+    
+    $stats = $dashboardData['stats'] ?? [
+        'total_posts' => 0,
+        'total_users' => 0,
+        'total_events' => 0,
+        'total_sermons' => 0
+    ];
+    
+    $recent_posts = $dashboardData['recent_posts'] ?? [];
+    $recent_users = ($isAdmin && isset($dashboardData['recent_users'])) ? $dashboardData['recent_users'] : [];
+    $errors = $dashboardData['errors'] ?? [];
+    
+    ob_start();
+    ?>
+    <?php if (!empty($errors)): ?>
+        <div class="p-4">
+            <?php foreach ($errors as $error): ?>
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700 dark:text-yellow-300"><?= htmlspecialchars($error) ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-        <div class="mt-4 md:mt-0 flex space-x-2">
-          <a href="/hearts-after-god-ministry-site/backend/users/leaders.php" class="px-4 py-2 bg-purple-700 text-white rounded font-semibold hover:bg-purple-800">+ Add Leader</a>
-          <a href="/hearts-after-god-ministry-site/backend/users/events.php" class="px-4 py-2 bg-yellow-500 text-white rounded font-semibold hover:bg-yellow-600">+ Add Event</a>
-        </div>
-      </div>
-      <!-- Stats Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <div class="text-3xl text-purple-700 mb-2"><i class="fas fa-users"></i></div>
-          <div class="text-2xl font-bold" id="stat-users">--</div>
-          <div class="text-gray-500">Total Users</div>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <div class="text-3xl text-yellow-500 mb-2"><i class="fas fa-calendar-alt"></i></div>
-          <div class="text-2xl font-bold" id="stat-events">--</div>
-          <div class="text-gray-500">Upcoming Events</div>
-        </div>
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center">
-          <div class="text-3xl text-green-600 mb-2"><i class="fas fa-user-check"></i></div>
-          <div class="text-2xl font-bold" id="stat-signups">--</div>
-          <div class="text-gray-500">Discipleship Signups</div>
-        </div>
-      </div>
-      <!-- Recent Activity (placeholder) -->
-      <div class="bg-white rounded-xl shadow p-6">
-        <div class="text-lg font-bold mb-4">Recent Activity</div>
-        <ul class="divide-y divide-gray-200" id="recent-activity">
-          <li class="py-2 text-gray-600">No recent activity yet.</li>
-        </ul>
-      </div>
-    </main>
-  </div>
-  <!-- Font Awesome for icons -->
-  <script src="https://kit.fontawesome.com/4b2b1b6a0a.js" crossorigin="anonymous"></script>
-  <script>
-    // Example: Fetch stats from backend (replace with real endpoints)
-    fetch('/hearts-after-god-ministry-site/backend/actions/leaders.php')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('stat-users').textContent = data.length;
-      });
-    fetch('/hearts-after-god-ministry-site/backend/actions/events.php')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('stat-events').textContent = data.length;
-      });
-    fetch('/hearts-after-god-ministry-site/backend/actions/signups.php')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('stat-signups').textContent = data.length;
-      });
-  </script>
-</body>
-</html> 
+    <?php endif; ?>
+    
+    <!-- Rest of your dashboard HTML -->
+    <?php
+    include __DIR__ . '/includes/views/dashboard_view.php';
+    return ob_get_clean();
+}
+
+// Render the standard layout with dashboard content
+renderStandardLayout('Dashboard', function() use ($dashboardData, $isAdmin) {
+    echo getDashboardHtml($dashboardData, $isAdmin);
+});

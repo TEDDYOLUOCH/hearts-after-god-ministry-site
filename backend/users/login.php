@@ -24,25 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Redirect based on role
             switch ($user['role']) {
                 case 'admin':
-                    header('Location:../../dashboard/admin-dashboard.php');
+                    header('Location: /hearts-after-god-ministry-site/dashboard/admin-dashboard.php');
                     exit;
                 case 'media_team':
-                    header('Location:../../dashboard/media-team.php');
+                    header('Location: /hearts-after-god-ministry-site/dashboard/media-team.php');
                     exit;
                 case 'ministry_leader':
-                    header('Location: ../../dashboard/ministry-leader.php');
+                    header('Location: /hearts-after-god-ministry-site/dashboard/ministry-leader.php');
                     exit;
                 case 'event_coordinator':
-                    header('Location:../../dashboard/event-coordinator.php');
+                    header('Location: /hearts-after-god-ministry-site/dashboard/event-coordinator.php');
                     exit;
                 case 'discipleship_leader':
-                    header('Location: ../../dashboard/discipleship-leader.php');
+                    header('Location: /hearts-after-god-ministry-site/dashboard/discipleship-leader.php');
                     exit;
                 case 'registered_member':
-                    header('Location:user-area.php');
+                    header('Location: /hearts-after-god-ministry-site/user-area.php');
                     exit;
                 default:
-                    header('Location: index.html');
+                    header('Location: /hearts-after-god-ministry-site/index.html');
                     exit;
             }
         } else {
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Login</title>
+  <title>Login - Hearts After God Ministry</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
@@ -83,7 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       Login
     </button>
 
-    <p class="mt-4 text-center text-sm text-gray-600">Need an account? <a href="/register.php" class="text-purple-700 hover:underline">Register</a></p>
+    <p class="mt-4 text-center text-sm text-gray-600">
+      Need an account?
+      <a href="/hearts-after-god-ministry-site/backend/users/register.php" class="text-purple-700 hover:underline">Register</a>
+    </p>
   </form>
 </body>
 </html>

@@ -1,0 +1,103 @@
+[2025-07-29 02:38:16] Unauthorized access attempt
+Data: Array
+(
+    [user_id] => 
+    [user_role] => 
+    [ip] => ::1
+)
+
+[2025-07-29 02:45:19] Starting file upload
+Data: Array
+(
+    [post_data] => Array
+        (
+            [csrf_token] => d641c2d2e6811be8d38502c44190071644201cc196d1a99ce4fb4d349b264288
+            [title] => barry
+            [description] => hello
+        )
+
+    [files] => Array
+        (
+            [image] => Array
+                (
+                    [name] => BRANDO.png
+                    [type] => image/png
+                    [tmp_name] => C:\xampp\tmp\php9954.tmp
+                    [error] => 0
+                    [size] => 528380
+                )
+
+        )
+
+    [session] => Array
+        (
+            [csrf_token] => d641c2d2e6811be8d38502c44190071644201cc196d1a99ce4fb4d349b264288
+            [user_id] => 11
+            [user_name] => Teddy Oluoch
+            [user_email] => oluochteddyochieng@gmail.com
+            [user_role] => admin
+        )
+
+)
+
+[2025-07-29 02:45:19] Checking uploaded file
+Data: Array
+(
+    [image] => Array
+        (
+            [name] => BRANDO.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\php9954.tmp
+            [error] => 0
+            [size] => 528380
+        )
+
+)
+
+[2025-07-29 02:52:25] Starting file upload
+Data: Array
+(
+    [post_data] => Array
+        (
+            [csrf_token] => 
+            [title] => test
+            [description] => bye
+        )
+
+    [files] => Array
+        (
+            [image] => Array
+                (
+                    [name] => 20250707_1417_Church Ministry Events_simple_compose_01jzj9kfnvfd8sx3b2mct8d5r9.png
+                    [type] => image/png
+                    [tmp_name] => C:\xampp\tmp\php1945.tmp
+                    [error] => 0
+                    [size] => 2606839
+                )
+
+        )
+
+    [session] => Array
+        (
+            [user_id] => 11
+            [user_name] => Teddy Oluoch
+            [user_email] => oluochteddyochieng@gmail.com
+            [user_role] => admin
+        )
+
+)
+
+[2025-07-29 02:52:25] Checking uploaded file
+Data: Array
+(
+    [image] => Array
+        (
+            [name] => 20250707_1417_Church Ministry Events_simple_compose_01jzj9kfnvfd8sx3b2mct8d5r9.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\php1945.tmp
+            [error] => 0
+            [size] => 2606839
+        )
+
+)
+
