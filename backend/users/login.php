@@ -3,7 +3,7 @@
 session_start();
 
 // Include database configuration
-require_once __DIR__ . '/../../config/database.php';
+require_once '../config/database.php';
 
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {

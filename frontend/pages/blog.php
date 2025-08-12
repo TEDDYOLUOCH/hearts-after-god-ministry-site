@@ -696,6 +696,9 @@ try {
   </script>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/main.js"></script>
+  <div id="site-footer" ></div>
+  
+  <!-- Load dynamic header and footer -->
+  <script src="../assets/main.js"></script>
 </body>
 </html>

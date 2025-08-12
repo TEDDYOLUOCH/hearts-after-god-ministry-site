@@ -67,89 +67,10 @@
     </div>
   </main>
 
-  <!-- Only one footer section at the bottom, matching footer.html -->
-  <footer class="bg-gradient-to-r from-[#1E40AF] to-[#7C3AED] text-white pt-2 pb-1 px-4">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-      <!-- Left: Logo, Name, Mission, Social -->
-      <div class="flex flex-col items-start">
-        <div class="flex items-center gap-3 mb-2">
-          <img src="assets/images/logo.jpg" alt="Logo" class="h-14 w-14 rounded-full border-4 border-white object-cover shadow-xl"/>
-          <div>
-            <span class="text-2xl font-extrabold text-white leading-tight">Hearts After God</span><br/>
-            <span class="text-sm text-white/80">Ministry</span>
-          </div>
-        </div>
-        <p class="text-white/80 text-sm mb-4">A global online ministry advancing the gospel through digital platforms, prayer, and discipleship.</p>
-        <div class="flex flex-wrap gap-3 mb-4">
-          <a href="mailto:heartsaftergodministries254@gmail.com" target="_blank" aria-label="Gmail" class="bg-white/10 hover:bg-[#EA4335] text-white rounded-full p-3 transition flex items-center justify-center"><i class="fab fa-google"></i></a>
-          <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" aria-label="WhatsApp" class="bg-white/10 hover:bg-[#25D366] text-white rounded-full p-3 transition flex items-center justify-center"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" aria-label="Facebook" class="bg-white/10 hover:bg-[#1877F3] text-white rounded-full p-3 transition flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/reel/DK2MTiVCR-k/?igsh=NngyM2p4anFmaG9l" target="_blank" aria-label="Instagram" class="bg-white/10 hover:bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] text-white rounded-full p-3 transition flex items-center justify-center"><i class="fab fa-instagram"></i></a>
-          <a href="https://hearts-after-god-ministry-site.vercel.app/index.html" target="_blank" aria-label="Ministry Website" class="bg-white/10 hover:bg-[#7C3AED] text-white rounded-full p-3 transition flex items-center justify-center"><i class="fas fa-globe"></i></a>
-        </div>
-      </div>
-      
-      <!-- Quick Links -->
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-link text-[#F59E0B]"></i>Quick Links</h3>
-        <ul class="space-y-2">
-          <li><a href="index.html" class="text-white/80 hover:text-white transition">Home</a></li>
-          <li><a href="about.html" class="text-white/80 hover:text-white transition">About Us</a></li>
-          <li><a href="sermons.html" class="text-white/80 hover:text-white transition">Sermons</a></li>
-          <li><a href="events.html" class="text-white/80 hover:text-white transition">Events</a></li>
-          <li><a href="gallery.php" class="text-white/80 hover:text-white transition">Gallery</a></li>
-          <li><a href="contact.html" class="text-white/80 hover:text-white transition">Contact Us</a></li>
-        </ul>
-      </div>
-      
-      <!-- Ministry Links -->
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-cross text-[#F59E0B]"></i>Ministry</h3>
-        <ul class="space-y-2">
-          <li><a href="discipleship.html" class="text-white/80 hover:text-white transition">Discipleship</a></li>
-          <li><a href="prayer-request.html" class="text-white/80 hover:text-white transition">Prayer Request</a></li>
-          <li><a href="testimonies.html" class="text-white/80 hover:text-white transition">Testimonies</a></li>
-          <li><a href="give.html" class="text-white/80 hover:text-white transition">Give</a></li>
-          <li><a href="volunteer.html" class="text-white/80 hover:text-white transition">Volunteer</a></li>
-        </ul>
-      </div>
-      
-      <!-- Contact Info -->
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-address-book text-[#F59E0B]"></i>Contact Info</h3>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-map-marker-alt"></i></span>
-          <div>
-            <span class="font-bold">Location</span><br/>
-            <span class="text-white/80 text-sm">PO.BOX 00100 NAIROBI, KENYA</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-globe"></i></span>
-          <div>
-            <span class="font-bold">Ministry</span><br/>
-            <span class="text-white/80 text-sm">Global online ministry</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-phone"></i></span>
-          <div>
-            <span class="font-bold">Phone</span><br/>
-            <span class="text-white/80 text-sm">0707529090</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 mb-2">
-          <span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-envelope"></i></span>
-          <div>
-            <span class="font-bold">Email</span><br/>
-            <span class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="text-center text-white/70 text-sm mt-8">&copy; <?php echo date('Y'); ?> Hearts After God Ministry. All rights reserved.</div>
-  </footer>
+  <div id="site-footer" ></div>
   
+  <!-- Load dynamic header and footer -->
+  <script src="../assets/main.js"></script>
   <!-- Load dynamic header and footer -->
   <script src="assets/js/main.js"></script>
 

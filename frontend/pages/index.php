@@ -406,67 +406,9 @@
       </div>
     </div>
   </section>
-  <!-- Only one footer section at the bottom, matching footer.html -->
-  <footer class="bg-gradient-to-r from-[#1E40AF] to-[#7C3AED] text-white pt-2 pb-1 px-4">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-    <!-- Left: Logo, Name, Mission, Social -->
-    <div class="flex flex-col items-start">
-      <div class="flex items-center gap-3 mb-2">
-        <img src="assets/images/logo.jpg" alt="Logo" class="h-14 w-14 rounded-full border-4 border-white object-cover shadow-xl"/>
-              <div>
-          <span class="text-2xl font-extrabold text-white leading-tight">Hearts After God</span><br/>
-          <span class="text-xs font-bold text-[#F59E0B] tracking-widest">MINISTRY</span>
-        </div>
-      </div>
-      <p class="text-sm text-white/90 mb-4 mt-2">Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ.</p>
-      <div class="flex flex-wrap gap-3 mb-4">
-        <a href="mailto:heartsaftergodministries254@gmail.com" target="_blank" aria-label="Gmail" class="bg-white/10 hover:bg-[#EA4335] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#fff"/><path d="M8 14v20a2 2 0 002 2h28a2 2 0 002-2V14a2 2 0 00-2-2H10a2 2 0 00-2 2z" fill="#EA4335"/><path d="M8 14l16 12 16-12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 34l12-9" stroke="#34A853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M40 34l-12-9" stroke="#4285F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="https://chat.whatsapp.com/F1BIzqQTulA5t5XlUDLWhK" target="_blank" aria-label="WhatsApp" class="bg-white/10 hover:bg-[#25D366] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#25D366"/><path d="M24 10a14 14 0 00-12.1 21.1L10 38l7.1-1.9A14 14 0 1024 10z" fill="#fff"/><path d="M34.1 29.2c-.5-.2-2.7-1.3-3.1-1.5-.4-.2-.7-.2-1 .2-.3.4-1.1 1.5-1.4 1.8-.3.3-.5.4-1 .1-.5-.2-2-1-3.8-3.1-1.4-1.6-2.3-3.5-2.6-4-.3-.5 0-.7.2-1 .2-.2.4-.5.6-.7.2-.2.2-.4.3-.7.1-.3 0-.5 0-.7 0-.2-.9-2.2-1.2-3-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.5.1-.7.3-.2.2-1 1-1 2.5 0 1.5 1.1 3 1.2 3.2.1.2 2.2 3.5 5.3 4.8 3.1 1.3 3.1.9 3.7.8.6-.1 1.8-1.2 2-1.6.2-.4.2-.7.1-.9z" fill="#25D366"/></svg></a>
-        <a href="https://www.facebook.com/share/g/16NwpW8sCB/" target="_blank" aria-label="Facebook" class="bg-white/10 hover:bg-[#1877F3] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#1877F3"/><path d="M30 24h-4v12h-5V24h-3v-4h3v-2.5C21 15.6 22.6 14 25.1 14H30v4h-3c-.6 0-1 .4-1 1V20h4l-1 4z" fill="#fff"/></svg></a>
-        <a href="https://www.instagram.com/reel/DK2MTiVCR-k/?igsh=NngyM2p4anFmaG9l" target="_blank" aria-label="Instagram" class="bg-white/10 hover:bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#515BD4] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#fff"/><radialGradient id="ig-gradient-footer" cx="24" cy="24" r="24" gradientUnits="userSpaceOnUse"><stop stop-color="#F58529"/><stop offset="0.5" stop-color="#DD2A7B"/><stop offset="1" stop-color="#515BD4"/></radialGradient><rect width="48" height="48" rx="8" fill="url(#ig-gradient-footer)"/><rect x="14" y="14" width="20" height="20" rx="6" stroke="#fff" stroke-width="2"/><circle cx="24" cy="24" r="5" stroke="#fff" stroke-width="2"/><circle cx="31" cy="17" r="1.5" fill="#fff"/></svg></a>
-        <a href="https://www.tiktok.com/@heartsaftergodmin7?_t=ZM-8x9VO2On7B7&_r=1" target="_blank" aria-label="TikTok" class="bg-white/10 hover:bg-[#010101] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#fff"/><path d="M32 18.5c1.7 0 3.2-.6 4.4-1.6a9.9 9.9 0 01-2.1 6.2c-1.2 1.5-2.8 2.4-4.6 2.4-3.3 0-6-2.7-6-6V14h4v5c0 1.1.9 2 2 2z" fill="#010101"/><path d="M20 34c-3.3 0-6-2.7-6-6s2.7-6 6-6c.7 0 1.4.1 2 .3V14h4v5c0 1.1.9 2 2 2 .7 0 1.4-.1 2-.3v4.7c-1.2 1.5-2.8 2.4-4.6 2.4-3.3 0-6-2.7-6-6V14h4v5c0 1.1.9 2 2 2z" fill="#010101"/></svg></a>
-        <a href="https://t.me/+ZnRxd1gF7AcwMzY0" target="_blank" aria-label="Telegram" class="bg-white/10 hover:bg-[#0088cc] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#fff"/><path d="M36 14L12 24l7 2 2 7 4-4 6-15z" fill="#0088cc"/><path d="M36 14L12 24l7 2 2 7 4-4 6-15z" stroke="#0088cc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="https://youtube.com/@heartsaftergodministries?si=psY5wvKqNS_nls95" target="_blank" aria-label="YouTube" class="bg-white/10 hover:bg-[#FF0000] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#FF0000"/><path d="M32 24l-10 6V18l10 6z" fill="#fff"/></svg></a>
-        <a href="https://hearts-after-god-ministry-site.vercel.app/index.html" target="_blank" aria-label="Ministry Website" class="bg-white/10 hover:bg-[#7C3AED] text-white rounded-full p-3 transition flex items-center justify-center"><svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#7C3AED"/><path d="M24 14a10 10 0 100 20 10 10 0 000-20zm0 2a8 8 0 110 16 8 8 0 010-16zm0 2a6 6 0 100 12 6 6 0 000-12z" fill="#fff"/></svg></a>
-      </div>
-    </div>
-    <!-- Quick Links -->
-    <div>
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-link text-[#F59E0B]"></i>Quick Links</h3>
-      <ul class="space-y-2">
-        <li><a href="index.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Home</a></li>
-        <li><a href="about.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>About Us</a></li>
-        <li><a href="ministries.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Ministries</a></li>
-        <li><a href="events.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Events</a></li>
-        <li><a href="sermons.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Sermons</a></li>
-        <li><a href="blog.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Blog</a></li>
-        <li><a href="team.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Team</a></li>
-        <li><a href="contact.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Contact</a></li>
-      </ul>
-        </div>
-    <!-- Contact Info -->
-    <div>
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-address-book text-[#F59E0B]"></i>Contact Info</h3>
-      <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-map-marker-alt"></i></span><div><span class="font-bold">Location</span><br/><span class="text-white/80 text-sm">Nairobi, Kenya</span></div></div>
-      <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-phone"></i></span><div><span class="font-bold">Phone</span><br/><span class="text-white/80 text-sm">0707529090</span></div></div>
-      <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-envelope"></i></span><div><span class="font-bold">Email</span><br/><span class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</span></div></div>
-      </div>
-    <!-- Our Services -->
-    <div>
-      <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-church text-[#F59E0B]"></i>Our Services</h3>
-      <ul class="space-y-2">
-        <li class="flex items-center gap-2"><i class="fas fa-pray text-[#F59E0B]"></i>Prayer Support</li>
-        <li class="flex items-center gap-2"><i class="fas fa-users text-[#F59E0B]"></i>Discipleship Training</li>
-        <li class="flex items-center gap-2"><i class="fas fa-hands-helping text-[#F59E0B]"></i>Community Outreach</li>
-        <li class="flex items-center gap-2"><i class="fas fa-music text-[#F59E0B]"></i>Worship Services</li>
-        <li class="flex items-center gap-2"><i class="fas fa-graduation-cap text-[#F59E0B]"></i>Bible Study</li>
-        <li class="flex items-center gap-2"><i class="fas fa-globe text-[#F59E0B]"></i>Global Missions</li>
-      </ul>
-    </div>
-        </div>
-  <div class="text-center text-white/70 text-sm mt-8">&copy; 2024 Hearts After God Ministry. All rights reserved.</div>
-  </footer>
+  <div id="site-footer" ></div>
+  
   <!-- Load dynamic header and footer -->
-  <script src="assets/js/main.js"></script>
+  <script src="../assets/main.js"></script>
 </body>
 </html> 
