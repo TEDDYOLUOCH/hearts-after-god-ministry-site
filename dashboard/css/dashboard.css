@@ -1,0 +1,120 @@
+/* Custom Tailwind Utilities */
+@layer utilities {
+  .dashboard-transition {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .hover-lift {
+    @apply hover:-translate-y-0.5 transition-transform duration-200;
+  }
+
+  .card-shadow {
+    @apply shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+}
+
+/* Dashboard Card Styles */
+.dashboard-card {
+  @apply bg-white rounded-xl p-6 border border-gray-100 dashboard-transition hover-lift card-shadow;
+}
+
+/* Stats Cards */
+.stat-card {
+  @apply dashboard-card flex items-start justify-between;
+}
+
+.stat-value {
+  @apply text-2xl font-bold text-gray-900;
+}
+
+.stat-label {
+  @apply text-sm text-gray-500;
+}
+
+.stat-icon {
+  @apply w-10 h-10 p-2 rounded-full;
+}
+
+/* Trend Indicators */
+.trend-up {
+  @apply flex items-center text-emerald-600 font-medium;
+}
+
+.trend-down {
+  @apply flex items-center text-rose-600 font-medium;
+}
+
+/* Calendar Customizations */
+.calendar-wrapper {
+  @apply dashboard-card overflow-hidden;
+}
+
+.fc {
+  @apply font-sans;
+}
+
+.fc-button-primary {
+  @apply bg-blue-600 border-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 !important;
+}
+
+.fc-event {
+  @apply rounded-lg border-none shadow-sm !important;
+}
+
+/* Modal Styles */
+.modal-backdrop {
+  @apply fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity;
+}
+
+.modal-container {
+  @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+}
+
+.modal-content {
+  @apply bg-white rounded-xl shadow-xl w-full max-w-lg transform transition-all duration-300;
+  @apply scale-95 opacity-0;
+}
+
+.modal-content.show {
+  @apply scale-100 opacity-100;
+}
+
+/* Form Elements */
+.form-input {
+  @apply w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20;
+}
+
+.form-select {
+  @apply w-full rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20;
+}
+
+/* Table Styles */
+.data-table {
+  @apply w-full divide-y divide-gray-200;
+}
+
+.table-header {
+  @apply bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table-cell {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Loading States */
+.loading-skeleton {
+  @apply animate-pulse bg-gray-200 rounded;
+}
+
+/* Responsive Adjustments */
+@screen sm {
+  .modal-content {
+    @apply p-6;
+  }
+}
+
+@screen md {
+  .modal-content {
+    @apply p-8;
+  }
+}

@@ -3,19 +3,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Set the document root - adjust this if your directory structure is different
+// Set up error logging
 $docRoot = $_SERVER['DOCUMENT_ROOT'] . '/hearts-after-god-ministry-site';
 $logDir = $docRoot . '/logs';
-
-// Create logs directory if it doesn't exist
 if (!file_exists($logDir)) {
     mkdir($logDir, 0755, true);
 }
-
-// Set error log file
-ini_set('log_errors', 1);
 $errorLog = $logDir . '/delete_errors.log';
-error_log('[' . date('Y-m-d H:i:s') . '] Delete script started' . "\n", 3, $errorLog);
 
 // Function to log errors
 function logError($message) {
@@ -35,87 +29,50 @@ function sendJsonResponse($success, $message, $code = 200) {
     exit;
 }
 
-try {
-    // Start session
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    // Check if user is logged in and is an admin
-    if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
-        throw new Exception('Unauthorized access', 403);
-    }
-
-    // Get post ID from query parameters
-    $postId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    if ($postId <= 0) {
-        throw new Exception('Invalid post ID', 400);
-    }
-
-    // Include database configuration
-    $dbConfig = $docRoot . '/config/db.php';
-    if (!file_exists($dbConfig)) {
-        throw new Exception('Database configuration not found at: ' . $dbConfig, 500);
-    }
-    
-    // Include the database configuration
-    require_once $dbConfig;
-
-    // Check if database connection was established
-    if (!isset($pdo) || !($pdo instanceof PDO)) {
-        throw new Exception('Failed to initialize database connection', 500);
-    }
-
-    // Check if table exists
-    try {
-        $tableCheck = $pdo->query("SHOW TABLES LIKE 'blog_posts'");
-        if ($tableCheck->rowCount() == 0) {
-            throw new Exception('Blog posts table does not exist', 500);
-        }
-    } catch (PDOException $e) {
-        throw new Exception('Database error checking for blog_posts table: ' . $e->getMessage(), 500);
-    }
-
-    // Begin transaction
-    $pdo->beginTransaction();
-    
-    try {
-        // Check if post exists
-        $stmt = $pdo->prepare("SELECT id FROM blog_posts WHERE id = ?");
-        $stmt->execute([$postId]);
-        
-        if ($stmt->rowCount() === 0) {
-            throw new Exception('Post not found', 404);
-        }
-        
-        // Delete the post
-        $stmt = $pdo->prepare("DELETE FROM blog_posts WHERE id = ?");
-        $stmt->execute([$postId]);
-        
-        if ($stmt->rowCount() === 0) {
-            throw new Exception('No post was deleted. The post may have already been deleted.', 404);
-        }
-        
-        $pdo->commit();
-        sendJsonResponse(true, 'Post deleted successfully');
-        
-    } catch (Exception $e) {
-        if (isset($pdo) && $pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
-        throw $e;
-    }
-    
-} catch (PDOException $e) {
-    logError('Database Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
-    sendJsonResponse(false, 'A database error occurred', 500);
-} catch (Exception $e) {
-    logError('Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ' on line ' . $e->getLine());
-    $code = $e->getCode() >= 400 && $e->getCode() < 600 ? $e->getCode() : 500;
-    sendJsonResponse(false, $e->getMessage(), $code);
-} finally {
-    // Clean any output buffer
-    if (ob_get_level() > 0) {
-        ob_end_clean();
-    }
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    sendJsonResponse(false, 'Unauthorized', 403);
 }
+
+// Use POST for deletion
+$id = $_POST['id'] ?? '';
+if (!$id) {
+    sendJsonResponse(false, 'No ID', 400);
+}
+
+require_once __DIR__ . '/../../config/db.php';
+$db = getDbConnection();
+
+try {
+    $stmt = $db->prepare("DELETE FROM blog_posts WHERE id=?");
+    $stmt->execute([$id]);
+    if ($stmt->rowCount() > 0) {
+        sendJsonResponse(true, 'Post deleted successfully');
+    } else {
+        sendJsonResponse(false, 'Post not found', 404);
+    }
+} catch (Exception $e) {
+    logError('Delete failed: ' . $e->getMessage());
+    sendJsonResponse(false, 'Database error', 500);
+}
+
+// Example delete AJAX call
+fetch('/hearts-after-god-ministry-site/backend/blog/delete_post.php', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'id=' + postId
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        // Post deleted, remove from UI
+        document.getElementById('post-' + postId).remove();
+    } else {
+        alert('Error: ' + data.message);
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+});

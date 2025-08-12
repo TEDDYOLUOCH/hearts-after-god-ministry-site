@@ -1,216 +1,277 @@
 <?php
 // Blog Management Component
 ?>
-<div class="space-y-6">
-  <div class="flex items-center justify-between">
-    <h2 class="text-2xl font-bold text-gray-800">Blog Management</h2>
-    <a href="/hearts-after-god-ministry-site/backend/blog/create_post.php" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-      <i data-lucide="plus" class="w-4 h-4"></i>
-      New Blog Post
-    </a>
+<div class="space-y-6 p-6">
+  <div class="flex justify-between items-center">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">Blog Management</h2>
+      <p class="text-gray-600 mt-1">Manage your blog posts, drafts and publications</p>
+    </div>
+    <button id="openCreateBlogModal" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-md">
+      <i data-lucide="plus-circle" class="w-5 h-5"></i>
+      Create New Post
+    </button>
   </div>
 
-  <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="p-6 border-b border-gray-100">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex-1 max-w-md">
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <i data-lucide="search" class="w-4 h-4 text-gray-400"></i>
+  <!-- Stats Overview -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+      <h4 class="text-gray-500 text-sm">Total Posts</h4>
+      <div class="flex items-center mt-2">
+        <i data-lucide="file-text" class="w-5 h-5 text-blue-500"></i>
+        <span class="text-2xl font-bold ml-2"><?= count($posts) ?></span>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+      <h4 class="text-gray-500 text-sm">Published</h4>
+      <div class="flex items-center mt-2">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-500"></i>
+        <span class="text-2xl font-bold ml-2"><?= count(array_filter($posts, fn($p) => $p['status'] === 'published')) ?></span>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+      <h4 class="text-gray-500 text-sm">Drafts</h4>
+      <div class="flex items-center mt-2">
+        <i data-lucide="edit-3" class="w-5 h-5 text-yellow-500"></i>
+        <span class="text-2xl font-bold ml-2"><?= count(array_filter($posts, fn($p) => $p['status'] === 'draft')) ?></span>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+      <h4 class="text-gray-500 text-sm">This Month</h4>
+      <div class="flex items-center mt-2">
+        <i data-lucide="calendar" class="w-5 h-5 text-purple-500"></i>
+        <span class="text-2xl font-bold ml-2"><?= count(array_filter($posts, fn($p) => strtotime($p['created_at']) > strtotime('-1 month'))) ?></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+    <div class="flex flex-wrap gap-4">
+      <div class="flex-1">
+        <input type="text" id="searchPosts" placeholder="Search posts..." class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+      <select id="statusFilter" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option value="">All Status</option>
+        <option value="published">Published</option>
+        <option value="draft">Draft</option>
+      </select>
+      <select id="sortBy" class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="title">Title A-Z</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Posts Table -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <?php foreach ($posts as $post): ?>
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="px-6 py-4">
+            <div class="flex items-center">
+              <i data-lucide="file-text" class="w-5 h-5 text-gray-400 mr-3"></i>
+              <div>
+                <div class="font-medium text-gray-900"><?= htmlspecialchars($post['title']) ?></div>
+                <div class="text-sm text-gray-500"><?= substr(htmlspecialchars($post['content']), 0, 50) ?>...</div>
+              </div>
             </div>
-            <input 
-              type="text" 
-              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" 
-              placeholder="Search blog posts..."
-              x-model="searchQuery"
-              @input="filterPosts()"
-            >
-          </div>
-        </div>
-        <div class="flex items-center space-x-2">
-          <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-            <option>All Categories</option>
-            <option>Devotionals</option>
-            <option>Teachings</option>
-            <option>Testimonies</option>
-            <option>Announcements</option>
-          </select>
-          <select class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-blue-500 focus:border-blue-500">
-            <option>All Status</option>
-            <option>Published</option>
-            <option>Draft</option>
-            <option>Scheduled</option>
-          </select>
-        </div>
+          </td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 rounded-full text-sm font-medium <?= $post['status'] === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' ?>">
+              <?= ucfirst(htmlspecialchars($post['status'])) ?>
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-500">
+            <?= date('M j, Y', strtotime($post['created_at'])) ?>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center space-x-4">
+              <button class="text-blue-600 hover:text-blue-800 transition-colors edit-blog-btn flex items-center" data-id="<?= $post['id'] ?>">
+                <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit
+              </button>
+              <button class="text-red-600 hover:text-red-800 transition-colors delete-blog-btn flex items-center" data-id="<?= $post['id'] ?>">
+                <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+        <?php endforeach; ?>
+        <?php if (empty($posts)): ?>
+        <tr>
+          <td colspan="4" class="px-6 py-8 text-center">
+            <div class="flex flex-col items-center">
+              <i data-lucide="file-question" class="w-12 h-12 text-gray-300 mb-2"></i>
+              <p class="text-gray-500">No blog posts found</p>
+              <button onclick="document.getElementById('openCreateBlogModal').click()" class="mt-2 text-blue-600 hover:underline">Create your first post</button>
+            </div>
+          </td>
+        </tr>
+        <?php endif; ?>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal for Create/Edit Blog Post -->
+<div id="blogModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white rounded-lg p-6 w-full max-w-lg relative">
+    <button id="closeBlogModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">&times;</button>
+    <h3 id="blogModalTitle" class="text-lg font-bold mb-4">New Blog Post</h3>
+    <form id="blogForm">
+      <input type="hidden" name="id" id="blogId">
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">Title</label>
+        <input type="text" name="title" id="blogTitle" class="w-full border rounded px-3 py-2" required>
       </div>
-    </div>
-    
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categories</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <?php
-          try {
-            // Fetch blog posts from the database
-            $stmt = $pdo->query("
-              SELECT p.*, u.name as author_name 
-              FROM blog_posts p 
-              LEFT JOIN users u ON p.author_id = u.id 
-              ORDER BY p.created_at DESC
-              LIMIT 10
-            ")->fetchAll(PDO::FETCH_ASSOC);
-            
-            if (count($stmt) > 0) {
-              foreach ($stmt as $post) {
-                $statusClass = [
-                  'published' => 'bg-green-100 text-green-800',
-                  'draft' => 'bg-yellow-100 text-yellow-800',
-                  'scheduled' => 'bg-blue-100 text-blue-800',
-                  'archived' => 'bg-gray-100 text-gray-800'
-                ][$post['status']] ?? 'bg-gray-100 text-gray-800';
-                
-                echo "
-                <tr class='hover:bg-gray-50'>
-                  <td class='px-6 py-4 whitespace-nowrap'>
-                    <div class='text-sm font-medium text-gray-900'>{$post['title']}</div>
-                  </td>
-                  <td class='px-6 py-4 whitespace-nowrap'>
-                    <div class='text-sm text-gray-900'>{$post['author_name']}</div>
-                  </td>
-                  <td class='px-6 py-4 whitespace-nowrap'>
-                    <div class='text-sm text-gray-500'>{$post['categories']}</div>
-                  </td>
-                  <td class='px-6 py-4 whitespace-nowrap'>
-                    <span class='px-2 inline-flex text-xs leading-5 font-semibold rounded-full {$statusClass}'>
-                      " . ucfirst($post['status']) . "
-                    </span>
-                  </td>
-                  <td class='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                    " . date('M d, Y', strtotime($post['created_at'])) . "
-                  </td>
-                  <td class='px-6 py-4 whitespace-nowrap text-right text-sm font-medium'>
-                    <a href='/hearts-after-god-ministry-site/backend/blog/edit_post.php?id={$post['id']}' class='text-blue-600 hover:text-blue-900 mr-3'>Edit</a>
-                    <a href='#' class='text-red-600 hover:text-red-900' onclick='return confirm(\"Are you sure you want to delete this post?\")'>Delete</a>
-                  </td>
-                </tr>";
-              }
-            } else {
-              echo "
-              <tr>
-                <td colspan='6' class='px-6 py-8 text-center text-gray-500'>
-                  No blog posts found. Create your first post to get started.
-                </td>
-              </tr>";
-            }
-          } catch (PDOException $e) {
-            echo "
-            <tr>
-              <td colspan='6' class='px-6 py-8 text-center text-red-500'>
-                Error loading blog posts: " . htmlspecialchars($e->getMessage()) . "
-              </td>
-            </tr>";
-          }
-          ?>
-        </tbody>
-      </table>
-    </div>
-    
-    <!-- Pagination -->
-    <div class="bg-white px-6 py-3 flex items-center justify-between border-t border-gray-200">
-      <div class="flex-1 flex justify-between sm:hidden">
-        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-          Previous
-        </a>
-        <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-          Next
-        </a>
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">Content</label>
+        <textarea name="content" id="blogContent" class="w-full border rounded px-3 py-2" required></textarea>
       </div>
-      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <p class="text-sm text-gray-700">
-            Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">25</span> results
-          </p>
-        </div>
-        <div>
-          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-              <span class="sr-only">Previous</span>
-              <i data-lucide="chevron-left" class="h-5 w-5"></i>
-            </a>
-            <a href="#" aria-current="page" class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-              1
-            </a>
-            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-              2
-            </a>
-            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-              3
-            </a>
-            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-              <span class="sr-only">Next</span>
-              <i data-lucide="chevron-right" class="h-5 w-5"></i>
-            </a>
-          </nav>
-        </div>
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">Status</label>
+        <select name="status" id="blogStatus" class="w-full border rounded px-3 py-2">
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+        </select>
       </div>
-    </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+    </form>
   </div>
 </div>
 
 <script>
-document.addEventListener('alpine:init', () => {
-  Alpine.data('blogManagement', () => ({
-    searchQuery: '',
-    posts: [],
-    filteredPosts: [],
-    
-    init() {
-      // This would be replaced with an actual API call
-      this.posts = [
-        {
-          id: 1,
-          title: 'The Power of Prayer',
-          author: 'John Doe',
-          categories: 'Devotionals',
-          status: 'published',
-          date: '2023-06-15'
-        },
-        // Add more sample posts as needed
-      ];
-      this.filteredPosts = [...this.posts];
-    },
-    
-    filterPosts() {
-      if (!this.searchQuery) {
-        this.filteredPosts = [...this.posts];
-        return;
-      }
-      
-      const query = this.searchQuery.toLowerCase();
-      this.filteredPosts = this.posts.filter(post => 
-        post.title.toLowerCase().includes(query) || 
-        post.author.toLowerCase().includes(query) ||
-        post.categories.toLowerCase().includes(query)
-      );
-    },
-    
-    getStatusClass(status) {
-      return {
-        'published': 'bg-green-100 text-green-800',
-        'draft': 'bg-yellow-100 text-yellow-800',
-        'scheduled': 'bg-blue-100 text-blue-800',
-        'archived': 'bg-gray-100 text-gray-800'
-      }[status] || 'bg-gray-100 text-gray-800';
-    }
-  }));
+// Open modal for new post
+document.getElementById('openCreateBlogModal').onclick = function() {
+  document.getElementById('blogModalTitle').textContent = 'New Blog Post';
+  document.getElementById('blogForm').reset();
+  document.getElementById('blogId').value = '';
+  document.getElementById('blogModal').classList.remove('hidden');
+};
+
+// Close modal
+document.getElementById('closeBlogModal').onclick = function() {
+  document.getElementById('blogModal').classList.add('hidden');
+};
+
+// Edit post
+document.querySelectorAll('.edit-blog-btn').forEach(btn => {
+  btn.onclick = async function() {
+    const id = this.dataset.id;
+    const res = await fetch('/hearts-after-god-ministry-site/backend/blog/get_post.php?id=' + id);
+    const post = await res.json();
+    document.getElementById('blogModalTitle').textContent = 'Edit Blog Post';
+    document.getElementById('blogId').value = post.id;
+    document.getElementById('blogTitle').value = post.title;
+    document.getElementById('blogContent').value = post.content;
+    document.getElementById('blogStatus').value = post.status;
+    document.getElementById('blogModal').classList.remove('hidden');
+  };
 });
+
+// Submit form (create or update)
+document.getElementById('blogForm').onsubmit = async function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const res = await fetch('/hearts-after-god-ministry-site/backend/blog/save_post.php', {
+    method: 'POST',
+    body: formData,
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  });
+  const result = await res.json();
+  if (result.success) {
+    document.getElementById('blogModal').classList.add('hidden');
+    // Reload the blog section via AJAX
+    if (window.$store && $store.app && $store.app.loadSection) {
+      $store.app.loadSection('blog');
+    } else {
+      location.reload();
+    }
+  } else {
+    alert(result.message || 'Failed to save post.');
+  }
+};
+
+// Delete post
+document.querySelectorAll('.delete-blog-btn').forEach(btn => {
+  btn.onclick = async function() {
+    if (!confirm('Delete this post?')) return;
+    const id = this.dataset.id;
+    const formData = new FormData();
+    formData.append('id', id);
+
+    const res = await fetch('/hearts-after-god-ministry-site/backend/blog/delete_post.php', {
+      method: 'POST',
+      body: formData,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+    const result = await res.json();
+    if (result.success) {
+      if (window.$store && $store.app && $store.app.loadSection) {
+        $store.app.loadSection('blog');
+      } else {
+        location.reload();
+      }
+    } else {
+      alert(result.message || 'Failed to delete post.');
+    }
+  };
+});
+
+// Search and filter functionality
+document.getElementById('searchPosts').addEventListener('input', filterPosts);
+document.getElementById('statusFilter').addEventListener('change', filterPosts);
+document.getElementById('sortBy').addEventListener('change', sortPosts);
+
+function filterPosts() {
+  const searchTerm = document.getElementById('searchPosts').value.toLowerCase();
+  const statusFilter = document.getElementById('statusFilter').value;
+  const rows = document.querySelectorAll('tbody tr');
+
+  rows.forEach(row => {
+    const title = row.querySelector('td:first-child').textContent.toLowerCase();
+    const status = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+    
+    const matchesSearch = title.includes(searchTerm);
+    const matchesStatus = statusFilter === '' || status.includes(statusFilter);
+    
+    row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+  });
+}
+
+function sortPosts() {
+  const sortBy = document.getElementById('sortBy').value;
+  const tbody = document.querySelector('tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+
+  rows.sort((a, b) => {
+    const aVal = a.querySelector('td:first-child').textContent;
+    const bVal = b.querySelector('td:first-child').textContent;
+    
+    switch(sortBy) {
+      case 'newest':
+        return new Date(b.querySelector('td:nth-child(3)').textContent) - 
+               new Date(a.querySelector('td:nth-child(3)').textContent);
+      case 'oldest':
+        return new Date(a.querySelector('td:nth-child(3)').textContent) - 
+               new Date(b.querySelector('td:nth-child(3)').textContent);
+      case 'title':
+        return aVal.localeCompare(bVal);
+      default:
+        return 0;
+    }
+  });
+
+  rows.forEach(row => tbody.appendChild(row));
+}
 </script>

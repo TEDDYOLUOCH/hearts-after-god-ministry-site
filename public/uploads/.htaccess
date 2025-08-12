@@ -1,0 +1,5 @@
+Options -Indexes
+<FilesMatch '^\.(env|json|config|lock|gitignore|gitattributes|editorconfig|env\.example|env\.production|env\.local|env\.development|env\.testing|phpunit\.xml|phpunit\.xml\.dist|phpcs\.xml|phpcs\.xml\.dist|phpmd\.xml|phpmd\.xml\.dist|travis\.yml|phpstan\.neon|phpstan\.neon\.dist|phpstan-baseline\.neon|phpstan-baseline\.neon\.dist)'>
+    Order allow,deny
+    Deny from all
+</FilesMatch>

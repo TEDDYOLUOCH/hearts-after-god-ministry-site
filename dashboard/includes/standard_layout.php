@@ -263,18 +263,18 @@ function renderStandardLayout($title, $content = null) {
                 <nav class="flex-1 overflow-y-auto py-2">
                     <ul class="px-2 space-y-1">
                         <?php foreach ($navItems as $item): ?>
-                            <li>
-                                <a href="#" 
-                                   @click.prevent="$store.app.loadSection('<?= $item['section'] ?>')"
-                                   class="flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors duration-200"
-                                   :class="$store.app.currentSection === '<?= $item['section'] ?>' 
-                                       ? 'bg-gray-700 text-white' 
-                                       : 'text-gray-300 hover:bg-gray-700 hover:text-white'">
-                                    <i data-lucide="<?= $item['icon'] ?>" class="w-5 h-5 mr-3"></i>
-                                    <?= $item['title'] ?>
-                                </a>
-                            </li>
-                        <?php endforeach; ?>
+    <li>
+        <a href="/hearts-after-god-ministry-site/dashboard/admin-dashboard.php?section=<?= $item['section'] ?>"
+           @click.prevent="$store.app.loadSection('<?= $item['section'] ?>')"
+           class="flex items-center px-4 py-3 text-sm font-medium rounded-md transition-colors duration-200"
+           :class="$store.app.currentSection === '<?= $item['section'] ?>' 
+               ? 'bg-gray-700 text-white' 
+               : 'text-gray-300 hover:bg-gray-700 hover:text-white'">
+            <i data-lucide="<?= $item['icon'] ?>" class="w-5 h-5 mr-3"></i>
+            <?= $item['title'] ?>
+        </a>
+    </li>
+<?php endforeach; ?>
                     </ul>
                 </nav>
                 
