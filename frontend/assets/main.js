@@ -3,7 +3,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     const headerContainer = document.getElementById('site-header');
     if (headerContainer) {
-      fetch('includes/header.php')
+      fetch('../includes/header.php')
         .then(res => res.text())
         .then(html => {
           headerContainer.innerHTML = html;
@@ -55,7 +55,7 @@
     }
     const footerContainer = document.getElementById('site-footer');
     if (footerContainer) {
-      fetch('includes/footer.php')
+      fetch('../includes/footer.php')
         .then(res => res.text())
         .then(html => {
           footerContainer.innerHTML = html;

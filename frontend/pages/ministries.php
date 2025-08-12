@@ -19,6 +19,7 @@
 </head>
 <body class="bg-white text-gray-900">
 
+
   <!-- HEADER / NAVIGATION -->
   <div id="site-header" class="sticky top-0 z-50 w-full"></div>
 
@@ -88,59 +89,10 @@
       </div>
     </div>
   </main>
-
-  <!-- FOOTER (copied from index.html, unchanged) -->
-  <footer class="bg-gradient-to-r from-[#1E40AF] to-[#7C3AED] text-white pt-2 pb-1 px-4">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
-      <div class="flex flex-col items-start">
-        <div class="flex items-center gap-3 mb-2">
-          <img src="assets/images/logo.jpg" alt="Logo" class="h-14 w-14 rounded-full border-4 border-white object-cover shadow-xl"/>
-          <div>
-            <span class="text-2xl font-extrabold text-white leading-tight">Hearts After God</span><br/>
-            <span class="text-xs font-bold text-[#F59E0B] tracking-widest">MINISTRY</span>
-          </div>
-        </div>
-        <p class="text-sm text-white/90 mb-4 mt-2">Leading revival ministry for soul-winning, discipleship, and global outreach. Join our mission to reach the world for Christ.</p>
-        <div class="flex gap-3 mb-4">
-          <a href="https://facebook.com/share/g/16NwpW8sCB/" target="_blank" class="bg-[#F59E0B] hover:bg-[#7C3AED] text-white rounded-xl p-2 text-xl transition"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://youtube.com/@heartsaftergodministries?si=psY5wvKqNS_nls95" target="_blank" class="bg-[#F59E0B] hover:bg-[#7C3AED] text-white rounded-xl p-2 text-xl transition"><i class="fab fa-youtube"></i></a>
-        <a href="mailto:heartsaftergodministries254@gmail.com" class="bg-[#F59E0B] hover:bg-[#7C3AED] text-white rounded-xl p-2 text-xl transition"><i class="fas fa-envelope"></i></a>
-        </div>
-      </div>
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-link text-[#F59E0B]"></i>Quick Links</h3>
-        <ul class="space-y-2">
-          <li><a href="index.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Home</a></li>
-          <li><a href="about.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>About Us</a></li>
-          <li><a href="ministries.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Ministries</a></li>
-          <li><a href="events.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Events</a></li>
-          <li><a href="sermons.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Sermons</a></li>
-          <li><a href="blog.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Blog</a></li>
-          <li><a href="team.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Team</a></li>
-          <li><a href="contact.html" class="flex items-center gap-2 text-white/90 hover:text-[#F59E0B] transition"><i class="fas fa-chevron-right text-[#F59E0B]"></i>Contact</a></li>
-        </ul>
-            </div>
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-address-book text-[#F59E0B]"></i>Contact Info</h3>
-        <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-map-marker-alt"></i></span><div><span class="font-bold">Location</span><br/><span class="text-white/80 text-sm">Nairobi, Kenya</span></div></div>
-        <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-phone"></i></span><div><span class="font-bold">Phone</span><br/><span class="text-white/80 text-sm">0707529090</span></div></div>
-        <div class="flex items-center gap-2 mb-2"><span class="bg-[#F59E0B] rounded-xl p-2"><i class="fas fa-envelope"></i></span><div><span class="font-bold">Email</span><br/><span class="text-white/80 text-sm">heartsaftergodministries254@gmail.com</span></div></div>
-            </div>
-      <div>
-        <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-church text-[#F59E0B]"></i>Our Services</h3>
-        <ul class="space-y-2">
-          <li class="flex items-center gap-2"><i class="fas fa-pray text-[#F59E0B]"></i>Prayer Support</li>
-          <li class="flex items-center gap-2"><i class="fas fa-users text-[#F59E0B]"></i>Discipleship Training</li>
-          <li class="flex items-center gap-2"><i class="fas fa-hands-helping text-[#F59E0B]"></i>Community Outreach</li>
-          <li class="flex items-center gap-2"><i class="fas fa-music text-[#F59E0B]"></i>Worship Services</li>
-          <li class="flex items-center gap-2"><i class="fas fa-graduation-cap text-[#F59E0B]"></i>Bible Study</li>
-          <li class="flex items-center gap-2"><i class="fas fa-globe text-[#F59E0B]"></i>Global Missions</li>
-        </ul>
-      </div>
-    </div>
-    <div class="text-center text-white/70 text-sm mt-8">&copy; 2024 Hearts After God Ministry. All rights reserved.</div>
-  </footer>
-
-  <script src="assets/js/main.js"></script>
+  <div id="site-footer" ></div>
+  
+  <!-- Load dynamic header and footer -->
+  <script src="../assets/main.js"></script>
+  
 </body>
 </html> 

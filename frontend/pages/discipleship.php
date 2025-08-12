@@ -275,6 +275,9 @@
     loadInclude('site-header', 'header.html');
     loadInclude('site-footer', 'footer.html');
   </script>
-  <script src="assets/js/main.js"></script>
+  <div id="site-footer" ></div>
+  
+  <!-- Load dynamic header and footer -->
+  <script src="../assets/main.js"></script>
 </body>
 </html> 
